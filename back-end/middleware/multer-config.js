@@ -5,9 +5,12 @@ const multer = require('multer');
 
 // dictionnaire types , generer extension du ficher img/jpg , img/png
 const MIME_TYPES = {
-    'image/jpg': 'jpg',
-    'image/jpeg': 'jpg',
-    'image/png': 'png'
+     // notre dictionnaire d'extensions
+        "image/jpg": "jpg",
+        "image/jpeg": "jpg",
+        "image/png": "png",
+        "image.gif": "gif",
+        "image.webp": "webp",
 };
 
 
