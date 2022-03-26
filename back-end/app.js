@@ -1,14 +1,10 @@
 //importation du package d'expresse (npm)
 const express =  require('express');
-// importez sequelize dans votre fichier 
-const { Sequelize } = require('sequelize');
-// Importation de 'Path' afin de definir les chemins
-const path = require('path');
-//nettoie les données d'entrée de l'utilisateur (dans req.body, req.query, req.headers et req.params) 
-const { xss } = require('express-xss-sanitizer');
-// proteger les données .env   
-require('dotenv').config();
+const path = require('path');// Importation de 'Path' afin de definir les chemins
+const { xss } = require('express-xss-sanitizer');//nettoie les données d'entrée de l'utilisateur (dans req.body, req.query, req.headers et req.params) 
+require('dotenv').config();// proteger les données .env 
 const helmet = require('helmet'); // sécurisation injection
+
 
 // Permet d'importer les routers user, post (enregistrer notre nouveau routeur dans notre fichier app.js)
 const userRoutes = require('./routes/user');
@@ -19,14 +15,8 @@ const commentRoutes = require('./routes/comment');
 // appelle de la methode express (une function) permet de crée une application expresse
 const app = express();
 
-// -----------conexion a la base de donnée mysql -----------// DB_LOGIN_ACCOUNT identifiant utilisateur login du .env
-const sequelize = new Sequelize(`${process.env.DATABASE}`, `${process.env.USER}`, `${process.env.PASSWORD}`, {
-    host: `${process.env.HOST}`,
-    dialect: 'mysql' 
-    });
-//---------------------
 
-//.authenticate()fonction pour tester si la connexion est OK
+//authenticate()fonction pour tester si la connexion est OK
 const dbTest = async function () {
     try {
         await sequelize.authenticate();

@@ -11,6 +11,7 @@ const router = express.Router(); // avec la methode routeur d'expresse (ex rempl
 //POST (envoie la requete mail /password)
 router.post('/signup',limiter.auth, userControllers.signup); // recuperation de l'url du post et du contenue post (creatething(objet body))
 router.post('/login', limiter.auth, userControllers.login); // adresse de la function
+router.delete('/:id', auth, userControllers.deleteUser);
 //-----------------
 
 // exporter le router
