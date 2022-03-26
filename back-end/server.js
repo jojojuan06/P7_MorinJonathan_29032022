@@ -25,8 +25,8 @@ const normalizePort = val => {
 
 
 
-//Démarre le serveur HTTP à l'écoute des connexions attendre les requete envoyer. 
-const port = normalizePort(process.env.PORT ||'3000');/*si l'environement tourne le serveur vous envoi un port a utiliser ou port 3000 part default a ecouter */
+//Démarre le serveur HTTP à l'écoute des connexions attendre les requete envoyer. (du .env ou port 3000) 
+const port = normalizePort(process.env.NODE_PORT || '3000');
 
 // indiquer sur quelle port elle vas tourner , on set le port et environement ou port (ex 3000) ('port', process.env.PORT || 3000)
 app.set('port', port);

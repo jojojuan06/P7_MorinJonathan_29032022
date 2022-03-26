@@ -8,24 +8,34 @@ const path = require('path');
 const { xss } = require('express-xss-sanitizer');
 // proteger les données .env   
 require('dotenv').config();
+const helmet = require('helmet'); // sécurisation injection
 
-//importation de fichier (enregistrer notre nouveau routeur dans notre fichier app.js)
-const sauceRoutes = require('./routes/sauce'); 
-const userRoutes = require('./routes/user');  
+// Permet d'importer les routers user, post (enregistrer notre nouveau routeur dans notre fichier app.js)
+const userRoutes = require('./routes/user');
+const postRoutes = require('./routes/post');
+const commentRoutes = require('./routes/comment'); 
 //-----------------
 
 // appelle de la methode express (une function) permet de crée une application expresse
 const app = express();
 
-// -----------conexion a la base de donnée mongoose -----------
-mongoose.connect(`${process.env.DB_LOGIN_ACCOUNT}`, // DB_LOGIN_ACCOUNT identifiant utilisateur login du .env
-{     
-    useNewUrlParser: true,
-    useUnifiedTopology: true 
-})
-.then(() => console.log('Connexion à MongoDB réussie !'))
-.catch(() => console.log('Connexion à MongoDB échouée !'));
+// -----------conexion a la base de donnée mysql -----------// DB_LOGIN_ACCOUNT identifiant utilisateur login du .env
+const sequelize = new Sequelize(`${process.env.DATABASE}`, `${process.env.USER}`, `${process.env.PASSWORD}`, {
+    host: `${process.env.HOST}`,
+    dialect: 'mysql' 
+    });
 //---------------------
+
+//.authenticate()fonction pour tester si la connexion est OK
+const dbTest = async function () {
+    try {
+        await sequelize.authenticate();
+        console.log('La connexion a été établie avec succès.');
+    } catch (error) {
+        console.error('Impossible de se connecter à la base de données :', error);
+    }
+    };
+dbTest();
 
 //--------Acces serveurs (CORS)
 
@@ -43,13 +53,15 @@ app.use((req, res, next) => {
 app.use(express.json());// intercepte toute les requetes qui on content type json (format) 
 app.use(xss());  //nettoie les données d'entrée de l'utilisateur
 
+app.use(helmet()); // helmet
 
 //Gestion des routes principales
-// servir un dossier static avec cette methode , (ajouter .join) nom du dossier ou on se trouve et ajouter images
+// Permet d'accéder aux routes pour les utilisateurs, les publications et les images
 app.use('/images', express.static(path.join(__dirname, 'images')));// multer gerer les fichier (image)--- , dire a expresse de servir ce dossier images
-// debut des Routes (enregistrer notre routeur pour toutes les demandes effectuées vers /api/sauces)
-app.use('/api/auth', userRoutes); 
-app.use('/api/sauces', sauceRoutes); // importer et appliquer a la meme route (contient la logique des routes)
+app.use('/api/user', userRoutes);
+app.use('/api/post', postRoutes);
+app.use('/api/comment', commentRoutes);
+//app.use , importer et appliquer a la meme route (contient la logique des routes)
 //------------------
 
 // exporter cette application pour y avoir acces depuis les autre fichier (app.js) de notre projet notament le server node
