@@ -4,6 +4,7 @@ const path = require('path');// Importation de 'Path' afin de definir les chemin
 const { xss } = require('express-xss-sanitizer');//nettoie les données d'entrée de l'utilisateur (dans req.body, req.query, req.headers et req.params) 
 require('dotenv').config();// proteger les données .env 
 const helmet = require('helmet'); // sécurisation injection
+const { Sequelize } = require('sequelize');
 
 
 // Permet d'importer les routers user, post (enregistrer notre nouveau routeur dans notre fichier app.js)
