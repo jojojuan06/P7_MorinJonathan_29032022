@@ -8,9 +8,12 @@ const limiter = require('../middleware/rate-limit'); //importe le fichier (limit
 const router = express.Router(); // avec la methode routeur d'expresse (ex remplace app.get par router.get)
 
 //---------  Routes  -----------
-//POST (envoie la requete mail /password)
+//POST LOGIN /NEW ACCOUNT
 router.post('/signup',limiter.auth, userControllers.signup); // recuperation de l'url du post et du contenue post (creatething(objet body))
 router.post('/login', limiter.auth, userControllers.login); // adresse de la function
+//--------
+router.get('/:id', limiter.get, auth,  userControllers.getOneUser); //recuperer un user
+router.put('/',limiter.modify, auth, userControllers.changeUser);//modification d'un user(profil)
 router.delete('/:id', auth, userControllers.deleteUser);
 //-----------------
 
