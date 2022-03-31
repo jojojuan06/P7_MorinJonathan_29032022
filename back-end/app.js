@@ -16,17 +16,6 @@ const postRoutes = require('./routes/posts');
 const app = express();
 
 
-//authenticate()fonction pour tester si la connexion est OK
-const dbTest = async function () {
-    try {
-        await sequelize.authenticate();
-        console.log('La connexion a été établie avec succès.');
-    } catch (error) {
-        console.error('Impossible de se connecter à la base de données :', error);
-    }
-    };
-dbTest();
-
 //--------Acces serveurs (CORS)
 
 //reponse par default et donc retourn bien notre application on recoit l'objet request response et next pour passez middleware suivant

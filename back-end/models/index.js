@@ -33,7 +33,7 @@ Object.keys(db).forEach(modelName => {
     db[modelName].associate(db);
   }
 });
-
+//authenticate()fonction pour tester si la connexion est OK
 sequelize.authenticate()
 .then( async ()=> {
     console.log('connexion réussie :)');
@@ -42,6 +42,7 @@ sequelize.authenticate()
 }) .catch((error) => {
     console.log(`connexion échouée  ${error}`);
 });
+
 
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;

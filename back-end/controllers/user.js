@@ -1,14 +1,14 @@
 /// Controller utilisateur------------- (contenue route utilisateur  POST)
 
 //importer des fichier
-const User = require('../models/User');
+//const User = require('../models/User');
 require('dotenv').config({ path:'../.env' });// proteger les donnée , adresse (path: chemin) du .env pour le process
 
 // importe package express (npm)
 const bcrypt = require('bcrypt'); //importer package de cryptage (recupere)
 const jwt = require('jsonwebtoken'); //crée des token et les verifier
 const validator = require('validator'); //valide et nettoie uniquement les chaînes (validation de l'email)
-
+const models = require('../models'); //models. pour recuperer directement le model enfant
 
 //enregistrement de nouveaux utilisateur 
 
