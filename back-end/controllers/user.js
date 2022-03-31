@@ -8,11 +8,12 @@ require('dotenv').config({ path:'../.env' });// proteger les donnée , adresse (
 const bcrypt = require('bcrypt'); //importer package de cryptage (recupere)
 const jwt = require('jsonwebtoken'); //crée des token et les verifier
 const validator = require('validator'); //valide et nettoie uniquement les chaînes (validation de l'email)
-const models = require('../models'); //models. pour recuperer directement le model enfant
+//importer mysqlConnection 
+const { User } = require('../models') // recuperer directement le model User. (ex : si { User, Post, Like })
 
-//enregistrement de nouveaux utilisateur 
 
-//crypter le mdp , cree un new user avec hash +email et enregistrer user dans la bdd
+
+//enregistrement de nouveaux utilisateur(crypter le mdp , cree un new user avec hash +email et enregistrer user dans la bdd)
 exports.signup = (req, res, next) => {
     const email = req.body.email; // recupere l'email du corp de la requete
     //verification de email
