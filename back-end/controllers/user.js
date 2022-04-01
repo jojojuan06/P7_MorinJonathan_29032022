@@ -105,7 +105,7 @@ exports.getAllUser = (req, res, next) => {
 //-----------------
 //admin : user.admin
 // modifier l'utilisateur PUT
-exports.modifyUser = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
+exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
     db.User.findOne({ WHERE:{ id: req.params.id,}})
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
     if (user.id === req.auth.userId ||  req.auth.admin == true ) {
@@ -159,5 +159,4 @@ exports.deleteUser = (req, res, next) => {
         })
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
 };
-
 //-----------------

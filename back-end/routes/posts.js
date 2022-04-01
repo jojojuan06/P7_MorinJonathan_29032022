@@ -7,12 +7,12 @@ const multer = require('../middleware/multer-config');
 const limiter = require('../middleware/rate-limit'); //importe le fichier (limiter les requete avant auth)
 
 //Routage (crée ,lire , modifier ,supprimer un post)
-router.post("/", limiter.modify, auth, multer, postController.create);
-router.get("/", limiter.get, auth,  postController.allPosts);
-router.get("/:id", limiter.get, auth,  postController.onePosts);
-router.put("/:id", limiter.modify, auth, multer, postController.update)
-router.delete("/:id", postController.delete)
+router.post("/", limiter.modify, auth, multer, postController.createPost);
+router.get("/", limiter.get, auth,  postController.getAllPost);
+router.get("/:id", limiter.get, auth,  postController.getOnePost);
+router.put("/:id", limiter.modify, auth, multer, postController.updatePost)
+router.delete("/:id", postController.deletePost)
 //like un post
-router.post('/:id/like', limiter.modify, auth, postController.likePost);
+//router.post('/:id/like', limiter.modify, auth, postController.likePost);
 
 module.exports = router;

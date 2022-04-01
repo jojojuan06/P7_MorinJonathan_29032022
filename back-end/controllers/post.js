@@ -38,7 +38,7 @@ exports.createPost = (req, res, next) => { //function de callback
 
 
 //mettre a jour un post PUT
-exports.modifyPost = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
+exports.updatePost = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
     db.Post.findOne({ WHERE:{ id: req.params.id,}})
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
     if (user.id === req.auth.userId ||  req.auth.admin == true ) {

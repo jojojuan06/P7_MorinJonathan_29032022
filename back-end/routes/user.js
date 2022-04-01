@@ -4,6 +4,8 @@
 const express = require('express');
 const userControllers = require('../controllers/user'); // importation du controller user
 const limiter = require('../middleware/rate-limit'); //importe le fichier (limiter les requete avant auth)
+const multer = require('../middleware/multer-config');
+const auth = require('../middleware/auth');
 // Creation d'un routeur
 const router = express.Router(); // avec la methode routeur d'expresse (ex remplace app.get par router.get)
 
@@ -14,7 +16,7 @@ router.post('/auth/login', limiter.auth, userControllers.login); // adresse de l
 //--------
 router.get('/:id', limiter.get, auth,  userControllers.getOneUser); //recuperer un user
 router.get('/', limiter.get, auth,  userControllers.getAllUser); //recuperer des user
-router.put('/:id',limiter.modify, auth, multer, userControllers.changeUser);//modification d'un user(profil)
+router.put('/:id',limiter.modify, auth, multer, userControllers.updateUser);//modification d'un user(profil)
 router.delete('/:id', auth, userControllers.deleteUser);
 //-----------------
 
