@@ -14,6 +14,7 @@ module.exports = {
         //reference au model crée users (id)
         references:{
         model:'Users',
+        //identifiant utilisateur
         key:'id'
         }
       },
