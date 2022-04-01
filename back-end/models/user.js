@@ -10,8 +10,11 @@ module.exports = (sequelize, DataTypes) => {
     * Le fichier `models/index` appellera cette méthode automatiquement.
     */
     static associate(models) {
-    // définir l'association ici
-    models.Users.hasMany(models.Posts,
+      // définir l'association ici (post like)
+      models.User.hasMany(models.Post,
+        { onDelete: 'cascade' , hooks: true},
+      );
+      models.User.hasMany(models.Like,
         { onDelete: 'cascade' , hooks: true},
       );
     }
@@ -24,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     admin: DataTypes.BOOLEAN
   }, {
     sequelize,
-    modelName: 'Users',
+    modelName: 'User',
   });
   return User;
 };

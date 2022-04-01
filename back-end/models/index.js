@@ -27,7 +27,7 @@ fs
     const model = require(path.join(__dirname, file))(sequelize, Sequelize.DataTypes);
     db[model.name] = model;
   });
-
+//verifier tous les models associers
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {
     db[modelName].associate(db);
@@ -37,7 +37,7 @@ Object.keys(db).forEach(modelName => {
 sequelize.authenticate()
 .then( async ()=> {
     console.log('connexion réussie :)');
-    await sequelize.sync({alter: true})
+    await sequelize.sync({alter: true}) //synchronise les tables
     console.log('synchronisation réussie ');
 }) .catch((error) => {
     console.log(`connexion échouée  ${error}`);

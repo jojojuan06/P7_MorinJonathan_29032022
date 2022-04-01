@@ -10,15 +10,14 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
+      console.log(models);
       // définir l'association ici
       //Les associations Belongs-To-Many sont utilisées pour connecter des sources à plusieurs cibles. De plus, les cibles peuvent également avoir des connexions à plusieurs sources.
       models.Like.belongsTo(models.Post, { //model.user reference
-          //relation clée etrangere pas egal a null
-          foreignKey: {
-            allowNull: false
-          }})
-        // définir l'association ici (like ==> user)
-        models.Like.hasMany(models.User,
+        //relation clée etrangere pas egal a null
+        })
+        // définir l'association ici (like ==> user appartient plusieur)
+        models.Like.belongsTo(models.User,
           { onDelete: 'cascade' , hooks: true},
         );    
       }     

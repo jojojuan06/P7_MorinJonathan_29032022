@@ -13,18 +13,15 @@ module.exports = (sequelize, DataTypes) => {
     // définir l'association ici
     //Les associations Belongs-To-Many sont utilisées pour connecter des sources à plusieurs cibles. De plus, les cibles peuvent également avoir des connexions à plusieurs sources.
     models.Post.belongsTo(models.User, { //model.user reference
-        //relation clée etrangere pas egal a null
-        foreignKey: {
-          allowNull: false
-        }}) 
-    // définir l'association ici (post ==> like)
+      //relation clée etrangere pas egal a null
+    }) 
+    // définir l'association ici (post ==> like a plusieur)
     models.Post.hasMany(models.Like,
         { onDelete: 'cascade' , hooks: true},
       );    
     }
   }
   Post.init({
-    users_id: DataTypes.INTEGER,
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     image: DataTypes.STRING,
