@@ -13,6 +13,6 @@ const limiter = require('../middleware/rate-limit'); //importe le fichier (limit
 // router.put("/:id", limiter.modify, auth, multer, postControler.update)
 // router.delete("/:id", postControler.delete)
 //like un post
-//router.posts('/:id/like', limiter.modify, auth, postControllers.likeSauce);
+//router.post('/:id/like', limiter.modify, auth, postControllers.likeSauce);
 
 module.exports = router;

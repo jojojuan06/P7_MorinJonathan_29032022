@@ -1,15 +1,14 @@
 /// Controller utilisateur------------- (contenue route utilisateur  POST)
 
 //importer des fichier
-//const User = require('../models/User');
 require('dotenv').config({ path:'../.env' });// proteger les donnée , adresse (path: chemin) du .env pour le process
 
 // importe package express (npm)
 const bcrypt = require('bcrypt'); //importer package de cryptage (recupere)
 const jwt = require('jsonwebtoken'); //crée des token et les verifier
 const validator = require('validator'); //valide et nettoie uniquement les chaînes (validation de l'email)
-//importer mysqlConnection 
-const { User } = require('../models') // recuperer directement le model User. (ex : si { User, Post, Like })
+//vas chercher tout mes models
+const db = require('../models/index.js') // recuperer index.js. ,qui vas me cherche mes models
 
 
 
@@ -29,7 +28,7 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10) // 10 tour pour verifier l'algoritme (methode asyncrone)
     .then(hash => { // recuper le hash(mdp crypter)  de mdp 
         //creation du new utilisateur
-        const user = new User({ //creation un nouvelle utilisateur (user) avec monggose
+        const user = new db.User({ //creation un nouvelle utilisateur (user) 
         email: req.body.email, // email passez l'addresse passsez dans le corp de la requete
         password :hash // enregistrer le mdp crypter (hash) pour ne pas stocker un mdp en blanc
         });
@@ -43,8 +42,8 @@ exports.signup = (req, res, next) => {
 
 //connecter un utilisateur existant
 exports.login = (req, res, next) => {
-    //trouver un seul utilisateur de la BD grace a (unique)    
-    User.findOne({ email: req.body.email }) //on veut que email correspond a la req
+    //db pour trouver un seul utilisateur de la BD , where cible l'element  
+    db.User.findOne({ Where:{ email: req.body.email } }) //on veut que email correspond a la req
     .then(user => {
         //si user (!user) n'est pas trouver  on renvoi le return message d'error
         if (!user) {
@@ -75,3 +74,83 @@ exports.login = (req, res, next) => {
 };
 
 //----------------
+
+
+
+// recuperer un utilisateur GET
+exports.getOneUser = (req, res, next) => { 
+    req.params.id // avoir acces  dans l'objet req.pams.id
+    db.User.findOne( { WHERE:{id: req.params.id},//trouver un objet avec WHERE , on pass l'objet en conparaison _id  egal le parm de req id
+    attributes:["email","name","firstname"] //clef que je veut montrer en clair
+    }) 
+    .then(user => res.status(200).json(user)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
+    .catch(error => res.status(404).json({ message: `objet non trouvé: ${error}` }));
+}
+//-----------------
+
+// recuperer tout les utilisateur GET
+exports.getAllUser = (req, res, next) => {    
+    //création des objet-----------
+    db.User.find({
+    attributes:["email","name","firstname"] //clef que je veut montrer en clair    
+    }) //trouve la liste d'objet (find) qui nous retourne une promise , envoi un tableau contenant tous les users dans notre base de données
+        .then(users => res.status(200).json(users)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
+        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
+    }
+//----------------
+
+
+
+
+//-----------------
+
+// modifier l'utilisateur PUT
+exports.modifyUser = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
+    //test le cas de figure ou on se trouve
+    const userObject = req.file ?//si req.file exist (ternaire)
+        {
+        ...JSON.parse(req.body.user),//si il exist il faut le prendre en compte  l'ojet du produit
+        //on genere une nouvelle image url
+        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse de l'image en interpolation 
+        } : { ...req.body };//sinon il n'exite pas on copie l'objet (corp de la requete)
+    db.User.updateOne({ WHERE: { id: req.params.id }}, // egale (clée -> valeur) dans la base de donnée (trouver avec where)
+        { ...userObject, id: req.params.id })//pour correspondre a l'id des param de la req et dire que l'id corespond a celui des paramettre (mettre a jour son produit)
+    //spread pour recuperer le user (produit) qui est dans le corp de la requete que l'on a cree et on modifier sont identifiant
+        .then(() => res.status(200).json({ message: 'Objet modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
+};
+
+
+
+
+//-----------------
+
+// supprimer l'utilisateur DELETE
+exports.deleteUser = (req, res, next) => {
+    // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
+    db.User.findOne({ WHERE:{ id: req.params.id}})
+    //trouver id a celui qui est dans les parametres de la req ,recupere un user (produit) dans le callback (function de rapelle)
+    .then((user) => {// recupere le user dans la base
+            if (!user) { // si user n'existe pas
+                return res.status(404).json({ message: "L'utilisateur n'existe pas !"})
+            }
+            // verifier que seulement la personne qui detient l'objet peu le supprimer
+            if (user.userId !== req.auth.userId) { //different de req.auth
+                return res.status(401).json({ //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
+                    error: new Error('Requete non autorisé !')
+                });   
+            }
+            //split retourne un tableaux de que qu'il y a avant  /image , apres /image
+            const filename = user.imageUrl.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
+            // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback apres supprimer)))
+            return fs.unlink(`images/${filename}`, () => { //filename fait reference au dossier image
+                //recuperer l'id des paramettre de route ,si oui on effectue la suppression
+                return User.deleteOne({id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
+                .then(() => res.status(200).json({message: 'Objet supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+                .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)   
+            }); 
+        })
+        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
+};
+
+//-----------------

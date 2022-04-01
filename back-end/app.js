@@ -37,8 +37,8 @@ app.use(helmet()); // helmet
 //Gestion des routes principales
 // Permet d'accéder aux routes pour les utilisateurs, les publications et les images
 app.use('/images', express.static(path.join(__dirname, 'images')));// multer gerer les fichier (image)--- , dire a expresse de servir ce dossier images
-app.use('/api', userRoutes);
-app.use('/api/posts', postRoutes);
+app.use('/api/auth', userRoutes); 
+app.use('/api/post', postRoutes);
 //app.use , importer et appliquer a la meme route (contient la logique des routes)
 //------------------
 
