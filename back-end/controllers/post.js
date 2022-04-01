@@ -148,7 +148,7 @@ exports.likePost = (req, res, next) => {
             // CAS: Annulation du like/dislike
             case 0: 
             if (!like) {
-                return res.status(403).json({ message: "Le like n'est pas !"})    
+                return res.status(403).json({ message: "Le like n'existe pas !"})    
             } else {
             post.likes-- //j'enleve un like
             like.destroy()
