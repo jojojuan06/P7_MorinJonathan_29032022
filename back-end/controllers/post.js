@@ -114,49 +114,54 @@ exports.deletePost = (req, res, next) => {
 
 
 
-    // POST-- LIKE UN POST
-// exports.likePost = (req, res, next) => {
-//     const userId = req.body.userId; // chercher user id dans le corp de la requete
-//     const like = req.body.like; // chercher like dans le corp de la requete
-//     const postId = req.params.id;// chercher id de la post dans le corp de la requete
-//     Post.findOne({ WHERE: { id: postId }})
-//     .then(post => {
-//         if (!post) { // si le post n'existe pas
-//             return res.status(404).json({ message: "Le post n'existe pas !"})
-//         }
-//         // nouvelles valeurs à modifier
-//         const newValues = { 
-//             usersLiked: post.usersLiked, 
-//             likes: 0 } // mais zero par default
-//         // Différents cas:
-//         switch (like) {
-//             case 1:  // CAS: post liked
-//             if (newValues.usersLiked.includes(req.auth.userId) ) { //si userlikes inclus user id descrypter avec le token alors on eux peu pas fait d'action (et pas deja like)
-//                 return res.status(403).json({ message: 'Requete non autorisé !'}) //indique qu'un serveur comprend la requête mais refuse de l'autoriser.
-//             }
-//             newValues.usersLiked.push(userId);  //dans le cas ajouter un like
-//             break;
-//             // CAS: Annulation du like/dislike
-//             case 0:  
-//             // si userlike  et user dislike (n'a pas fait d'action) n'inclue pas  userid authentifier alors tu n'est pas autoriser
-//             if (!newValues.usersLiked.includes(req.auth.userId)) { 
-//                 return res.status(403).json({ message: 'Requete non autorisé !'}) 
-//             }
-//             //include cherche dans un tableaux zero             
-//             if (newValues.usersLiked.includes(userId)) { 
-//             // si on annule le like
-//             const index = newValues.usersLiked.indexOf(userId); // renvoie le premier indice pour lequel on trouve un élément donné 
-//             newValues.usersLiked.splice(index, 1); //modifie le contenu d'un tableau en retirant des éléments et/ou en ajoutant 
-//             } 
-//             break;    
-//         };
-//         // Calcul du nombre de likes 
-//         newValues.likes = newValues.usersLiked.length;    
-//         // Mise à jour de la post avec les nouvelles valeurs
-//         Like.updateOne({ id: postId }, newValues)    
-//         .then(() => res.status(200).json({ message: 'post notée !' }))    
-//         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
-//     })   
-//     .catch(error => res.status(500).json({ message: `nous faisons face a cette: ${error}` }));    
-// }
-
+//POST-- LIKE UN POST
+exports.likePost = (req, res, next) => { 
+    // like de ma req sup a 1 ou inf 0
+    if (req.body.like > 1 || req.body.like < 0 ) {
+    return res.status(400).json({ message: "requete non autorisé"})    
+    }
+    else { //sinon on execute le code
+    Post.findOne({ WHERE: { id: req.params.id }}) // recherche id du post
+    .then(post => {
+        if (!post) { // si le post n'existe pas
+            return res.status(404).json({ message: "Le post n'existe pas !"})
+        } //rechercher poste_id et user_id (de la bd)
+        Like.findOne({ WHERE: { UserId: req.auth.userId, PostId: post.id }})
+        .then( like => {
+        // Différents cas:
+        switch (req.body.like) {
+            // CAS:le like exist => erreur , si il existe pas on ajoute +1
+            case 1:  
+            if (like) { 
+            return res.status(403).json({ message: "Le like existe deja !"})    
+            } else { // au quelle cas je recupere le like du post et je lui ajoute 1
+            post.likes++ //j'incremente de 1
+            like = new Like ({ //cree mon objet de like
+            UserId: req.auth.userId, 
+            PostId: post.id 
+            })  
+            like.save()//sauvegarde du like dans la bdd  
+            .then(() => res.status(201).json({ message: 'Post Likée !'}))
+            .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));
+            }
+            break;
+            // CAS: Annulation du like/dislike
+            case 0: 
+            if (!like) {
+                return res.status(403).json({ message: "Le like n'est pas !"})    
+            } else {
+            post.likes-- //j'enleve un like
+            like.destroy()
+            .then(() => res.status(204).json({ message: "le like a etait enlever !"})) //modification d'une ressource (suppresion)
+            .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));   
+            }
+            break;    
+        }})
+        post.save() //sauvegarde l'incrementation des likes dans le post
+        .then(() => res.status(204).json({ message: "le like a etait enregistré !"}))
+        .catch(error => res.status(500).json({ message: `nous faisons face a cette: ${error}` }));
+    })
+    .catch(error => res.status(500).json({ message: `nous faisons face a cette: ${error}` }));
+    }
+    
+}
