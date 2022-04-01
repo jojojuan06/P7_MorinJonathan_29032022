@@ -2,8 +2,8 @@
 
 const fs = require('fs');
 const path = require('path');
-const Sequelize = require('sequelize');
-const basename = path.basename(__filename);
+const Sequelize = require('sequelize'); //transcrire le javascript en mysql
+const basename = path.basename(__filename); //chercher le nom de mes model
 const env = process.env.NODE_ENV || 'development';
 //const config = require(__dirname + '/../config/config.js')[env];
 require('dotenv').config();// proteger les données .env 
