@@ -5,12 +5,18 @@ const {
 module.exports = (sequelize, DataTypes) => {
   class Post extends Model {
     /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
+    * Méthode d'assistance pour définir des associations.
+    * Cette méthode ne fait pas partie du cycle de vie de Sequelize.
+    * Le fichier `models/index` appellera cette méthode automatiquement.
+    */
     static associate(models) {
-      // define association here
+    // définir l'association ici
+    //Les associations Belongs-To-Many sont utilisées pour connecter des sources à plusieurs cibles. De plus, les cibles peuvent également avoir des connexions à plusieurs sources.
+    models.Post.belongsTo(models.User, {//model.user reference
+        //relation clée etrangere pas egal a null
+        foreignKey: {
+          allowNull: false
+        }}) 
     }
   }
   Post.init({
@@ -22,7 +28,7 @@ module.exports = (sequelize, DataTypes) => {
     timestamp: DataTypes.DATE
   }, {
     sequelize,
-    modelName: 'Posts',
+    modelName: 'Post',
   });
   return Post;
 };
