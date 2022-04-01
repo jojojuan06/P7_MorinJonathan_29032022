@@ -17,6 +17,10 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: {
           allowNull: false
         }}) 
+    // définir l'association ici (post ==> like)
+    models.Post.hasMany(models.Like,
+        { onDelete: 'cascade' , hooks: true},
+      );    
     }
   }
   Post.init({
@@ -25,7 +29,6 @@ module.exports = (sequelize, DataTypes) => {
     content: DataTypes.STRING,
     image: DataTypes.STRING,
     likes: DataTypes.INTEGER,
-    timestamp: DataTypes.DATE
   }, {
     sequelize,
     modelName: 'Post',
