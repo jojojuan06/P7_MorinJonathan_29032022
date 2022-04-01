@@ -1,7 +1,7 @@
 //Imports
 const express = require('express');
 const router = express.Router();
-const postController = require('../controllers/posts');
+const postController = require('../controllers/post');
 const auth = require('../middleware/auth');
 const multer = require('../middleware/multer-config');
 const limiter = require('../middleware/rate-limit'); //importe le fichier (limiter les requete avant auth)

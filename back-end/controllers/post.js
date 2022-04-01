@@ -5,7 +5,7 @@ const fs = require('fs');
 
 //valide et nettoie uniquement les chaînes (validation de l'email)
 const validator = require('validator'); 
-const db = require('../models/index')
+const { Like, Post} = require('../models')
 
 
 
@@ -49,7 +49,7 @@ exports.updatePost = (req, res, next) => {//exporter une function createuser / c
             //on genere une nouvelle image url
             imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse de l'image en interpolation 
             } : { ...req.body };//sinon il n'exite pas on copie l'objet (corp de la requete)
-            db.User.updateOne({ WHERE: { id: req.params.id }}, // egale (clée -> valeur) dans la base de donnée (trouver avec where)
+            Post.updateOne({ WHERE: { id: req.params.id }}, // egale (clée -> valeur) dans la base de donnée (trouver avec where)
             { ...postObject, id: req.params.id })//pour correspondre a l'id des param de la req et dire que l'id corespond a celui des paramettre (mettre a jour son produit)
             //spread pour recuperer le user (produit) qui est dans le corp de la requete que l'on a cree et on modifier sont identifiant
             .then(() => res.status(200).json({ message: 'Objet modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
@@ -66,7 +66,7 @@ exports.updatePost = (req, res, next) => {//exporter une function createuser / c
 //supprimer un post DELETE
 exports.deletePost = (req, res, next) => {
     // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
-    db.Post.findOne({ id: req.params.id })
+    Post.findOne({ id: req.params.id })
     //trouver id a celui qui est dans les parametres de la req ,recupere un post (produit) dans le callback (function de rapelle)
     .then((post) => {// recupere le post dans la base
         if (!post) { // si la post n'existe pas
@@ -83,7 +83,7 @@ exports.deletePost = (req, res, next) => {
             // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback apres supprimer)))
             return fs.unlink(`images/${filename}`, () => { //filename fait reference au dossier image
                 //recuperer l'id des paramettre de route ,si oui on effectue la suppression
-                return db.Post.deleteOne({_id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
+                return Post.destroy({_id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
                 .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
                 .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)   
             }); 
@@ -95,7 +95,7 @@ exports.deletePost = (req, res, next) => {
     //recuperer un post GET
     exports.getOnePost = (req, res, next) => { 
         req.params.id // avoir acces  dans l'objet req.pams.id
-        db.Post.findOne( { WHERE:{id: req.params.id},//trouver un objet avec WHERE , on pass l'objet en conparaison _id  egal le parm de req id
+        Post.findOne( { WHERE:{id: req.params.id},//trouver un objet avec WHERE , on pass l'objet en conparaison _id  egal le parm de req id
         attributes:["email","name","firstname"] //clef que je veut montrer en clair
         }) 
         .then(post => res.status(200).json(post)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
@@ -106,7 +106,7 @@ exports.deletePost = (req, res, next) => {
     //recuperer tous les post GET ALL
     exports.getAllPost = (req, res, next) => {    
         //création des objet-----------
-        db.Post.find() //trouve la liste d'objet (find) qui nous retourne une promise , envoi un tableau contenant tous les users dans notre base de données
+        Post.find() //trouve la liste d'objet (find) qui nous retourne une promise , envoi un tableau contenant tous les users dans notre base de données
             .then(users => res.status(200).json(users)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
         }
@@ -119,7 +119,7 @@ exports.deletePost = (req, res, next) => {
 //     const userId = req.body.userId; // chercher user id dans le corp de la requete
 //     const like = req.body.like; // chercher like dans le corp de la requete
 //     const postId = req.params.id;// chercher id de la post dans le corp de la requete
-//     db.Post.findOne({ WHERE: { id: postId }})
+//     Post.findOne({ WHERE: { id: postId }})
 //     .then(post => {
 //         if (!post) { // si le post n'existe pas
 //             return res.status(404).json({ message: "Le post n'existe pas !"})
@@ -153,7 +153,7 @@ exports.deletePost = (req, res, next) => {
 //         // Calcul du nombre de likes 
 //         newValues.likes = newValues.usersLiked.length;    
 //         // Mise à jour de la post avec les nouvelles valeurs
-//         db.Post.updateOne({ id: postId }, newValues)    
+//         Like.updateOne({ id: postId }, newValues)    
 //         .then(() => res.status(200).json({ message: 'post notée !' }))    
 //         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
 //     })   
