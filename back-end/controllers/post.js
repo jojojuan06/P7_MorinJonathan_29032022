@@ -13,7 +13,7 @@ const db = require('../models/index')
 
 
 //Creation d'un post POST
-exports.createUser = (req, res, next) => { //function de callback
+exports.createPost = (req, res, next) => { //function de callback
     //Le corps de la requête contient une chaîne donc on doit le parse
     const userObject = JSON.parse(req.body.user);//extraire l'objet json (l'objet user de la requête)
     //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
