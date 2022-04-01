@@ -103,26 +103,31 @@ exports.getAllUser = (req, res, next) => {
 
 
 //-----------------
-
+//admin : user.admin
 // modifier l'utilisateur PUT
 exports.modifyUser = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
-    //test le cas de figure ou on se trouve
-    const userObject = req.file ?//si req.file exist (ternaire)
-        {
-        ...JSON.parse(req.body.user),//si il exist il faut le prendre en compte  l'ojet du produit
-        //on genere une nouvelle image url
-        imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse de l'image en interpolation 
-        } : { ...req.body };//sinon il n'exite pas on copie l'objet (corp de la requete)
-    db.User.updateOne({ WHERE: { id: req.params.id }}, // egale (clée -> valeur) dans la base de donnée (trouver avec where)
-        { ...userObject, id: req.params.id })//pour correspondre a l'id des param de la req et dire que l'id corespond a celui des paramettre (mettre a jour son produit)
-    //spread pour recuperer le user (produit) qui est dans le corp de la requete que l'on a cree et on modifier sont identifiant
-        .then(() => res.status(200).json({ message: 'Objet modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
-        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
+    db.User.findOne({ WHERE:{ id: req.params.id,}})
+    .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
+    if (user.id === req.auth.userId ||  req.auth.admin == true ) {
+        //test le cas de figure ou on se trouve
+        const userObject = req.file ?//si req.file exist (ternaire)
+            {
+            ...JSON.parse(req.body.user),//si il exist il faut le prendre en compte  l'ojet du produit
+            //on genere une nouvelle image url
+            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse de l'image en interpolation 
+            } : { ...req.body };//sinon il n'exite pas on copie l'objet (corp de la requete)
+            db.User.updateOne({ WHERE: { id: req.params.id }}, // egale (clée -> valeur) dans la base de donnée (trouver avec where)
+            { ...userObject, id: req.params.id })//pour correspondre a l'id des param de la req et dire que l'id corespond a celui des paramettre (mettre a jour son produit)
+            //spread pour recuperer le user (produit) qui est dans le corp de la requete que l'on a cree et on modifier sont identifiant
+            .then(() => res.status(200).json({ message: 'Objet modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+            .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
+        } else {
+            res.status(403).json({ message: `vous n'etes pas autoriser a modifiée ce profil` });  
+        }
+    })
+    .catch(error => res.status(404).json({ message: `nous faisons face a cette: ${error}` })); 
+    
 };
-
-
-
-
 //-----------------
 
 // supprimer l'utilisateur DELETE
@@ -134,21 +139,23 @@ exports.deleteUser = (req, res, next) => {
             if (!user) { // si user n'existe pas
                 return res.status(404).json({ message: "L'utilisateur n'existe pas !"})
             }
-            // verifier que seulement la personne qui detient l'objet peu le supprimer
-            if (user.userId !== req.auth.userId) { //different de req.auth
-                return res.status(401).json({ //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
-                    error: new Error('Requete non autorisé !')
-                });   
-            }
+            // verifier que seulement la personne qui peu le supprimer
+            if (user.id === req.auth.userId ||  req.auth.admin == true ) { 
             //split retourne un tableaux de que qu'il y a avant  /image , apres /image
             const filename = user.imageUrl.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
-            // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback apres supprimer)))
-            return fs.unlink(`images/${filename}`, () => { //filename fait reference au dossier image
+                // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback apres supprimer)))
+                fs.unlink(`images/${filename}`, () => { //filename fait reference au dossier image
                 //recuperer l'id des paramettre de route ,si oui on effectue la suppression
-                return User.deleteOne({id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
+                db.User.deleteOne({id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
                 .then(() => res.status(200).json({message: 'Objet supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
                 .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)   
-            }); 
+            });      
+            }
+            else {//probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
+                return res.status(401).json({ 
+                error: new Error('Requete non autorisé !')
+                });
+            } 
         })
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
 };
