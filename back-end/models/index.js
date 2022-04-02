@@ -13,6 +13,10 @@ const db = {};
 const sequelize = new Sequelize(`${process.env.DATABASE}`, `${process.env.USER}`, `${process.env.PASSWORD}`, {
   host: `${process.env.HOST}`,
   dialect: 'mysql',
+  define : { //default interclassement
+    charset : 'utf8' , 
+    collate : 'utf8_general_ci' , 
+  } ,
   port: `${process.env.HOST_PORT}`
 });
 //---------------------
