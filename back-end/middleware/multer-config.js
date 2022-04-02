@@ -32,4 +32,4 @@ const storage = multer.diskStorage({ //function de multer pour enr sur le disk
     }
 });
 
-module.exports = multer({storage: storage}).single('image'); //fichier unique et on explique a multer qui sagit d'img uniquement
+module.exports = multer({storage: storage}).fields([{ name: 'image', maxCount: 1 },{ name: 'profile_img', maxCount: 1 }]);  //fichier unique et on explique a multer qui sagit d'img uniquement
