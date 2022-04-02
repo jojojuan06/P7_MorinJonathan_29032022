@@ -24,16 +24,15 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     firstname: DataTypes.STRING,
     password: DataTypes.STRING,
-    admin: DataTypes.BOOLEAN,
-    profile_img: {
-      type:DataTypes.STRING,
-      defaultValue:''
-    },
     admin: {
       type: DataTypes.BOOLEAN,
       defaultValue:false
     },
-  }, {
+    profile_img: {
+      type:DataTypes.STRING,
+      defaultValue:''
+    },
+    }, {
     sequelize,
     modelName: 'User',
     charset: 'utf8',
