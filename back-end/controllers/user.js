@@ -144,15 +144,16 @@ exports.deleteUser = (req, res, next) => {
             }
             // verifier que seulement la personne qui peu le supprimer
             if (user.id === req.auth.userId ||  req.auth.admin == true ) { 
-            //split retourne un tableaux de que qu'il y a avant  /image , apres /image
-            const filename = user.imageUrl.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
-                // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback apres supprimer)))
-                fs.unlink(`images/${filename}`, () => { //filename fait reference au dossier image
+            if (user.profile_img != "") {
+                //split retourne un tableaux de que qu'il y a avant  /image , apres /image
+                const filename = user.imageUrl.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
+                // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
+                fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
+            }    
                 //recuperer l'id des paramettre de route ,si oui on effectue la suppression
-                db.User.destroy({id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
-                .then(() => res.status(200).json({message: 'Objet supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
-                .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)   
-            });      
+                user.destroy() // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
+                .then(() => res.status(200).json({message: 'Utilisateur supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+                .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)        
             }
             else {//probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
                 return res.status(401).json({ 
