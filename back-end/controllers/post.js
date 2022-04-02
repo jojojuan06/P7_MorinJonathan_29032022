@@ -27,6 +27,7 @@ exports.createPost = (req, res, next) => { //function de callback
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     let post = new Post({ ...req.body,// operateur spread (...) vas copier les champ de l'objet , dans le corp de la request 
     likes : 0,//valeur par default
+    UserId : req.auth.userId  // ajoute id post = userid de la req
     });
     if (req.file) { // si mon fichier dans la req on ajoute
     post.image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse(http ou https) /localhost/nom du fichier    
@@ -87,7 +88,7 @@ exports.deletePost = (req, res, next) => {
             // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback apres supprimer)))
             fs.unlink(`images/${filename}`, () => { //filename fait reference au dossier image
                 //recuperer l'id des paramettre de route ,si oui on effectue la suppression
-                Post.destroy({_id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
+                Post.destroy({id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
                 .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
                 .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)   
             }); 

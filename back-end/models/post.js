@@ -22,6 +22,10 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
+    UserId: {
+      allowNull: false,
+      type: DataTypes.INTEGER
+    },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
