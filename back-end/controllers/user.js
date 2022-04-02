@@ -14,6 +14,7 @@ const { User } = require('../models')// recuperer index.js. ,qui vas me cherche 
 
 //enregistrement de nouveaux utilisateur(crypter le mdp , cree un new user avec hash +email et enregistrer user dans la bdd)
 exports.signup = (req, res, next) => {
+    console.log(req.body);
     const email = req.body.email; // recupere l'email du corp de la requete
     //verification de email
     if (!validator.isEmail(email)) { //si se n'est pas un email valide (validator) on retourne l'erreur
@@ -22,7 +23,9 @@ exports.signup = (req, res, next) => {
     //verification du mot de passe
     const password = req.body.password;
      if (!validator.isStrongPassword(password)) { //si se n'est pas un password valide (validator) on retourne l'erreur
-            return res.status(400).json({ error: `le password ${password} n'est pas valide`})    
+            return res.status(400).json({ error: `votre mot de passe doit contenir au moins 8 charactères,
+                dont une lettre minuscule, une majuscule, un chiffre et un charctère spécial`}
+            )    
         }
     //cryptage un mot de pass , on lui pass de mdp
     bcrypt.hash(req.body.password, 10) // 10 tour pour verifier l'algoritme (methode asyncrone)
