@@ -92,7 +92,7 @@ exports.deletePost = (req, res, next) => {
             //recuperer l'id des paramettre de route ,si oui on effectue la suppression
             Post.destroy({id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
             .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
-            .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)    
+            .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); // capture l'erreur et renvoi un message erreur (egale error: error)    
         })
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
     };
