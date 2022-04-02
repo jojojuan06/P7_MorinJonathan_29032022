@@ -45,8 +45,8 @@ exports.createPost = (req, res, next) => { //function de callback
 //mettre a jour un post PUT
 exports.updatePost = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
     Post.findOne({ WHERE:{ id: req.params.id,}})
-    .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
-    if (post.User.Id === req.auth.userId ||  req.auth.admin == true ) {
+    .then(post => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
+    if (post.UserId === req.auth.userId ||  req.auth.admin == true ) {
             let newPost = Object.assign(post,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.file) { //si il y a une img dans la req
             if (post.image != "") { //verifier si le post a deja une image
