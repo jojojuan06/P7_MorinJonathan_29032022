@@ -31,9 +31,11 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10) // 10 tour pour verifier l'algoritme (methode asyncrone)
     .then(hash => { // recuper le hash(mdp crypter)  de mdp 
         //creation du new utilisateur
-        const user = new User({ //creation un nouvelle utilisateur (user) 
+        const user = new User({ //creation un nouvelle utilisateur (user)
+        name: req.body.name,
+        firstname: req.body.firstname,         
         email: req.body.email, // email passez l'addresse passsez dans le corp de la requete
-        password :hash // enregistrer le mdp crypter (hash) pour ne pas stocker un mdp en blanc
+        password: hash // enregistrer le mdp crypter (hash) pour ne pas stocker un mdp en blanc
         });
         user.save() //enregistre dans la BDD    
         .then(() => res.status(201).json({message: 'utilisateur créé !'})) //creation de ressource
