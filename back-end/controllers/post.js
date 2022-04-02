@@ -26,7 +26,7 @@ exports.createPost = (req, res, next) => { //function de callback
     } 
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     let post = new Post({ ...req.body,// operateur spread (...) vas copier les champ de l'objet , dans le corp de la request 
-   likes : 0,//valeur par default
+    likes : 0,//valeur par default
     });
     if (req.file) { // si mon fichier dans la req on ajoute
     post.image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse(http ou https) /localhost/nom du fichier    
@@ -77,7 +77,7 @@ exports.deletePost = (req, res, next) => {
             return res.status(404).json({ message: "Le post n'existe pas !"})
         }
         // verifier que seulement la personne qui detient l'objet peu le supprimer
-        if (user.userId !== req.auth.userId) { //different de req.auth
+        if (post.UserId !== req.auth.userId) { //different de req.auth
                 return res.status(401).json({ //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
                     error: new Error('Requete non autorisé !')
                 });   
@@ -85,9 +85,9 @@ exports.deletePost = (req, res, next) => {
             //split retourne un tableaux de que qu'il y a avant  /image , apres /image
             const filename = post.imageUrl.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
             // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback apres supprimer)))
-            return fs.unlink(`images/${filename}`, () => { //filename fait reference au dossier image
+            fs.unlink(`images/${filename}`, () => { //filename fait reference au dossier image
                 //recuperer l'id des paramettre de route ,si oui on effectue la suppression
-                return Post.destroy({_id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
+                Post.destroy({_id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
                 .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
                 .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)   
             }); 
