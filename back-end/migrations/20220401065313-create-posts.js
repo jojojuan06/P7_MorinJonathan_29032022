@@ -23,13 +23,14 @@ module.exports = {
         type: Sequelize.STRING
       },
       content: {
-        allowNull: false,
-        type: Sequelize.STRING
+        allowNull: true,
+        type: Sequelize.STRING,
+        defaultValue: ""
       },
       image: {
         allowNull: true,
         type: Sequelize.STRING,
-        defaultValue:''
+        defaultValue: ""
       },
       likes: {
         allowNull: false,
