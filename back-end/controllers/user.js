@@ -114,6 +114,7 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
         User.findOne({ WHERE:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
     if (user.id == req.auth.userId ||  req.auth.admin == true ) {
+            //copie les valeurs de toutes les propriétés directes (non héritées)
             let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.file) { //si il y a une img dans la req
             if (user.profile_img != "") { //verifier si le user a deja une image de profil
