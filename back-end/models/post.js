@@ -22,11 +22,22 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
-    image: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    content:{ 
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue:''
+    },
+    image: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue:''
+    },
     likes: {
-      type: DataTypes.INTEGER,
+      type:DataTypes.INTEGER,
       defaultValue:0
     } , 
   }, {
