@@ -25,10 +25,12 @@ exports.createPost = (req, res, next) => { //function de callback
         return res.status(400).json({ message : `Votre poste doit contenir du text ou une image`})
     } 
     // creation d'une nouvelle instance  de mon objet post (class) de le req
-    const post = new Post({ ...req.body,// operateur spread (...) vas copier les champ de l'objet , dans le corp de la request 
-    imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,//adresse(http ou https) /localhost/nom du fichier
-    likes : 0,//valeur par default
+    let post = new Post({ ...req.body,// operateur spread (...) vas copier les champ de l'objet , dans le corp de la request 
+   likes : 0,//valeur par default
     });
+    if (req.file) { // si mon fichier dans la req on ajoute
+    post.image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse(http ou https) /localhost/nom du fichier    
+    } //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
     post.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
     .then(() => res.status(201).json({ message: 'Objet enregistré !'})) //201 la requête a réussi avec le message
     .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
