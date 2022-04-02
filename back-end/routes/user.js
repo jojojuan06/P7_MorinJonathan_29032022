@@ -14,10 +14,10 @@ const router = express.Router(); // avec la methode routeur d'expresse (ex rempl
 router.post('/signup',limiter.auth,  multer, userControllers.signup); // recuperation de l'url du post et du contenue post (creatething(objet body))
 router.post('/login', limiter.auth, userControllers.login); // adresse de la function
 //--------
-router.get('/:id/user', limiter.get, auth,  userControllers.getOneUser); //recuperer un user
-router.get('/users', limiter.get, auth,  userControllers.getAllUser); //recuperer des users
-router.put('/:id/user',limiter.modify, auth, multer, userControllers.updateUser);//modification d'un user(profil)
-router.delete('/:id/user', auth, userControllers.deleteUser);
+router.get('/:id', limiter.get, auth,  userControllers.getOneUser); //recuperer un user
+router.get('/', limiter.get, auth,  userControllers.getAllUser); //recuperer des users
+router.put('/:id',limiter.modify, auth, multer, userControllers.updateUser);//modification d'un user(profil)
+router.delete('/:id', auth, userControllers.deleteUser);
 //-----------------
 
 // exporter le router
