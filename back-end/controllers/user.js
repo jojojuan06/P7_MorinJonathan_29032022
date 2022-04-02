@@ -108,28 +108,26 @@ exports.getAllUser = (req, res, next) => {
 //-----------------
 //admin : user.admin
 // modifier l'utilisateur PUT
-exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
-    User.findOne({ WHERE:{ id: req.params.id,}})
+exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route user / creation dun user
+        User.findOne({ WHERE:{ id: req.params.id,}})
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
-    if (user.id === req.auth.userId ||  req.auth.admin == true ) {
-        //test le cas de figure ou on se trouve
-        const userObject = req.file ?//si req.file exist (ternaire)
-            {
-            ...JSON.parse(req.body.user),//si il exist il faut le prendre en compte  l'ojet du produit
-            //on genere une nouvelle image url
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse de l'image en interpolation 
-            } : { ...req.body };//sinon il n'exite pas on copie l'objet (corp de la requete)
-            db.User.updateOne({ WHERE: { id: req.params.id }}, // egale (clée -> valeur) dans la base de donnée (trouver avec where)
-            { ...userObject, id: req.params.id })//pour correspondre a l'id des param de la req et dire que l'id corespond a celui des paramettre (mettre a jour son produit)
-            //spread pour recuperer le user (produit) qui est dans le corp de la requete que l'on a cree et on modifier sont identifiant
+    if (user.UserId === req.auth.userId ||  req.auth.admin == true ) {
+            let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
+            if (req.file) { //si il y a une img dans la req
+            if (user.image != "") { //verifier si le user a deja une image
+                    // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
+                    fs.unlink(`images/${user.image.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
+                }
+            newUser.image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //remplace pas la new img
+            }
+            newUser.save() //sauvegarde le nouveau user
             .then(() => res.status(200).json({ message: 'Objet modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
-        } else {
-            res.status(403).json({ message: `vous n'etes pas autoriser a modifiée ce profil` });  
+            } else {
+            res.status(403).json({ message: `vous n'etes pas autoriser a modifiée l'utilisateur` });  
         }
-    })
-    .catch(error => res.status(404).json({ message: `nous faisons face a cette: ${error}` })); 
-    
+    }) 
+    .catch(error => res.status(404).json({ message: `nous faisons face a cette: ${error}` }))    
 };
 //-----------------
 
