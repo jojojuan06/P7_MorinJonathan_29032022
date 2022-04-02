@@ -22,6 +22,9 @@ exports.createPost = (req, res, next) => { //function de callback
         validator.isEmpty(`${postObject.description}`) ||
         validator.isEmpty(`${postObject.mainPepper}`)){
         return res.status(400).json({ message: `les champs ne doivent pas être vide`})    
+    }
+    if (req.body.content && req.body.image) { //verification du contenue text et image
+        return res.status(400).json({ message : `Votre poste doit contenir du text ou une image`})
     } 
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     const post = new Post({ ...postObject,// operateur spread (...) vas copier les champ de l'objet , dans le corp de la request 
