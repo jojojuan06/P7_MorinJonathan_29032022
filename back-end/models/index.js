@@ -14,7 +14,8 @@ const sequelize = new Sequelize(`${process.env.DATABASE}`, `${process.env.USER}`
   dialect: 'mysql',
   define : { //default interclassement
     charset : 'utf8' , 
-    collate : 'utf8_general_ci' , 
+    collate : 'utf8_general_ci' ,
+    engine: 'InnoDB'  
   } ,
   port: `${process.env.HOST_PORT}`
 });
