@@ -1,5 +1,5 @@
 //importation du package d'expresse (npm)
-const express =  require('express');
+const express =  require('express'); // parse l'objet (une des function remplace bodyparser)
 const path = require('path');// Importation de 'Path' afin de definir les chemins
 const { xss } = require('express-xss-sanitizer');//nettoie les données d'entrée de l'utilisateur (dans req.body, req.query, req.headers et req.params) 
 require('dotenv').config();// proteger les données .env 
