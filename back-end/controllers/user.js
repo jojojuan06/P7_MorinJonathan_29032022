@@ -111,9 +111,9 @@ exports.getAllUser = (req, res, next) => {
 //admin : user.admin
 // modifier l'utilisateur PUT
 exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route user / creation dun user
-        User.findOne({ WHERE:{ id: req.params.id,}})
+        User.findOne({ WHERE:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
-    if (user.UserId === req.auth.userId ||  req.auth.admin == true ) {
+    if (user.id == req.auth.userId ||  req.auth.admin == true ) {
             let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.file) { //si il y a une img dans la req
             if (user.profile_img != "") { //verifier si le user a deja une image de profil
@@ -143,7 +143,7 @@ exports.deleteUser = (req, res, next) => {
                 return res.status(404).json({ message: "L'utilisateur n'existe pas !"})
             }
             // verifier que seulement la personne qui peu le supprimer
-            if (user.id === req.auth.userId ||  req.auth.admin == true ) { 
+            if (user.id == req.auth.userId ||  req.auth.admin == true ) { 
             if (user.profile_img != "") {
                 //split retourne un tableaux de que qu'il y a avant  /image , apres /image
                 const filename = user.imageUrl.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
