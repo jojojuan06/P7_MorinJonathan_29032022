@@ -14,20 +14,18 @@ const { Like, Post} = require('../models')
 
 //Creation d'un post POST
 exports.createPost = (req, res, next) => { //function de callback
-//Le corps de la requête contient une chaîne donc on doit le parse
-    const postObject = JSON.parse(req.body.post);//extraire l'objet json (l'objet post de la requête)
     //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
-    if (validator.isEmpty(`${postObject.name}`) || 
-        validator.isEmpty(`${postObject.manufacturer}`) ||
-        validator.isEmpty(`${postObject.description}`) ||
-        validator.isEmpty(`${postObject.mainPepper}`)){
+    if (validator.isEmpty(`${req.body.name}`) || 
+        validator.isEmpty(`${req.body.manufacturer}`) ||
+        validator.isEmpty(`${req.body.description}`) ||
+        validator.isEmpty(`${req.body.mainPepper}`)){
         return res.status(400).json({ message: `les champs ne doivent pas être vide`})    
     }
     if (req.body.content && req.body.image) { //verification du contenue text et image
         return res.status(400).json({ message : `Votre poste doit contenir du text ou une image`})
     } 
     // creation d'une nouvelle instance  de mon objet post (class) de le req
-    const post = new Post({ ...postObject,// operateur spread (...) vas copier les champ de l'objet , dans le corp de la request 
+    const post = new Post({ ...req.body,// operateur spread (...) vas copier les champ de l'objet , dans le corp de la request 
     imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,//adresse(http ou https) /localhost/nom du fichier
     likes : 0,//valeur par default
     });
@@ -42,6 +40,7 @@ exports.createPost = (req, res, next) => { //function de callback
 
 //mettre a jour un post PUT
 exports.updatePost = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
+    const postObject = req.body; //corp de ma req (ce que j'envoie)
     Post.findOne({ WHERE:{ id: req.params.id,}})
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
     if (user.id === req.auth.userId ||  req.auth.admin == true ) {
