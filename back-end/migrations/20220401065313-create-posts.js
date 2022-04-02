@@ -27,12 +27,14 @@ module.exports = {
         type: Sequelize.STRING
       },
       image: {
-        allowNull: false,
-        type: Sequelize.STRING
+        allowNull: true,
+        type: Sequelize.STRING,
+        defaultValue:''
       },
       likes: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        defaultValue: 0
       },
       createdAt: {
         allowNull: false,
