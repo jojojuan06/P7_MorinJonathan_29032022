@@ -31,5 +31,5 @@ const storage = multer.diskStorage({ //function de multer pour enr sur le disk
         callback(null, name + Date.now() + '.' + extension); // date.now vas ajouter un timestamp (delai)
     }
 });
-
-module.exports = multer({storage: storage}).fields([{ name: 'image', maxCount: 1 },{ name: 'profile_img', maxCount: 1 }]);  //fichier unique et on explique a multer qui sagit d'img uniquement
+//Accepte un mélange de fichiers et on explique a multer qui sagit d'image et profil_img uniquement
+module.exports = multer({storage: storage}).fields([{ name: 'image', maxCount: 1 },{ name: 'profile_img', maxCount: 1 }]);  
