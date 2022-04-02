@@ -5,7 +5,6 @@ const fs = require('fs');
 
 //valide et nettoie uniquement les chaînes (validation de l'email)
 const validator = require('validator'); 
-const { post } = require('../app');
 const { Like, Post} = require('../models')
 
 
