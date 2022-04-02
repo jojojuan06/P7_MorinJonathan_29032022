@@ -28,7 +28,12 @@ module.exports = (sequelize, DataTypes) => {
     profile_img: {
       type:DataTypes.STRING,
       defaultValue:''
-    }
+    },
+    admin: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+      defaultValue:false
+    },
   }, {
     sequelize,
     modelName: 'User',
