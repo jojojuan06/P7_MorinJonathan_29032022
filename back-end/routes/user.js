@@ -11,8 +11,8 @@ const router = express.Router(); // avec la methode routeur d'expresse (ex rempl
 
 //---------  Routes  -----------
 //POST LOGIN /NEW ACCOUNT
-router.post('/auth/signup',limiter.auth,  multer, userControllers.signup); // recuperation de l'url du post et du contenue post (creatething(objet body))
-router.post('/auth/login', limiter.auth, userControllers.login); // adresse de la function
+router.post('/signup',limiter.auth,  multer, userControllers.signup); // recuperation de l'url du post et du contenue post (creatething(objet body))
+router.post('/login', limiter.auth, userControllers.login); // adresse de la function
 //--------
 router.get('/:id/user', limiter.get, auth,  userControllers.getOneUser); //recuperer un user
 router.get('/users', limiter.get, auth,  userControllers.getAllUser); //recuperer des users
