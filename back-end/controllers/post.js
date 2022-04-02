@@ -5,6 +5,7 @@ const fs = require('fs');
 
 //valide et nettoie uniquement les chaînes (validation de l'email)
 const validator = require('validator'); 
+const { post } = require('../app');
 const { Like, Post} = require('../models')
 
 
@@ -43,28 +44,25 @@ exports.createPost = (req, res, next) => { //function de callback
 
 //mettre a jour un post PUT
 exports.updatePost = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
-    const postObject = req.body; //corp de ma req (ce que j'envoie)
     Post.findOne({ WHERE:{ id: req.params.id,}})
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
-    if (user.id === req.auth.userId ||  req.auth.admin == true ) {
-        //test le cas de figure ou on se trouve
-        const postObject = req.file ?//si req.file exist (ternaire)
-            {
-            ...JSON.parse(req.body.user),//si il exist il faut le prendre en compte  l'ojet du produit
-            //on genere une nouvelle image url
-            imageUrl: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse de l'image en interpolation 
-            } : { ...req.body };//sinon il n'exite pas on copie l'objet (corp de la requete)
-            Post.updateOne({ WHERE: { id: req.params.id }}, // egale (clée -> valeur) dans la base de donnée (trouver avec where)
-            { ...postObject, id: req.params.id })//pour correspondre a l'id des param de la req et dire que l'id corespond a celui des paramettre (mettre a jour son produit)
-            //spread pour recuperer le user (produit) qui est dans le corp de la requete que l'on a cree et on modifier sont identifiant
+    if (post.User.Id === req.auth.userId ||  req.auth.admin == true ) {
+            let newPost = Object.assign(post,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
+            if (req.file) { //si il y a une img dans la req
+            if (post.image != "") { //verifier si le post a deja une image
+                    // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
+                    fs.unlink(`images/${post.image.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
+                }
+            newPost.image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //remplace pas la new img
+            }
+            newPost.save() //sauvegarde le nouveau post
             .then(() => res.status(200).json({ message: 'Objet modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
-        } else {
+            } else {
             res.status(403).json({ message: `vous n'etes pas autoriser a modifiée ce post` });  
         }
     })
     .catch(error => res.status(404).json({ message: `nous faisons face a cette: ${error}` })); 
-    
 };
 //-------------
 
