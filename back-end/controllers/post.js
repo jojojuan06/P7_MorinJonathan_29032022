@@ -74,24 +74,25 @@ exports.deletePost = (req, res, next) => {
     Post.findOne({ id: req.params.id })
     //trouver id a celui qui est dans les parametres de la req ,recupere un post (produit) dans le callback (function de rapelle)
     .then((post) => {// recupere le post dans la base
-        if (!post) { // si la post n'existe pas
-            return res.status(404).json({ message: "Le post n'existe pas !"})
-        }
-        // verifier que seulement la personne qui detient l'objet peu le supprimer
-        if (post.UserId !== req.auth.userId) { //different de req.auth
+            if (!post) { // si la post n'existe pas
+                return res.status(404).json({ message: "Le post n'existe pas !"})
+            }
+            // verifier que seulement la personne qui detient l'objet peu le supprimer
+            if (post.UserId !== req.auth.userId) { //different de req.auth
                 return res.status(401).json({ //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
                     error: new Error('Requete non autorisé !')
                 });   
             }
+            if (post.image != "") { //si l'image existe
             //split retourne un tableaux de que qu'il y a avant  /image , apres /image
             const filename = post.imageUrl.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
             // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback apres supprimer)))
-            fs.unlink(`images/${filename}`, () => { //filename fait reference au dossier image
-                //recuperer l'id des paramettre de route ,si oui on effectue la suppression
-                Post.destroy({id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
-                .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
-                .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)   
-            }); 
+            fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
+            }
+            //recuperer l'id des paramettre de route ,si oui on effectue la suppression
+            Post.destroy({id: req.params.id }) // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
+            .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+            .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)    
         })
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
     };
