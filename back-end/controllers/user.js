@@ -14,7 +14,7 @@ const { User } = require('../models')// recuperer index.js. ,qui vas me cherche 
 
 //enregistrement de nouveaux utilisateur(crypter le mdp , cree un new user avec hash +email et enregistrer user dans la bdd)
 exports.signup = (req, res, next) => {
-    console.log(req.body);
+    //console.log(req.body);
     const email = req.body.email; // recupere l'email du corp de la requete
     //verification de email
     if (!validator.isEmail(email)) { //si se n'est pas un email valide (validator) on retourne l'erreur
