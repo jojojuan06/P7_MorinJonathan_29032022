@@ -114,14 +114,14 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
     if (user.UserId === req.auth.userId ||  req.auth.admin == true ) {
             let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.file) { //si il y a une img dans la req
-            if (user.image != "") { //verifier si le user a deja une image
+            if (user.profile_img != "") { //verifier si le user a deja une image
                     // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                    fs.unlink(`images/${user.image.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
+                    fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
                 }
-            newUser.image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //remplace pas la new img
+            newUser.profile_img = `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //remplace pas la new img
             }
             newUser.save() //sauvegarde le nouveau user
-            .then(() => res.status(200).json({ message: 'Objet modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+            .then(() => res.status(200).json({ message: 'Profile modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
             } else {
             res.status(403).json({ message: `vous n'etes pas autoriser a modifiée l'utilisateur` });  
