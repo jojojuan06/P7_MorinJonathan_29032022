@@ -43,7 +43,7 @@ sequelize.authenticate()
     await sequelize.sync({alter: true}) //synchronise les tables
     console.log('synchronisation réussie ');
 }) .catch((error) => {
-    console.log(`connexion échouée  ${error}`);
+    console.log(`synchronisation échouée  ${error}`);
 });
 
 
