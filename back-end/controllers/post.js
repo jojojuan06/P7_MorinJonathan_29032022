@@ -44,11 +44,11 @@ exports.updatePost = (req, res, next) => {//exporter une function createuser / c
     if (post.UserId === req.auth.userId ||  req.auth.admin == true ) {
             let newPost = Object.assign(post,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.files) { //si il y a une img dans la req
-            if (post.image != "") { //verifier si le post a deja une image
+                if (post.image != "") { //verifier si le post a deja une image
                     // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
                     fs.unlink(`images/${post.image.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
                 }
-            newPost.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}` //remplace pas la new img
+                newPost.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}` //remplace pas la new img
             }
             newPost.save() //sauvegarde le nouveau post
             .then(() => res.status(200).json({ message: 'Post modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
