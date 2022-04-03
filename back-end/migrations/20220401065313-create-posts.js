@@ -30,7 +30,6 @@ module.exports = {
       image: {
         allowNull: true,
         type: Sequelize.STRING,
-        defaultValue: ''
       },
       likes: {
         allowNull: false,

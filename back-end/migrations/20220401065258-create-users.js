@@ -22,7 +22,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       profile_img: {
-        allowNull: true,
+        allowNull: false,
         type: Sequelize.STRING
       },
       password: {
