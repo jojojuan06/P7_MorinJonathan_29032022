@@ -148,9 +148,9 @@ exports.deleteUser = (req, res, next) => {
             }
             // verifier que seulement la personne qui peu le supprimer
             if (user.id == req.auth.userId ||  req.auth.admin == true ) { 
-            if (user.profile_img != "") {
+            if (user.profile_img != '') {
                 //split retourne un tableaux de que qu'il y a avant  /image , apres /image
-                const filename = user.imageUrl.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
+                const filename = user.profile_img.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
                 // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
                 fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
             }    
