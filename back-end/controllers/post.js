@@ -17,11 +17,11 @@ exports.createPost = (req, res, next) => { //function de callback
     console.log(req.body);
     //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
     if (validator.isEmpty(`${req.body.content}`) || 
-        validator.isEmpty(`${req.body.image}`)) {
+        validator.isEmpty(`${req.body.title}`)) {
         return res.status(400).json({ message: `les champs ne doivent pas être vide`})    
     }
-    if (req.body.content && req.body.image) { //verification du contenue text et image
-        return res.status(400).json({ message : `Votre poste doit contenir du text ou une image`})
+    if (req.body.content && req.body.title) { //verification du contenue text et image
+        return res.status(400).json({ message : `Votre poste doit contenir un titre et du text`})
     } 
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     let post = new Post({  //recupere mon objet de la req
