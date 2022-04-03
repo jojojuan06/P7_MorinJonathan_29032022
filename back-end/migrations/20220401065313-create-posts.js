@@ -25,12 +25,12 @@ module.exports = {
       content: {
         allowNull: true,
         type: Sequelize.STRING,
-        defaultValue: ""
+        defaultValue: ''
       },
       image: {
         allowNull: true,
         type: Sequelize.STRING,
-        defaultValue: ""
+        defaultValue: ''
       },
       likes: {
         allowNull: false,
