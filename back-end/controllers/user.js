@@ -31,15 +31,18 @@ exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10) // 10 tour pour verifier l'algoritme (methode asyncrone)
     .then(hash => { // recuper le hash(mdp crypter)  de mdp 
         //creation du new utilisateur
-        const user = new User({ //creation un nouvelle utilisateur (user)
-        name: req.body.name,
-        firstname: req.body.firstname,
-        profile_img: req.body.profile_img,         
-        email: req.body.email, // email passez l'addresse passsez dans le corp de la requete
-        password: hash, // enregistrer le mdp crypter (hash) pour ne pas stocker un mdp en blanc
-        admin:0//valeur par default crée
+        let user = new User({ //creation un nouvelle utilisateur (user)
+            name: req.body.name,
+            firstname: req.body.firstname,
+            profile_img: req.body.profile_img,         
+            email: req.body.email, // email passez l'addresse passsez dans le corp de la requete
+            password: hash, // enregistrer le mdp crypter (hash) pour ne pas stocker un mdp en blanc
+            admin:0//valeur par default crée
         });
-        user.save() //enregistre dans la BDD    
+        if (req.file) { // si mon fichier dans la req on ajoute
+            user.profile_img = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse(http ou https) /localhost/nom du fichier    
+        } //si le fichier n'existe pas on sauvegarde le user (definit dans model string vide)
+        user.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise    
         .then(() => res.status(201).json({message: 'utilisateur créé !'})) //creation de ressource
         .catch(error => res.status(400).json({ error })); //impossible de se connecter au serveur
     })
