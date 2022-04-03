@@ -16,8 +16,8 @@ const { Like, Post} = require('../models')
 exports.createPost = (req, res, next) => { //function de callback
     console.log(req.body);
     //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
-    if (validator.isEmpty(`${req.body.title}`) ||
-        validator.isEmpty(`${req.body.content}`)){
+    if (validator.isEmpty(`${req.body.content}`) || 
+        validator.isEmpty(`${req.body.image}`)) {
         return res.status(400).json({ message: `les champs ne doivent pas être vide`})    
     }
     if (req.body.content && req.body.image) { //verification du contenue text et image
