@@ -2,6 +2,7 @@
 
 //importer des fichier
 require('dotenv').config({ path:'../.env' });// proteger les donnée , adresse (path: chemin) du .env pour le process
+const fs =  require('fs');
 
 // importe package express (npm)
 const bcrypt = require('bcrypt'); //importer package de cryptage (recupere)
@@ -111,22 +112,23 @@ exports.getAllUser = (req, res, next) => {
 //admin : user.admin
 // modifier l'utilisateur PUT
 exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route user / creation dun user
-    console.log(req.body);
-        User.findOne({ WHERE:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
-    .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
+    User.findOne({ WHERE:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
+    .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil    
     if (user.id == req.auth.userId ||  req.auth.admin == true ) {
-            //copie les valeurs de toutes les propriétés directes (non héritées)
-            let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
-            if (req.file) { //si il y a une img dans la req
-            if (user.profile_img != "") { //verifier si le user a deja une image de profil
-                    // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                    fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
-                }
-            newUser.profile_img = `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //remplace pas la new img
-            }
-            newUser.save() //sauvegarde le nouveau user
-            .then(() => res.status(200).json({ message: 'Profile modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
-            .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
+                //copie les valeurs de toutes les propriétés directes (non héritées)
+                let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
+                if (req.files) { //si il y a une img dans la req (sur fichier multiple)
+                    console.log(req.files);
+                    if (user.profile_img != '') { //verifier si le user a deja une image de profil
+                            // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
+                            fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
+                        }
+                        newUser.profile_img = `${req.protocol}://${req.get('host')}/images/${req.files.profile_img[0].filename}` //remplace pas la new img (premier element du field(tableau))
+                        console.log("user.js  ligne 126",newUser.profile_img);
+                    }
+                newUser.save() //sauvegarde le nouveau user
+                .then(() => res.status(200).json({ message: 'Profile modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+                .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
             } else {
             res.status(403).json({ message: `vous n'etes pas autoriser a modifiée l'utilisateur` });  
         }
