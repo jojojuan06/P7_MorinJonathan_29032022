@@ -14,19 +14,21 @@ const { Like, Post} = require('../models')
 
 //Creation d'un post POST
 exports.createPost = (req, res, next) => { //function de callback
+    console.log(req.body);
     //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
-    if (validator.isEmpty(`${req.body.name}`) || 
-        validator.isEmpty(`${req.body.manufacturer}`) ||
-        validator.isEmpty(`${req.body.description}`) ||
-        validator.isEmpty(`${req.body.mainPepper}`)){
+    if (validator.isEmpty(`${req.body.title}`) ||
+        validator.isEmpty(`${req.body.content}`)){
         return res.status(400).json({ message: `les champs ne doivent pas être vide`})    
     }
     if (req.body.content && req.body.image) { //verification du contenue text et image
         return res.status(400).json({ message : `Votre poste doit contenir du text ou une image`})
     } 
     // creation d'une nouvelle instance  de mon objet post (class) de le req
-    let post = new Post({ ...req.body,// operateur spread (...) vas copier les champ de l'objet , dans le corp de la request 
-    likes : 0,//valeur par default
+    let post = new Post({  //recupere mon objet de la req
+    title: req.body.title,
+    content: req.body.content,
+    image: req.body.image, 
+    likes : req.body.like,
     UserId : req.auth.userId  // ajoute id post = userid de la req
     });
     if (req.file) { // si mon fichier dans la req on ajoute

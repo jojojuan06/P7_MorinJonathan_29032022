@@ -14,7 +14,7 @@ const { User } = require('../models')// recuperer index.js. ,qui vas me cherche 
 
 //enregistrement de nouveaux utilisateur(crypter le mdp , cree un new user avec hash +email et enregistrer user dans la bdd)
 exports.signup = (req, res, next) => {
-    //console.log(req.body);
+    console.log(req.body);
     const email = req.body.email; // recupere l'email du corp de la requete
     //verification de email
     if (!validator.isEmail(email)) { //si se n'est pas un email valide (validator) on retourne l'erreur
@@ -112,6 +112,7 @@ exports.getAllUser = (req, res, next) => {
 //admin : user.admin
 // modifier l'utilisateur PUT
 exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route user / creation dun user
+    console.log(req.body);
         User.findOne({ WHERE:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
     if (user.id == req.auth.userId ||  req.auth.admin == true ) {
