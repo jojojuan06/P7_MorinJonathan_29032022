@@ -8,10 +8,6 @@ const validator = require('validator');
 const { Like, Post} = require('../models')
 
 
-
-
-
-
 //Creation d'un post POST
 exports.createPost = (req, res, next) => { //function de callback
     console.log(req.body);
@@ -31,15 +27,13 @@ exports.createPost = (req, res, next) => { //function de callback
     likes : req.body.like,
     UserId : req.auth.userId  // ajoute id post = userid de la req
     });
-    if (req.file) { // si mon fichier dans la req on ajoute
-    post.image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`//adresse(http ou https) /localhost/nom du fichier    
+    if (req.files) { // si mon fichier dans la req on ajoute
+    post.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}`//adresse(http ou https) /localhost/nom du fichier    
     } //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
     post.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
     .then(() => res.status(201).json({ message: 'Objet enregistré !'})) //201 la requête a réussi avec le message
     .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
 };
-
-
 //-------------
 
 
@@ -49,12 +43,12 @@ exports.updatePost = (req, res, next) => {//exporter une function createuser / c
     .then(post => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
     if (post.UserId === req.auth.userId ||  req.auth.admin == true ) {
             let newPost = Object.assign(post,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
-            if (req.file) { //si il y a une img dans la req
+            if (req.files) { //si il y a une img dans la req
             if (post.image != "") { //verifier si le post a deja une image
                     // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
                     fs.unlink(`images/${post.image.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
                 }
-            newPost.image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}` //remplace pas la new img
+            newPost.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}` //remplace pas la new img
             }
             newPost.save() //sauvegarde le nouveau post
             .then(() => res.status(200).json({ message: 'Post modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
