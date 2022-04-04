@@ -100,7 +100,8 @@ exports.getAllUser = (req, res, next) => {
         //sélectionner que certains attributs, clef que je veut montrer en clair   
         attributes:["email","name","firstname"]   
         })
-        .then(users => res.status(200).json(users)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
+        // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
+        .then(users => res.status(200).json(users)) 
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
     }
 //----------------
