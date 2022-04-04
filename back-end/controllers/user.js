@@ -89,7 +89,8 @@ exports.getOneUser = (req, res, next) => {
     let user = User.findOne( { WHERE:{id: id},//trouver un objet avec WHERE , on pass l'objet en conparaison id  egal le parm de req id
     attributes:["email","name","firstname","profile_img"] //clef que je veut montrer en clair
     })
-    if (user == null) { //si l'utilisateur n'exist pas on return l'ereur
+    //si l'utilisateur n'exist pas on return l'erreur
+    if (user == null) { 
         return res.status(400).json({ message: `l'utilisateur n'exist pas`});    
     } 
     console.log(user)
@@ -104,7 +105,8 @@ exports.getAllUser = (req, res, next) => {
         //sélectionner que certains attributs, clef que je veut montrer en clair   
         attributes:["email","name","firstname","profile_img"]   
         })
-        if (users == null) { //si il n'y a pas d'utilisateur
+        //si il n'y a pas d'utilisateur on retourne l'erreur
+        if (users == null) { 
             return res.status(400).json({ message: `aucun n'utilisateur est crée !`});    
         }
         console.log(users)
