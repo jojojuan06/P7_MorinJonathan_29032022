@@ -32,6 +32,7 @@ exports.createPost = (req, res, next) => { //function de callback
     likes : 0,
     UserId : req.auth.userId  // ajoute id post = userid de la req
     });
+    console.log(post);
     if (req.files) { // si mon fichier dans la req on ajoute
     post.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}`//adresse(http ou https) /localhost/nom du fichier    
     } //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
@@ -110,7 +111,7 @@ exports.deletePost = (req, res, next) => {
     //recuperer tous les post GET ALL
     exports.getAllPost = (req, res, next) => {    
         //création des objet-----------
-        Post.find() //trouve la liste d'objet (find) qui nous retourne une promise , envoi un tableau contenant tous les users dans notre base de données
+        Post.findAll() //trouve la liste d'objet (find) qui nous retourne une promise , envoi un tableau contenant tous les users dans notre base de données
             .then(users => res.status(200).json(users)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
         }

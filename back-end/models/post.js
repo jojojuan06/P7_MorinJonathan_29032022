@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Post.init({
-    UserId: {
+    userId: {
       allowNull: false,
       type: DataTypes.INTEGER
     },
