@@ -87,7 +87,7 @@ exports.login = (req, res, next) => {
 exports.getOneUser = (req, res, next) => { 
     req.params.id // avoir acces  dans l'objet req.pams.id
     User.findOne( { WHERE:{id: req.params.id},//trouver un objet avec WHERE , on pass l'objet en conparaison _id  egal le parm de req id
-    attributes:["email","name","firstname"] //clef que je veut montrer en clair
+    attributes:["email","name","firstname","profile_img"] //clef que je veut montrer en clair
     }) 
     .then(user => res.status(200).json(user)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
     .catch(error => res.status(404).json({ message: `objet non trouvé: ${error}` }));
@@ -98,7 +98,7 @@ exports.getOneUser = (req, res, next) => {
 exports.getAllUser = (req, res, next) => {    
         User.findAll({
         //sélectionner que certains attributs, clef que je veut montrer en clair   
-        attributes:["email","name","firstname"]   
+        attributes:["email","name","firstname","profile_img"]   
         })
         // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
         .then(users => res.status(200).json(users)) 
