@@ -13,9 +13,11 @@ module.exports = (sequelize, DataTypes) => {
       // définir l'association ici (post like)
       models.User.hasMany(models.Post,
         { onDelete: 'cascade' , hooks: true},
+        { onUpdate: 'cascade' , hooks: true}
       ); //utilisateur a plusieur like (hasMany)
       models.User.hasMany(models.Like,
         { onDelete: 'cascade' , hooks: true},
+        { onUpdate: 'cascade' , hooks: true}
       );
     }
   }

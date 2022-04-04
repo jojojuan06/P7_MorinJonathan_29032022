@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         })
         // définir l'association ici (Comment ==> user appartient plusieur)
         models.Comment.belongsTo(models.User,
-          { onDelete: 'cascade' , hooks: true},
         );    
       }     
     }
