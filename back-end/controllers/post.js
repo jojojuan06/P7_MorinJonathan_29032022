@@ -18,11 +18,11 @@ exports.createPost = (req, res, next) => { //function de callback
     }
     //verification du contenue text et image ne sont pas vide
     if (req.body.content && req.body.title == null) { 
-        return res.status(400).json({ message : `Votre poste doit contenir un titre et du text`})
+        return res.status(400).json({ message : `Votre post doit contenir un titre et du text`})
     } 
     // verifier un nombre de caractere donnée
     if (title.length <= 4 || content.length <= 4 ) {
-        return res.status(400).json({ message : `Votre poste doit contenir au moins 4 caractère`})  
+        return res.status(400).json({ message : `Votre post doit contenir au moins 4 caractère`})  
     }
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     let post = new Post({  //recupere mon objet de la req
