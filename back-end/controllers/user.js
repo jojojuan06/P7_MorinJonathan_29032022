@@ -86,10 +86,13 @@ exports.login = (req, res, next) => {
 // recuperer un utilisateur GET
 exports.getOneUser = (req, res, next) => { 
     let id = req.params.id; // avoir acces  dans l'objet req.pams.id
-    User.findOne( { WHERE:{id: id},//trouver un objet avec WHERE , on pass l'objet en conparaison id  egal le parm de req id
+    let user = User.findOne( { WHERE:{id: id},//trouver un objet avec WHERE , on pass l'objet en conparaison id  egal le parm de req id
     attributes:["email","name","firstname","profile_img"] //clef que je veut montrer en clair
-    }) 
-    console.log(User)
+    })
+    if (user == null) { //si l'utilisateur n'exist pas on return l'ereur
+        return res.status(400).json({ message: `l'utilisateur n'exist pas`});    
+    } 
+    console.log(user)
     .then(user => res.status(200).json(user)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
     .catch(error => res.status(404).json({ message: `objet non trouvé: ${error}` }));
 }
@@ -97,11 +100,14 @@ exports.getOneUser = (req, res, next) => {
 
 // recuperer tout les utilisateur GET
 exports.getAllUser = (req, res, next) => {    
-        User.findAll({
+        let users = User.findAll({
         //sélectionner que certains attributs, clef que je veut montrer en clair   
         attributes:["email","name","firstname","profile_img"]   
         })
-        console.log(User)
+        if (users == null) { //si il n'y a pas d'utilisateur
+            return res.status(400).json({ message: `aucun n'utilisateur est crée !`});    
+        }
+        console.log(users)
         // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
         .then(users => res.status(200).json(users)) 
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
