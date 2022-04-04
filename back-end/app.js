@@ -39,7 +39,7 @@ app.use(helmet()); // helmet
 app.use('/images', express.static(path.join(__dirname, 'images')));// multer gerer les fichier (image)--- , dire a expresse de servir ce dossier images
 app.use('/api/auth', userRoutes); 
 app.use('/api/post', postRoutes);
-app.use('/api/post', commentRoutes);
+app.use('/api/comment', commentRoutes);
 //app.use , importer et appliquer a la meme route (contient la logique des routes)
 //------------------
 
