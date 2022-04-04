@@ -37,7 +37,7 @@ exports.signup = (req, res, next) => {
             firstname: req.body.firstname,         
             email: req.body.email, // email passez l'addresse passsez dans le corp de la requete
             password: hash, // enregistrer le mdp crypter (hash) pour ne pas stocker un mdp en blanc
-            admin:0//valeur par default crée
+            admin: req.body.admin//valeur par default crée (0/false)
         });
         user.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise    
         .then(() => res.status(201).json({message: 'utilisateur créé !'})) //creation de ressource
@@ -89,6 +89,7 @@ exports.getOneUser = (req, res, next) => {
     User.findOne( { WHERE:{id: req.params.id},//trouver un objet avec WHERE , on pass l'objet en conparaison _id  egal le parm de req id
     attributes:["email","name","firstname","profile_img"] //clef que je veut montrer en clair
     }) 
+    console.log(User)
     .then(user => res.status(200).json(user)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
     .catch(error => res.status(404).json({ message: `objet non trouvé: ${error}` }));
 }
@@ -100,6 +101,7 @@ exports.getAllUser = (req, res, next) => {
         //sélectionner que certains attributs, clef que je veut montrer en clair   
         attributes:["email","name","firstname","profile_img"]   
         })
+        console.log(User)
         // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
         .then(users => res.status(200).json(users)) 
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
