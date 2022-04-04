@@ -155,7 +155,7 @@ exports.likePost = (req, res, next) => {
                         return res.status(404).json({ message: "Le like n'existe pas !"})   
                     } else {         
                         post.likes-- //j'enleve un like (de la table)
-                        Like.destroy({ where: { id: like.id }}) //supprime le like
+                        Like.destroy({ where: { id: like.id }}) //supprime le like de la bdd
                         post.save() //sauvegarde dans la bdd
                         .then(() => res.status(200).json({ message: "le like a etait enlever !"})) 
                         .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));   
