@@ -5,7 +5,7 @@ const fs = require('fs');
 
 //valide et nettoie uniquement les chaînes (validation de l'email)
 const validator = require('validator'); 
-const { Like, Post} = require('../models')
+const { Like, Post, User} = require('../models')
 
 
 //Creation d'un post POST
@@ -100,7 +100,6 @@ exports.deletePost = (req, res, next) => {
     exports.getOnePost = (req, res, next) => { 
         let id = req.params.id // avoir acces  dans l'objet req.pams.id
         Post.findOne( { WHERE:{id: id},//trouver un objet avec WHERE , on pass l'objet en conparaison id  egal le parm de req id
-        attributes:["email","name","firstname"] //clef que je veut montrer en clair
         }) 
         .then(post => res.status(200).json(post)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
         .catch(error => res.status(404).json({ message: `post non trouvé: ${error}` }));
@@ -110,7 +109,7 @@ exports.deletePost = (req, res, next) => {
     //recuperer tous les post GET ALL
     exports.getAllPost = (req, res, next) => {    
         //création des objet-----------
-        Post.findAll() 
+        Post.findAll() //{include:User}
             .then(posts => res.status(200).json(posts)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
         }
@@ -156,8 +155,8 @@ exports.likePost = (req, res, next) => {
                         return res.status(404).json({ message: "Le like n'existe pas !"})   
                     } else {         
                         post.likes-- //j'enleve un like (de la table)
-                        like.destroy() // supprime le like
-                        post.save() //sauvegarde 
+                        Like.destroy({ where: { id: like.id }}) //supprime le like
+                        post.save() //sauvegarde dans la bdd
                         .then(() => res.status(200).json({ message: "le like a etait enlever !"})) 
                         .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));   
                     }
