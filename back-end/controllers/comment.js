@@ -13,7 +13,7 @@ exports.createComment = (req, res, next) => { //function de callback
     }
     //verification du contenue text et image ne sont pas vide
     if (req.body.content == null) { 
-        return res.status(400).json({ message : `Votre post doit contenir un titre et du text`})
+        return res.status(400).json({ message : `Votre post doit contenir du texte`})
     } 
     // verifier un nombre de caractere donnée
     if (req.body.content.length <= 4 ) {
