@@ -132,37 +132,38 @@ exports.likePost = (req, res, next) => {
         } //rechercher poste_id et user_id (de la bd)
         Like.findOne({ WHERE: { UserId: req.auth.userId, PostId: post.id }})
         .then( like => {
-        // Différents cas:
-        switch (req.body.like) {
-            // CAS:le like exist => erreur , si il existe pas on ajoute +1
-            case 1:  
-            if (like) {
-            return res.status(403).json({ message: "Le like existe deja !"})    
-            } else { // au quelle cas je recupere le like du post et je lui ajoute 1
-            post.likes++ //j'incremente de 1
-            like = new Like ({ //cree mon objet de like
-            UserId: req.auth.userId, //id de l'utilisateur
-            PostId: post.id //id du post
-            })  
-            like.save()//sauvegarde ajout du like 
-            post.save() //sauvegarde dans la bdd
-            .then(() => res.status(201).json({ message: 'Post Likée !'}))
-            .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));
+            // Différents cas:
+            switch (req.body.like) {
+                // CAS:le like exist => erreur , si il existe pas on ajoute +1
+                case 1:  
+                if (like) {
+                return res.status(403).json({ message: "Le like existe deja !"})    
+                } else { // au quelle cas je recupere le like du post et je lui ajoute 1
+                post.likes++ //j'incremente de 1
+                like = new Like ({ //cree mon objet de like
+                UserId: req.auth.userId, //id de l'utilisateur
+                PostId: post.id //id du post
+                })  
+                like.save()//sauvegarde ajout du like 
+                post.save() //sauvegarde dans la bdd
+                .then(() => res.status(201).json({ message: 'Post Likée !'}))
+                .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));
+                }
+                break;
+                // CAS: Annulation du like/dislike
+                case 0:      
+                if (!like) {   
+                    return res.status(404).json({ message: "Le like n'existe pas !"})   
+                } else {         
+                    post.likes-- //j'enleve un like (de la table)
+                    like.destroy() // supprime le like
+                    post.save() //sauvegarde 
+                    .then(() => res.status(200).json({ message: "le like a etait enlever !"})) 
+                    .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));   
+                }
+                break;    
             }
-            break;
-            // CAS: Annulation du like/dislike
-            case 0:      
-            if (!like) {   
-                return res.status(404).json({ message: "Le like n'existe pas !"})    
-            } else {         
-                post.likes-- //j'enleve un like
-                like.destroy() // supprime le like
-                post.save() //sauvegarde 
-                .then(() => res.status(200).json({ message: "le like a etait enlever !"})) 
-                .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));   
-            }
-            break;    
-        }})
+        })
     })
     .catch(error => res.status(500).json({ message: `nous faisons face a cette: ${error}` }));
     }
