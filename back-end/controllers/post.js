@@ -139,14 +139,13 @@ exports.likePost = (req, res, next) => {
             if (like) {
             return res.status(403).json({ message: "Le like existe deja !"})    
             } else { // au quelle cas je recupere le like du post et je lui ajoute 1
-                console.log(5);
             post.likes++ //j'incremente de 1
             like = new Like ({ //cree mon objet de like
             UserId: req.auth.userId, //id de l'utilisateur
             PostId: post.id //id du post
             })  
-            like.save()//sauvegarde du like dans la bdd 
-            post.save() //sauvegarde ajoute le like dans la bdd
+            like.save()//sauvegarde ajout du like 
+            post.save() //sauvegarde dans la bdd
             .then(() => res.status(201).json({ message: 'Post Likée !'}))
             .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));
             }
@@ -154,13 +153,13 @@ exports.likePost = (req, res, next) => {
             // CAS: Annulation du like/dislike
             case 0:      
             if (!like) {   
-                return res.status(403).json({ message: "Le like n'existe pas !"})    
+                return res.status(404).json({ message: "Le like n'existe pas !"})    
             } else {         
-            post.likes-- //j'enleve un like
-            like.destroy()
-            post.save() //sauvegarde supprime le like
-            .then(() => res.status(200).json({ message: "le like a etait enlever !"})) 
-            .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));   
+                post.likes-- //j'enleve un like
+                like.destroy() // supprime le like
+                post.save() //sauvegarde 
+                .then(() => res.status(200).json({ message: "le like a etait enlever !"})) 
+                .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));   
             }
             break;    
         }})
