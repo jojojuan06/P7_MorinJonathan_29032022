@@ -16,9 +16,13 @@ exports.createPost = (req, res, next) => { //function de callback
         validator.isEmpty(`${req.body.title}`)) {
         return res.status(400).json({ message: `les champs ne doivent pas être vide`})    
     }
-    if (req.body.content && req.body.title) { //verification du contenue text et image
+    if (req.body.content && req.body.title == null) { //verification du contenue text et image ne sont pas vide
         return res.status(400).json({ message : `Votre poste doit contenir un titre et du text`})
     } 
+    // verifier un nombre de caractere donnée
+    if (title.length <= 4 || content.length <= 4 ) {
+        return res.status(400).json({ message : `Votre poste doit contenir au moins 4 caractère`})  
+    }
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     let post = new Post({  //recupere mon objet de la req
     title: req.body.title,
