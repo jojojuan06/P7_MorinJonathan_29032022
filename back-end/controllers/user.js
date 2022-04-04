@@ -96,11 +96,10 @@ exports.getOneUser = (req, res, next) => {
 
 // recuperer tout les utilisateur GET
 exports.getAllUser = (req, res, next) => {    
-    //création des objet-----------
-    User.findAll({
-    //sélectionner que certains attributs, vous pouvez utiliser l' attributesoption    
-    attributes:["email","name","firstname"] //clef que je veut montrer en clair    
-    }) //trouve la liste d'objet (find) qui nous retourne une promise , envoi un tableau contenant tous les users dans notre base de données
+        User.findAll({
+        //sélectionner que certains attributs, clef que je veut montrer en clair   
+        attributes:["email","name","firstname"]   
+        })
         .then(users => res.status(200).json(users)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
     }
