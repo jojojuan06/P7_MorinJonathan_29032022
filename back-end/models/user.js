@@ -46,7 +46,7 @@ module.exports = (sequelize, DataTypes) => {
     profile_img: {
       type:DataTypes.STRING,
       allowNull: false,
-      defaultValue:'C:\Users\jonh0\Desktop\GitHub\P7_MorinJonathan_29032022\back-end\images\image_default_profile.png'
+      defaultValue:''
     },
     }, {
     sequelize,
