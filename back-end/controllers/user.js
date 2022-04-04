@@ -107,7 +107,7 @@ exports.getAllUser = (req, res, next) => {
         })
         //si il n'y a pas d'utilisateur on retourne l'erreur
         if (users == null) { 
-            return res.status(400).json({ message: `aucun n'utilisateur est crée !`});    
+            return res.status(400).json({ message: `aucun n'utilisateur n'est crée !`});    
         }
         console.log(users)
         // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
