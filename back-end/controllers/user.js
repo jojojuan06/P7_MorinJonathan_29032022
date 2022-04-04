@@ -97,7 +97,8 @@ exports.getOneUser = (req, res, next) => {
 // recuperer tout les utilisateur GET
 exports.getAllUser = (req, res, next) => {    
     //création des objet-----------
-    User.find({
+    User.findAll({
+    //sélectionner que certains attributs, vous pouvez utiliser l' attributesoption    
     attributes:["email","name","firstname"] //clef que je veut montrer en clair    
     }) //trouve la liste d'objet (find) qui nous retourne une promise , envoi un tableau contenant tous les users dans notre base de données
         .then(users => res.status(200).json(users)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
