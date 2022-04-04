@@ -111,8 +111,8 @@ exports.deletePost = (req, res, next) => {
     //recuperer tous les post GET ALL
     exports.getAllPost = (req, res, next) => {    
         //création des objet-----------
-        Post.findAll() //trouve la liste d'objet (find) qui nous retourne une promise , envoi un tableau contenant tous les users dans notre base de données
-            .then(users => res.status(200).json(users)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
+        Post.findAll() 
+            .then(posts => res.status(200).json(posts)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
         }
     //-------------
