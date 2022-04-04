@@ -99,8 +99,8 @@ exports.deletePost = (req, res, next) => {
     
     //recuperer un post GET
     exports.getOnePost = (req, res, next) => { 
-        req.params.id // avoir acces  dans l'objet req.pams.id
-        Post.findOne( { WHERE:{id: req.params.id},//trouver un objet avec WHERE , on pass l'objet en conparaison _id  egal le parm de req id
+        let id = req.params.id // avoir acces  dans l'objet req.pams.id
+        Post.findOne( { WHERE:{id: id},//trouver un objet avec WHERE , on pass l'objet en conparaison id  egal le parm de req id
         attributes:["email","name","firstname"] //clef que je veut montrer en clair
         }) 
         .then(post => res.status(200).json(post)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
