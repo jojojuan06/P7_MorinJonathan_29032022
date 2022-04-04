@@ -9,6 +9,7 @@ const helmet = require('helmet'); // sécurisation injection
 // Permet d'importer les routers user, post (enregistrer notre nouveau routeur dans notre fichier app.js)
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/posts');
+const commentRoutes = require('./routes/comment.js');
 //-----------------
 
 // appelle de la methode express (une function) permet de crée une application expresse
@@ -38,6 +39,7 @@ app.use(helmet()); // helmet
 app.use('/images', express.static(path.join(__dirname, 'images')));// multer gerer les fichier (image)--- , dire a expresse de servir ce dossier images
 app.use('/api/auth', userRoutes); 
 app.use('/api/post', postRoutes);
+app.use('/api/post', commentRoutes);
 //app.use , importer et appliquer a la meme route (contient la logique des routes)
 //------------------
 

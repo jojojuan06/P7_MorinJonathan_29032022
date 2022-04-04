@@ -18,7 +18,6 @@ module.exports = (sequelize, DataTypes) => {
         })
         // définir l'association ici (like ==> user appartient plusieur)
         models.Like.belongsTo(models.User,
-          { onDelete: 'cascade' , hooks: true},
         );    
       }     
     }
