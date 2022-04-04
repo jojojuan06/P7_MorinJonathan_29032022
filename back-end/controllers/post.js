@@ -121,10 +121,10 @@ exports.deletePost = (req, res, next) => {
 //POST-- LIKE UN POST
 exports.likePost = (req, res, next) => { 
     // like de ma req sup a 1 ou inf 0
-    if (req.body.like > 1 || req.body.like < 0 ) {
-    return res.status(400).json({ message: "requete non autorisé"})    
+    if (req.body.like > 1 || req.body.like < 0 ) {   
+    return res.status(400).json({ message: "requete non autorisé"})
     }
-    else { //sinon on execute le code
+    else { //sinon on execute le code    
     Post.findOne({ WHERE: { id: req.params.id }}) // recherche id du post
     .then(post => {
         if (!post) { // si le post n'existe pas
@@ -136,34 +136,34 @@ exports.likePost = (req, res, next) => {
         switch (req.body.like) {
             // CAS:le like exist => erreur , si il existe pas on ajoute +1
             case 1:  
-            if (like) { 
+            if (like) {
             return res.status(403).json({ message: "Le like existe deja !"})    
             } else { // au quelle cas je recupere le like du post et je lui ajoute 1
+                console.log(5);
             post.likes++ //j'incremente de 1
             like = new Like ({ //cree mon objet de like
-            UserId: req.auth.userId, 
-            PostId: post.id 
+            UserId: req.auth.userId, //id de l'utilisateur
+            PostId: post.id //id du post
             })  
-            like.save()//sauvegarde du like dans la bdd  
+            like.save()//sauvegarde du like dans la bdd 
+            post.save() //sauvegarde ajoute le like dans la bdd
             .then(() => res.status(201).json({ message: 'Post Likée !'}))
             .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));
             }
             break;
             // CAS: Annulation du like/dislike
             case 0: 
-            if (!like) {
+            if (!like) {   
                 return res.status(403).json({ message: "Le like n'existe pas !"})    
-            } else {
+            } else {      
             post.likes-- //j'enleve un like
             like.destroy()
+            post.save() //sauvegarde supprime le like
             .then(() => res.status(204).json({ message: "le like a etait enlever !"})) //modification d'une ressource (suppresion)
             .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));   
             }
             break;    
         }})
-        post.save() //sauvegarde l'incrementation des likes dans le post
-        .then(() => res.status(204).json({ message: "le like a etait enregistré !"}))
-        .catch(error => res.status(500).json({ message: `nous faisons face a cette: ${error}` }));
     })
     .catch(error => res.status(500).json({ message: `nous faisons face a cette: ${error}` }));
     }
