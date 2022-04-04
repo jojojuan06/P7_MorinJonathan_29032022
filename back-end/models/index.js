@@ -1,6 +1,6 @@
 'use strict';
 
-const fs = require('fs');
+const fs = require('fs'); //gestion des fichier (image /profil_image)
 const path = require('path');
 const Sequelize = require('sequelize'); //transcrire le javascript en mysql
 const basename = path.basename(__filename); //chercher le nom de mes model
