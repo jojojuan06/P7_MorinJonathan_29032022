@@ -29,7 +29,7 @@ exports.createPost = (req, res, next) => { //function de callback
     title: req.body.title,
     content: req.body.content,
     image: req.body.image, 
-    likes : req.body.like,
+    likes : 0,
     UserId : req.auth.userId  // ajoute id post = userid de la req
     });
     if (req.files) { // si mon fichier dans la req on ajoute
