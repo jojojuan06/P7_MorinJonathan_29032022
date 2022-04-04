@@ -54,7 +54,7 @@ exports.deleteComment = (req, res, next) => {
     Comment.findOne({ id: req.params.id })
     //trouver id a celui qui est dans les parametres de la req ,recupere un post (produit) dans le callback (function de rapelle)
     .then((comment) => {// recupere le post dans la base
-            if (!comment) { // si la post n'existe pas
+            if (!comment) { // si le commentaire n'existe pas
                 return res.status(404).json({ message: "Le post n'existe pas !"})
             }
             // verifier que seulement la personne qui detient l'objet peu le supprimer
@@ -65,7 +65,7 @@ exports.deleteComment = (req, res, next) => {
             }
             //recuperer l'id des paramettre de route ,si oui on effectue la suppression
             comment.destroy() // supprime le post crée   
-            .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+            .then(() => res.status(200).json({message: 'Commentaire supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); // capture l'erreur et renvoi un message erreur (egale error: error)    
         })
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));

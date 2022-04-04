@@ -42,7 +42,7 @@ sequelize.authenticate()
 .then( async ()=> {
     console.log('connexion réussie :)');
     //synchronisation des tables(model)
-    await sequelize.sync({alter: true}) 
+    await sequelize.sync({alter: true}) //force:true (drop table)
     console.log('synchronisation réussie ');
 }) .catch((error) => {
     console.log(`synchronisation échouée  ${error}`);
