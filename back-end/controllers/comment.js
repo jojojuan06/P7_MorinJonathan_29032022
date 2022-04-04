@@ -11,7 +11,7 @@ exports.createComment = (req, res, next) => { //function de callback
     if (validator.isEmpty(`${req.body.content}`)) {
         return res.status(400).json({ message: `le champs ne doit pas être vide`})    
     }
-    //verification du contenue text et image ne sont pas vide
+    //verification du contenue text 
     if (req.body.content == null) { 
         return res.status(400).json({ message : `Votre post doit contenir du texte`})
     } 
