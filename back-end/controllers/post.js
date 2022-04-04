@@ -21,7 +21,7 @@ exports.createPost = (req, res, next) => { //function de callback
         return res.status(400).json({ message : `Votre post doit contenir un titre et du text`})
     } 
     // verifier un nombre de caractere donnée
-    if (title.length <= 4 || content.length <= 4 ) {
+    if (req.body.title.length <= 4 || req.body.content.length <= 4 ) {
         return res.status(400).json({ message : `Votre post doit contenir au moins 4 caractère`})  
     }
     // creation d'une nouvelle instance  de mon objet post (class) de le req
@@ -29,7 +29,6 @@ exports.createPost = (req, res, next) => { //function de callback
     title: req.body.title,
     content: req.body.content,
     image: req.body.image, 
-    likes : 0,
     UserId : req.auth.userId  // ajoute id post = userid de la req
     });
     console.log(post);
