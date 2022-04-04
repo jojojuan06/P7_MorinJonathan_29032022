@@ -152,14 +152,14 @@ exports.likePost = (req, res, next) => {
             }
             break;
             // CAS: Annulation du like/dislike
-            case 0: 
+            case 0:      
             if (!like) {   
                 return res.status(403).json({ message: "Le like n'existe pas !"})    
-            } else {      
+            } else {         
             post.likes-- //j'enleve un like
             like.destroy()
             post.save() //sauvegarde supprime le like
-            .then(() => res.status(204).json({ message: "le like a etait enlever !"})) //modification d'une ressource (suppresion)
+            .then(() => res.status(200).json({ message: "le like a etait enlever !"})) 
             .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));   
             }
             break;    
