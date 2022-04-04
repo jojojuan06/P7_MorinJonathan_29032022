@@ -41,7 +41,8 @@ Object.keys(db).forEach(modelName => {
 sequelize.authenticate()
 .then( async ()=> {
     console.log('connexion réussie :)');
-    await sequelize.sync({alter: true}) //synchronise les tables
+    //synchronisation des tables(model)
+    await sequelize.sync({alter: true}) 
     console.log('synchronisation réussie ');
 }) .catch((error) => {
     console.log(`synchronisation échouée  ${error}`);
