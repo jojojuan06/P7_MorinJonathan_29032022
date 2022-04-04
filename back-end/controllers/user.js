@@ -125,8 +125,7 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
                             fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
                         }
                         newUser.profile_img = `${req.protocol}://${req.get('host')}/images/${req.files.profile_img[0].filename}` //remplace pas la new img (premier element du field(tableau))
-                        console.log("user.js  ligne 126",newUser.profile_img);
-                    }
+                }
                 newUser.save() //sauvegarde le nouveau user
                 .then(() => res.status(200).json({ message: 'Profile modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
                 .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
