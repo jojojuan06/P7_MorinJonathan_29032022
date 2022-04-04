@@ -13,7 +13,7 @@ exports.createComment = (req, res, next) => { //function de callback
     }
     //verification du contenue text 
     if (req.body.content == null) { 
-        return res.status(400).json({ message : `Votre post doit contenir du texte`})
+        return res.status(400).json({ message : `Votre commentaire doit contenir du texte`})
     } 
     // verifier un nombre de caractere donnée
     if (req.body.content.length <= 4 ) {
@@ -22,9 +22,10 @@ exports.createComment = (req, res, next) => { //function de callback
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     let comment = new Comment({  //recupere mon objet de la req
     content: req.body.content,
-    PosteId: req.body.postId, 
+    PostId: req.body.postId, 
     UserId : req.auth.userId  // ajoute id comment = userid de la req
     });
+    console.log(comment);
     comment.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
     .then(() => res.status(201).json({ message: 'Commentaire enregistré !'})) //201 la requête a réussi avec le message
     .catch(error => res.status(400).json({ message: `⚠ Oops, une erreur s\'est produite !${error}`}));
