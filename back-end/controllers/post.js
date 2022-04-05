@@ -46,7 +46,8 @@ exports.updatePost = (req, res, next) => {//exporter une function createuser / c
     .then(post => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
     if (post.userId === req.auth.userId ||  req.auth.admin == true ) {
             let newPost = Object.assign(post,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
-            if (req.files) { //si il y a une img dans la req
+            if (req.files.image) { //si il y a une img dans la req
+                console.log(req.files);
                 if (post.image != "") { //verifier si le post a deja une image
                     // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
                     fs.unlink(`images/${post.image.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
