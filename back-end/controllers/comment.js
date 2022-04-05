@@ -25,7 +25,6 @@ exports.createComment = (req, res, next) => { //function de callback
     PostId: req.body.postId, 
     UserId : req.auth.userId  // ajoute id comment = userid de la req
     });
-    console.log(comment);
     comment.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
     .then(() => res.status(201).json({ message: 'Commentaire enregistré !'})) //201 la requête a réussi avec le message
     .catch(error => res.status(400).json({ message: `⚠ Oops, une erreur s\'est produite !${error}`}));

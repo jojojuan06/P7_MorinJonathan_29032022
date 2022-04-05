@@ -10,7 +10,6 @@ const { Like, Post, User} = require('../models')
 
 //Creation d'un post POST
 exports.createPost = (req, res, next) => { //function de callback
-    console.log(req.body);
     //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
     if (validator.isEmpty(`${req.body.content}`) || 
         validator.isEmpty(`${req.body.title}`)) {
@@ -31,7 +30,6 @@ exports.createPost = (req, res, next) => { //function de callback
     image: req.body.image, 
     UserId : req.auth.userId  // ajoute id post = userid de la req
     });
-    console.log(post);
     if (req.files) { // si mon fichier dans la req on ajoute
     post.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}`//adresse(http ou https) /localhost/nom du fichier    
     } //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
