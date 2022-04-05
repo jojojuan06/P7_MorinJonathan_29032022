@@ -6,7 +6,7 @@ const { Post, Like } = require('../models')
 
 
 
-//POST-- LIKE UN POST
+//creation d'un like Post
 exports.createLike = (req, res, next) => { 
      // like de ma req sup a 1 ou inf 0
     if (req.body.like > 1 || req.body.like < 0 ) {   
