@@ -12,10 +12,10 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
     // définir l'association ici (relation entre les tables)
     //  Post appartient a un utilisateur (belongTo)
-    models.Post.belongsTo(models.User, { 
+    models.Post.belongsTo(models.User, {  //{ foreignKey: userId }
     }) 
     // définir l'association ici (post a plusieur ==> like)
-    models.Post.hasMany(models.Like,
+    models.Post.hasMany(models.Like,  
         { onDelete: 'cascade' , hooks: true},
         { onUpdate: 'cascade' , hooks: true}
       );    
