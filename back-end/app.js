@@ -10,6 +10,7 @@ const helmet = require('helmet'); // sécurisation injection
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/posts');
 const commentRoutes = require('./routes/comment.js');
+const likeRoutes = require('./routes/like.js');
 //-----------------
 
 // appelle de la methode express (une function) permet de crée une application expresse
@@ -42,6 +43,7 @@ app.use('/images', express.static(path.join(__dirname, 'images')));// multer ger
 app.use('/api/auth', userRoutes); 
 app.use('/api/post', postRoutes);
 app.use('/api/comment', commentRoutes);
+app.use('/api/like', likeRoutes);
 //app.use , importer et appliquer a la meme route (contient la logique des routes)
 //------------------
 
