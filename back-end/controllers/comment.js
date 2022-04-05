@@ -42,7 +42,7 @@ exports.updateComment = (req, res, next) => {//exporter une function createuser 
             .then(() => res.status(200).json({ message: 'Commentaire modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
             } else {
-            res.status(403).json({ message: `vous n'etes pas autoriser a modifiée ce post` });  
+            res.status(403).json({ message: `vous n'etes pas autoriser a modifiée ce commentaire` });  
         }
     })
     .catch(error => res.status(404).json({ message: `nous faisons face a cette: ${error}` })); 
