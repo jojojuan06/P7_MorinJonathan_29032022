@@ -87,7 +87,10 @@ exports.deleteComment = (req, res, next) => {
     exports.getAllComment = (req, res, next) => {    
         //création des objet-----------
         Comment.findAll({include:User}) //recuperer la table user egalement
-            .then(comments => res.status(200).json(comments)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
+        .then(comments => {
+            console.log(comments);
+
+            res.status(200).json(comments)}) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
         }
     //-------------

@@ -98,17 +98,8 @@ exports.deletePost = (req, res, next) => {
     //recuperer un post GET
     exports.getOnePost = (req, res, next) => { 
         let id = req.params.id // avoir acces  dans l'objet req.pams.id
-        Post.findOne( { where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
-        }) 
-        .then(post => res.status(200).json(post)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
-        .catch(error => res.status(404).json({ message: `post non trouvé: ${error}` }));
-    }
-    //-------------
-    
-    //recuperer tous les post GET ALL
-    exports.getAllPost = (req, res, next) => {    
-        //création des objet-----------
-        Post.findAll({include:[
+        Post.findOne({ where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
+            include:[
                 {
                     //recuperation du model user inclu avec des atttributs specifier (ex:evite de donné le Mdp)
                     model:User,
@@ -118,8 +109,17 @@ exports.deletePost = (req, res, next) => {
                         "email"
                     ]
                 }
-            ]
-        })
+            ]    
+        }) 
+        .then(post => res.status(200).json(post)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
+        .catch(error => res.status(404).json({ message: `post non trouvé: ${error}` }));
+    }
+    //-------------
+    
+    //recuperer tous les post GET ALL
+    exports.getAllPost = (req, res, next) => {    
+        //création des objet-----------
+        Post.findAll()
         .then(posts => res.status(200).json(posts)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
     }
