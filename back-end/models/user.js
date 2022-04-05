@@ -14,8 +14,14 @@ module.exports = (sequelize, DataTypes) => {
       models.User.hasMany(models.Post,
         { onDelete: 'cascade' , hooks: true},
         { onUpdate: 'cascade' , hooks: true}
-      ); //utilisateur a plusieur like (hasMany)
+      ); 
+      //utilisateur a plusieur like (hasMany)
       models.User.hasMany(models.Like,
+        { onDelete: 'cascade' , hooks: true},
+        { onUpdate: 'cascade' , hooks: true}
+      );
+      //utilisateur a plusieur Comment (hasMany)
+      models.User.hasMany(models.Comment,
         { onDelete: 'cascade' , hooks: true},
         { onUpdate: 'cascade' , hooks: true}
       );

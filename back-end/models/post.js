@@ -10,16 +10,21 @@ module.exports = (sequelize, DataTypes) => {
     * Le fichier `models/index` appellera cette méthode automatiquement.
     */
     static associate(models) {
-    // définir l'association ici (relation entre les tables)
-    //  Post appartient a un utilisateur (belongTo)
-    models.Post.belongsTo(models.User, {  //{ foreignKey: userId }
-    }) 
-    // définir l'association ici (post a plusieur ==> like)
-    models.Post.hasMany(models.Like,  
+      // définir l'association ici (relation entre les tables)
+      //  Post appartient a un utilisateur (belongTo)
+      models.Post.belongsTo(models.User, {  //{ foreignKey: userId }
+      }) 
+      // définir l'association ici (post a plusieur ==> like)
+      models.Post.hasMany(models.Like,  
+          { onDelete: 'cascade' , hooks: true},
+          { onUpdate: 'cascade' , hooks: true}
+        ); 
+      // définir l'association ici (post a plusieur ==> comment)
+      models.Post.hasMany(models.Comment,  
         { onDelete: 'cascade' , hooks: true},
         { onUpdate: 'cascade' , hooks: true}
-      );    
-    }
+      );
+    } 
   }
   Post.init({
     UserId: {
