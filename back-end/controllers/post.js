@@ -75,7 +75,7 @@ exports.deletePost = (req, res, next) => {
                 return res.status(404).json({ message: "Le post n'existe pas !"})
             }
             // verifier que seulement la personne qui detient l'objet peu le supprimer
-            if (post.userId !== req.auth.userId) { //different de req.auth
+            if (post.userId !== req.auth.userId || req.auth.admin == true ) { //different de req.auth
                 return res.status(401).json({ //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
                     error: new Error('Requete non autorisé !')
                 });   
