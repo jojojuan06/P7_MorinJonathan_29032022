@@ -56,7 +56,7 @@ exports.deleteComment = (req, res, next) => {
     //trouver id a celui qui est dans les parametres de la req ,recupere un post (produit) dans le callback (function de rapelle)
     .then((comment) => {// recupere le post dans la base
             if (!comment) { // si le commentaire n'existe pas
-                return res.status(404).json({ message: "Le post n'existe pas !"})
+                return res.status(404).json({ message: "Le commentaire n'existe pas !"})
             }
             // verifier que seulement la personne qui detient l'objet peu le supprimer
             if (comment.UserId !== req.auth.userId) { //different de req.auth
