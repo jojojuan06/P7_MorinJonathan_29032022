@@ -20,9 +20,11 @@ const app = express();
 
 //reponse par default et donc retourn bien notre application on recoit l'objet request response et next pour passez middleware suivant
 app.use((req, res, next) => { 
-    // qui peut acceder a l'api '*' signifie all tous le monde  a acces au serveur origin
-    res.setHeader('Access-Control-Allow-Origin', '*'); //header ajouter un header aux routes  setheader sur nos response 
-    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization'); //autorise certaine header (en tete)sur l'objet requete
+    // qui peut acceder a l'api '*' (signifie all tous le monde  a acces au serveur origin)
+    res.setHeader('Access-Control-Allow-Origin', '*'); 
+     //autorise certaine header (en tete)sur l'objet requete
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
+     //autorise certaine Requete
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS'); //autorise certaine methode requete
     next();
 });
