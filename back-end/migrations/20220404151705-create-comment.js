@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      UserId: {
+      userId: {
         type: Sequelize.INTEGER,
         //reference au model crée users (id)
         references:{
@@ -17,7 +17,7 @@ module.exports = {
         key:'id'
         }
       },
-      PostId: {
+      postId: {
         type: Sequelize.INTEGER,
          //reference au model crée users (id)
           references:{

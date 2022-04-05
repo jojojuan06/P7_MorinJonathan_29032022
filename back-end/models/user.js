@@ -12,16 +12,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // définir l'association ici a plusieur post (post)
       models.User.hasMany(models.Post,
+        {foreignKey: "userId"},
         { onDelete: 'cascade' , hooks: true},
         { onUpdate: 'cascade' , hooks: true}
       ); 
       //utilisateur a plusieur like (hasMany)
       models.User.hasMany(models.Like,
+        {foreignKey: "userId"},
         { onDelete: 'cascade' , hooks: true},
         { onUpdate: 'cascade' , hooks: true}
       );
       //utilisateur a plusieur Comment (hasMany)
       models.User.hasMany(models.Comment,
+        {foreignKey: "userId"},
         { onDelete: 'cascade' , hooks: true},
         { onUpdate: 'cascade' , hooks: true}
       );

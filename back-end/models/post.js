@@ -12,22 +12,25 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // définir l'association ici (relation entre les tables)
       //  Post appartient a un utilisateur (belongTo)
-      models.Post.belongsTo(models.User, {  //{ foreignKey: userId }
+      models.Post.belongsTo(models.User, { 
+        foreignKey: "userId" 
       }) 
       // définir l'association ici (post a plusieur ==> like)
       models.Post.hasMany(models.Like,  
+          {foreignKey: "postId"},
           { onDelete: 'cascade' , hooks: true},
           { onUpdate: 'cascade' , hooks: true}
         ); 
       // définir l'association ici (post a plusieur ==> comment)
       models.Post.hasMany(models.Comment,  
+        {foreignKey: "postId"},
         { onDelete: 'cascade' , hooks: true},
         { onUpdate: 'cascade' , hooks: true}
       );
     } 
   }
   Post.init({
-    UserId: {
+    userId: {
       type: DataTypes.INTEGER,
       allowNull: false
     },

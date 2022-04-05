@@ -28,7 +28,7 @@ exports.createPost = (req, res, next) => { //function de callback
     title: req.body.title,
     content: req.body.content,
     image: req.body.image, 
-    UserId : req.auth.userId  // ajoute id post = userid de la req
+    userId : req.auth.userId  // ajoute id post = userid de la req
     });
     if (req.files) { // si mon fichier dans la req on ajoute
     post.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}`//adresse(http ou https) /localhost/nom du fichier    
@@ -44,7 +44,7 @@ exports.createPost = (req, res, next) => { //function de callback
 exports.updatePost = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
     Post.findOne({ WHERE:{ id: req.params.id,}})
     .then(post => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
-    if (post.UserId === req.auth.userId ||  req.auth.admin == true ) {
+    if (post.userId === req.auth.userId ||  req.auth.admin == true ) {
             let newPost = Object.assign(post,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.files) { //si il y a une img dans la req
                 if (post.image != "") { //verifier si le post a deja une image
@@ -74,7 +74,7 @@ exports.deletePost = (req, res, next) => {
                 return res.status(404).json({ message: "Le post n'existe pas !"})
             }
             // verifier que seulement la personne qui detient l'objet peu le supprimer
-            if (post.UserId !== req.auth.userId) { //different de req.auth
+            if (post.userId !== req.auth.userId) { //different de req.auth
                 return res.status(401).json({ //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
                     error: new Error('Requete non autorisé !')
                 });   
@@ -138,7 +138,7 @@ exports.likePost = (req, res, next) => {
             if (!post) { // si le post n'existe pas
                 return res.status(404).json({ message: "Le post n'existe pas !"})
             } //rechercher poste_id et user_id (de la bd)
-            Like.findOne({ WHERE: { UserId: req.auth.userId, PostId: post.id }})
+            Like.findOne({ WHERE: { userId: req.auth.userId, postId: post.id }})
             .then( like => {
                 // Différents cas:
                 switch (req.body.like) {
@@ -149,8 +149,8 @@ exports.likePost = (req, res, next) => {
                     } else { // au quelle cas je recupere le like du post et je lui ajoute 1
                         post.likes++ //j'incremente de 1
                         like = new Like ({ //cree mon objet de like
-                        UserId: req.auth.userId, //id de l'utilisateur
-                        PostId: post.id //id du post
+                        userId: req.auth.userId, //id de l'utilisateur
+                        postId: post.id //id du post
                     })  
                     like.save()//sauvegarde ajout du like 
                     post.save() //sauvegarde dans la bdd

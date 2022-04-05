@@ -12,13 +12,15 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       //console.log(models);
       // définir l'association ici
-      //Les associations BelongsTo (appartient)
-      models.Like.belongsTo(models.Post);//model.user reference { foreignKey: postId }
+      //Les associations BelongsTo (appartient),model.user reference
+      models.Like.belongsTo(models.Post,{ foreignKey: "postId" }); 
       // définir l'association ici (like ==> user appartient plusieur)
-      models.Like.belongsTo(models.User);//{ foreignKey: userId }    
+      models.Like.belongsTo(models.User,{ foreignKey: "userId" });   
       }     
     }
   Like.init({
+    userId: DataTypes.INTEGER,
+    postId:DataTypes.INTEGER,
   }, {
     sequelize,
     modelName: 'Like',

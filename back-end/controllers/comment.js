@@ -22,8 +22,8 @@ exports.createComment = (req, res, next) => { //function de callback
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     let comment = new Comment({  //recupere mon objet de la req
     content: req.body.content,
-    PostId: req.body.postId, 
-    UserId : req.auth.userId  // ajoute id comment = userid de la req
+    postId: req.body.postId, 
+    userId : req.auth.userId  // ajoute id comment = userid de la req
     });
     comment.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
     .then(() => res.status(201).json({ message: 'Commentaire enregistré !'})) //201 la requête a réussi avec le message
@@ -36,7 +36,7 @@ exports.createComment = (req, res, next) => { //function de callback
 exports.updateComment = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
     Comment.findOne({ WHERE:{ id: req.params.id,}})
     .then(comment => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
-    if (comment.UserId === req.auth.userId ||  req.auth.admin == true ) {
+    if (comment.userId === req.auth.userId ||  req.auth.admin == true ) {
             let newComment = Object.assign(comment,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
             newComment.save() //sauvegarde le nouveau post
             .then(() => res.status(200).json({ message: 'Commentaire modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
@@ -59,7 +59,7 @@ exports.deleteComment = (req, res, next) => {
                 return res.status(404).json({ message: "Le commentaire n'existe pas !"})
             }
             // verifier que seulement la personne qui detient l'objet peu le supprimer
-            if (comment.UserId !== req.auth.userId) { //different de req.auth
+            if (comment.userId !== req.auth.userId) { //different de req.auth
                 return res.status(401).json({ //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
                     error: new Error('Requete non autorisé !')
                 });   
