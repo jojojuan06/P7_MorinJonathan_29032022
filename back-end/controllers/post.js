@@ -76,9 +76,8 @@ exports.deletePost = (req, res, next) => {
             }
             // verifier que seulement la personne qui detient l'objet peu le supprimer
             if (post.userId !== req.auth.userId || req.auth.admin == true ) { //different de req.auth
-                return res.status(401).json({ //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
-                    error: new Error('Requete non autorisé !')
-                });   
+                //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
+                return res.status(401).json({ message:'utilisateur non autorisé !'});   
             }
             if (post.image != "") { //si l'image existe
             //split retourne un tableaux de que qu'il y a avant  /image , apres /image
