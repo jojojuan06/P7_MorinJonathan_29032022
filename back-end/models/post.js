@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
     //Post appartient a un utilisateur (belongTo)
     models.Post.belongsTo(models.User, { 
     }) 
-    // définir l'association ici (post a plusieur ==> like )
+    // définir l'association ici (post a plusieur ==> like)
     models.Post.hasMany(models.Like,
         { onDelete: 'cascade' , hooks: true},
         { onUpdate: 'cascade' , hooks: true}
