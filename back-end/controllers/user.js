@@ -15,7 +15,6 @@ const { User } = require('../models')// recuperer index.js. ,qui vas me cherche 
 
 //enregistrement de nouveaux utilisateur(crypter le mdp , cree un new user avec hash +email et enregistrer user dans la bdd)
 exports.signup = (req, res, next) => {
-    console.log(req.body);
     const email = req.body.email; // recupere l'email du corp de la requete
     //verification de email
     if (!validator.isEmail(email)) { //si se n'est pas un email valide (validator) on retourne l'erreur
@@ -119,7 +118,6 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
                 //copie les valeurs de toutes les propriétés directes (non héritées)
                 let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
                 if (req.files) { //si il y a une img dans la req (sur fichier multiple)
-                    console.log(req.files);
                     if (user.profile_img != '') { //verifier si le user a deja une image de profil
                             // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
                             fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
