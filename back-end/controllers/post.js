@@ -42,7 +42,7 @@ exports.createPost = (req, res, next) => { //function de callback
 
 //mettre a jour un post PUT
 exports.updatePost = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
-    Post.findOne({ WHERE:{ id: req.params.id,}})
+    Post.findOne({ where:{ id: req.params.id,}})
     .then(post => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
     if (post.userId === req.auth.userId ||  req.auth.admin == true ) {
             let newPost = Object.assign(post,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
@@ -97,7 +97,7 @@ exports.deletePost = (req, res, next) => {
     //recuperer un post GET
     exports.getOnePost = (req, res, next) => { 
         let id = req.params.id // avoir acces  dans l'objet req.pams.id
-        Post.findOne( { WHERE:{id: id},//trouver un objet avec WHERE , on pass l'objet en conparaison id  egal le parm de req id
+        Post.findOne( { where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
         }) 
         .then(post => res.status(200).json(post)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
         .catch(error => res.status(404).json({ message: `post non trouvé: ${error}` }));
@@ -133,12 +133,14 @@ exports.likePost = (req, res, next) => {
     return res.status(400).json({ message: "requete non autorisé"})
     }
     else { //sinon on execute le code    
-        Post.findOne({ WHERE: { id: req.params.id }}) // recherche id du post
+        console.log("info-->",req.params.id);
+        Post.findOne({ where: { id: req.params.id }}) // recherche id du post
         .then(post => {
+            console.log("info-->",post);
             if (!post) { // si le post n'existe pas
                 return res.status(404).json({ message: "Le post n'existe pas !"})
             } //rechercher poste_id et user_id (de la bd)
-            Like.findOne({ WHERE: { userId: req.auth.userId, postId: post.id }})
+            Like.findOne({ where: { userId: req.auth.userId, postId: post.id }})
             .then( like => {
                 // Différents cas:
                 switch (req.body.like) {

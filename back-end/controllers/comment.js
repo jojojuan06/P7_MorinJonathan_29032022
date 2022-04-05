@@ -34,7 +34,7 @@ exports.createComment = (req, res, next) => { //function de callback
 
 //mettre a jour d'un Commentaire PUT
 exports.updateComment = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
-    Comment.findOne({ WHERE:{ id: req.params.id,}})
+    Comment.findOne({ where:{ id: req.params.id,}})
     .then(comment => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
     if (comment.userId === req.auth.userId ||  req.auth.admin == true ) {
             let newComment = Object.assign(comment,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
@@ -76,7 +76,7 @@ exports.deleteComment = (req, res, next) => {
     //recuperer un commentaire GET
     exports.getOneComment = (req, res, next) => { 
         let id = req.params.id // avoir acces  dans l'objet req.pams.id
-        Comment.findOne( { WHERE:{id: id},//trouver un objet avec WHERE , on pass l'objet en conparaison id  egal le parm de req id
+        Comment.findOne( { where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
         }) 
         .then(comment => res.status(200).json(comment)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
         .catch(error => res.status(404).json({ message: `Commentaire non trouvé: ${error}` }));

@@ -48,7 +48,7 @@ exports.signup = (req, res, next) => {
 //connecter un utilisateur existant
 exports.login = (req, res, next) => {
     //db pour trouver un seul utilisateur de la BD , where cible l'element  
-    User.findOne({ Where:{ email: req.body.email } }) //on veut que email correspond a la req
+    User.findOne({ where:{ email: req.body.email } }) //on veut que email correspond a la req
     .then(user => {
         //si user (!user) n'est pas trouver  on renvoi le return message d'error
         if (!user) {
@@ -85,7 +85,7 @@ exports.login = (req, res, next) => {
 // recuperer un utilisateur GET
 exports.getOneUser = (req, res, next) => { 
     let id = req.params.id; // avoir acces  dans l'objet req.pams.id
-    User.findOne( { WHERE:{id: id},//trouver un objet avec WHERE , on pass l'objet en conparaison id  egal le parm de req id
+    User.findOne( { where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
     attributes:["email","name","firstname","profile_img"] //clef que je veut montrer en clair
     })
     .then(user => res.status(200).json(user)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
@@ -112,7 +112,7 @@ exports.getAllUser = (req, res, next) => {
 //admin : user.admin
 // modifier l'utilisateur PUT
 exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route user / creation dun user
-    User.findOne({ WHERE:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
+    User.findOne({ where:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil    
     if (user.id == req.auth.userId ||  req.auth.admin == true ) {
                 //copie les valeurs de toutes les propriétés directes (non héritées)
@@ -138,7 +138,7 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
 // supprimer l'utilisateur DELETE
 exports.deleteUser = (req, res, next) => {
     // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
-    User.findOne({ WHERE:{ id: req.params.id}})
+    User.findOne({ where:{ id: req.params.id}})
     //trouver id a celui qui est dans les parametres de la req ,recupere un user (produit) dans le callback (function de rapelle)
     .then((user) => {// recupere le user dans la base
             if (!user) { // si user n'existe pas
