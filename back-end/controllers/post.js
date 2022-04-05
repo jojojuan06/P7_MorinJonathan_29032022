@@ -81,9 +81,7 @@ exports.deletePost = (req, res, next) => {
             }
             if (post.image != "") { //si l'image existe
             //split retourne un tableaux de que qu'il y a avant  /image , apres /image
-            console.log("info-->",post.image);
             const filename = post.image.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
-            console.log("info-->",filename);
             // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
             fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
             }
