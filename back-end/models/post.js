@@ -10,9 +10,8 @@ module.exports = (sequelize, DataTypes) => {
     * Le fichier `models/index` appellera cette méthode automatiquement.
     */
     static associate(models) {
-    // définir l'association ici
-    //Les associations Belongs-To-Many sont utilisées pour connecter des sources à plusieurs cibles. De plus, les cibles peuvent également avoir des connexions à plusieurs sources.
-    //Post appartient a un utilisateur (belongTo)
+    // définir l'association ici (relation entre les tables)
+    //  Post appartient a un utilisateur (belongTo)
     models.Post.belongsTo(models.User, { 
     }) 
     // définir l'association ici (post a plusieur ==> like)
