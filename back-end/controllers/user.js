@@ -117,7 +117,7 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
     if (user.id == req.auth.userId ||  req.auth.admin == true ) {
                 //copie les valeurs de toutes les propriétés directes (non héritées)
                 let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
-                if (req.files.profile_img) { //si il y a une img dans la req (sur fichier multiple)
+                if (req.files) { //si il y a une img dans la req (sur fichier multiple)
                     if (user.profile_img != '') { //verifier si le user a deja une image de profil
                             // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
                             fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
@@ -163,6 +163,6 @@ exports.deleteUser = (req, res, next) => {
                 });
             } 
         })
-        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
+        .catch(error => res.status(400).json({ message: `Vous n'etes pas autoriser a supprimé cette utilisateur` }));
 };
 //-----------------
