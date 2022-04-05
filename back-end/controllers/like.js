@@ -57,7 +57,7 @@ exports.deleteLike = (req, res, next) => {
     //trouver id a celui qui est dans les parametres de la req ,recupere un post (produit) dans le callback (function de rapelle)
     .then((like) => {// recupere le post dans la base
             if (!like) { // si le like n'existe pas
-                return res.status(404).json({ message: "Le  n'existe pas !"})
+                return res.status(404).json({ message: "Le like n'existe pas !"})
             }
             // verifier que seulement la personne qui detient l'objet peu le supprimer
             if (like.userId !== req.auth.userId) { //different de req.auth
