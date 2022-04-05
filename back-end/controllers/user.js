@@ -158,11 +158,9 @@ exports.deleteUser = (req, res, next) => {
                     .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)        
             }
             else {//probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
-                return res.status(401).json({ 
-                error: new Error('Requete non autorisé !')
-                });
+                return res.status(403).json({ message: 'utilisateur non autorisé !'}); //comprend la req / refus de l'auth
             } 
         })
-        .catch(error => res.status(400).json({ message: `Vous n'etes pas autoriser a supprimé cette utilisateur` }));
+    .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
 };
 //-----------------
