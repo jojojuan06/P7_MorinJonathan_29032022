@@ -13,7 +13,6 @@ exports.createLike = (req, res, next) => {
         return res.status(400).json({ message: "requete non autorisé"})
     }
     else { //sinon on execute le code    
-        console.log("info-->",req.params.id);
         Post.findOne({ where: { id: req.params.id }}) // recherche id du post
         .then(post => {
             if (!post) { // si le post n'existe pas
