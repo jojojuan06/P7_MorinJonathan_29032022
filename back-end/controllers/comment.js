@@ -94,11 +94,13 @@ exports.deleteComment = (req, res, next) => {
                     ]
                 }
             ]    
-        }) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
-        .then(comment => {
-            if (comment == null) {
-                return res.status(404).json({message: `le commentaire n'existe pas`})
-            }else {
+        }) 
+            .then(comment => {
+                //si le commentaire n'existe pas renvoi le message d'erreur
+                if (comment == null) {
+                    return res.status(404).json({message: `le commentaire n'existe pas`}) //404 ressource non trouvé
+                }else {
+                // retourne la response 200 pour ok pour la methode http , renvoi l'objet si il existe dans la Bd
                 return res.status(200).json(comment)
             }
         })
