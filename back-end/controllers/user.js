@@ -88,8 +88,14 @@ exports.getOneUser = (req, res, next) => {
     User.findOne( { where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
     attributes:["email","name","firstname","profile_img"] //clef que je veut montrer en clair
     })
-    .then(user => res.status(200).json(user)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
-    .catch(error => res.status(404).json({ message: `l'utilisateur n'exist pas` }));
+    .then(user => {
+        if (!user) { //si l'utilisateur n'existe pas
+            return res.status(404).json({message: `l'utilisateur n'existe pas`}); //404 ressource non trouvé user
+        } else {
+        return res.status(200).json(user) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd    
+        }
+    })
+    .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
 }
 //-----------------
 
