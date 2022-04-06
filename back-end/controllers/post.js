@@ -110,8 +110,16 @@ exports.deletePost = (req, res, next) => {
                 }
             ]    
         }) 
-        .then(post => res.status(200).json(post)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
-        .catch(error => res.status(404).json({ message: `post non trouvé: ${error}` }));
+        .then(post => {
+            //si le commentaire n'existe pas renvoi le message d'erreur
+            if (!post) {
+                return res.status(404).json({message: `le post n'existe pas`}); //404 ressource non trouvé    
+            } else {
+            // retourne la response 200 pour ok pour la methode http , renvoi l'objet si il existe dans la Bd
+            return res.status(200).json(post);    
+            }
+        }) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
+        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
     }
     //-------------
     
