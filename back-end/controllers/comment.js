@@ -79,10 +79,30 @@ exports.deleteComment = (req, res, next) => {
     exports.getOneComment = (req, res, next) => { 
         let id = req.params.id // avoir acces  dans l'objet req.pams.id
         //trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
+        if (Comment == null) {
+            return res.status(404).json({message: `Commentaire non trouvé`})
+        }
         Comment.findOne( { where:{id: id},
-        }) 
-        .then(comment => res.status(200).json(comment)) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
-        .catch(error => res.status(404).json({ message: `Commentaire non trouvé: ${error}` }));
+            include:[
+                {
+                    //recuperation du model user inclu avec des atttributs specifier (ex:evite de donné le Mdp)
+                    model:User,
+                    attributes:[
+                        "name",
+                        "firstname",
+                        "email"
+                    ]
+                }
+            ]    
+        }) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
+        .then(comment => {
+            if (comment == null) {
+                return res.status(404).json({message: `le commentaire n'existe pas`})
+            }else {
+                return res.status(200).json(comment)
+            }
+        })
+        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
     }
     //-------------
     
