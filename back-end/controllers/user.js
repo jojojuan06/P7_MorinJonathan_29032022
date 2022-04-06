@@ -92,7 +92,8 @@ exports.getOneUser = (req, res, next) => {
         if (!user) { 
             //si l'utilisateur n'existe pas retourne le message (null)
             return res.status(404).json({message: `l'utilisateur n'existe pas`}); //404 ressource non trouvé user
-        } else {
+            // sinon ok on retounr l'utilisateur
+        } else { r
         return res.status(200).json(user) // retourne la response 200 pour ok pour la methode http , renvoi l'objet si il existe dans la Bd    
         }
     })
