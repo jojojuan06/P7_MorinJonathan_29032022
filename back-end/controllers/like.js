@@ -12,7 +12,7 @@ exports.createLike = (req, res, next) => {
     if (req.body.like > 1 || req.body.like < 0 ) {   
         return res.status(400).json({ message: "requete non autorisé"})
     }
-    else { //sinon on execute le code    
+    else { //sinon on execute le code 
         Post.findOne({ where: { id: req.params.id }}) // recherche id du post
         .then(post => {
             if (!post) { // si le post n'existe pas
@@ -20,6 +20,9 @@ exports.createLike = (req, res, next) => {
             } //rechercher poste_id et user_id (de la bd)
             Like.findOne({ where: { userId: req.auth.userId, postId: post.id }})
             .then( like => {
+                if (like) {
+                    return res.status(409).json({ message : 'Vous avez deja liké se posts !'}) //erreur conflit , req ne peut etre traité
+                }
                 like = new Like ({ //cree mon objet de like
                     userId: req.auth.userId, //id de l'utilisateur
                     postId: post.id //id du post
