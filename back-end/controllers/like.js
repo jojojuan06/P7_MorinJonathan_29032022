@@ -20,8 +20,8 @@ exports.createLike = (req, res, next) => {
             } //rechercher poste_id et user_id (de la bd)
             Like.findOne({ where: { userId: req.auth.userId, postId: post.id }})
             .then( like => {
-                if (like) {
-                    return res.status(409).json({ message : 'Vous avez deja liké se posts !'}) //erreur conflit , req ne peut etre traité
+                if (like) { //erreur (409) conflit , req ne peut etre traité
+                    return res.status(409).json({ message : 'Vous avez deja liké se posts !'}) 
                 }
                 like = new Like ({ //cree mon objet de like
                     userId: req.auth.userId, //id de l'utilisateur
