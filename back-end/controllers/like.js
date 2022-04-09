@@ -4,15 +4,8 @@
 const validator = require('validator'); 
 const { Post, Like } = require('../models')
 
-
-
 //creation d'un like Post
 exports.createLike = (req, res, next) => { 
-     // like de ma req sup a 1 ou inf 0
-    if (req.body.like > 1 || req.body.like < 0 ) {   
-        return res.status(400).json({ message: "requete non autorisé"})
-    }
-    else { //sinon on execute le code 
         Post.findOne({ where: { id: req.params.id }}) // recherche id du post
         .then(post => {
             if (!post) { // si le post n'existe pas
@@ -33,7 +26,7 @@ exports.createLike = (req, res, next) => {
             })    
         })
     }    
-}
+
 
 //mettre a jour d'un Like PUT
 exports.updateLike = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
@@ -63,9 +56,8 @@ exports.deleteLike = (req, res, next) => {
             }
             // verifier que seulement la personne qui detient l'objet peu le supprimer
             if (like.userId !== req.auth.userId) { //different de req.auth
-                return res.status(401).json({ //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
-                    error: new Error('Requete non autorisé !')
-                });   
+                //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
+                return res.status(401).json({ message: 'Requete non autorisé !'});   
             }
             //recuperer l'id des paramettre de route ,si oui on effectue la suppression
             like.destroy() // supprime le post crée   
