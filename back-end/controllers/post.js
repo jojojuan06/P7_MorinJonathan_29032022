@@ -25,13 +25,13 @@ exports.createPost = (req, res, next) => { //function de callback
     }
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     let post = new Post({  //recupere mon objet de la req
-    title: req.body.title,
-    content: req.body.content,
-    image: req.body.image, 
-    userId : req.auth.userId  // ajoute id post = userid de la req
+        title: req.body.title,
+        content: req.body.content,
+        image: req.body.image, 
+        userId : req.auth.userId  // ajoute id post = userid de la req
     });
     if (req.files) { // si mon fichier dans la req on ajoute
-    post.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}`//adresse(http ou https) /localhost/nom du fichier    
+        post.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}`//adresse(http ou https) /localhost/nom du fichier    
     } //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
     post.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
     .then(() => res.status(201).json({ message: 'Objet enregistré !'})) //201 la requête a réussi avec le message
