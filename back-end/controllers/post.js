@@ -34,7 +34,7 @@ exports.createPost = (req, res, next) => { //function de callback
         post.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}` //adresse(http ou https) /localhost/nom du fichier 
     } //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
     post.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
-    .then(() => res.status(201).json({ message: 'Objet enregistré !'})) //201 la requête a réussi avec le message
+    .then(() => res.status(201).json({ message: 'post enregistré !'})) //201 la requête a réussi avec le message
     .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
 };
 //-------------
@@ -42,9 +42,6 @@ exports.createPost = (req, res, next) => { //function de callback
 
 //mettre a jour un post PUT
 exports.updatePost = (req, res, next) => {
-    if (!req.auth) {
-        return res.status(401).json({ message: `Merci de vous authentifier`})    
-    }
     Post.findOne({ where:{ id: req.params.id,}})
     .then(post => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
         //si post existe pas retourne l'erreur
@@ -74,12 +71,6 @@ exports.updatePost = (req, res, next) => {
 
 //supprimer un post DELETE
 exports.deletePost = (req, res, next) => {
-    if (!req.auth) {
-        return res.status(401).json({ message: `Merci de vous authentifier`})    
-    }
-    if (validator.isEmpty(req.auth)) { //verifie l'authentification
-        return res.status(401).json({ message: `Merci de vous authentifier`})    
-    }
     // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
     Post.findOne({ id: req.params.id })
     //trouver id a celui qui est dans les parametres de la req ,recupere un post (produit) dans le callback (function de rapelle)
