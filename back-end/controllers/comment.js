@@ -9,9 +9,9 @@ const { User, Comment ,Post} = require('../models')
 exports.createComment = (req, res, next) => { //function de callback
 Post.findOne({ where: { id: req.body.postId }}) // recherche id du post
     .then(post => {
-            if (!post) {
-                return res.status(404).json({ message : `Votre post n'existe pas`})
-            }
+        if (!post) {
+            return res.status(404).json({ message : `Votre post n'existe pas`})
+        }
         //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
         if (validator.isEmpty(`${req.body.content}`)) {
             return res.status(400).json({ message: `le champs ne doit pas être vide`})    
@@ -25,7 +25,7 @@ Post.findOne({ where: { id: req.body.postId }}) // recherche id du post
             return res.status(400).json({ message : `Votre Commentaire doit contenir au moins 4 caractère`})  
         }
         // creation d'une nouvelle instance  de mon objet post (class) de le req
-        let comment = new Comment({  //recupere mon objet de la req
+        const comment = new Comment({  //recupere mon objet de la req
         content: req.body.content,
         postId: req.body.postId, 
         userId : req.auth.userId  // ajoute id comment = userid de la req
@@ -50,7 +50,7 @@ exports.updateComment = (req, res, next) => {//exporter une function createuser 
             return res.status(404).json({ message: "Le commentaire n'existe pas !"})
         }
         if (comment.userId === req.auth.userId ||  req.auth.admin == true) {
-            let newComment = Object.assign(comment,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
+            const newComment = Object.assign(comment,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
             newComment.save() //sauvegarde le nouveau post
             .then(() => res.status(200).json({ message: 'Commentaire modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
