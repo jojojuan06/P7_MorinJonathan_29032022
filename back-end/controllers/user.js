@@ -121,9 +121,6 @@ exports.getAllUser = (req, res, next) => {
 //admin : user.admin
 // modifier l'utilisateur PUT
 exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route user / creation dun user
-    if (!req.auth) { //doit etre authentifier
-        return res.status(401).json({ message: `Merci de vous authentifier`})    
-    }
     User.findOne({ where:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil    
         if (user.id == req.auth.userId ||  req.auth.admin == true ) {
@@ -151,9 +148,6 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
 
 // supprimer l'utilisateur DELETE
 exports.deleteUser = (req, res, next) => {
-    if (!req.auth) { //doit etre authentifier
-        return res.status(401).json({ message: `Merci de vous authentifier`})    
-    }
     // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
     User.findOne({ where:{ id: req.params.id}})
     //trouver id a celui qui est dans les parametres de la req ,recupere un user (produit) dans le callback (function de rapelle)
