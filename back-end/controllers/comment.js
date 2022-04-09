@@ -121,7 +121,17 @@ exports.deleteComment = (req, res, next) => {
     //recuperer tous les commentaire GET ALL
     exports.getAllComment = (req, res, next) => {    
         //recuperer la table user egalement
-        Comment.findAll({include:User}) 
+        Comment.findAll({include:[
+                {
+                    model:User,
+                    attributes:[
+                        "name",
+                        "firstname",
+                        "email"
+                    ]
+                }
+            ]
+        })
             // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
             .then(comments => res.status(200).json(comments)) 
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 

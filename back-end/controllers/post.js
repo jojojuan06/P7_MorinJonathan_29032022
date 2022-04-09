@@ -130,7 +130,18 @@ exports.getOnePost = (req, res, next) => {
 //recuperer tous les post GET ALL
 exports.getAllPost = (req, res, next) => {    
     //création des objet-----------
-    Post.findAll()
+    Post.findAll({ include:[
+        {
+            //recuperation du model user inclu avec des atttributs specifier (ex:evite de donné le Mdp)
+            model:User,
+            attributes:[
+                "name",
+                "firstname",
+                "email"
+            ]
+        }
+    ]    
+})
     .then(posts => res.status(200).json(posts)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
     .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
 }
