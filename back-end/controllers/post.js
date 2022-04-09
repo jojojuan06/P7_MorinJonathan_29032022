@@ -12,7 +12,7 @@ const { Like, Post, User} = require('../models')
 exports.createPost = (req, res, next) => { //function de callback
     //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
     if (validator.isEmpty(`${req.body.content}`) || 
-        validator.isEmpty(`${req.body.title}`)) {
+    validator.isEmpty(`${req.body.title}`)) {
         return res.status(400).json({ message: `les champs ne doivent pas être vide`})    
     }
     //verification du contenue text et image ne sont pas vide
@@ -24,14 +24,14 @@ exports.createPost = (req, res, next) => { //function de callback
         return res.status(400).json({ message : `Votre post doit contenir au moins 4 caractère`})  
     }
     // creation d'une nouvelle instance  de mon objet post (class) de le req
-    let post = new Post({  //recupere mon objet de la req
+    const post = new Post({  //recupere mon objet de la req
         title: req.body.title,
         content: req.body.content,
-        image: req.body.image, 
+        image: null, //declarer par default
         userId : req.auth.userId  // ajoute id post = userid de la req
     });
     if (req.files) { // si mon fichier dans la req on ajoute
-        post.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}`//adresse(http ou https) /localhost/nom du fichier    
+        post.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}` //adresse(http ou https) /localhost/nom du fichier 
     } //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
     post.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
     .then(() => res.status(201).json({ message: 'Objet enregistré !'})) //201 la requête a réussi avec le message
@@ -41,10 +41,17 @@ exports.createPost = (req, res, next) => { //function de callback
 
 
 //mettre a jour un post PUT
-exports.updatePost = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
+exports.updatePost = (req, res, next) => {
+    if (validator.isEmpty(req.auth)) { //verifie l'authentification
+        return res.status(401).json({ message: `Merci de vous authentifier`})    
+    }
     Post.findOne({ where:{ id: req.params.id,}})
     .then(post => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
-    if (post.userId === req.auth.userId ||  req.auth.admin == true ) {
+        //si post existe pas retourne l'erreur
+        if (!post) {
+            return res.status(404).json({message: "le poste que vous voulez mettre a jour n'existe pas"});
+        }
+        if (post.userId === req.auth.userId ||  req.auth.admin == true ) {
             let newPost = Object.assign(post,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.files.image) { //si il y a une img dans la req
                 console.log(req.files);
@@ -57,7 +64,7 @@ exports.updatePost = (req, res, next) => {//exporter une function createuser / c
             newPost.save() //sauvegarde le nouveau post
             .then(() => res.status(200).json({ message: 'Post modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
-            } else {
+        } else {
             res.status(403).json({ message: `vous n'etes pas autoriser a modifiée ce post` });  
         }
     })
@@ -67,67 +74,73 @@ exports.updatePost = (req, res, next) => {//exporter une function createuser / c
 
 //supprimer un post DELETE
 exports.deletePost = (req, res, next) => {
+    if (validator.isEmpty(req.auth)) { //verifie l'authentification
+        return res.status(401).json({ message: `Merci de vous authentifier`})    
+    }
+    if (validator.isEmpty(req.auth)) { //verifie l'authentification
+        return res.status(401).json({ message: `Merci de vous authentifier`})    
+    }
     // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
     Post.findOne({ id: req.params.id })
     //trouver id a celui qui est dans les parametres de la req ,recupere un post (produit) dans le callback (function de rapelle)
     .then((post) => {// recupere le post dans la base
-            if (!post) { // si la post n'existe pas
-                return res.status(404).json({ message: "Le post n'existe pas !"})
-            }
-            // verifier que seulement la personne qui detient l'objet peu le supprimer
-            if (post.userId !== req.auth.userId || req.auth.admin == true ) { //different de req.auth
-                //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
-                return res.status(401).json({ message:'utilisateur non autorisé !'});   
-            }
-            if (post.image != "") { //si l'image existe
+        if (!post) { // si la post n'existe pas
+            return res.status(404).json({ message: "Le post n'existe pas !"})
+        }
+        // verifier que seulement la personne qui detient l'objet peu le supprimer
+        if (post.userId !== req.auth.userId || req.auth.admin == true ) { //different de req.auth
+            //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
+            return res.status(401).json({ message:'utilisateur non autorisé !'});   
+        }
+        if (post.image != "") { //si l'image existe
             //split retourne un tableaux de que qu'il y a avant  /image , apres /image
             const filename = post.image.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
             // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
             fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
-            }
-            //recuperer l'id des paramettre de route ,si oui on effectue la suppression
-            post.destroy() // supprime le post crée   
-            .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
-            .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); // capture l'erreur et renvoi un message erreur (egale error: error)    
-        })
-        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
-    };
-    //-------------
-    
-    //recuperer un post GET
-    exports.getOnePost = (req, res, next) => { 
-        let id = req.params.id // avoir acces  dans l'objet req.pams.id
-        Post.findOne({ where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
-            include:[
-                {
-                    //recuperation du model user inclu avec des atttributs specifier (ex:evite de donné le Mdp)
-                    model:User,
-                    attributes:[
-                        "name",
-                        "firstname",
-                        "email"
-                    ]
-                }
-            ]    
-        }) 
-        .then(post => {
-            //si le commentaire n'existe pas renvoi le message d'erreur
-            if (!post) {
-                return res.status(404).json({message: `le post n'existe pas`}); //404 ressource non trouvé    
-            } else {
-            // retourne la response 200 pour ok pour la methode http , renvoi l'objet si il existe dans la Bd
-            return res.status(200).json(post);    
-            }
-        }) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
-        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
+        }
+        //recuperer l'id des paramettre de route ,si oui on effectue la suppression
+        post.destroy() // supprime le post crée   
+        .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); // capture l'erreur et renvoi un message erreur (egale error: error)    
+    })
+    .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
+};
+//-------------
+
+//recuperer un post GET
+exports.getOnePost = (req, res, next) => { 
+    let id = req.params.id // avoir acces  dans l'objet req.pams.id
+    Post.findOne({ where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
+    include:[
+        {
+            //recuperation du model user inclu avec des atttributs specifier (ex:evite de donné le Mdp)
+            model:User,
+            attributes:[
+                "name",
+                "firstname",
+                "email"
+            ]
+        }
+    ]    
+}) 
+.then(post => {
+    //si le commentaire n'existe pas renvoi le message d'erreur
+    if (!post) {
+        return res.status(404).json({message: `le post n'existe pas`}); //404 ressource non trouvé    
+    } else {
+        // retourne la response 200 pour ok pour la methode http , renvoi l'objet si il existe dans la Bd
+        return res.status(200).json(post);    
     }
-    //-------------
-    
-    //recuperer tous les post GET ALL
-    exports.getAllPost = (req, res, next) => {    
-        //création des objet-----------
-        Post.findAll()
-        .then(posts => res.status(200).json(posts)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
-        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
-    }
-    //------------
+}) // retourne la response 200 pour ok pour la methode http , renvoi l'objet (un objet)si il existe dans la Bd
+.catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
+}
+//-------------
+
+//recuperer tous les post GET ALL
+exports.getAllPost = (req, res, next) => {    
+    //création des objet-----------
+    Post.findAll()
+    .then(posts => res.status(200).json(posts)) // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
+    .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
+}
+//------------

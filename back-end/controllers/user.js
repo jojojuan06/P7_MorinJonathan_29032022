@@ -18,15 +18,15 @@ exports.signup = (req, res, next) => {
     const email = req.body.email; // recupere l'email du corp de la requete
     //verification de email
     if (!validator.isEmail(email)) { //si se n'est pas un email valide (validator) on retourne l'erreur
-    return res.status(400).json({ error: `l'email ${email} n'est pas valide`})    
+        return res.status(400).json({ error: `l'email ${email} n'est pas valide`})    
     }
     //verification du mot de passe
     const password = req.body.password;
-     if (!validator.isStrongPassword(password)) { //si se n'est pas un password valide (validator) on retourne l'erreur
-            return res.status(400).json({ error: `votre mot de passe doit contenir au moins 8 charactères,
-                dont une lettre minuscule, une majuscule, un chiffre et un charctère spécial`}
-            )    
-        }
+    if (!validator.isStrongPassword(password)) { //si se n'est pas un password valide (validator) on retourne l'erreur
+        return res.status(400).json({ error: `votre mot de passe doit contenir au moins 8 charactères,
+        dont une lettre minuscule, une majuscule, un chiffre et un charctère spécial`}
+        )    
+    }
     //cryptage un mot de pass , on lui pass de mdp
     bcrypt.hash(req.body.password, 10) // 10 tour pour verifier l'algoritme (methode asyncrone)
     .then(hash => { // recuper le hash(mdp crypter)  de mdp 
@@ -84,18 +84,19 @@ exports.login = (req, res, next) => {
 
 // recuperer un utilisateur GET
 exports.getOneUser = (req, res, next) => { 
-    let id = req.params.id; // avoir acces  dans l'objet req.pams.id
-    User.findOne( { where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
-    attributes:["email","name","firstname","profile_img"] //clef que je veut montrer en clair
+    const id = req.params.id; // avoir acces  dans l'objet req.pams.id
+    User.findOne({
+        where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
+        attributes:["email","name","firstname","profile_img"] //clef que je veut montrer en clair
     })
     .then(user => {
-        if (!user) { 
-            //si l'utilisateur n'existe pas retourne le message (null)
-            return res.status(404).json({message: `l'utilisateur n'existe pas`}); //404 ressource non trouvé user
-            // sinon ok on retounr l'utilisateur
-        } else { r
+    if (!user) { 
+        //si l'utilisateur n'existe pas retourne le message (null)
+        return res.status(404).json({message: `l'utilisateur n'existe pas`}); //404 ressource non trouvé user
+        // sinon ok on retounr l'utilisateur
+    } else { 
         return res.status(200).json(user) // retourne la response 200 pour ok pour la methode http , renvoi l'objet si il existe dans la Bd    
-        }
+    }
     })
     .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
 }
@@ -103,14 +104,14 @@ exports.getOneUser = (req, res, next) => {
 
 // recuperer tout les utilisateur GET
 exports.getAllUser = (req, res, next) => {    
-        User.findAll({
+    User.findAll({
         //sélectionner que certains attributs, clef que je veut montrer en clair   
         attributes:["email","name","firstname","profile_img"]   
-        })
-        // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
-        .then(users => res.status(200).json(users)) 
-        .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
-    }
+    })
+    // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
+    .then(users => res.status(200).json(users)) 
+    .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); 
+}
 //----------------
 
 
@@ -120,22 +121,25 @@ exports.getAllUser = (req, res, next) => {
 //admin : user.admin
 // modifier l'utilisateur PUT
 exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route user / creation dun user
+    if (validator.isEmpty(req.auth)) { //verifie l'authentification
+        return res.status(401).json({ message: `Merci de vous authentifier`})    
+    }
     User.findOne({ where:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil    
-    if (user.id == req.auth.userId ||  req.auth.admin == true ) {
-                //copie les valeurs de toutes les propriétés directes (non héritées)
-                let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
-                if (req.files) { //si il y a une img dans la req (sur fichier multiple)
-                    if (user.profile_img != '') { //verifier si le user a deja une image de profil
-                            // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                            fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
-                        }
-                        newUser.profile_img = `${req.protocol}://${req.get('host')}/images/${req.files.profile_img[0].filename}` //remplace pas la new img (premier element du field(tableau))
+        if (user.id == req.auth.userId ||  req.auth.admin == true ) {
+            //copie les valeurs de toutes les propriétés directes (non héritées)
+            let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
+            if (req.files) { //si il y a une img dans la req (sur fichier multiple)
+                if (user.profile_img != '') { //verifier si le user a deja une image de profil
+                    // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
+                    fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
                 }
-                newUser.save() //sauvegarde le nouveau user
-                .then(() => res.status(200).json({ message: 'Profile modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
-                .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
-            } else {
+                newUser.profile_img = `${req.protocol}://${req.get('host')}/images/${req.files.profile_img[0].filename}` //remplace pas la new img (premier element du field(tableau))
+            }
+            newUser.save() //sauvegarde le nouveau user
+            .then(() => res.status(200).json({ message: 'Profile modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+            .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
+        } else {
             res.status(403).json({ message: `vous n'etes pas autoriser a modifiée l'utilisateur` });  
         }
     }) 
@@ -149,26 +153,26 @@ exports.deleteUser = (req, res, next) => {
     User.findOne({ where:{ id: req.params.id}})
     //trouver id a celui qui est dans les parametres de la req ,recupere un user (produit) dans le callback (function de rapelle)
     .then((user) => {// recupere le user dans la base
-            if (!user) { // si user n'existe pas
-                return res.status(404).json({ message: "L'utilisateur n'existe pas !"})
-            }
-            // verifier que seulement la personne qui peu le supprimer
-            if (user.id == req.auth.userId ||  req.auth.admin == true ) { 
-                if (user.profile_img != '') {
-                    //split retourne un tableaux de que qu'il y a avant  /image , apres /image
-                    const filename = user.profile_img.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
-                    // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                    fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
-                }    
-                    //recuperer l'id des paramettre de route ,si oui on effectue la suppression
-                    user.destroy() // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
-                    .then(() => res.status(200).json({message: 'Utilisateur supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
-                    .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)        
-            }
-            else {//probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
-                return res.status(403).json({ message: 'utilisateur non autorisé !'}); //comprend la req / refus de l'auth
-            } 
-        })
+        if (!user) { // si user n'existe pas
+            return res.status(404).json({ message: "L'utilisateur n'existe pas !"})
+        }
+        // verifier que seulement la personne qui peu le supprimer
+        if (user.id == req.auth.userId ||  req.auth.admin == true ) { 
+            if (user.profile_img != '') {
+                //split retourne un tableaux de que qu'il y a avant  /image , apres /image
+                const filename = user.profile_img.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
+                // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
+                fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
+            }    
+            //recuperer l'id des paramettre de route ,si oui on effectue la suppression
+            user.destroy() // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
+            .then(() => res.status(200).json({message: 'Utilisateur supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+            .catch(error => res.status(400).json({ error })); // capture l'erreur et renvoi un message erreur (egale error: error)        
+        }
+        else {//probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
+            return res.status(403).json({ message: 'utilisateur non autorisé !'}); //comprend la req / refus de l'auth
+        } 
+    })
     .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
 };
 //-----------------
