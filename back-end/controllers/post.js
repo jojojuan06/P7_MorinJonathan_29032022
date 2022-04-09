@@ -42,7 +42,7 @@ exports.createPost = (req, res, next) => { //function de callback
 
 //mettre a jour un post PUT
 exports.updatePost = (req, res, next) => {
-    if (validator.isEmpty(req.auth)) { //verifie l'authentification
+    if (!req.auth) {
         return res.status(401).json({ message: `Merci de vous authentifier`})    
     }
     Post.findOne({ where:{ id: req.params.id,}})
@@ -74,7 +74,7 @@ exports.updatePost = (req, res, next) => {
 
 //supprimer un post DELETE
 exports.deletePost = (req, res, next) => {
-    if (validator.isEmpty(req.auth)) { //verifie l'authentification
+    if (!req.auth) {
         return res.status(401).json({ message: `Merci de vous authentifier`})    
     }
     if (validator.isEmpty(req.auth)) { //verifie l'authentification

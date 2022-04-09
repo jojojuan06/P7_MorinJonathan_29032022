@@ -121,18 +121,20 @@ exports.getAllUser = (req, res, next) => {
 //admin : user.admin
 // modifier l'utilisateur PUT
 exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route user / creation dun user
-    if (validator.isEmpty(req.auth)) { //verifie l'authentification
+    if (!req.auth) { //doit etre authentifier
         return res.status(401).json({ message: `Merci de vous authentifier`})    
     }
     User.findOne({ where:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil    
         if (user.id == req.auth.userId ||  req.auth.admin == true ) {
             //copie les valeurs de toutes les propriétés directes (non héritées)
-            let newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
+            const newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.files) { //si il y a une img dans la req (sur fichier multiple)
                 if (user.profile_img != '') { //verifier si le user a deja une image de profil
                     // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                    fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => { }); //filename fait reference au dossier image (on suprime)
+                    fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => {
+                        
+                    }); //filename fait reference au dossier image (on suprime)
                 }
                 newUser.profile_img = `${req.protocol}://${req.get('host')}/images/${req.files.profile_img[0].filename}` //remplace pas la new img (premier element du field(tableau))
             }
@@ -149,6 +151,9 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
 
 // supprimer l'utilisateur DELETE
 exports.deleteUser = (req, res, next) => {
+    if (!req.auth) { //doit etre authentifier
+        return res.status(401).json({ message: `Merci de vous authentifier`})    
+    }
     // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
     User.findOne({ where:{ id: req.params.id}})
     //trouver id a celui qui est dans les parametres de la req ,recupere un user (produit) dans le callback (function de rapelle)

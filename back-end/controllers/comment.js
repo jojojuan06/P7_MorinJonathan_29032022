@@ -34,12 +34,15 @@ exports.createComment = (req, res, next) => { //function de callback
 
 //mettre a jour d'un Commentaire PUT
 exports.updateComment = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
-    if (validator.isEmpty(req.auth)) {
+    if (!req.auth) {
         return res.status(401).json({ message: `Merci de vous authentifier`})    
     }
     Comment.findOne({ where:{ id: req.params.id}})
     .then(comment => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
-    if (comment.userId === req.auth.userId ||  req.auth.admin == true) {
+        if (!comment) { 
+            return res.status(404).json({ message: "Le commentaire n'existe pas !"})
+        }
+        if (comment.userId === req.auth.userId ||  req.auth.admin == true) {
             let newComment = Object.assign(comment,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
             newComment.save() //sauvegarde le nouveau post
             .then(() => res.status(200).json({ message: 'Commentaire modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
@@ -54,7 +57,7 @@ exports.updateComment = (req, res, next) => {//exporter une function createuser 
 
 //supprimer un Commentaire DELETE
 exports.deleteComment = (req, res, next) => {
-    if (validator.isEmpty(req.auth)) { //verifie l'authentification
+    if (!req.auth) {
         return res.status(401).json({ message: `Merci de vous authentifier`})    
     }
     // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
