@@ -2,7 +2,7 @@
 
 //valide et nettoie uniquement les chaînes (validation de l'email)
 const validator = require('validator'); 
-const { Post, Like } = require('../models')
+const { Post, Like,User } = require('../models')
 
 //creation d'un like Post
 exports.createLike = (req, res, next) => { 
@@ -32,7 +32,10 @@ exports.createLike = (req, res, next) => {
 exports.updateLike = (req, res, next) => {//exporter une function createuser / contenue de la route post / creation dun post
     Like.findOne({ where:{ id: req.params.id,}})
     .then(like => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil
-    if (like.userId === req.auth.userId ||  req.auth.admin == true ) {
+        if (!like) { // si le like n'existe pas
+            return res.status(404).json({ message: "Le like n'existe pas !"})
+        }
+        if (like.userId === req.auth.userId) {
             let newLike = Object.assign(like,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
             newLike.save() //sauvegarde le nouveau post
             .then(() => res.status(200).json({ message: 'Like modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier

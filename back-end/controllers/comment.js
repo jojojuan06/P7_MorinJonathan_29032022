@@ -2,32 +2,39 @@
 
 //valide et nettoie uniquement les chaînes (validation de l'email)
 const validator = require('validator'); 
-const { User, Comment } = require('../models')
+const { User, Comment ,Post} = require('../models')
 
 
 //Creation d'un Commentaire POST
 exports.createComment = (req, res, next) => { //function de callback
-    //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
-    if (validator.isEmpty(`${req.body.content}`)) {
-        return res.status(400).json({ message: `le champs ne doit pas être vide`})    
-    }
-    //verification du contenue text 
-    if (req.body.content == null) { 
-        return res.status(400).json({ message : `Votre commentaire doit contenir du texte`})
-    } 
-    // verifier un nombre de caractere donnée
-    if (req.body.content.length <= 4 ) {
-        return res.status(400).json({ message : `Votre Commentaire doit contenir au moins 4 caractère`})  
-    }
-    // creation d'une nouvelle instance  de mon objet post (class) de le req
-    let comment = new Comment({  //recupere mon objet de la req
-    content: req.body.content,
-    postId: req.body.postId, 
-    userId : req.auth.userId  // ajoute id comment = userid de la req
-    });
-    comment.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
-    .then(() => res.status(201).json({ message: 'Commentaire enregistré !'})) //201 la requête a réussi avec le message
-    .catch(error => res.status(400).json({ message: `⚠ Oops, une erreur s\'est produite !${error}`}));
+Post.findOne({ where: { id: req.body.postId }}) // recherche id du post
+    .then(post => {
+            if (!post) {
+                return res.status(404).json({ message : `Votre post n'existe pas`})
+            }
+        //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
+        if (validator.isEmpty(`${req.body.content}`)) {
+            return res.status(400).json({ message: `le champs ne doit pas être vide`})    
+        }
+        //verification du contenue text 
+        if (req.body.content == null) { 
+            return res.status(400).json({ message : `Votre commentaire doit contenir du texte`})
+        } 
+        // verifier un nombre de caractere donnée
+        if (req.body.content.length <= 4 ) {
+            return res.status(400).json({ message : `Votre Commentaire doit contenir au moins 4 caractère`})  
+        }
+        // creation d'une nouvelle instance  de mon objet post (class) de le req
+        let comment = new Comment({  //recupere mon objet de la req
+        content: req.body.content,
+        postId: req.body.postId, 
+        userId : req.auth.userId  // ajoute id comment = userid de la req
+        });
+        comment.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
+        .then(() => res.status(201).json({ message: 'Commentaire enregistré !'})) //201 la requête a réussi avec le message
+        .catch(error => res.status(400).json({ message: `⚠ Oops, une erreur s\'est produite !${error}`}));
+    })
+    .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));
 };
 //-------------
 
@@ -47,7 +54,7 @@ exports.updateComment = (req, res, next) => {//exporter une function createuser 
             newComment.save() //sauvegarde le nouveau post
             .then(() => res.status(200).json({ message: 'Commentaire modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
-            } else {
+        } else {
             res.status(403).json({ message: `vous n'etes pas autoriser a modifiée ce commentaire` });  
         }
     })
