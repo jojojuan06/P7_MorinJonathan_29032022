@@ -35,7 +35,11 @@
 export default {
   name: 'HelloWorld',
   props: {
-    msg: String
+    msg: {
+      type:String,
+      required :true,
+      default :'je suis une carotte',
+    } 
   }
 }
 </script>
