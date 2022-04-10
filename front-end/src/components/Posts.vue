@@ -28,12 +28,13 @@ export default {
     
     // created (hook) est appelé une fois l'instance crée
     // représente la durée pendant laquelle le composant est en construction.
-    created() {// async await attendre la reponse (comme fetch)
+            created() {
         this.post = axios.get('http://localhost:3000/api/post',{
-                headers: { "Content-Type": "application/json" , 
+            headers: { "Content-Type": "application/json" , 
                 "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFkbWluIjp0cnVlLCJpYXQiOjE2NDk1OTg2MjgsImV4cCI6MTY0OTY4NTAyOH0.nIhYlqqSAP2LrEny3vEZBwWKVbJLXfuoOpTWGL2TgOQ"}
             })
-        .then(response => this.posts = response.data) 
+        // attendre la reponse (comme fetch)
+        .then(res => this.posts = res.data) 
         .catch(error => console.log(error));    
     },
 };
