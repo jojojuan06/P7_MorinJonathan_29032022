@@ -4,7 +4,7 @@
     <v-list>
 <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
         <v-list-item v-for="post in posts" :key="post.id">
-               {{posts}}
+               {{posts.name}}
             <v-list-item-content>
                 <v-list-item-title v-text="post"> </v-list-item-title>
             </v-list-item-content>
