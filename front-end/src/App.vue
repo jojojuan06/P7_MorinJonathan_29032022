@@ -1,21 +1,28 @@
 <template>
   <v-app>
     <v-app-bar app>
-      <!-- <img src="./assets/logo.png" alt="Vue logo"> -->
+      <router-link to="/">Home</router-link> |
+      <router-link to="/posts">Posts</router-link>
     </v-app-bar>
+        <router-view/>
       <v-main>
-        <Posts/>
+        <!-- affiche les component -->
       </v-main>
     </v-app>
 </template>
 
 <script>
 import Posts from './components/Posts.vue'
+import NewPost from './components/NewPost.vue'
+import Home from './components/Home.vue'
+
 
 export default {
   name:'App',
   components: {
-    Posts
+    Posts,
+    NewPost,
+    Home
   },
   data: () => ({
    
@@ -24,9 +31,13 @@ export default {
 </script>
 
 <style>
-
-
-
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+}
 
 nav {
   padding: 30px;
