@@ -5,8 +5,6 @@
             <v-card-title>
                 <h3>{{ msg }}</h3>   
             </v-card-title>
-            <v-card-subtitle>
-            </v-card-subtitle>
             <v-card-text>
                 <strong>Bienvenue sur le site je vous invite a vous s'inscrire</strong> 
         </v-card-text>
@@ -49,7 +47,7 @@ h3 {
     justify-content: center;
     align-items: center;
     height: 100%;
-    background-image: url('../assets/Home.png');
+    background-image: url('../images/Home.png');
     background-position: center;
     background-repeat: no-repeat;
 }
