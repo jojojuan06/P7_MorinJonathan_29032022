@@ -1,8 +1,7 @@
 <template>
   <v-app>
-    <v-img alt="Vue logo" src="../assets/logo.png"></v-img>
-    <Posts msg="Welcome to Your Vue.js App"/>
     <NewPost/>
+    <Posts msg="Welcome to Your Vue.js App"/>
   </v-app>
 </template>
 

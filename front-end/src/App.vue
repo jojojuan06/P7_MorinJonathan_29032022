@@ -1,14 +1,38 @@
 <template>
-  <v-app>
-    <v-app-bar app>
-      <router-link to="/">Home</router-link> |
-      <router-link to="/posts">Posts</router-link>
-    </v-app-bar>
+  <!-- affiche les component -->
+  <v-app app>
+    <v-toolbar color="#3F3F3F" >
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-toolbar-title >
+        <router-link to="/" style="cursor: pointer">
+          {{ appTitle }}
+        </router-link>
+      </v-toolbar-title>
+      <v-spacer></v-spacer>
+        <v-toolbar-item class="hidden-xs-only">
+          <!-- boucle sur chaque menu et je les affiches   -->
+          <v-btn flat v-for="item in menuItems" v-bind:key="item.title" :to="item.path">
+            <v-icon left>{{ item.icons }}</v-icon>
+            {{ item.title }}
+          </v-btn>
+        </v-toolbar-item>
+    </v-toolbar>
+    <v-content>
         <router-view/>
-      <v-main>
-        <!-- affiche les component -->
-      </v-main>
-    </v-app>
+    </v-content>
+    <v-footer>
+      <v-row justify="center" no-gutters>
+      <!-- boucle sur chaque link et je les affiches   -->  
+      <v-btn v-for="link in links" :key="link" color="white" text rounded class="my-2">
+        <v-icon left>{{ link.icons }}</v-icon>
+          {{ link.title }}
+      </v-btn>
+      <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
+          {{ new Date().getFullYear() }} — <strong>Groupomania</strong>
+      </v-col>
+      </v-row>
+  </v-footer>
+  </v-app>
 </template>
 
 <script>
@@ -24,33 +48,60 @@ export default {
     NewPost,
     Home
   },
-  data: () => ({
-   
-  }),
+  data() {
+    return {
+      appTitle: 'Groupomania',
+      menuItems: [
+        {
+          title:'Home',
+          path:'/',
+          icons:'mdi-home'
+        },
+        {
+          title:'Sign Up',
+          path:'/Signup',
+          icons:'mdi-lock-open'
+        },
+        {
+          title:'Sign In',
+          path:'/signin',
+          icons:'mdi-account'
+        },
+        {
+          title:'Post',
+          path:'/posts',
+          icons:'mdi-message'
+        },
+      ],
+    links: [
+        {
+          title:'Nous Contacter',
+          icons:'mdi-message'
+        },
+        {
+          title:'Home',
+          icons:'mdi-home'
+        },
+      ]
+    }
+  }  
+  ,
 }
 </script>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
 
-nav {
-  padding: 30px;
+<style scoped>
+.v-toolbar{
+color: white;  
 }
-
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.v-toolbar a {
+color: white;
+text-decoration: none;
+font-weight: bold;
 }
-
-nav a.router-link-exact-active {
-  color: #42b983;
+.v-footer {
+  background-color: #3f3f3f;
+  color: white;
 }
 </style>
-
 

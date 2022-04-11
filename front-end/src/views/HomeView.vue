@@ -1,8 +1,7 @@
 <template>
-  <v-app>
-    <img alt="Vue logo" src="./assets/logo.png">
-    <Home msg="Welcome to Your Vue.js App"/>
- </v-app>   
+    <v-app> 
+        <Home msg="Bienvenue sur Groupomania"/>
+    </v-app>   
 </template>
 
 <script>
@@ -10,9 +9,9 @@
 import Home from '@/components/Home.vue'
 
 export default {
-  name: 'HomeView',
-  components: {
-    Home
-  }
+    name: 'HomeView',
+    components: {
+        Home
+    }
 }
 </script>
