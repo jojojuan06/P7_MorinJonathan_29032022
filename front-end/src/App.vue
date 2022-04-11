@@ -21,13 +21,15 @@
         <router-view/>
     </v-content>
     <v-footer>
-      <v-row justify="center" no-gutters>
-      <!-- boucle sur chaque link et je les affiches   -->  
-      <v-btn v-for="link in links" :key="link" color="white" text rounded class="my-2">
-        <v-icon>{{ link.icons }}</v-icon>
-          {{ link.title }}
+      <v-row justify="center">
+      <!-- boucle sur chaque link (ajouter dans le futur et je les affiches   -->  
+      <v-btn  class="my-2">
+        <v-icon>mdi-mail</v-icon>
+        <a href="mailto:san@antonio.net">
+          Nous Contacter
+        </a>
       </v-btn>
-      <v-col class="py-4 text-center white--text" cols="12">
+      <v-col class="py-4 text-center" cols="12">
           {{ new Date().getFullYear() }} — <strong>Groupomania</strong>
       </v-col>
       </v-row>
@@ -73,16 +75,6 @@ export default {
           icons:'mdi-message'
         },
       ],
-    links: [
-        {
-          title:'Nous Contacter',
-          icons:'mdi-mail'
-        },
-        {
-          title:'Home',
-          icons:'mdi-home'
-        },
-      ]
     }
   }  
   ,
@@ -99,12 +91,6 @@ color: white;
 text-decoration: none;
 font-weight: bold;
 }
-.v-footer {
-  background-color: #3f3f3f;
-  color: white;
-}
-.v-btn{
-  margin: 1rem;
-}
+/* importation du footer css  */
+@import './style/footer.css'
 </style>
-

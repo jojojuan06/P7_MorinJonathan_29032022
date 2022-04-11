@@ -1,0 +1,15 @@
+.v-footer {
+    padding-top: 2rem;
+    background-color: #3f3f3f;
+    color: white;
+}
+.v-footer .v-btn{
+    box-shadow: none;
+    margin: 1rem;
+    background-color: #3f3f3f;
+}
+.v-footer .v-btn a {
+text-decoration: none;
+color: white;
+margin-left: 4px;
+}
