@@ -24,10 +24,10 @@
       <v-row justify="center" no-gutters>
       <!-- boucle sur chaque link et je les affiches   -->  
       <v-btn v-for="link in links" :key="link" color="white" text rounded class="my-2">
-        <v-icon left>{{ link.icons }}</v-icon>
+        <v-icon>{{ link.icons }}</v-icon>
           {{ link.title }}
       </v-btn>
-      <v-col class="primary lighten-2 py-4 text-center white--text" cols="12">
+      <v-col class="py-4 text-center white--text" cols="12">
           {{ new Date().getFullYear() }} — <strong>Groupomania</strong>
       </v-col>
       </v-row>
@@ -102,6 +102,9 @@ font-weight: bold;
 .v-footer {
   background-color: #3f3f3f;
   color: white;
+}
+.v-btn{
+  margin: 1rem;
 }
 </style>
 
