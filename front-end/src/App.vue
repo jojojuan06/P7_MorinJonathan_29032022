@@ -76,7 +76,7 @@ export default {
     links: [
         {
           title:'Nous Contacter',
-          icons:'mdi-message'
+          icons:'mdi-mail'
         },
         {
           title:'Home',
