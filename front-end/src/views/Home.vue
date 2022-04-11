@@ -45,12 +45,12 @@ h3 {
     color:black;
 }
 .v-container {
-   display: flex;
-   justify-content: center;
-   align-items: center;
-   height: 100%;
-   background-image: url('../assets/Home.png');
-   object-fit: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-image: url('../assets/Home.png');
+    background-position: center;
+    background-repeat: no-repeat;
 }
-
 </style>
