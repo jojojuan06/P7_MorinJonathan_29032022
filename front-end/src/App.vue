@@ -40,7 +40,6 @@
 <script>
 import Posts from './components/Posts.vue'
 import NewPost from './components/NewPost.vue'
-import Home from './components/Home.vue'
 
 
 export default {
@@ -48,7 +47,6 @@ export default {
   components: {
     Posts,
     NewPost,
-    Home
   },
   data() {
     return {

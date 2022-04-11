@@ -5,7 +5,7 @@ import axios from 'axios';
 const instance = axios.create({
     baseURL: 'http://localhost:3000/api/',
     headers: { "Content-Type": "application/json" , 
-            "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFkbWluIjp0cnVlLCJpYXQiOjE2NDk1OTg2MjgsImV4cCI6MTY0OTY4NTAyOH0.nIhYlqqSAP2LrEny3vEZBwWKVbJLXfuoOpTWGL2TgOQ"
+            "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFkbWluIjp0cnVlLCJpYXQiOjE2NDk2OTcxNDEsImV4cCI6MTY0OTc4MzU0MX0.ARjIVD96Cp6AeHi9l2B_99jD_yX21Y_2KSvNnMh1Clg"
             }
     });
 
