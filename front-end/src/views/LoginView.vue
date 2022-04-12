@@ -55,14 +55,17 @@ export default {
     computed: {
         validatedField: function() {
             if (this.mode == 'createAccount') {
-                if (this.email != "" && this.firstname != "" && this.name != "" && this.password != "") {
+                if (this.form.email != "" && this.form.firstname != "" && this.form.name != "" && this.form.password != "") {
                     return true;
                 } else {
                     return false;
                 } 
             }   else {
-                    if (this.email != "" &&  this.password !="") {
+                    if (this.form.email != "" &&  this.form.password !="") {
                         return true;
+                    }
+                    else {
+                        return  false;
                     }
                 }
             } 
