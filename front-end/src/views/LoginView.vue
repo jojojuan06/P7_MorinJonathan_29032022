@@ -15,7 +15,7 @@
                 <v-btn  v-on:click="switchToCreateLogin()">Se connecter</v-btn>   
         </v-card-text>
         <v-form ref="form">
-            <v-text-field   label="E-mail" required></v-text-field>  
+            <v-text-field   type="text" label="E-mail" required></v-text-field>  
         </v-form>
         <!-- afffiche seulement a la creation du compte -->    
         <v-form v-if="mode == 'createAccount'" ref="form">
