@@ -19,3 +19,6 @@
     background-position: center;
     background-repeat: no-repeat;
 }
+.disabled {
+    background-color: grey;
+}

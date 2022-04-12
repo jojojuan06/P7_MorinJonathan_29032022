@@ -12,8 +12,8 @@
                 </v-card-subtitle>
                     <p><strong>Voila donc qui je suis</strong> </p>
                 <v-card-actions>
-                    <v-btn><strong>Déconnexion</strong></v-btn>
-                    <v-btn href="#" target="_blank">Supprimer le compte</v-btn> 
+                    <v-btn ><strong>Déconnexion</strong></v-btn>
+                    <v-btn  href="#" target="_blank">Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
                 </v-card-actions>
             </v-card>
         </v-container>  

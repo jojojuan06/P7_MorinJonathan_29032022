@@ -14,22 +14,23 @@
                 Tu n'as pas encore de compte ?
                 <v-btn  v-on:click="switchToCreateLogin()">Se connecter</v-btn>   
         </v-card-text>
-        <v-form ref="form">
-            <v-text-field   type="text" label="E-mail" required></v-text-field>  
+        <v-form>
+            <v-text-field   v-model="form.email" type="text" label="E-mail" required></v-text-field>  
         </v-form>
         <!-- afffiche seulement a la creation du compte -->    
-        <v-form v-if="mode == 'createAccount'" ref="form">
-            <v-text-field type="text" label="Name" required></v-text-field>
-            <v-text-field type="text" label="Firstname" required></v-text-field>
+        <v-form  v-if="mode == 'createAccount'">
+            <v-text-field  v-model="form.name" type="text" label="Name" required></v-text-field>
+            <v-text-field v-model="form.firstname" type="text" label="Firstname" required></v-text-field>
         </v-form>
-        <v-form ref="form" >   
-            <v-text-field   type="password" label="Password" required></v-text-field>
+        <v-form>   
+            <v-text-field  v-model="form.password" type="password" label="Password" required></v-text-field>
         </v-form>
-        <v-form ref="form">
-            <v-btn v-if="mode == login"  color="success" class="mr-4">
+        <v-form>
+            <!-- si champ vide on disable le bouton validatedFieldss--> 
+            <v-btn disabled  @click="login" :class="{'v-btn--disabled' : !validatedField}" v-if="mode == 'login'"  color="success" class="mr-4">
                 Connexion
             </v-btn>
-            <v-btn v-else color="success" class="mr-4" >
+            <v-btn :class="{'v-btn--disabled' : !validatedField}"  v-else color="success" class="mr-4" >
                 Créer mon compte
             </v-btn>
         </v-form>
@@ -43,7 +44,28 @@ export default {
     data: function() {
         return {
             mode: 'login',  //etat login
+            form : {
+                name: "",
+                firstname: "",
+                password: "",
+                email:""
             }
+            }
+        },
+    computed: {
+        validatedField: function() {
+            if (this.mode == 'createAccount') {
+                if (this.email != "" && this.firstname != "" && this.name != "" && this.password != "") {
+                    return true;
+                } else {
+                    return false;
+                } 
+            }   else {
+                    if (this.email != "" &&  this.password !="") {
+                        return true;
+                    }
+                }
+            } 
         },
     methods: { //function pour different etat
         switchToCreateAccount: function() {
@@ -51,6 +73,9 @@ export default {
         },
         switchToCreateLogin: function() {
             this.mode = 'login';
+        },
+        login() {
+            console.log(validatedField);
         }
     },
 }
