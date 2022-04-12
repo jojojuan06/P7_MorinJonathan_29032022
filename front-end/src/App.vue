@@ -72,6 +72,11 @@ export default {
           path:'/posts',
           icons:'mdi-message'
         },
+        {
+          title:'Profile',
+          path:'/Profile',
+          icons:'mdi-account'
+        },
       ],
     }
   }  
