@@ -14,7 +14,7 @@ createApp(App)
   .use(router)
   .use(store)
   .use(vuetify)
-  .mount('#app')
+  .mount('#app') //l'instance du composant racine au lieu de l'instance de l'application.
 
   export default createVuetify({
     icons: {
