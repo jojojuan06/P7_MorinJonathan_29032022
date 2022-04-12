@@ -63,8 +63,8 @@ export default {
           icons:'mdi-lock-open'
         },
         {
-          title:'Sign In',
-          path:'/signin',
+          title:'Login',
+          path:'/login',
           icons:'mdi-account'
         },
         {

@@ -1,4 +1,5 @@
 <template>
+<v-container>
     <v-card>
         <v-card-title>
                 <h1>Connexion</h1>   
@@ -17,12 +18,34 @@
             </v-btn>
         </v-form>
     </v-card>
+</v-container>
 </template>
 
 <script>
 export default {
-    name:'login'
+    name:'Login'
 }
 </script>
+
+<style scoped>
+.v-card {
+    margin: 32px;
+    padding: 16px;
+}
+.v-card .v-btn:hover{
+    background-color:#091F43;
+    color:white;
+}
+.v-card .v-btn {
+    color:black;
+    box-shadow: none;
+}
+.v-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+</style>
 
 
