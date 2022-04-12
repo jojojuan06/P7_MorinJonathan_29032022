@@ -35,13 +35,6 @@ h3 {
     margin: 40px 0 0;
     color: #D1515A;
 }
-.v-card-actions .v-btn:hover{
-    background-color:#091F43;
-    color:white;
-}
-.v-card-actions .v-btn {
-    color:black;
-}
 .v-container {
     display: flex;
     justify-content: center;

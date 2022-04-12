@@ -94,6 +94,8 @@ color: white;
 text-decoration: none;
 font-weight: bold;
 }
+/* importation du btn css  */
+@import url('./style/button');
 /* importation du footer css  */
-@import './style/footer.css'
+@import url('./style/footer');
 </style>

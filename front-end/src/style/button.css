@@ -1,0 +1,7 @@
+.v-card-actions .v-btn:hover{
+    background-color:#091F43;
+    color:white;
+}
+.v-card-actions .v-btn {
+    color:black;
+}

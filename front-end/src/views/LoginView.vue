@@ -33,9 +33,9 @@ export default {
     padding: 16px;
 }
 .v-card .v-btn:first-child {
- text-decoration: underline;
- color:#091F43;
-box-shadow: none;   
+    text-decoration: underline;
+    color:#091F43;
+    box-shadow: none;   
 }
 .v-container {
     display: flex;
