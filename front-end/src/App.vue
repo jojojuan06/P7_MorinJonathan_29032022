@@ -1,18 +1,17 @@
 <template>
   <!-- affiche les component -->
   <v-app app>
-    <v-toolbar color="#3F3F3F" >
-      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+    <v-toolbar>
       <v-toolbar-title >
         <router-link to="/" style="cursor: pointer">
-          {{ appTitle }}
+          <v-img src="./images/logo.png"></v-img>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-toolbar-item class="hidden-xs-only">
-          <!-- boucle sur chaque menu et je les affiches   -->
-          <v-btn flat v-for="item in menuItems" v-bind:key="item.title" :to="item.path">
-            <v-icon left>{{ item.icons }}</v-icon>
+        <v-toolbar-item class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
+          <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
+          <!--v-if="item.boolean == true" -->
+          <v-btn v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >
             {{ item.title }}
           </v-btn>
         </v-toolbar-item>
@@ -50,33 +49,33 @@ export default {
   },
   data() {
     return {
-      appTitle: 'Groupomania',
-      menuItems: [
+      connected:true,
+      itemMenus: [
         {
           title:'Home',
           path:'/',
-          icons:'mdi-home'
+          icons:'mdi-home',
         },
         {
           title:'Sign Up',
           path:'/Signup',
-          icons:'mdi-lock-open'
+          icons:'mdi-lock-open',
         },
         {
           title:'Login',
           path:'/login',
-          icons:'mdi-account'
+          icons:'mdi-account',
         },
         {
           title:'Post',
           path:'/posts',
-          icons:'mdi-message'
+          icons:'mdi-message',
         },
         {
           title:'Profile',
           path:'/Profile',
-          icons:'mdi-account'
-        },
+          icons:'mdi-account',
+        }, 
       ],
     }
   }  
@@ -86,11 +85,15 @@ export default {
 
 
 <style scoped>
-.v-toolbar{
-color: white;  
+.v-img {
+  width: 150px;
+  color: white;
+} 
+.v-toolbar {
+  background: #3f3f3f;
 }
 .v-toolbar a {
-color: white;
+color:white;  
 text-decoration: none;
 font-weight: bold;
 }

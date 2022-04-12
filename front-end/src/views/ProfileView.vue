@@ -3,14 +3,17 @@
         <v-container>
             <v-card>
                 <v-card-title>
-                    <h3>Espace perso</h3>   
+                    <h3>Mon Profile</h3>   
                 </v-card-title>
+                <v-avatar>
+                <v-img class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                </v-avatar>
                 <v-card-subtitle>
-                    <p><strong>Voila donc qui je suis</strong> </p>
                 </v-card-subtitle>
-                <v-img src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                    <p><strong>Voila donc qui je suis</strong> </p>
                 <v-card-actions>
                     <v-btn><strong>Déconnexion</strong></v-btn>
+                    <v-btn href="#" target="_blank">Supprimer le compte</v-btn> 
                 </v-card-actions>
             </v-card>
         </v-container>  
@@ -45,5 +48,18 @@ h3 {
     width: 500px;
     height: 50%;
     background: #d7d7d7;
+}
+.v-card .v-avatar {
+    height: 200px;
+    width: 200px;
+}
+.v-card .v-btn:nth-child(2){
+    color:red;
+    text-decoration: underline;
+}
+.v-card .v-btn:nth-child(2):hover{
+    background-color: transparent;
+    color:red;
+    text-decoration: underline;
 }
 </style>
