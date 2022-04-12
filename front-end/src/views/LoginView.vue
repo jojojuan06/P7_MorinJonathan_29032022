@@ -19,12 +19,11 @@
         </v-form>
         <!-- afffiche seulement a la creation du compte -->    
         <v-form v-if="mode == 'createAccount'" ref="form">
-            <v-text-field label="Name" required></v-text-field>
-            <v-text-field label="Firstname" required></v-text-field>
+            <v-text-field type="text" label="Name" required></v-text-field>
+            <v-text-field type="text" label="Firstname" required></v-text-field>
         </v-form>
         <v-form ref="form" >   
-            <v-text-field   label="Password" required></v-text-field>
-            <v-checkbox   label="Do you agree?" required></v-checkbox>
+            <v-text-field   type="password" label="Password" required></v-text-field>
         </v-form>
         <v-form ref="form" v-model="valid">
             <v-btn v-if="mode == login"  color="success" class="mr-4">
