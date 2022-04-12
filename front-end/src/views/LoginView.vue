@@ -2,19 +2,36 @@
 <v-container>
     <v-card>
         <v-card-title>
-                <h1>Connexion</h1>   
+                <!-- affichage vrai en mode login sinon inscription -->
+                <h1 v-if="mode == 'login'">Connexion</h1>
+                <h1 v-else>Inscription</h1>   
             </v-card-title>
-            <v-card-text>
-                Tu n'as pas encore de compte ?
-                <v-btn href="#" target="_blank">Crée un compte</v-btn> 
+            <v-card-text v-if="mode == 'login'">
+                Tu as deja un compte ?
+                <v-btn  v-on:click="switchToCreateAccount()">Crée un compte</v-btn>   <!--href="#" target="_blank" -->
         </v-card-text>
-        <v-form ref="form" v-model="valid" lazy-validation>
-            <v-text-field v-model="name" :counter="10" :rules="nameRules" label="Name" required></v-text-field>
-            <v-text-field v-model="email" :rules="emailRules" label="E-mail" required></v-text-field>
-            <v-text-field v-model="password" :rules="passwordRules" label="Password" required></v-text-field>
-            <v-checkbox v-model="checkbox" :rules="[v => !!v || 'You must agree to continue!']" label="Do you agree?" required></v-checkbox>
-            <v-btn :disabled="!valid" color="success" class="mr-4" @click="validate">
+        <v-card-text v-else>
+                Tu n'as pas encore de compte ?
+                <v-btn  v-on:click="switchToCreateLogin()">Se connecter</v-btn>   
+        </v-card-text>
+        <v-form ref="form">
+            <v-text-field   label="E-mail" required></v-text-field>  
+        </v-form>
+        <!-- afffiche seulement a la creation du compte -->    
+        <v-form v-if="mode == 'createAccount'" ref="form">
+            <v-text-field label="Name" required></v-text-field>
+            <v-text-field label="Firstname" required></v-text-field>
+        </v-form>
+        <v-form ref="form" >   
+            <v-text-field   label="Password" required></v-text-field>
+            <v-checkbox   label="Do you agree?" required></v-checkbox>
+        </v-form>
+        <v-form ref="form" v-model="valid">
+            <v-btn v-if="mode == login"  color="success" class="mr-4">
                 Connexion
+            </v-btn>
+            <v-btn v-else color="success" class="mr-4" >
+                Créer mon compte
             </v-btn>
         </v-form>
     </v-card>
@@ -23,7 +40,20 @@
 
 <script>
 export default {
-    name:'Login'
+    name:'Login',
+    data: function() {
+        return {
+            mode: 'login',  //etat login
+            }
+        },
+    methods: { //function pour different etat
+        switchToCreateAccount: function() {
+            this.mode = 'createAccount';
+        },
+        switchToCreateLogin: function() {
+            this.mode = 'login';
+        }
+    },
 }
 </script>
 
@@ -47,5 +77,3 @@ export default {
     background-repeat: no-repeat;
 }
 </style>
-
-
