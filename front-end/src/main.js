@@ -5,8 +5,6 @@ import router from './router'
 import store from './store'
 import vuetify from './plugins/vuetify'
 import { loadFonts } from './plugins/webfontloader'
-import { mdi } from 'vuetify/lib/iconsets/mdi'
-import { aliases, fa } from 'vuetify/lib/iconsets/fa'
 
 loadFonts()
 // Install  instance as a plugin router , store , vuetify
@@ -16,13 +14,4 @@ createApp(App)
   .use(vuetify)
   .mount('#app') //l'instance du composant racine au lieu de l'instance de l'application.
 
-  export default createVuetify({
-    icons: {
-      defaultSet: 'fa',
-      aliases,
-      sets: {
-        fa,
-        mdi,
-      }
-    },
-  })
+
