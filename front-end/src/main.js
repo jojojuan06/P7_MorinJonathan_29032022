@@ -1,3 +1,4 @@
+// importe le composant racine App à partir d'un composant à fichier unique.
 import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
@@ -8,7 +9,7 @@ import { mdi } from 'vuetify/lib/iconsets/mdi'
 import { aliases, fa } from 'vuetify/lib/iconsets/fa'
 
 loadFonts()
-
+// Install  instance as a plugin router , store , vuetify
 createApp(App)
   .use(router)
   .use(store)
