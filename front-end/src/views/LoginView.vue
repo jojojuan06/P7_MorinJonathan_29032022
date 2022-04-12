@@ -27,7 +27,7 @@
         </v-form>
         <v-form>
             <!-- si champ vide on disable le bouton validatedFieldss--> 
-            <v-btn disabled  @click="login" :class="{'v-btn--disabled' : !validatedField}" v-if="mode == 'login'"  color="success" class="mr-4">
+            <v-btn  @click="login" :class="{'v-btn--disabled' : !validatedField}" v-if="mode == 'login'"  color="success" class="mr-4">
                 Connexion
             </v-btn>
             <v-btn :class="{'v-btn--disabled' : !validatedField}"  v-else color="success" class="mr-4" >
@@ -54,20 +54,18 @@ export default {
         },
     computed: {
         validatedField: function() {
+            //return false par default et true quand les  champ sont rempli
+            let valid = false;
             if (this.mode == 'createAccount') {
                 if (this.form.email != "" && this.form.firstname != "" && this.form.name != "" && this.form.password != "") {
-                    return true;
-                } else {
-                    return false;
+                    valid = true;
                 } 
-            }   else {
+            }  else {
                     if (this.form.email != "" &&  this.form.password !="") {
-                        return true;
-                    }
-                    else {
-                        return  false;
+                        valid = true;
                     }
                 }
+            return valid;    
             } 
         },
     methods: { //function pour different etat
