@@ -32,19 +32,19 @@ export default {
     margin: 32px;
     padding: 16px;
 }
-.v-card .v-btn:hover{
-    background-color:#091F43;
-    color:white;
-}
-.v-card .v-btn {
-    color:black;
-    box-shadow: none;
+.v-card .v-btn:first-child {
+ text-decoration: underline;
+ color:#091F43;
+box-shadow: none;   
 }
 .v-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
+    background-image: url('../images/Home.png');
+    background-position: center;
+    background-repeat: no-repeat;
 }
 </style>
 
