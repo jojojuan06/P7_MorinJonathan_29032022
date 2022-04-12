@@ -1,1 +1,21 @@
 
+.v-form .v-btn {
+    text-decoration: none;
+}
+.v-card {
+    margin: 32px;
+    padding: 16px;
+}
+.v-card .v-btn:first-child {
+    color:#091F43;
+    box-shadow: none;   
+}
+.v-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-image: url('../images/Home.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}

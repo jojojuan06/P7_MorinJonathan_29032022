@@ -25,7 +25,7 @@
         <v-form ref="form" >   
             <v-text-field   type="password" label="Password" required></v-text-field>
         </v-form>
-        <v-form ref="form" v-model="valid">
+        <v-form ref="form">
             <v-btn v-if="mode == login"  color="success" class="mr-4">
                 Connexion
             </v-btn>
@@ -57,22 +57,5 @@ export default {
 </script>
 
 <style scoped>
-.v-card {
-    margin: 32px;
-    padding: 16px;
-}
-.v-card .v-btn:first-child {
-    text-decoration: underline;
-    color:#091F43;
-    box-shadow: none;   
-}
-.v-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background-image: url('../images/Home.png');
-    background-position: center;
-    background-repeat: no-repeat;
-}
+@import url('../style/login');
 </style>
