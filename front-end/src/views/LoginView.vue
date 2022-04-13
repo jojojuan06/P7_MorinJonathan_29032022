@@ -85,7 +85,9 @@ export default {
             name:this.form.name,
             firstname:this.form.firstname,
             password:this.form.password
-        }) 
+        }).then(function (response){
+            console.log(response);
+        })
         } 
     },
 }
