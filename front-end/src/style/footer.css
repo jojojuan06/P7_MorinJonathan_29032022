@@ -2,6 +2,7 @@
     padding-top: 2rem;
     background-color: #3f3f3f;
     color: white;
+    max-height: 150px;
 }
 .v-footer .v-btn{
     box-shadow: none;
@@ -12,4 +13,7 @@
 text-decoration: none;
 color: white;
 margin-left: 4px;
+}
+.v-application__wrap {
+    display: block;
 }
