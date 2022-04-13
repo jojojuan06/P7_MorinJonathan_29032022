@@ -1,6 +1,10 @@
 <template>
 <v-container>
+    <h1 class="--title">{{ msg }}</h1>   
     <v-card>
+        <v-card-text class="--subtitle" v-if="mode=='create'">
+                <strong>Bienvenue sur le site je vous invite a vous s'inscrire</strong> 
+        </v-card-text>
         <v-card-title>
                 <!-- affichage vrai en mode login sinon inscription -->
                 <h1 v-if="mode == 'login'">Connexion</h1>
@@ -60,6 +64,12 @@ export default {
             }
             }
         },
+    props: { //Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
+        msg: {
+            type: String,
+        default:'Bonjour Groupomania', // ou require true
+        }
+    },
     computed: {
         validatedField: function() {
             //return false par default et true quand les  champ sont rempli
@@ -118,7 +128,27 @@ export default {
     },
 }
 </script>
-
 <style scoped>
-@import url('../style/login');
+.v-card-text.--subtitle {
+    color: rgba(9,31,67,0.8);
+    text-decoration: underline;
+}
+.v-container{
+    display: flex;
+    flex-direction: column;
+}
+h1.--title {
+    margin: 40px 0 0;
+    color: #D1515A;
+}
+.v-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-image: url('../images/Home.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+@import url('../style/home');
 </style>

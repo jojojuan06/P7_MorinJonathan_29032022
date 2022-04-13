@@ -57,11 +57,6 @@ export default {
           icons:'mdi-home', 
         },
         {
-          title:'Login',
-          path:'/login',
-          icons:'mdi-account', // /Signup',mdi-lock-open  change title btn == connect
-        },
-        {
           title:'Post',
           path:'/posts',
           icons:'mdi-message',

@@ -57,7 +57,11 @@ export default createStore({
         //requete Post enregistrer l'utilisateur
         axios.post('/auth/login', userInfos) 
         .then(function (response) {
-          commit('setStatus' , ''); //invoquer la mutation
+          //rajouter un delai
+          setTimeout(() => { 
+          //invoquer la mutation (commit)
+            commit('setStatus' , '')
+          },500 ) //delai en deuxieme argument 500ms
           // commit pour stocker notre user
           commit('logUser', response.data) // deuxieme argument on recupere les data
           //si tout se pass bien
