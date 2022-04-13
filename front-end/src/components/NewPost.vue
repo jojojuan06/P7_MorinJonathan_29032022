@@ -23,33 +23,33 @@
 
 <script>
 // axios module pour Faire des requêtes http à partir de node.js
-import axios from '../axios';
+//import axios from '../axios';
 
-export default {
-// retourne le data task
-    data(){
-        return {
-            msgBody: ""
-        };
-    },
+// export default {
+// // retourne le data task
+//     data(){
+//         return {
+//             msgBody: ""
+//         };
+//     },
     
     
-    // created (hook) est appelé une fois l'instance crée
-    //  représente la durée pendant laquelle le composant est en construction
-            created() {
-        this.post = axios.get('/post')
-        // attendre la reponse (comme fetch)
-        .then(res => {
-            this.posts = res.data
-            }) //retourne la repose des data dans l'objet 
-        .catch(error => console.log(error));    
-    },
-    methods: {
-        submit : function() {
-        console.log(this.msgBody);
-        }
-    }
-};
+//     // created (hook) est appelé une fois l'instance crée
+//     //  représente la durée pendant laquelle le composant est en construction
+//         created() {
+//         axios.post('/post')
+//         // attendre la reponse (comme fetch)
+//         .then(res => {
+//             this.posts = res.data
+//             }) //retourne la repose des data dans l'objet vi
+//         .catch(error => console.log(error));    
+//     },
+//     methods: {
+//         submit : function() {
+//         console.log(this.msgBody);
+//         }
+//     }
+// };
 </script>
 
 
