@@ -77,7 +77,7 @@ export default {
             this.mode = 'login';
         },
         createNewAccount(){
-            console.log(this.email, this.name, this.firstname, this.password); 
+            console.log(this.form.email, this.form.name, this.form.firstname, this.form.password); 
         } 
     },
 }
