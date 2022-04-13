@@ -78,16 +78,19 @@ export default {
             this.mode = 'login';
         },
         createNewAccount(){    
-        //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
-        //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
-        this.$store.dispatch('createNewAccount',{
-            email:this.form.email,
-            name:this.form.name,
-            firstname:this.form.firstname,
-            password:this.form.password
-        }).then(function (response){
-            console.log(response);
-        })
+            //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
+            //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
+            this.$store.dispatch('createNewAccount',{
+                email:this.form.email,
+                name:this.form.name,
+                firstname:this.form.firstname,
+                password:this.form.password
+            }).then(function (response){
+                console.log(response);
+            }),
+            function (error) {
+                console.log(error);
+            }
         } 
     },
 }
