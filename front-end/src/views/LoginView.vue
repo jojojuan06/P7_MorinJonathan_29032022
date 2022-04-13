@@ -8,11 +8,11 @@
             </v-card-title>
             <v-card-text v-if="mode == 'login'">
                 Tu as deja un compte ?
-                <v-btn  v-on:click="switchToCreateAccount()">Crée un compte</v-btn>   <!--href="#" target="_blank" -->
+                <v-btn  class="btn--first" v-on:click="switchToCreateAccount()">Crée un compte</v-btn>   <!--href="#" target="_blank" -->
         </v-card-text>
         <v-card-text v-else>
                 Tu n'as pas encore de compte ?
-                <v-btn  v-on:click="switchToCreateLogin()">Se connecter</v-btn>   
+                <v-btn  class="btn--first" v-on:click="switchToCreateLogin()">Se connecter</v-btn>   
         </v-card-text>
         <v-form>
             <v-text-field   v-model="form.email" type="text" label="E-mail" required></v-text-field>  

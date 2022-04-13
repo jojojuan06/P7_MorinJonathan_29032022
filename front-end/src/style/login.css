@@ -6,9 +6,15 @@
     margin: 32px;
     padding: 16px;
 }
-.v-card .v-btn:first-child {
+.v-btn.btn--first {
     color:#091F43;
+    font-size: 16px;
+    font-weight: bold;
     box-shadow: none;   
+}
+.v-btn.btn--first:hover {
+    background-color: rgba(209,81,90,0.46);  
+    color: rgba(9,31,67,0.8);
 }
 .v-container {
     display: flex;
