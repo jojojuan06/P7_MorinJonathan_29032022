@@ -32,7 +32,7 @@ export default createStore({
       });
     },
     //recuperation du commit (invoquer une mutation avec  2params)
-    login: ({commit}, userInfos) => {
+    loginAccount: ({commit}, userInfos) => {
       //créeation d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
