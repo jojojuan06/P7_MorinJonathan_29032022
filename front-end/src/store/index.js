@@ -30,7 +30,25 @@ export default createStore({
         reject(error); //rejected (rompue) : l'opération a échoué.
         });
       });
-    }
+    },
+    //recuperation du commit (invoquer une mutation avec  2params)
+    login: ({commit}, userInfos) => {
+      //créeation d'un nouvelle promess
+      //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
+      return new Promise((resolve, reject) => {
+        commit;
+        //requete Post enregistrer l'utilisateur
+        axios.post('/auth/login', userInfos) 
+        .then(function (response) {
+          //si tout dse pass bien
+          resolve(response); //resolved (promesse résolue ) 
+        })
+        .catch(function (error) {
+          //retourne une erreur
+          reject(error); //rejected (rompue) : l'opération a échoué.
+        });
+      }); 
+    },
   },
   modules: {
   }
