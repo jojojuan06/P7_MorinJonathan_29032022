@@ -84,7 +84,7 @@ export default {
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
             this.$store.dispatch('loginAccount',{
                 email:this.form.email,
-                name:this.form.name,
+                password:this.form.password,
             }).then(function (response){
                 console.log(response);
             }),
