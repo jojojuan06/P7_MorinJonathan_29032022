@@ -27,7 +27,7 @@
         </v-form>
         <v-form>
             <!-- si champ vide on disable le bouton validatedFieldss--> 
-            <v-btn  class="v-btn--disabled mr-4" v-if="mode == 'login'"  color="success">
+            <v-btn  v-on:click="login" class="v-btn--disabled mr-4" v-if="mode == 'login'"  color="success">
                 Connexion
             </v-btn>
             <!-- au clic appel a la methode createAccount--> 
@@ -70,13 +70,27 @@ export default {
             return valid;    
             } 
         },
-    methods: { //function pour different etat
+    methods: { 
+        //function pour different etat sur l'affichage des buttons
         switchToCreateAccount() {              // <------: function()
             this.mode = 'create';
         },
         switchToLogin() {                      // <------: function()
             this.mode = 'login';
         },
+        login(){
+            //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
+            //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
+            this.$store.dispatch('login',{
+                email:this.form.email,
+                name:this.form.name,
+            }).then(function (response){
+                console.log(response);
+            }),
+            function (error) {
+                console.log(error);
+            }
+        },                                       // <------: function()
         createNewAccount(){    
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
