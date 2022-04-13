@@ -74,7 +74,10 @@ export default {
                     }
                 }
             return valid;    
-            } 
+            },
+            // mélange ceci dans l'objet extérieur avec l'opérateur de diffusion d'objet
+            //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
+            ...mapState(['status']) 
         },
     methods: { 
         //function pour different etat sur l'affichage des buttons
@@ -113,9 +116,6 @@ export default {
             }
         } 
     },
-     // mélange ceci dans l'objet extérieur avec l'opérateur de diffusion d'objet
-    //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
-    ...mapState(['status'])
 }
 </script>
 
