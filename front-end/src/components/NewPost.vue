@@ -23,7 +23,7 @@
 
 <script>
 // axios module pour Faire des requêtes http à partir de node.js
-import axios from 'axios';
+import axios from '../axios';
 
 export default {
 // retourne le data task
@@ -37,14 +37,11 @@ export default {
     // created (hook) est appelé une fois l'instance crée
     //  représente la durée pendant laquelle le composant est en construction
             created() {
-        this.post = axios.get('http://localhost:3000/api/post',{
-            headers: { "Content-Type": "application/json" , 
-                "Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImFkbWluIjp0cnVlLCJpYXQiOjE2NDk1OTg2MjgsImV4cCI6MTY0OTY4NTAyOH0.nIhYlqqSAP2LrEny3vEZBwWKVbJLXfuoOpTWGL2TgOQ"}
-            })
+        this.post = axios.get('/post')
         // attendre la reponse (comme fetch)
         .then(res => {
             this.posts = res.data
-            }) //retourne la repose des data dans l'objet vi
+            }) //retourne la repose des data dans l'objet 
         .catch(error => console.log(error));    
     },
     methods: {

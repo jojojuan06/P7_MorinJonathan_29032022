@@ -39,7 +39,8 @@
 </v-container>
 </template>
 
-<script>
+<script>import { thisExpression } from "@babel/types";
+
 export default {
     name:'Login',
     data: function() {
@@ -76,8 +77,15 @@ export default {
         switchToLogin() {                      // <------: function()
             this.mode = 'login';
         },
-        createNewAccount(){
-            console.log(this.form.email, this.form.name, this.form.firstname, this.form.password); 
+        createNewAccount(){    
+        //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
+        //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
+        this.$store.dispatch('createNewAccount',{
+            email:this.form.email,
+            name:this.form.name,
+            firstname:this.form.firstname,
+            password:this.form.password
+        }) 
         } 
     },
 }
