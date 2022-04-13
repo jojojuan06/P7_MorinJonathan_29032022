@@ -54,17 +54,12 @@ export default {
         {
           title:'Home',
           path:'/',
-          icons:'mdi-home',
-        },
-        {
-          title:'Sign Up',
-          path:'/Signup',
-          icons:'mdi-lock-open',
+          icons:'mdi-home', 
         },
         {
           title:'Login',
           path:'/login',
-          icons:'mdi-account',
+          icons:'mdi-account', // /Signup',mdi-lock-open  change title btn == connect
         },
         {
           title:'Post',

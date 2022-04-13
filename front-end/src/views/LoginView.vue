@@ -15,15 +15,15 @@
                 <v-btn  class="btn--first" v-on:click="switchToLogin">Se connecter</v-btn>   
         </v-card-text>
         <v-form>
-            <v-text-field   v-bind:rules="emailRule" v-model="form.email" type="text" label="E-mail" required></v-text-field>  
+            <v-text-field   v-model="form.email" type="text" label="E-mail" required></v-text-field>  
         </v-form>
         <!-- afffiche seulement a la creation du compte -->    
         <v-form  v-if="mode == 'create'">
-            <v-text-field v-bind:rules="nameRule"  v-model="form.name" type="text" label="Name" required></v-text-field>
-            <v-text-field v-bind:rules="firstnameRule" v-model="form.firstname" type="text" label="Firstname" required></v-text-field>
+            <v-text-field v-model="form.name" type="text" label="Name" required></v-text-field>
+            <v-text-field  v-model="form.firstname" type="text" label="Firstname" required></v-text-field>
         </v-form>
         <v-form>   
-            <v-text-field v-bind:rules="passwordRule" v-model="form.password" type="password" label="Password" required></v-text-field>
+            <v-text-field  v-model="form.password" type="password" label="Password" required></v-text-field>
         </v-form>
         <v-form>
             <!-- si champ vide on disable le bouton validatedFieldss--> 
