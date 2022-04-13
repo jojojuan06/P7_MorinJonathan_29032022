@@ -15,14 +15,20 @@ export default createStore({
   actions: {  //similaire a la proprieter methods
     //recuperation du commit (invoquer une mutation avec  2params) nom a la creation du compte et 2e param le payload user info que l'on recupere
     createNewAccount: ({commit}, userInfos) => {
-      commit;  
-      //requete Post enregistrer l'utilisateur
-      axios.post('/auth/signup', userInfos) 
-      .then(function (response) {
-        console.log(response);
-      })
-      .catch(function (error) {
-        console.log(error);
+      //créeation d'un nouvelle promess
+      //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
+      return new Promise((resolve, reject) => {
+        commit;  
+        //requete Post enregistrer l'utilisateur
+        axios.post('/auth/signup', userInfos) 
+        .then(function (response) {
+        //si tout dse pass bien
+        resolve(response); //resolved (promesse résolue ) 
+        })
+        .catch(function (error) {
+        //retourne une erreur
+        reject(error); //rejected (rompue) : l'opération a échoué.
+        });
       });
     }
   },
