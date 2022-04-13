@@ -8,10 +8,11 @@
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
-        <v-toolbar-item class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
+        <v-toolbar-item  class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
           <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
           <!--v-if="item.boolean == true" -->
-          <v-btn v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >
+          <v-btn  v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >
+          <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
             {{ item.title }}
           </v-btn>
         </v-toolbar-item>
@@ -54,17 +55,18 @@ export default {
         {
           title:'Home',
           path:'/',
-          icons:'mdi-home', 
+          icons:'mdi-home',
+          hidden: false //par default visibility true
         },
         {
           title:'Post',
           path:'/posts',
-          icons:'mdi-message',
+          icons:'mdi-message'
         },
         {
           title:'Profile',
           path:'/Profile',
-          icons:'mdi-account',
+          icons:'mdi-face',
         }, 
       ],
     }

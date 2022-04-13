@@ -132,6 +132,7 @@ export default {
 .v-card-text.--subtitle {
     color: rgba(9,31,67,0.8);
     text-decoration: underline;
+    cursor: pointer;
 }
 .v-container{
     display: flex;
