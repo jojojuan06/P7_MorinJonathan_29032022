@@ -29,7 +29,9 @@
             <!-- si champ vide on disable le bouton validatedFieldss--> 
             <!-- au clic appel a la methode login--> 
             <v-btn  v-on:click="loginAccount" :class="{'v-btn--disabled' : !validatedField} " v-if="mode == 'login'"  color="success" class="mr-4">
-                Connexion
+                <!-- importation de la mutation selon le status if /else -->
+                <span v-if="status=='loading'">Connexion en cours...</span> 
+                <span v-else>Connexion</span> 
             </v-btn>
             <!-- au clic appel a la methode createNewAccount--> 
             <v-btn   v-on:click="createNewAccount" :class="{'v-btn--disabled' : !validatedField}"  v-else color="success" class="mr-4" >
@@ -40,7 +42,10 @@
 </v-container>
 </template>
 
-<script>import { thisExpression } from "@babel/types";
+<script>
+
+// mélange les getters en calcul avec l'opérateur de propagation d'objet
+import { mapState } from 'vuex'
 
 export default {
     name:'Login',
@@ -91,8 +96,8 @@ export default {
             function (error) {
                 console.log(error);
             }
-        },                                       // <------: function()
-        createNewAccount(){    
+        },                                      
+        createNewAccount(){   // <------: function()  
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
             this.$store.dispatch('createNewAccount',{
@@ -108,6 +113,9 @@ export default {
             }
         } 
     },
+     // mélange ceci dans l'objet extérieur avec l'opérateur de diffusion d'objet
+    //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
+    ...mapState(['status'])
 }
 </script>
 
