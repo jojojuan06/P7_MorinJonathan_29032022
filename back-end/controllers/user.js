@@ -16,6 +16,7 @@ const { User } = require('../models')// recuperer index.js. ,qui vas me cherche 
 //enregistrement de nouveaux utilisateur(crypter le mdp , cree un new user avec hash +email et enregistrer user dans la bdd)
 exports.signup = (req, res, next) => {
     const email = req.body.email; // recupere l'email du corp de la requete
+    const name = req.body.name;
     //verification de email
     if (!validator.isEmail(email)) { //si se n'est pas un email valide (validator) on retourne l'erreur
         return res.status(400).json({ error: `l'email ${email} n'est pas valide`})    
@@ -27,22 +28,36 @@ exports.signup = (req, res, next) => {
         dont une lettre minuscule, une majuscule, un chiffre et un charctère spécial`}
         )    
     }
-    //cryptage un mot de pass , on lui pass de mdp
-    bcrypt.hash(req.body.password, 10) // 10 tour pour verifier l'algoritme (methode asyncrone)
-    .then(hash => { // recuper le hash(mdp crypter)  de mdp 
-        //creation du new utilisateur
-        let user = new User({ //creation un nouvelle utilisateur (user)
-            name: req.body.name,
-            firstname: req.body.firstname,         
-            email: req.body.email, // email passez l'addresse passsez dans le corp de la requete
-            password: hash, // enregistrer le mdp crypter (hash) pour ne pas stocker un mdp en blanc
-            admin: req.body.admin//valeur par default crée (0/false)
-        });
-        user.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise    
-        .then(() => res.status(201).json({message: 'utilisateur créé !'})) //creation de ressource
-        .catch(error => res.status(400).json({ error })); //impossible de se connecter au serveur
+    // Permet de vérifier que l'utilisateur que l'on souhaite créer n'existe pas déjà
+    User.findOne({ attributes: ['name' || 'email'],
+        where: { 
+            name: name, 
+            email: email
+        }
     })
-    .catch(error => res.status(500).json({ error })); // 500 erreur serveur renvoi erreur dans objet
+    .then(userExist => {
+        if (!userExist) { //si l'utilisateur n'exite pas
+            //cryptage un mot de pass , on lui pass de mdp
+            bcrypt.hash(req.body.password, 10) // 10 tour pour verifier l'algoritme (methode asyncrone)
+            .then(hash => { // recuper le hash(mdp crypter)  de mdp 
+                //creation du new utilisateur
+                let user = new User({ //creation un nouvelle utilisateur (user)
+                    name: req.body.name,
+                    firstname: req.body.firstname,         
+                    email: req.body.email, // email passez l'addresse passsez dans le corp de la requete
+                    password: hash, // enregistrer le mdp crypter (hash) pour ne pas stocker un mdp en blanc
+                    admin: req.body.admin//valeur par default crée (0/false)
+                });
+                user.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise    
+                .then(() => res.status(201).json({message: 'utilisateur créé !'})) //creation de ressource
+                .catch(error => res.status(400).json({ error })); //impossible de se connecter au serveur
+            })
+            .catch(error => res.status(500).json({ error })); // 500 erreur serveur renvoi erreur dans objet    
+        } else {
+            return res.status(404).json({ message: "l'utilisateur existe deja"})
+        }
+    })
+    .catch(error => res.status(500).json({ error })); // 500 erreur serveur renvoi erreur dans objet     
 };  
 
 //connecter un utilisateur existant
