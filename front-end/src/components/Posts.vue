@@ -29,3 +29,13 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.v-list-item {
+    display: flex;
+    flex-direction: column;
+}
+.v-list-item .v-img {
+    width: 200px;
+}
+</style>
