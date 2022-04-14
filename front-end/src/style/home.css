@@ -17,6 +17,10 @@
     background-color: rgba(209,81,90,0.46);  
     color: rgba(9,31,67,0.8);
 }
+.v-btn.--connexion:hover {
+    box-shadow: 2px 2px 10px black; 
+}
+
 .v-container {
     display: flex;
     justify-content: center;

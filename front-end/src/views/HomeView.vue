@@ -35,7 +35,7 @@
         <v-form>
             <!-- si champ vide on disable le bouton validatedFieldss--> 
             <!-- au clic appel a la methode login--> 
-            <v-btn  v-on:click="loginAccount" :class="{'v-btn--disabled' : !validatedField} " v-if="mode == 'login'"  color="success" class="mr-4">
+            <v-btn  v-on:click="loginAccount" :class="{'v-btn--disabled' : !validatedField} " v-if="mode == 'login'"  color="success" class="mr-4 --connexion">
                 <!-- importation de la mutation selon le status if /else -->
                 <span v-if="status=='loading'">Connexion en cours...</span> 
                 <span v-else>Connexion</span> 
