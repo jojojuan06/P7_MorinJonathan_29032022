@@ -43,7 +43,9 @@ export default {
     //computed  nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés
     computed: {
     //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
-            ...mapState(['userInfos'])
+            ...mapState({
+    //renomer l'element du state            
+          user:'userInfos'})
     }
 }
 </script>
