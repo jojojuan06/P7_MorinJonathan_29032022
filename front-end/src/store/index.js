@@ -38,7 +38,7 @@ export default createStore({
       name: '',
       firstname: '',
       email:'',
-      profile_Img:''
+      profile_img:''
     },
     posts : []  // recuperation des posts
   },

@@ -6,7 +6,7 @@
                     <h3>Mon Profile</h3>   
                 </v-card-title>
                 <v-avatar>
-                <v-img class=".rounded-lg" :src="user.profile_img"></v-img>
+                <v-img class=".rounded-lg" v-bind:src="user.profile_img"></v-img>
                 </v-avatar>
                 <v-card-subtitle>
                 </v-card-subtitle>
@@ -45,7 +45,7 @@ export default {
     //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
             ...mapState({
     //renomer l'element du state            
-          user:'userInfos'})
+        user:'userInfos'})
     }
 }
 </script>
