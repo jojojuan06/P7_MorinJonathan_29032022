@@ -6,11 +6,14 @@
                     <h3>Mon Profile</h3>   
                 </v-card-title>
                 <v-avatar>
-                <v-img class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                <v-img class=".rounded-lg" :src="user.profile_img"></v-img>
                 </v-avatar>
                 <v-card-subtitle>
                 </v-card-subtitle>
+                <!-- affichage des information du compte -->
                     <p><strong>Voila donc qui je suis</strong> </p>
+                    <p>{{user.firstname}}-{{user.name}}</p>
+                    <p>{{user.email}}</p>
                 <v-card-actions>
                     <v-btn ><strong>Déconnexion</strong></v-btn>
                     <v-btn  href="#" target="_blank">Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
@@ -21,6 +24,9 @@
 </template>
 
 <script>
+// recuper le user depuis le state grace au spread pour recuperer l'ojet user
+import { mapState } from 'vuex'
+
 export default {
     name: 'Profile',
     //moment ou la vue et afficher
@@ -33,6 +39,11 @@ export default {
         }
         //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
         this.$store.dispatch('getUserInfos',this.$store.state.user.userId);
+    },
+    //computed  nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés
+    computed: {
+    //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
+            ...mapState(['userInfos'])
     }
 }
 </script>

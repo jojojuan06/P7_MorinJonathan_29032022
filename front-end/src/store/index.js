@@ -11,10 +11,21 @@ if (!user) {
     userId: -1,
     token:'',
   };
-} else { 
+} else {
+  //verification des different erreur
+  try {
   //sinon l'utilisateur exist on le parse pour recuperer l'user (l'ojet user)
   //car le local storage coutient un string
     user = JSON.parse(user);
+  // quand ont recuper le user on definit le header de l'autorisation  pour utiliser le token
+    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`
+  }catch(error){
+  // en cas d'ereur on definit sa valeur initial  
+    user = {
+      userId: -1,
+      token:'',
+    };
+  }
 }
 // create a new instance store
 export default createStore({
