@@ -30,7 +30,7 @@
             <v-text-field  v-model="form.password" type="password" label="Password" required></v-text-field>
         </v-form>
         <v-form class="--error_login" color="red" v-if="mode == 'login' && status == 'error_login'">
-            Adresse mail et/ou mot de pâsse invalide
+            Adresse mail et/ou mot de pâsse invalide ⚠
         </v-form>
         <v-form>
             <!-- si champ vide on disable le bouton validatedFieldss--> 
@@ -103,11 +103,13 @@ export default {
         loginAccount(){
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
+            const This = this; //sous element pas acces au this je renome une variabale pour appeler en dessous
             this.$store.dispatch('loginAccount',{
                 email:this.form.email,
                 password:this.form.password,
             }).then(function (response){
-                console.log(response);
+                //accès à l'instance du routeur en tant que $router
+                This.$router.push('/profile') //redirection vers la route apres login
             }),
             function (error) {
                 console.log(error);

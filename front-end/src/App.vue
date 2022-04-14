@@ -3,6 +3,7 @@
   <v-app app>
     <v-toolbar>
       <v-toolbar-title >
+         <!-- - similaire à la balise  anchor -->
         <router-link to="/" style="cursor: pointer">
           <v-img src="./images/logo.png"></v-img>
         </router-link>
@@ -65,7 +66,7 @@ export default {
         },
         {
           title:'Profile',
-          path:'/Profile',
+          path:'/profile',
           icons:'mdi-face',
         }, 
       ],
