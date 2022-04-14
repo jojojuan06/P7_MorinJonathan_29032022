@@ -74,8 +74,8 @@ h3 {
     background: #d7d7d7;
 }
 .v-card .v-avatar {
-    height: 200px;
-    width: 200px;
+    height: 150px;
+    width: 150px;
 }
 .v-card .v-btn:nth-child(2){
     color:red;
