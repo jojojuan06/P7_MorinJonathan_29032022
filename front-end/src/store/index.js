@@ -3,23 +3,33 @@ import { createStore } from 'vuex'
 //importation de axios pour faire les requetes
 import axios from '../axios';
 
-
-
+//recuperer le user dans le storage local
+let user = localStorage.getItem('user');
+//si le user est vide il est agale  cette condition
+if (!user) {
+  user = {
+    userId: -1,
+    token:'',
+  };
+} else { 
+  //sinon l'utilisateur exist on le parse pour recuperer l'user (l'ojet user)
+  //car le local storage coutient un string
+    user = JSON.parse(user);
+}
+// create a new instance store
 export default createStore({
   state: {
     //data global (status vide)
     status: '',  // contiendra le payload 
-    user: {
-      userId: -1,
-      token:'',
-    },
+    user: user, //user charger depuis le localstorage
     // objet userinfo avec l'objet a recuperer
     userInfos: {
       name: '',
       firstname: '',
       email:'',
       profile_Img:''
-    }
+    },
+    posts : []  // recuperation des posts
   },
   getters: {
   },
@@ -32,12 +42,20 @@ export default createStore({
     logUser(state, user) {
     // Important : Si axios est utilisé avec plusieurs domaines, le AUTH_TOKEN sera envoyé à tous.
     // Voir ci-dessous pour un exemple utilisant les valeurs par défaut de l'instance personnalisée à la place.
-    axios.defaults.headers.common['Authorization'] = user.token;
-        state.user = user;
+    // dit  a axios que l'autorisation c'est bearer espace le token , une fois l'utilisateur loger
+    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`; //recupere le token
+    //stocker le user dans le storage local
+    //stringify pour enr dans le storage
+    localStorage.setItem('user', JSON.stringify(user));   
+    state.user = user;
     },
     //creation mutations userinfo
     userInfos(state, userInfos) {
       state.userInfos = userInfos;
+    },
+    //afficher les post
+    displayPosts(state, posts) {
+      state.posts = posts;
     }   
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
@@ -101,8 +119,16 @@ export default createStore({
         })
         .catch(function (error) {
         });
-    }
-  },
+    },
+    getPosts:({commit}) => {
+      axios.get('/post')
+      // attendre la reponse (comme fetch)
+      .then(response => {
+        commit('displayPosts' , response.data);    
+      }) //retourne la repose des data dans l'objet vi
+      .catch(error => console.log(error));
+    }  
+  },  
   modules: {
   }
 })
