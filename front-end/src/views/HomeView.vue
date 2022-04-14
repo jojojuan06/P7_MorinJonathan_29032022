@@ -115,7 +115,7 @@ export default {
                 password:this.form.password,
             }).then(function (){
                 //accès à l'instance du routeur en tant que $router
-                This.$router.push('/profile'); //redirection vers la route apres login
+                This.$router.push({path: '/profile'}); //redirection vers la route apres login
             }),
             function (error) {
                 console.log(error);
@@ -131,7 +131,7 @@ export default {
                 firstname:this.form.firstname,
                 password:this.form.password
             }).then(function (){
-                This.$router.push('/post'); //redirection vers la route apres login
+                This.$router.push({path: '/posts'}); //redirection vers la route apres creation d'un compte
             }),
             function (error) {
                 console.log(error);

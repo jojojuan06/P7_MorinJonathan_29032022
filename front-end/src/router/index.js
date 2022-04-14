@@ -11,7 +11,7 @@ const routes = [
   },
   {
     path: '/posts',
-    name: 'post',
+    name: 'posts',
     component: PostView
   },
   {
