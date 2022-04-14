@@ -131,7 +131,8 @@ export default {
                 firstname:this.form.firstname,
                 password:this.form.password
             }).then(function (){
-                This.$router.push({path: '/posts'}); //redirection vers la route apres creation d'un compte
+                //redirection vers la route apres creation d'un compte (path en argument)
+                This.$router.push({path: '/posts'}); 
             }),
             function (error) {
                 console.log(error);
