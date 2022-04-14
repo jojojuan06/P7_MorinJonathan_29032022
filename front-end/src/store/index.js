@@ -29,6 +29,7 @@ if (!user) {
 }
 // create a new instance store
 export default createStore({
+//state responsable de la gestion des données dans le store  
   state: {
     //data global (status vide)
     status: '',  // contiendra le payload 
@@ -42,6 +43,7 @@ export default createStore({
     },
     posts : []  // recuperation des posts
   },
+  //getters sont destinés à être utilisés comme des propriétés calculées
   getters: {
   },
   //mettre à jour et modifier nos données dans Vuex avec les mutations en paramettre le state et 2 payload
