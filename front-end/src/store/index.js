@@ -13,6 +13,13 @@ export default createStore({
       userId: -1,
       token:'',
     },
+    // objet userinfo avec l'objet a recuperer
+    userInfos: {
+      name: '',
+      firstname: '',
+      email:'',
+      profile_Img:''
+    }
   },
   getters: {
   },
@@ -23,10 +30,18 @@ export default createStore({
         state.status = status;
       },
     logUser(state, user) {
+    // Important : Si axios est utilisé avec plusieurs domaines, le AUTH_TOKEN sera envoyé à tous.
+    // Voir ci-dessous pour un exemple utilisant les valeurs par défaut de l'instance personnalisée à la place.
+    axios.defaults.headers.common['Authorization'] = user.token;
         state.user = user;
+    },
+    //creation mutations userinfo
+    userInfos(state, userInfos) {
+      state.userInfos = userInfos;
     }   
   },
-  actions: {  //similaire a la proprieter methods
+  //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
+  actions: {  
     //recuperation du commit (invoquer une mutation avec  2params) nom a la creation du compte et 2e param le payload user info que l'on recupere
     createNewAccount: ({commit}, userInfos) => {
       //créeation d'un nouvelle promess
@@ -51,8 +66,7 @@ export default createStore({
         });
       });
     },
-
-//recuperation du commit (invoquer une mutation avec  2params)
+    //recuperation du commit (invoquer une mutation avec  2params)
     loginAccount: ({commit}, userInfos) => {
     //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
       commit('setStatus' , 'loading');
@@ -79,6 +93,15 @@ export default createStore({
         });
       }); 
     },
+    getUserInfos: ({commit}, userId) => { //2eme argu userId dee la req
+          axios.get(`/auth/${userId}`) //ajoute id a l'auth
+        .then(function (response) { 
+        //type et payload (recupere les info utilisateur)  
+        commit('userInfos' , response.data); 
+        })
+        .catch(function (error) {
+        });
+    }
   },
   modules: {
   }

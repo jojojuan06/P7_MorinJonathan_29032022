@@ -23,7 +23,17 @@
 <script>
 export default {
     name: 'Profile',
-
+    //moment ou la vue et afficher
+    mounted() {                               // <-----: function()
+        console.log(this.$store.state.user); 
+        //si l'utilisateur -1 donc non connecter on retourne a la page connection/inscription
+        if(this.$store.state.user.userId == -1) {
+            this.$router.push({path: '/'}) 
+            return;    
+        }
+        //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
+        this.$store.dispatch('getUserInfos',this.$store.state.user.userId);
+    }
 }
 </script>
 
