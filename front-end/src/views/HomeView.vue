@@ -29,6 +29,9 @@
         <v-form>   
             <v-text-field  v-model="form.password" type="password" label="Password" required></v-text-field>
         </v-form>
+        <v-form class="--error_login" color="red" v-if="mode == 'login' && status == 'error_login'">
+            Adresse mail et/ou mot de pâsse invalide
+        </v-form>
         <v-form>
             <!-- si champ vide on disable le bouton validatedFieldss--> 
             <!-- au clic appel a la methode login--> 
