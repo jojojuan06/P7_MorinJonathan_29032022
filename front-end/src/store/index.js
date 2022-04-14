@@ -32,22 +32,27 @@ export default createStore({
       //créeation d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
-        commit;  
+        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+        commit('setStatus' , 'loading'); 
         //requete Post enregistrer l'utilisateur
         axios.post('/auth/signup', userInfos) 
         .then(function (response) {
+        //rajouter un delai
+        setTimeout(() => { 
         commit('setStatus' , 'created'); //type et payload
+        },2000 ) //delai en deuxieme argument 2000ms
         //si tout dse pass bien
         resolve(response); //resolved (promesse résolue ) 
         })
         .catch(function (error) {
-          commit('setStatus' , 'error_create'); //type et payload
+        commit('setStatus' , 'error_create'); //type et payload
         //retourne une erreur
         reject(error); //rejected (rompue) : l'opération a échoué.
         });
       });
     },
-    //recuperation du commit (invoquer une mutation avec  2params)
+
+//recuperation du commit (invoquer une mutation avec  2params)
     loginAccount: ({commit}, userInfos) => {
     //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
       commit('setStatus' , 'loading');

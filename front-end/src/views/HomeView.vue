@@ -29,8 +29,13 @@
         <v-form>   
             <v-text-field  v-model="form.password" type="password" label="Password" required></v-text-field>
         </v-form>
+        <!-- afffiche seulement erreur a la connexion --> 
         <v-form class="--error_login" color="red" v-if="mode == 'login' && status == 'error_login'">
             Adresse mail et/ou mot de pâsse invalide ⚠
+        </v-form>
+        <!-- afffiche seulement erreur a la creation de compte --> 
+        <v-form class="--error_create" color="red" v-if="mode == 'create' && status == 'error_create'">
+            Adresse mail deja utilisé ⚠
         </v-form>
         <v-form>
             <!-- si champ vide on disable le bouton validatedFieldss--> 
@@ -42,7 +47,8 @@
             </v-btn>
             <!-- au clic appel a la methode createNewAccount--> 
             <v-btn   v-on:click="createNewAccount" :class="{'v-btn--disabled' : !validatedField}"  v-else color="success" class="mr-4" >
-                Créer mon compte
+                <span v-if="status=='loading'">Créer mon comptes...</span>
+                <span v-else>Créer mon compte</span>
             </v-btn>
         </v-form>
     </v-card>
@@ -107,15 +113,16 @@ export default {
             this.$store.dispatch('loginAccount',{
                 email:this.form.email,
                 password:this.form.password,
-            }).then(function (response){
+            }).then(function (){
                 //accès à l'instance du routeur en tant que $router
-                This.$router.push('/profile') //redirection vers la route apres login
+                This.$router.push('/profile'); //redirection vers la route apres login
             }),
             function (error) {
                 console.log(error);
             }
         },                                      
-        createNewAccount(){   // <------: function()  
+        createNewAccount(){   // <------: function() 
+            const This = this; //sous element pas acces au this je renome une variabale pour appeler en dessous  
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
             this.$store.dispatch('createNewAccount',{
@@ -123,8 +130,8 @@ export default {
                 name:this.form.name,
                 firstname:this.form.firstname,
                 password:this.form.password
-            }).then(function (response){
-                console.log(response);
+            }).then(function (){
+                This.$router.push('/post'); //redirection vers la route apres login
             }),
             function (error) {
                 console.log(error);

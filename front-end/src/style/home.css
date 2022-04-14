@@ -34,8 +34,15 @@
     background-color: grey;
 }
 .v-form.--error_login{
-  color: #d1515a;
-  font-size: 16px;
-  font-weight: bold;
-  text-decoration: underline;
+    color: #d1515a;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: underline;
+}
+
+.v-form.--error_create{
+    color: #d1515a;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: underline;
 }
