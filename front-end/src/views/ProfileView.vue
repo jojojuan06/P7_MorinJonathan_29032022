@@ -6,7 +6,8 @@
                     <h3>Mon Profile</h3>   
                 </v-card-title>
                 <v-avatar>
-                <v-img class=".rounded-lg" v-bind:src="user.profile_img"></v-img>
+                <v-img v-if="user.profile_img == '' " class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                <v-img v-else class=".rounded-lg" v-bind:src="user.profile_img"></v-img>
                 </v-avatar>
                 <v-card-subtitle>
                 </v-card-subtitle>
