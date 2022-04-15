@@ -77,9 +77,8 @@ export default createStore({
           userId: -1,
           token: ''
       }
-    console.log("info--> new"); 
      //supprimer les ressource (user) , aisin eviter la reconection
-      localStorage.removeItem('user'); 
+    localStorage.removeItem('user'); 
     }
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
@@ -154,15 +153,12 @@ export default createStore({
     },
     deleteProfile:({commit},{userId,token}) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
-      console.log("deleteprofile-->",axios.defaults.headers.common);
       axios.delete(`/auth/${userId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
         commit('logout' , response.data);    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => {
-        console.log("catch");
-        console.log(error.response)
         commit('logout' , response.data);
       });
     },  
