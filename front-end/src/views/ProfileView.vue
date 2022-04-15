@@ -36,9 +36,9 @@ export default {
         console.log(this.$store.state.user.userId); 
         //si l'utilisateur n'est pas nul donc non connecter on retourne a la page connection/inscription
         if(!this.$store.state.user.userId) {
-            this.$router.push({path: '/'}) 
-            return;    
+            return this.$router.push({path: '/'}) 
         }
+        console.log("mounted profile -->",this.$store.state.user);
         //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
         this.$store.dispatch('getUserInfos',this.$store.state.user.userId);
         
@@ -57,12 +57,9 @@ export default {
         },
         //suppresion du profil
         deleteProfile() {
-            console.log("info ---->",this.user);
             //ajoute une condition if alert pour supprimer le compte
             //commit importation de la mutation logout depuis le store
-            //this.$store.dispatch('deleteProfile',this.$store.state.user.userId);
             this.$store.dispatch('deleteProfile', this.user)
-            this.$router.push({path: '/'}) 
         }
     },
 }

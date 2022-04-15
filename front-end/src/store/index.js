@@ -1,37 +1,16 @@
 import { createStore } from 'vuex'
-
+//importe le module router de vue
+import router from '@/router'
 //importation de axios pour faire les requetes
 import axios from '../axios';
 
-//recuperer le user dans le storage local
-let user = localStorage.getItem('user');
-//si le user est vide il est agale  cette condition
-if (!user) {
-  user = {
-    userId: null,
-    token:null,
-  };
-} else {
-  //verification des different erreur
-  try {
-  //sinon l'utilisateur exist on le parse pour recuperer l'user (l'ojet user)
-  //car le local storage coutient un string
-    user = JSON.parse(user);
-  }catch(error){
-  // en cas d'ereur on definit sa valeur initial  
-    user = {
-      userId: null,
-      token:null,
-    };
-  }
-}
 // create a new instance store
 export default createStore({
 //state responsable de la gestion des données dans le store  
   state: {
     //data global (status vide)
     status: '',  // contiendra le payload 
-    user: user, //user charger depuis le localstorage
+    user: localStorage.getItem('user') || {}, //user charger depuis le localstorage
     // objet userinfo avec l'objet a recuperer
     userInfos: {
       id:'',
@@ -73,12 +52,17 @@ export default createStore({
     }, 
     //logout  qui prend user  par default non conecter
     logout(state) {
-        state.user = {
-          userId: null, //userid nexiste pas
-          token: null
-      }
+      state.user = {}
      //supprimer les ressource (user) , aisin eviter la reconection
     localStorage.removeItem('user'); 
+    },
+    deleteUser(state) {
+      console.log("state index ---->",JSON.stringify(state));
+      state.user = {}
+      state.userInfos = {}
+      console.log("state mofifier ---->",JSON.stringify(state));
+      //supprimer les ressource (user) , aisin eviter la reconection
+      localStorage.removeItem('user');
     }
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
@@ -156,7 +140,8 @@ export default createStore({
       axios.delete(`/auth/${userId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('logout' , response.data);    
+        commit('deleteUser' , response.data);
+        router.push({path: '/'})    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { console.log(error); });
     },  

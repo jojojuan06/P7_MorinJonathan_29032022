@@ -76,10 +76,11 @@ export default {
     //moment ou la vue et afficher    
     mounted() {
         //si l'utilisateur n'est pas null, donc connecter donc on retourne sur le profile
+        console.log("mounted home-->", this.$store.state.user.userId);
         if(this.$store.state.user.userId) {
             this.$router.push({path: '/profile'}) 
             return;    
-        }
+        } 
     },    
     props: { //Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
         msg: {
