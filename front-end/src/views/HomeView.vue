@@ -1,5 +1,5 @@
 <template>
-<v-container>
+<v-container class="--container">
     <h1 class="--title">{{ msg }}</h1>   
     <v-card>
         <v-card-text class="--subtitle" v-if="mode=='create'">

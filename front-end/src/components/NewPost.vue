@@ -1,9 +1,7 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-<v-card max-width="800" class="mx-auto">
-        <v-toolbar color="primary">
-            <v-toolbar-title>Nouveau Post</v-toolbar-title>
-        </v-toolbar>
+        <v-card>
+            <v-card-title>Nouveau Post</v-card-title>
         <v-form>
             <v-container>
                 <v-row>
