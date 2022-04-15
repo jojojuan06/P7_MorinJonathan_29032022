@@ -1,0 +1,30 @@
+.v-app--title {
+    text-align: center;
+}
+.v-card--container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.v-img--post{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 200px;
+}
+.v-card-title--color {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(9,31,67,0.80);
+    color: white;
+    border-radius: 10px 10px 0px 0px;
+}
+.v-text--content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

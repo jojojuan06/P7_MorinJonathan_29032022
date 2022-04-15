@@ -1,20 +1,14 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-    <v-card max-width="800" class="mx-auto">
-        <v-toolbar color="primary">
-            <v-toolbar-title>Post</v-toolbar-title>
-        </v-toolbar>
-        <v-list>
-        <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
-        <v-list-item v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  <!-- import de post depuis $store.state -->
-                <v-list-item-title v-text="post.title"></v-list-item-title>
-                <p>{{post.content}}</p>
-                <v-img v-bind:src="post.image" alt="mon image"></v-img>
-                <v-list-item-content>
-            </v-list-item-content>
-        </v-list-item>
-        </v-list>
-    </v-card>   
+        <v-app  class="v-app--container">
+            <h3 class="v-app--title">Posts</h3>
+            <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
+            <v-card v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  <!-- import de post depuis $store.state -->
+                <v-card-title class="v-card-title--color">{{post.title}}</v-card-title>
+                <v-img class="v-img--post" v-bind:src="post.image" alt="mon image"></v-img>
+                <v-text class="v-text--content"><p>{{post.content}}</p></v-text>
+            </v-card>
+        </v-app>  
 </template>
 
 <script>
@@ -31,11 +25,5 @@ export default {
 </script>
 
 <style scoped>
-.v-list-item {
-    display: flex;
-    flex-direction: column;
-}
-.v-list-item .v-img {
-    width: 200px;
-}
+@import url('../style/posts.css');
 </style>
