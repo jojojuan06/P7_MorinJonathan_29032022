@@ -75,8 +75,8 @@ export default {
         },
     //moment ou la vue et afficher    
     mounted() {
-        //si l'utilisateur n'est pas  -1 donc connecter donc on retourne sur le profile
-        if(this.$store.state.user.userId != -1) {
+        //si l'utilisateur n'est pas null, donc connecter donc on retourne sur le profile
+        if(this.$store.state.user.userId) {
             this.$router.push({path: '/profile'}) 
             return;    
         }

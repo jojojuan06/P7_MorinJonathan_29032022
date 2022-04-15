@@ -8,8 +8,8 @@ let user = localStorage.getItem('user');
 //si le user est vide il est agale  cette condition
 if (!user) {
   user = {
-    userId: -1,
-    token:'',
+    userId: null,
+    token:null,
   };
 } else {
   //verification des different erreur
@@ -20,8 +20,8 @@ if (!user) {
   }catch(error){
   // en cas d'ereur on definit sa valeur initial  
     user = {
-      userId: -1,
-      token:'',
+      userId: null,
+      token:null,
     };
   }
 }
@@ -74,8 +74,8 @@ export default createStore({
     //logout  qui prend user  par default non conecter
     logout(state) {
         state.user = {
-          userId: -1,
-          token: ''
+          userId: null, //userid nexiste pas
+          token: null
       }
      //supprimer les ressource (user) , aisin eviter la reconection
     localStorage.removeItem('user'); 
@@ -158,9 +158,7 @@ export default createStore({
       .then(response => {
         commit('logout' , response.data);    
       }) //retourne la repose des data dans l'objet vi
-      .catch(error => {
-        commit('logout' , response.data);
-      });
+      .catch(error => { console.log(error); });
     },  
   },  
   modules: {

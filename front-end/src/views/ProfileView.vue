@@ -33,9 +33,9 @@ export default {
     name: 'Profile',
     //moment ou la vue et afficher
     mounted() {                               // <-----: function()
-        console.log(this.$store.state.user); 
-        //si l'utilisateur -1 donc non connecter on retourne a la page connection/inscription
-        if(this.$store.state.user.userId == -1) {
+        console.log(this.$store.state.user.userId); 
+        //si l'utilisateur n'est pas nul donc non connecter on retourne a la page connection/inscription
+        if(!this.$store.state.user.userId) {
             this.$router.push({path: '/'}) 
             return;    
         }
@@ -104,3 +104,5 @@ h3 {
     text-decoration: underline;
 }
 </style>
+
+
