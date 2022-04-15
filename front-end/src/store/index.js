@@ -10,7 +10,8 @@ export default createStore({
   state: {
     //data global (status vide)
     status: '',  // contiendra le payload 
-    user: localStorage.getItem('user') || {}, //user charger depuis le localstorage
+    //user charger depuis le localstorage
+    user: JSON.parse(localStorage.getItem('user')) || {}, 
     // objet userinfo avec l'objet a recuperer
     userInfos: {
       id:'',
@@ -57,10 +58,8 @@ export default createStore({
     localStorage.removeItem('user'); 
     },
     deleteUser(state) {
-      console.log("state index ---->",JSON.stringify(state));
       state.user = {}
       state.userInfos = {}
-      console.log("state mofifier ---->",JSON.stringify(state));
       //supprimer les ressource (user) , aisin eviter la reconection
       localStorage.removeItem('user');
     }

@@ -18,19 +18,33 @@
                 <v-card-actions>
                     <!-- action de deconnexion avec la mutation logout-->
                     <v-btn @click="logout"><strong>Déconnexion</strong></v-btn>
-                    <v-btn   @click="deleteProfile" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
+                    <v-btn   @click="openConfirmDelete" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
+                    {{confirmDelete.open}}
                 </v-card-actions>
             </v-card>
-        </v-container>  
+        </v-container> 
+        <!-- importation du props alertconfirm depuis sont component-->
+        <AlertConfirm v-model="confirmDelete.open"/>  
     </v-app>
 </template>
 
 <script>
 // recuper le user depuis le state grace au spread pour recuperer l'ojet user
 import { mapState } from 'vuex'
+import AlertConfirm from '../components/AlertConfirm.vue'
 
 export default {
     name: 'Profile',
+    components: {
+        AlertConfirm
+    },
+    data() {
+        return {
+            confirmDelete:{
+                open:false
+            }
+        }
+    },
     //moment ou la vue et afficher
     mounted() {                               // <-----: function()
         console.log(this.$store.state.user.userId); 
@@ -60,6 +74,9 @@ export default {
             //ajoute une condition if alert pour supprimer le compte
             //commit importation de la mutation logout depuis le store
             this.$store.dispatch('deleteProfile', this.user)
+        },
+        openConfirmDelete(){
+            this.confirmDelete.open = true;
         }
     },
 }
