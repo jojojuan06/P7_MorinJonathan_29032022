@@ -6,19 +6,19 @@
                     <h3>Mon Profile</h3>   
                 </v-card-title>
                 <v-avatar>
-                <v-img v-if="user.profile_img == '' " class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                <v-img v-else class=".rounded-lg" v-bind:src="user.profile_img"></v-img>
+                <v-img v-if="userInfos.profile_img == '' " class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                <v-img v-else class=".rounded-lg" v-bind:src="userInfos.profile_img"></v-img>
                 </v-avatar>
                 <v-card-subtitle>
                 </v-card-subtitle>
                 <!-- affichage des information du compte -->
                     <p><strong>Voila donc qui je suis</strong> </p>
-                    <p>{{user.firstname}}-{{user.name}}</p>
-                    <p>{{user.email}}</p>
+                    <p>{{userInfos.firstname}}-{{userInfos.name}}</p>
+                    <p>{{userInfos.email}}</p>
                 <v-card-actions>
                     <!-- action de deconnexion avec la mutation logout-->
                     <v-btn @click="logout"><strong>Déconnexion</strong></v-btn>
-                    <v-btn   @click="deleteProfile()" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
+                    <v-btn   @click="deleteProfile" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
                 </v-card-actions>
             </v-card>
         </v-container>  
@@ -45,10 +45,8 @@ export default {
     },
     //computed  nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés
     computed: {
-    //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
-            ...mapState({
-    //renomer l'element du state            
-        user:'userInfos'})
+            //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
+            ...mapState(['userInfos', 'user']) //renomer l'element du state
     },
     methods: {
         //deconnexion au profil
@@ -59,10 +57,11 @@ export default {
         },
         //suppresion du profil
         deleteProfile() {
+            console.log("info ---->",this.user);
             //ajoute une condition if alert pour supprimer le compte
             //commit importation de la mutation logout depuis le store
             //this.$store.dispatch('deleteProfile',this.$store.state.user.userId);
-            this.$store.commit('deleteProfile');
+            this.$store.dispatch('deleteProfile', this.user)
             this.$router.push({path: '/'}) 
         }
     },

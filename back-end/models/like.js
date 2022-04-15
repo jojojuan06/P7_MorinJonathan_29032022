@@ -13,9 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       //console.log(models);
       // définir l'association ici
       //Les associations BelongsTo (appartient),model.user reference
-      models.Like.belongsTo(models.Post,{ foreignKey: "postId" }); 
+      models.Like.belongsTo(models.Post,{ foreignKey: "postId" , onDelete:"CASCADE",onUpdate:"CASCADE"}); 
       // définir l'association ici (like ==> user appartient plusieur)
-      models.Like.belongsTo(models.User,{ foreignKey: "userId" });   
+      models.Like.belongsTo(models.User,{ foreignKey: "userId" , onDelete:"CASCADE",onUpdate:"CASCADE"});   
       }     
     }
   Like.init({
