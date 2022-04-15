@@ -46,7 +46,7 @@ export default createStore({
   //getters sont destinés à être utilisés comme des propriétés calculées
   getters: {
   },
-  //mettre à jour et modifier nos données dans Vuex avec les mutations en paramettre le state et 2 payload
+  //mettre à jour (changer d'etat)et modifier nos données dans Vuex avec les mutations en paramettre le state et 2 payload
   mutations: {
     //------> : function()
     setStatus(state , status) {   
@@ -69,7 +69,16 @@ export default createStore({
     //afficher les post
     displayPosts(state, posts) {
       state.posts = posts;
-    }   
+    }, 
+    //logout  qui prend user  par default non conecter
+    logout(state) {
+        state.user = {
+          userId: -1,
+          token: ''
+      }
+     //supprimer les ressource (user) , aisin eviter la reconection
+     localStorage.removeItem('user'); 
+    }
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
   actions: {  

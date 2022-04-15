@@ -16,8 +16,9 @@
                     <p>{{user.firstname}}-{{user.name}}</p>
                     <p>{{user.email}}</p>
                 <v-card-actions>
-                    <v-btn ><strong>Déconnexion</strong></v-btn>
-                    <v-btn  href="#" target="_blank">Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
+                    <!-- action de deconnexion avec la mutation logout-->
+                    <v-btn @click="logout"><strong>Déconnexion</strong></v-btn>
+                    <v-btn   href="#" target="_blank">Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
                 </v-card-actions>
             </v-card>
         </v-container>  
@@ -47,7 +48,14 @@ export default {
             ...mapState({
     //renomer l'element du state            
         user:'userInfos'})
-    }
+    },
+    methods: {
+        logout() { 
+            //commit importation de la mutation logout depuis le store
+            this.$store.commit('logout');
+            this.$router.push({path: '/'})
+        }
+    },
 }
 </script>
 
