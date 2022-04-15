@@ -21,7 +21,7 @@
     box-shadow: 2px 2px 10px black; 
 }
 
-.v-container.--container {
+.v-container {
     display: flex;
     justify-content: center;
     align-items: center;

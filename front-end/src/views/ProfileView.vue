@@ -18,7 +18,7 @@
                 <v-card-actions>
                     <!-- action de deconnexion avec la mutation logout-->
                     <v-btn @click="logout"><strong>Déconnexion</strong></v-btn>
-                    <v-btn   href="#" target="_blank">Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
+                    <v-btn   @click="deleteProfile()" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
                 </v-card-actions>
             </v-card>
         </v-container>  
@@ -41,6 +41,7 @@ export default {
         }
         //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
         this.$store.dispatch('getUserInfos',this.$store.state.user.userId);
+        
     },
     //computed  nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés
     computed: {
@@ -50,10 +51,19 @@ export default {
         user:'userInfos'})
     },
     methods: {
+        //deconnexion au profil
         logout() { 
             //commit importation de la mutation logout depuis le store
             this.$store.commit('logout');
             this.$router.push({path: '/'})
+        },
+        //suppresion du profil
+        deleteProfile() {
+            //ajoute une condition if alert pour supprimer le compte
+            //commit importation de la mutation logout depuis le store
+            //this.$store.dispatch('deleteProfile',this.$store.state.user.userId);
+            this.$store.commit('deleteProfile');
+            this.$router.push({path: '/'}) 
         }
     },
 }
