@@ -10,9 +10,9 @@
     background-color: #3f3f3f;
 }
 .v-footer .v-btn a {
-text-decoration: none;
-color: white;
-margin-left: 4px;
+    text-decoration: none;
+    color: white;
+    margin-left: 4px;
 }
 .v-application__wrap {
     display: block;

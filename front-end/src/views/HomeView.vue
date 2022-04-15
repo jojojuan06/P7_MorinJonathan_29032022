@@ -64,15 +64,23 @@ export default {
     name:'Login',
     data: function() {
         return {
-            mode: 'login',  //etat login
-            form : {
-                name: "",
-                firstname: "",
-                password: "",
-                email:""
-            }
+                mode: 'login',  //etat login
+                form : {
+                    name: "",
+                    firstname: "",
+                    password: "",
+                    email:""
+                }
             }
         },
+    //moment ou la vue et afficher    
+    mounted() {
+        //si l'utilisateur n'est pas  -1 donc connecter donc on retourne sur le profile
+        if(this.$store.state.user.userId != -1) {
+            this.$router.push({path: '/profile'}) 
+            return;    
+        }
+    },    
     props: { //Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
         msg: {
             type: String,
