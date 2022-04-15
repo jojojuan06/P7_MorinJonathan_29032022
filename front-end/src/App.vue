@@ -4,7 +4,7 @@
     <v-toolbar>
       <v-toolbar-title >
          <!-- - similaire à la balise  anchor -->
-        <router-link to="/" style="cursor: pointer">
+        <router-link to="/posts" style="cursor: pointer">
           <v-img src="./images/logo.png"></v-img>
         </router-link>
       </v-toolbar-title>
