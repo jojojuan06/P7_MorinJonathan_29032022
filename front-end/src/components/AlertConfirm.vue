@@ -1,25 +1,22 @@
 <template>
     <v-row justify="center">
-        <h1>Hello World</h1>
-            {{value}}
-    <v-dialog v-model="value" persistent max-width="290">
-        <template v-slot:activator="{ on, attrs }">
-        <v-btn color="primary" dark v-bind="attrs" v-on="on">
-            Open Dialog
-        </v-btn>
-      </template>
+    <v-dialog v-model="open" persistent max-width="600">
       <v-card>
-        <v-card-title class="text-h5">
-          Use Google's location service?
-        </v-card-title>
-        <v-card-text>Let Google help apps determine location. This means sending anonymous location data to Google, even when no apps are running.</v-card-text>
+        <div class="card_header">
+            <v-card-title class="text-h5">
+            {{title}}
+            </v-card-title>
+            <v-icon class="--color">mdi-alert</v-icon>
+        </div>
+        <v-card-text>{{description}}</v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="green darken-1" text @click="dialog = false">
-            Disagree
+          <!-- envoyer $emit l'evenement au parent -->
+          <v-btn  @click="$emit('closeAlert')">
+            Annuler
           </v-btn>
-          <v-btn color="green darken-1" text @click="dialog = false">
-            Agree
+          <v-btn  @click="$emit('comfirm')">
+            ok
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -28,16 +25,32 @@
 </template>    
 
 <script>
+
 export default {
-    name: 'alertConfirm',
+    name: 'AlertConfirm',
     props: {
-        value: {
+        title: {
+        type:String,    
+        default:"",
+        },
+        description:{
+        type:String,
+        default:""
+        },
+        open: {
             type:Boolean,
             default: false
-        }
-    }
+        }   
+    },
 }
-
-
-
 </script>
+
+<style scoped>
+.v-icon.--color{
+    color: orangered;
+    font-size: 32px;
+}
+.text-h5 {
+    color: #d1515a;
+}
+</style>

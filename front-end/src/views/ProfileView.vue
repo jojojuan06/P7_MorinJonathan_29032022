@@ -19,19 +19,24 @@
                     <!-- action de deconnexion avec la mutation logout-->
                     <v-btn @click="logout"><strong>Déconnexion</strong></v-btn>
                     <v-btn   @click="openConfirmDelete" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
-                    {{confirmDelete.open}}
                 </v-card-actions>
             </v-card>
         </v-container> 
-        <!-- importation du props alertconfirm depuis sont component-->
-        <AlertConfirm v-model="confirmDelete.open"/>  
+        <!--  1- recuperer des evenement-->
+        <!--  2- importation du props alertconfirm depuis sont component , recoit l'evenement-->
+        <!--  3- prop des component qui sont recuperer depuis alercomponent -->
+        <AlertConfirm 
+        @closeAlert="confirmDelete.open = false" 
+        :title="confirmDelete.title"
+        @comfirm="deleteProfile" 
+        :open="confirmDelete.open"/>  
     </v-app>
 </template>
 
 <script>
 // recuper le user depuis le state grace au spread pour recuperer l'ojet user
 import { mapState } from 'vuex'
-import AlertConfirm from '../components/AlertConfirm.vue'
+import AlertConfirm from '@/components/AlertConfirm';
 
 export default {
     name: 'Profile',
@@ -41,6 +46,7 @@ export default {
     data() {
         return {
             confirmDelete:{
+                title:"Etes vous sur de vouloir supprimer le compte, cette action est irréversible !",
                 open:false
             }
         }
@@ -71,6 +77,7 @@ export default {
         },
         //suppresion du profil
         deleteProfile() {
+            this.confirmDelete.open = false
             //ajoute une condition if alert pour supprimer le compte
             //commit importation de la mutation logout depuis le store
             this.$store.dispatch('deleteProfile', this.user)
