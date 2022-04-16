@@ -8,6 +8,7 @@ import axios from '../axios';
 export default createStore({
 //state responsable de la gestion des données dans le store  (data global)
   state: {
+    users: [], //recupere tout les utilisateurs
     message:'',
     //data global (status vide)
     status: '',  // contiendra le payload 
@@ -19,7 +20,8 @@ export default createStore({
       name: '',
       firstname: '',
       email:'',
-      profile_img:''
+      profile_img:'',
+      admin:''
     },
     posts : []  // recuperation des posts
   },
@@ -52,6 +54,10 @@ export default createStore({
     DISPLAYPOSTS(state, posts) {
       state.posts = posts;
     }, 
+     //afficher les post
+    DISPLAY_USERS(state, users) {
+      state.users = users;
+    },
     //LOGOUT  qui prend user  par default non conecter
     LOGOUT(state) {
       state.user = {}
@@ -128,6 +134,17 @@ export default createStore({
           console.log(error); 
           commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
         });
+    },
+    getAllUser: ({commit}) => { //2eme argu userId dee la req
+        axios.get(`/auth`) //ajoute id a l'auth
+      .then(function (response) { 
+      //type et payload (recupere les info utilisateur)  
+      commit('DISPLAY_USERS' , response.data); 
+      })
+      .catch(error => { 
+        console.log(error); 
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
     },
     getPosts:({commit}) => {
       axios.get('/post')

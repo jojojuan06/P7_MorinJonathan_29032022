@@ -81,6 +81,11 @@ export default {
           title:'Profile',
           path:'/profile',
           icons:'mdi-face',
+        },
+        {
+        title:'Profiles',
+        path:'/profiles',
+        icons:'mdi-account-group'
         }, 
       ],
     }

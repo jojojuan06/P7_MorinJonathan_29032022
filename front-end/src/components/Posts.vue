@@ -12,8 +12,6 @@
 </template>
 
 <script>
-// axios module pour Faire des requêtes http à partir de node.js
-import axios from '../axios';
 
 export default {
 // qui représente le moment durant lequel le composant va être rendu sur notre page.
