@@ -103,8 +103,7 @@ export default {
                 }
             return valid;    
             },
-            // mélange ceci dans l'objet extérieur avec l'opérateur de diffusion d'objet
-            //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
+            //importation de l'objet depuis state
             ...mapState(['status']) 
         },
     methods: { 

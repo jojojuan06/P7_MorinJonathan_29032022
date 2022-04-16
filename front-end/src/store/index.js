@@ -6,7 +6,7 @@ import axios from '../axios';
 
 // create a new instance store
 export default createStore({
-//state responsable de la gestion des données dans le store  
+//state responsable de la gestion des données dans le store  (data global)
   state: {
     message:'',
     //data global (status vide)
@@ -26,18 +26,17 @@ export default createStore({
   //getters sont destinés à être utilisés comme des propriétés calculées
   getters: {
   },
-  //mettre à jour (changer d'etat)et modifier nos données dans Vuex avec les mutations en paramettre le state et 2 payload
-  mutations: {
+  //mettre à jour / changer d'etat nos données dans Vuex  params le state et 2 payload
+  //permet de de changer d'etat (le state)
+  mutations: { 
     //------> : function()
-    setStatus(state , data) {   
+    SETSTATUS(state , data) {   
         state.status = data.status;
         state.message = data.message;
       },
-    logUser(state, user) {
+    lOGUSER(state, user) {
     state.userInfos.userId = user.userId
-    console.log("info-->" ,state.userInfos); 
     // Important : Si axios est utilisé avec plusieurs domaines, le AUTH_TOKEN sera envoyé à tous.
-    // Voir ci-dessous pour un exemple utilisant les valeurs par défaut de l'instance personnalisée à la place.
     // dit  a axios que l'autorisation c'est bearer espace le token , une fois l'utilisateur loger
     axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`; //recupere le token
     //stocker le user dans le storage local
@@ -46,20 +45,20 @@ export default createStore({
     state.user = user;
     },
     //creation mutations userinfo
-    userInfos(state, userInfos) {
+    USERINFOS(state, userInfos) {
       state.userInfos = userInfos;
     },
     //afficher les post
-    displayPosts(state, posts) {
+    DISPLAYPOSTS(state, posts) {
       state.posts = posts;
     }, 
-    //logout  qui prend user  par default non conecter
-    logout(state) {
+    //LOGOUT  qui prend user  par default non conecter
+    LOGOUT(state) {
       state.user = {}
      //supprimer les ressource (user) , aisin eviter la reconection
     localStorage.removeItem('user'); 
     },
-    deleteUser(state) {
+    DELETEUSER(state) {
       state.user = {}
       state.userInfos = {}
       //supprimer les ressource (user) , aisin eviter la reconection
@@ -74,20 +73,19 @@ export default createStore({
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
         //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
-        commit('setStatus' , {status:'loading',message:''}); 
+        commit('SETSTATUS' , {status:'loading',message:''}); 
         //requete Post enregistrer l'utilisateur
         axios.post('/auth/signup', userInfos) 
         .then(function (response) {
         //rajouter un delai
         setTimeout(() => { 
-        commit('setStatus' , {status:'succes',message:'Felicitation votre compte est crée'}); //type et payload
+        commit('SETSTATUS' , {status:'succes',message:'Felicitation votre compte est crée'}); //type et payload
         resolve(response); //resolved (promesse résolue )
         },1000 ) //delai en deuxieme argument 1000ms
         //si tout dse pass bien
-         
         })
         .catch(function (error) {
-        commit('setStatus' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
+        commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
         //retourne une erreur
         reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -96,7 +94,7 @@ export default createStore({
     //recuperation du commit (invoquer une mutation avec  2params)
     loginAccount: ({commit}, userInfos) => {
     //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
-    commit('setStatus' , {status:'loading',message:''});
+    commit('SETSTATUS' , {status:'loading',message:''});
     //créeation d'un nouvelle promess
     //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
     return new Promise((resolve, reject) => {
@@ -106,15 +104,15 @@ export default createStore({
         //rajouter un delai
         setTimeout(() => { 
           //invoquer la mutation (commit)
-          commit('setStatus' , {status:'succes',message:'Connexion reussie'});
+          commit('SETSTATUS' , {status:'succes',message:'Connexion reussie'});
         },500 ) //delai en deuxieme argument 500ms
         // commit pour stocker notre user  
-          commit('logUser', response.data) // deuxieme argument on recupere les data
+          commit('lOGUSER', response.data) // deuxieme argument on recupere les data
           //si tout se pass bien
           resolve(response); //resolved (promesse résolue ) 
         })
         .catch(function (error) {
-          commit('setStatus' , {status:'error',message:`Désolé impossible se connecter ! ${error}`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible se connecter ! ${error}`}); //type et payload
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -124,22 +122,22 @@ export default createStore({
           axios.get(`/auth/${userId}`) //ajoute id a l'auth
         .then(function (response) { 
         //type et payload (recupere les info utilisateur)  
-        commit('userInfos' , response.data); 
+        commit('USERINFOS' , response.data); 
         })
         .catch(error => { 
           console.log(error); 
-          commit('setStatus' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+          commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
         });
     },
     getPosts:({commit}) => {
       axios.get('/post')
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('displayPosts' , response.data);    
+        commit('DISPLAYPOSTS' , response.data);    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
         console.log(error); 
-        commit('setStatus' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
       });
     },
     deleteProfile:({commit},{userId,token}) => {
@@ -147,13 +145,13 @@ export default createStore({
       axios.delete(`/auth/${userId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('deleteUser' , response.data);
+        commit('DELETEUSER' , response.data);
         router.push({path: '/'})    
-        commit('setStatus' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
+        commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
         console.log(error); 
-        commit('setStatus' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
       });
     },  
   },  

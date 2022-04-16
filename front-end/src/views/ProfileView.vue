@@ -58,7 +58,6 @@ export default {
         if(!this.$store.state.user.userId) {
             return this.$router.push({path: '/'}) 
         }
-        console.log("mounted profile -->",this.$store.state.user);
         //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
         this.$store.dispatch('getUserInfos',this.$store.state.user.userId);
         
@@ -72,14 +71,14 @@ export default {
         //deconnexion au profil
         logout() { 
             //commit importation de la mutation logout depuis le store
-            this.$store.commit('logout');
+            this.$store.commit('LOGOUT');
             this.$router.push({path: '/'})
         },
         //suppresion du profil
         deleteProfile() {
             this.confirmDelete.open = false
             //ajoute une condition if alert pour supprimer le compte
-            //commit importation de la mutation logout depuis le store
+            //importation des state
             this.$store.dispatch('deleteProfile', this.user)
         },
         openConfirmDelete(){
