@@ -102,7 +102,7 @@ exports.getOneUser = (req, res, next) => {
     const id = req.params.id; // avoir acces  dans l'objet req.pams.id
     User.findOne({
         where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
-        attributes:["email","name","firstname","profile_img"] //clef que je veut montrer en clair
+        attributes:["email","name","firstname","profile_img","id"] //clef que je veut montrer en clair
     })
     .then(user => {
     if (!user) { 
@@ -121,7 +121,7 @@ exports.getOneUser = (req, res, next) => {
 exports.getAllUser = (req, res, next) => {    
     User.findAll({
         //sélectionner que certains attributs, clef que je veut montrer en clair   
-        attributes:["email","name","firstname","profile_img"]   
+        attributes:["email","name","firstname","profile_img","id"]   
     })
     // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
     .then(users => res.status(200).json(users)) 
