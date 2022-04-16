@@ -13,6 +13,7 @@ export default createStore({
     //data global (status vide)
     status: '',  // contiendra le payload 
     //user charger depuis le localstorage
+    //user contient l'id et le token de l'utilisateur connecter 
     user: JSON.parse(localStorage.getItem('user')) || {}, 
     // objet userinfo avec l'objet a recuperer
     userInfos: {
@@ -61,15 +62,10 @@ export default createStore({
     //LOGOUT  qui prend user  par default non conecter
     LOGOUT(state) {
       state.user = {}
+      state.userInfos = {}
      //supprimer les ressource (user) , aisin eviter la reconection
     localStorage.removeItem('user'); 
     },
-    DELETEUSER(state) {
-      state.user = {}
-      state.userInfos = {}
-      //supprimer les ressource (user) , aisin eviter la reconection
-      localStorage.removeItem('user');
-    }
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
   actions: {  
@@ -162,9 +158,7 @@ export default createStore({
       axios.delete(`/auth/${userId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('DELETEUSER' , response.data);
-        router.push({path: '/'})    
-        commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
         console.log(error); 

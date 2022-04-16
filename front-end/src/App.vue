@@ -19,7 +19,7 @@
         </v-toolbar-item>
     </v-toolbar>
     <div>
-     <!-- alerte a la creation du compte -->
+    <!-- alerte a la creation du compte -->
         <v-alert v-if="this.$store.state.status =='succes'" class="v--alert"   type="success">
           {{ this.$store.state.message }}
           <!-- function au clic on remet a zero et on enleve l'alert -->

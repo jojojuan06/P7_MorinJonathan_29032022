@@ -73,6 +73,7 @@ export default {
             //commit importation de la mutation logout depuis le store
             this.$store.commit('LOGOUT');
             this.$router.push({path: '/'})
+            this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
         },
         //suppresion du profil
         deleteProfile() {
@@ -80,6 +81,14 @@ export default {
             //ajoute une condition if alert pour supprimer le compte
             //importation des state
             this.$store.dispatch('deleteProfile', this.user)
+            .then( () =>{
+                this.$store.commit('LOGOUT');
+                this.$router.push({path: '/'})
+                this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
+            })
+            .catch(error => {
+                this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le compte ${error}`}); //type et payload
+            })
         },
         openConfirmDelete(){
             this.confirmDelete.open = true;

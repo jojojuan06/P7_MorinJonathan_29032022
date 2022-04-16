@@ -4,7 +4,7 @@
             <div  class="container--users">
                 <v-card v-for="user of this.$store.state.users" v-bind:key="user.id" >
                     <v-card-title>
-                        <h3>{{user.name}}</h3>   
+                        <h3>{{user.name}}</h3> 
                     </v-card-title>
                     <v-avatar>
                     <v-img v-if="user.profile_img == '' " class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
@@ -18,7 +18,7 @@
                     <v-card-actions>
                         <!-- action de deconnexion avec la mutation logout-->
                         <v-btn><strong>Modifier</strong></v-btn>
-                        <v-btn   @click="openConfirmDelete" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
+                        <v-btn   @click="openConfirmDelete(user.id)" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
                     </v-card-actions>
                 </v-card>
             </div>
@@ -29,7 +29,7 @@
         <AlertConfirm 
         @closeAlert="confirmDelete.open = false" 
         :title="confirmDelete.title"
-        @comfirm="deleteProfile" 
+        @comfirm="deleteProfile(userId)" 
         :open="confirmDelete.open"/>  
     </v-app>
 </template>
@@ -46,6 +46,7 @@ export default {
     },
     data() {
         return {
+            userId: -1,
             confirmDelete:{
                 title:"Etes vous sur de vouloir supprimer le compte, cette action est irréversible !",
                 open:false
@@ -66,10 +67,11 @@ export default {
         deleteProfile() {
             this.confirmDelete.open = false
             //ajoute une condition if alert pour supprimer le compte
-            //importation des state
-            this.$store.dispatch('deleteProfile', this.user)
+            //importation des state (recuperre l'utilisateur et le token)
+            this.$store.dispatch('deleteProfile', {userId:this.userId,token:this.$store.state.user.token})
         },
-        openConfirmDelete(){
+        openConfirmDelete(userId){
+            this.userId = userId;
             this.confirmDelete.open = true;
         }
     },
