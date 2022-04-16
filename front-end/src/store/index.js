@@ -106,7 +106,7 @@ export default createStore({
         //rajouter un delai
         setTimeout(() => { 
           //invoquer la mutation (commit)
-          commit('setStatus' , {status:'',message:''});
+          commit('setStatus' , {status:'succes',message:'Connexion reussie'});
         },500 ) //delai en deuxieme argument 500ms
         // commit pour stocker notre user  
           commit('logUser', response.data) // deuxieme argument on recupere les data

@@ -20,8 +20,15 @@
     </v-toolbar>
     <div>
      <!-- alerte a la creation du compte -->
-        <v-alert v-if="this.$store.state.status =='succes'" class="v--alert"   type="success">{{ this.$store.state.message }}</v-alert>
-        <v-alert v-if="this.$store.state.status =='error'" type="error">{{this.$store.state.message}}</v-alert>
+        <v-alert v-if="this.$store.state.status =='succes'" class="v--alert"   type="success">
+          {{ this.$store.state.message }}
+          <!-- function au clic on remet a zero et on enleve l'alert -->
+          <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>  
+        </v-alert>
+        <v-alert v-if="this.$store.state.status =='error'" type="error">
+          {{this.$store.state.message}}
+          <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>
+        </v-alert>
     <!-- -->
     </div>
     <v-content>
@@ -95,6 +102,12 @@ export default {
 color:white;  
 text-decoration: none;
 font-weight: bold;
+}
+.closeBtn:hover {
+  cursor: pointer;
+}
+.closeBtn {
+  margin-left: 30px
 }
 /* importation du btn css  */
 @import url('./style/button');
