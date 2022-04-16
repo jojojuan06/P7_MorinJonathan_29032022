@@ -30,11 +30,11 @@
             <v-text-field  v-model="form.password" type="password" label="Password" required></v-text-field>
         </v-form>
         <!-- afffiche seulement erreur a la connexion --> 
-        <v-form class="--error_login" color="red" v-if="mode == 'login' && status == 'error_login'">
+        <v-form class="--error_login" color="red" v-if="mode == 'login' && status == 'error'">
             Adresse mail et/ou mot de pâsse invalide ⚠
         </v-form>
         <!-- afffiche seulement erreur a la creation de compte --> 
-        <v-form class="--error_create" color="red" v-if="mode == 'create' && status == 'error_create'">
+        <v-form class="--error_create" color="red" v-if="mode == 'create' && status == 'error'">
             Adresse mail deja utilisé ⚠
         </v-form>
         <v-form>

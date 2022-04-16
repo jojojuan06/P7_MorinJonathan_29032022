@@ -8,6 +8,7 @@ import axios from '../axios';
 export default createStore({
 //state responsable de la gestion des données dans le store  
   state: {
+    message:'',
     //data global (status vide)
     status: '',  // contiendra le payload 
     //user charger depuis le localstorage
@@ -28,8 +29,9 @@ export default createStore({
   //mettre à jour (changer d'etat)et modifier nos données dans Vuex avec les mutations en paramettre le state et 2 payload
   mutations: {
     //------> : function()
-    setStatus(state , status) {   
-        state.status = status;
+    setStatus(state , data) {   
+        state.status = data.status;
+        state.message = data.message;
       },
     logUser(state, user) {
     state.userInfos.userId = user.userId
@@ -72,19 +74,20 @@ export default createStore({
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
         //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
-        commit('setStatus' , 'loading'); 
+        commit('setStatus' , {status:'loading',message:''}); 
         //requete Post enregistrer l'utilisateur
         axios.post('/auth/signup', userInfos) 
         .then(function (response) {
         //rajouter un delai
         setTimeout(() => { 
-        commit('setStatus' , 'created'); //type et payload
-        },2000 ) //delai en deuxieme argument 2000ms
+        commit('setStatus' , {status:'succes',message:'Felicitation votre compte est crée'}); //type et payload
+        resolve(response); //resolved (promesse résolue )
+        },1000 ) //delai en deuxieme argument 1000ms
         //si tout dse pass bien
-        resolve(response); //resolved (promesse résolue ) 
+         
         })
         .catch(function (error) {
-        commit('setStatus' , 'error_create'); //type et payload
+        commit('setStatus' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
         //retourne une erreur
         reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -93,7 +96,7 @@ export default createStore({
     //recuperation du commit (invoquer une mutation avec  2params)
     loginAccount: ({commit}, userInfos) => {
     //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
-    commit('setStatus' , 'loading');
+    commit('setStatus' , {status:'loading',message:''});
     //créeation d'un nouvelle promess
     //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
     return new Promise((resolve, reject) => {
@@ -103,7 +106,7 @@ export default createStore({
         //rajouter un delai
         setTimeout(() => { 
           //invoquer la mutation (commit)
-          commit('setStatus' , '')
+          commit('setStatus' , {status:'',message:''});
         },500 ) //delai en deuxieme argument 500ms
         // commit pour stocker notre user  
           commit('logUser', response.data) // deuxieme argument on recupere les data
@@ -111,7 +114,7 @@ export default createStore({
           resolve(response); //resolved (promesse résolue ) 
         })
         .catch(function (error) {
-          commit('setStatus' , 'error_login'); //type et payload
+          commit('setStatus' , {status:'error',message:`Désolé impossible se connecter ! ${error}`}); //type et payload
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -123,7 +126,9 @@ export default createStore({
         //type et payload (recupere les info utilisateur)  
         commit('userInfos' , response.data); 
         })
-        .catch(function (error) {
+        .catch(error => { 
+          console.log(error); 
+          commit('setStatus' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
         });
     },
     getPosts:({commit}) => {
@@ -132,7 +137,10 @@ export default createStore({
       .then(response => {
         commit('displayPosts' , response.data);    
       }) //retourne la repose des data dans l'objet vi
-      .catch(error => console.log(error));
+      .catch(error => { 
+        console.log(error); 
+        commit('setStatus' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
     },
     deleteProfile:({commit},{userId,token}) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
@@ -141,8 +149,12 @@ export default createStore({
       .then(response => {
         commit('deleteUser' , response.data);
         router.push({path: '/'})    
+        commit('setStatus' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
       }) //retourne la repose des data dans l'objet vi
-      .catch(error => { console.log(error); });
+      .catch(error => { 
+        console.log(error); 
+        commit('setStatus' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
     },  
   },  
   modules: {

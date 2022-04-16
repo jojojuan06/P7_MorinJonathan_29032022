@@ -3,7 +3,7 @@
   <v-app app>
     <v-toolbar>
       <v-toolbar-title >
-         <!-- - similaire à la balise  anchor -->
+          <!-- - similaire à la balise  anchor -->
         <router-link to="/posts" style="cursor: pointer">
           <v-img src="./images/logo.png"></v-img>
         </router-link>
@@ -18,6 +18,12 @@
           </v-btn>
         </v-toolbar-item>
     </v-toolbar>
+    <div>
+     <!-- alerte a la creation du compte -->
+        <v-alert v-if="this.$store.state.status =='succes'" class="v--alert"   type="success">{{ this.$store.state.message }}</v-alert>
+        <v-alert v-if="this.$store.state.status =='error'" type="error">{{this.$store.state.message}}</v-alert>
+    <!-- -->
+    </div>
     <v-content>
         <router-view/>
     </v-content>
@@ -62,7 +68,7 @@ export default {
         {
           title:'Post',
           path:'/posts',
-          icons:'mdi-message'
+          icons:'mdi-forum'
         },
         {
           title:'Profile',
