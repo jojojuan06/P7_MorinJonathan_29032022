@@ -19,7 +19,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: rgba(9,31,67,0.80);
+    background: #091F43;
+    border-bottom:2px solid #d1515a;
     color: white;
     border-radius: 10px 10px 0px 0px;
 }

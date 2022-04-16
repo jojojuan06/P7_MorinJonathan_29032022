@@ -1,7 +1,8 @@
 <template>
     <v-app>
         <v-container>
-            <v-card>
+            <v-card >
+               <h2 class="profil--description">Information Profil</h2> 
                 <v-card-title>
                     <h3>Mon Profile</h3>   
                 </v-card-title>
@@ -98,6 +99,14 @@ export default {
 </script>
 
 <style scoped>
+.profil--description{
+    border-radius: 16px 16px 0 0;
+    text-align: center;
+    width: 100%;
+    background-color: #091F43;
+    border-bottom:2px solid #d1515a;
+    color: white;
+}
 h3 {
     margin: 40px 0 0;
     color: #D1515A;
