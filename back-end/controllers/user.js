@@ -77,6 +77,7 @@ exports.login = (req, res, next) => {
             } // sinon true on continue
             res.status(200).json({ // on verifie que la requete correspond a ce user_id
                 userId: user.id, //id de l'utilisateur das la base (objet)
+                admin: user.admin,
                 // sign de jsonwebtoken pour encoder un nouveau token ;
                 //creation de token---------
                 token: jwt.sign( //token crypter pour permettre la connection de l'utilisateur
