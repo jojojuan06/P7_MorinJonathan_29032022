@@ -101,7 +101,8 @@ export default {
   color: white;
 } 
 .v-toolbar {
-  background: #3f3f3f;
+  background: #091F43;
+  border-bottom:2px solid #d1515a;
 }
 .v-toolbar a {
 color:white;  

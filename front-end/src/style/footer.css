@@ -1,6 +1,7 @@
 .v-footer {
     padding-top: 2rem;
-    background-color: #3f3f3f;
+    background: #091F43;
+    border-top:2px solid #d1515a;
     color: white;
     max-height: 150px;
 }
