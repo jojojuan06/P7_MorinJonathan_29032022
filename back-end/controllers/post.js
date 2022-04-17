@@ -110,7 +110,7 @@ exports.getOnePost = (req, res, next) => {
                 "name",
                 "firstname",
                 "email",
-                "profile.img"
+                "profile_img"
             ]
         },
         {
@@ -147,7 +147,7 @@ exports.getAllPost = (req, res, next) => {
                 "name",
                 "firstname",
                 "email",
-                "profile.img"
+                "profile_img"
             ]
         },
         {
