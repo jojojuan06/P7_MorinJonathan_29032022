@@ -9,10 +9,15 @@
                 <v-img class="v-img--post" v-bind:src="post.image" alt="mon image"></v-img>
                 <v-text class="v-text--content"><p>{{post.content}}</p></v-text>
                 <!-- boucle sur chaque comment du post et l'affiche -->
+                <hr>
                 <v-text v-for="(comment,index) in post.Comments" :key="index"><p>{{ comment.content }}</p></v-text>
-                <v-text><p>{{post.likes}}</p></v-text>
+                <hr>
+                <v-btn class="btn--like">
+                    <v-icon class="btn--icon">mdi-thumb-up</v-icon>
+                </v-btn>
+                <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
             </v-card>
-        </v-app>  
+        </v-app>    
 </template>
 
 <script>
@@ -31,5 +36,20 @@ export default {
 </script>
 
 <style scoped>
+.v-btn.btn--like {
+    border-radius: 50%;
+    width: 1px;
+    height: 30px;
+    background-color: #d1515a;
+    box-shadow: none;
+    min-width: 0px;
+    margin-top: 4px;
+}
+.btn--icon {
+    color: white;
+}
+.btn--badge {
+    margin-top: 4px;
+}
 @import url('../style/posts.css');
 </style>
