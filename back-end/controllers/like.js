@@ -11,6 +11,8 @@ exports.createLike = (req, res, next) => {
             if (!post) { // si le post n'existe pas
                 return res.status(404).json({ message: "Le post n'existe pas !"})
             } //rechercher poste_id et user_id (de la bd)
+            post.increment('likes') //ajoute un like
+            post.save()
             Like.findOne({ where: { userId: req.auth.userId, postId: post.id }})
             .then( like => {
                 if (like) { //erreur (409) conflit , req ne peut etre traité
@@ -18,8 +20,9 @@ exports.createLike = (req, res, next) => {
                 }
                 like = new Like ({ //cree mon objet de like
                     userId: req.auth.userId, //id de l'utilisateur
-                    postId: post.id //id du post
-                })  
+                    postId: post.id, //id du post
+                })
+                console.log("info-->", like);  
                 like.save()//sauvegarde ajout du like 
                 .then(() => res.status(201).json({ message: 'Post Likée !'}))
                 .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));
