@@ -100,7 +100,8 @@ exports.deleteComment = (req, res, next) => {
                     attributes:[
                         "name",
                         "firstname",
-                        "email"
+                        "email",
+                        "id"
                     ]
                 }
             ]    
@@ -127,7 +128,8 @@ exports.deleteComment = (req, res, next) => {
                     attributes:[
                         "name",
                         "firstname",
-                        "email"
+                        "email",
+                        "id"
                     ]
                 }
             ]
