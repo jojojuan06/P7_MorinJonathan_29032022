@@ -70,15 +70,15 @@ export default {
     margin-top: 4px;
 }
 .avatar--img {
-    display: flex;
     height: 20px;
 }
 .avatar_container{
-    padding-top: 2px;
     display: flex;
 }
 .avatar--comment {
-    margin-left: 16px
+    margin-left: 16px;
+    display: flex;
+    align-self: center;
 }
 @import url('../style/posts.css');
 </style>
