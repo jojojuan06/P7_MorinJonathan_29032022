@@ -116,6 +116,8 @@ exports.getOnePost = (req, res, next) => {
             model:Comment,
             attributes:[
                 "content",
+                "id",
+                "userId"
             ]
         }
     ]    
@@ -150,6 +152,8 @@ exports.getAllPost = (req, res, next) => {
             model:Comment,
             attributes:[
                 "content",
+                "id",
+                "userId"
             ]
         }
     ]    
