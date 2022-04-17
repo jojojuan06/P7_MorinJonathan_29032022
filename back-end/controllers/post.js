@@ -5,7 +5,7 @@ const fs = require('fs');
 
 //valide et nettoie uniquement les chaînes (validation de l'email)
 const validator = require('validator'); 
-const { Like, Post, User} = require('../models')
+const { Like, Post, User, Comment} = require('../models')
 
 
 //Creation d'un post POST
@@ -111,6 +111,15 @@ exports.getOnePost = (req, res, next) => {
                 "firstname",
                 "email"
             ]
+        },
+        {
+            model:Comment,
+            attributes:[
+                "content",
+                "postId",
+                "userId",
+                "id"
+            ]
         }
     ]    
 }) 
@@ -138,6 +147,15 @@ exports.getAllPost = (req, res, next) => {
                 "name",
                 "firstname",
                 "email"
+            ]
+        },
+        {
+            model:Comment,
+            attributes:[
+                "content",
+                "postId",
+                "userId",
+                "id"
             ]
         }
     ]    
