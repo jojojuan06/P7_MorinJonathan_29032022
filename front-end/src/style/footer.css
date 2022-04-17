@@ -5,12 +5,16 @@
     color: white;
     max-height: 150px;
 }
-.v-footer .v-btn{
-    box-shadow: none;
-    margin: 1rem;
-    background-color: #3f3f3f;
+.footer--contact {
+    display: flex;
 }
-.v-footer .v-btn a {
+.footer--contact h2 {
+    font-size: 16px;
+}
+.v-footer .footer--contact:hover {
+    border-bottom: #d1515a 2px solid;
+}
+.v-footer .footer--contact a {
     text-decoration: none;
     color: white;
     margin-left: 4px;
