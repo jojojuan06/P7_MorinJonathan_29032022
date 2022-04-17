@@ -8,15 +8,22 @@
                 <v-card-title class="v-card-title--date"><em class="date--title">date de creation:</em> {{post.createdAt}}</v-card-title>
                 <v-img class="v-img--post" v-bind:src="post.image" alt="mon image"></v-img>
                 <v-text class="v-text--content"><p>{{post.content}}</p></v-text>
+                <!-- boucle sur chaque comment du post et l'affiche -->
+                <v-text v-for="(comment,index) in post.Comments" :key="index"><p>{{ comment.content }}</p></v-text>
+                <v-text><p>{{post.likes}}</p></v-text>
             </v-card>
         </v-app>  
 </template>
 
 <script>
+//import Comment from '@/components/comment.vue'
 
 export default {
-// qui représente le moment durant lequel le composant va être rendu sur notre page.
-// mettre a jour les posts dans le state
+    // component: {
+    //     Comment
+    // },
+    // qui représente le moment durant lequel le composant va être rendu sur notre page.
+    // mettre a jour les posts dans le state
     mounted() {
     this.$store.dispatch('getPosts') //dispatch apliquer l'action
     },
