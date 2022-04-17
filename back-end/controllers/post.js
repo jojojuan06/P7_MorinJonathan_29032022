@@ -109,7 +109,8 @@ exports.getOnePost = (req, res, next) => {
             attributes:[
                 "name",
                 "firstname",
-                "email"
+                "email",
+                "profile.img"
             ]
         },
         {
@@ -145,7 +146,8 @@ exports.getAllPost = (req, res, next) => {
             attributes:[
                 "name",
                 "firstname",
-                "email"
+                "email",
+                "profile.img"
             ]
         },
         {
