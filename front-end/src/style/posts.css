@@ -29,3 +29,9 @@
     align-items: center;
     justify-content: center;
 }
+.v-card-title--date {
+    font-size: 13px;
+}
+.date--title {
+    margin-right: 5px;
+}
