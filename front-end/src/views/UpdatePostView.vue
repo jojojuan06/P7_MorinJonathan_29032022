@@ -2,13 +2,12 @@
     <v-app>
         <v-container class="--container"> 
             <v-card m-width="200px">
-                <v-card-title class="--title">Modification du Compte</v-card-title>  
+                <v-card-title class="--title">Modification du Post</v-card-title>  
                 <v-form>
-                    <v-text-field v-model="form.name" type="text" label="Name" required></v-text-field>
-                    <v-text-field  v-model="form.firstname" type="text" label="Firstname" required></v-text-field>   
-                    <v-text-field   v-model="form.email" type="text" label="E-mail" required></v-text-field>  
-                    <v-text-field  v-model="form.password" type="password" label="Password" required></v-text-field>
-                    <v-file-input show-size counter multiple label="Fichier image" density="compact"></v-file-input>
+                    <v-text-field v-model="form.title" type="text" label="Nom du post" required></v-text-field>
+                    <v-textarea name="input-7-1" filled label="votre text ici" auto-grow>
+                    </v-textarea> 
+                    <v-file-input show-size counter multiple label="Fichier image" density="compact" required></v-file-input>
                 </v-form>
                 <!-- afffiche seulement erreur a la connexion --> 
                 <v-form class="--error_login" color="red" v-if="mode == 'update' && status == 'error'">
@@ -45,7 +44,7 @@ import { mapState } from 'vuex'
 import AlertConfirm from '@/components/AlertConfirm';
 
 export default {
-    name: 'UpdateProfile',
+    name: 'UpdatePost',
     components: {
         AlertConfirm
     },
@@ -93,20 +92,22 @@ export default {
             ...mapState(['status']) 
         },
     methods: {
-        //modification du profil
-        UpdateProfile() {
-            this.confirmDelete.open = false
-            //ajoute une condition if alert pour supprimer le compte
-            //importation des state
-            this.$store.dispatch('updateProfile', this.user)
-            .then( () =>{
-                this.$store.commit('UPDATE_PROFILE');
-                this.$router.push({path: '/profile'})
-                this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait mis a jour`}); //type et payload
-            })
-            .catch(error => {
-                this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de mettre a jour le compte le compte ${error}`}); //type et payload
-            })
+        //modification du post
+       createNewAccount(){   // <------: function() 
+            const This = this; //sous element pas acces au this je renome une variabale pour appeler en dessous  
+            //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
+            //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
+            this.$store.dispatch('updatePost',{
+                title:this.form.title,
+                content:this.form.content,
+                image:this.form.image,
+            }).then(function (){
+                //redirection vers la route apres creation d'un compte (path en argument)
+                This.$router.push({path: '/posts'}); 
+            }),
+            function (error) {
+                console.log(error);
+            }
         },
         openConfirmDelete(){
             this.confirmDelete.open = true;

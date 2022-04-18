@@ -71,9 +71,9 @@ export default createStore({
      //supprimer les ressource (user) , aisin eviter la reconection
     localStorage.removeItem('user'); 
     },
-    //DELETE comment
-    DELETE_COMMENT(state) {
-      state.comments = {};
+    //DELETE post
+    DELETE_POST(state) {
+      state.posts = {};
     },
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
@@ -154,6 +154,7 @@ export default createStore({
         });
       }); 
     },
+    //recupere les info de l'utilisateur connecter
     getUserInfos: ({commit}, userId) => { //2eme argu userId dee la req
           axios.get(`/auth/${userId}`) //ajoute id a l'auth
         .then(function (response) { 
@@ -165,6 +166,7 @@ export default createStore({
           commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
         });
     },
+    //afficher tout les utilisateur
     getAllUser: ({commit}) => { //2eme argu userId dee la req
         axios.get(`/auth`) //ajoute id a l'auth
       .then(function (response) { 
@@ -176,6 +178,7 @@ export default createStore({
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
       });
     },
+    //afficher tout les posts
     getPosts:({commit}) => {
       axios.get('/post')
       // attendre la reponse (comme fetch)
@@ -187,9 +190,36 @@ export default createStore({
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
       });
     },
-    DeleteComment:({commit},{userId,token}) => {
+    //afficher un post
+    getOnePost:({commit},{userId,token}) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
-      axios.delete(`/comment/${userId}`)
+      axios.get(`/post/${userId}`)
+      // attendre la reponse (comme fetch)
+      .then(response => {
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+      }) //retourne la repose des data dans l'objet vi
+      .catch(error => { 
+        console.log(error); 
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
+    },
+    //mettre a jour un post
+    updatePost:({commit},{userId,token}) => {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      axios.update(`/post/${userId}`)
+      // attendre la reponse (comme fetch)
+      .then(response => {
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+      }) //retourne la repose des data dans l'objet vi
+      .catch(error => { 
+        console.log(error); 
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
+    },
+    //delete un post
+    deletePost:({commit},{userId,token}) => {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      axios.delete(`/post/${userId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
         commit('SETSTATUS' , {status:'succes' , message: response.data.message});    

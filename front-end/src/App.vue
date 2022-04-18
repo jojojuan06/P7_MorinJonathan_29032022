@@ -88,9 +88,9 @@ export default {
         icons:'mdi-account-group'
         },
         {
-        title:'EditProfile',
-        path:'/Updateprofile',
-        icons:'mdi-account-convert'
+        title:'EditPost',
+        path:'/editpost',
+        icons:'mdi-message-cog'
         }, 
       ],
     }
