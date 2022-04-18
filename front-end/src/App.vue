@@ -86,6 +86,11 @@ export default {
         title:'Profiles',
         path:'/profiles',
         icons:'mdi-account-group'
+        },
+        {
+        title:'EditProfile',
+        path:'/Updateprofile',
+        icons:'mdi-account-convert'
         }, 
       ],
     }

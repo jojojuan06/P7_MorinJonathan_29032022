@@ -3,7 +3,7 @@ import PostView from '../views/PostView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import GetAllprofileView from '@/views/GetAllProfileView'
 import HomeView from '../views/HomeView.vue'
-
+import UpdateProfileView from '../views/UpdateProfileView'
 const routes = [
   {
     path: '/',
@@ -25,7 +25,11 @@ const routes = [
     name: 'Profiles',
     component: GetAllprofileView
   },
-
+  {
+    path: '/updateprofile',
+    name: 'updateurofile',
+    component: UpdateProfileView
+  },
 ]
 
 const router = createRouter({

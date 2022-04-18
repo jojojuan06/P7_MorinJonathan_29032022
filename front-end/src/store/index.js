@@ -24,7 +24,8 @@ export default createStore({
       profile_img:'',
       admin:''
     },
-    posts : []  // recuperation des posts
+    posts : [],  // recuperation des posts
+    comments : [], // recuperation des commentaire
   },
   //getters sont destinés à être utilisés comme des propriétés calculées
   getters: {
@@ -51,11 +52,15 @@ export default createStore({
     USERINFOS(state, userInfos) {
       state.userInfos = userInfos;
     },
-    //afficher les post
+    //afficher les posts
     DISPLAYPOSTS(state, posts) {
       state.posts = posts;
-    }, 
-     //afficher les post
+    },
+    //afficher les commentaires
+    DISPLAY_COMMENT(state, comments) {
+      state.comments = comments;
+    },
+    //afficher les post
     DISPLAY_USERS(state, users) {
       state.users = users;
     },
@@ -65,6 +70,10 @@ export default createStore({
       state.userInfos = {}
      //supprimer les ressource (user) , aisin eviter la reconection
     localStorage.removeItem('user'); 
+    },
+    //DELETE comment
+    DELETE_COMMENT(state) {
+      state.comments = {};
     },
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
@@ -82,6 +91,31 @@ export default createStore({
         //rajouter un delai
         setTimeout(() => { 
         commit('SETSTATUS' , {status:'succes',message:'Felicitation votre compte est crée'}); //type et payload
+        resolve(response); //resolved (promesse résolue )
+        },1000 ) //delai en deuxieme argument 1000ms
+        //si tout dse pass bien
+        })
+        .catch(function (error) {
+        commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
+        //retourne une erreur
+        reject(error); //rejected (rompue) : l'opération a échoué.
+        });
+      });
+    },
+    //modifier le profile
+    updateProfile: ({commit}, {userId,token}) => {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      //créeation d'un nouvelle promess
+      //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
+      return new Promise((resolve, reject) => {
+        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+        commit('SETSTATUS' , {status:'loading',message:''}); 
+        //requete Post enregistrer l'utilisateur
+        axios.update(`/auth/${userId}`) 
+        .then(function (response) {
+        //rajouter un delai
+        setTimeout(() => { 
+        commit('SETSTATUS' , {status:'succes',message:'Felicitation votre compte est mis a jour'}); //type et payload
         resolve(response); //resolved (promesse résolue )
         },1000 ) //delai en deuxieme argument 1000ms
         //si tout dse pass bien
@@ -147,6 +181,18 @@ export default createStore({
       // attendre la reponse (comme fetch)
       .then(response => {
         commit('DISPLAYPOSTS' , response.data);    
+      }) //retourne la repose des data dans l'objet vi
+      .catch(error => { 
+        console.log(error); 
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
+    },
+    DeleteComment:({commit},{userId,token}) => {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      axios.delete(`/comment/${userId}`)
+      // attendre la reponse (comme fetch)
+      .then(response => {
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
         console.log(error); 
