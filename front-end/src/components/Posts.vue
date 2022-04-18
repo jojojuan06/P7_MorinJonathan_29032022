@@ -8,14 +8,17 @@
                 <v-card-title class="v-card-title--date"><em class="date--title">date de creation:</em> {{post.createdAt}}</v-card-title>
                 <v-img class="v-img--post" v-bind:src="post.image" alt="mon image"></v-img>
                 <v-text class="v-text--content"><p>{{post.content}}</p></v-text>
-                <!-- boucle sur chaque comment du post et l'affiche -->
                 <hr>
                 <div class="avatar_container">
                 <v-avatar>
                     <v-img class="avatar--img .rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                     <v-img class="avatar--img .rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
                 </v-avatar>
+                <!-- boucle sur chaque comment du post et l'affiche -->
                 <v-text class="avatar--comment" v-for="(comment,index) in post.Comments" :key="index"><p>{{ comment.content }}</p></v-text>
+                <v-btn class="btn--closed">
+                    <v-icon class="icon--close">mdi-close</v-icon>
+                </v-btn>
                 </div>
                 <hr>
                 <v-btn v-if="post.likes == 0" class="btn--like">
@@ -79,6 +82,21 @@ export default {
     margin-left: 16px;
     display: flex;
     align-self: center;
+}
+.v-btn.btn--closed {
+    display: flex;
+    align-self: center;
+    box-shadow: none;
+    background-color: #d1515a;
+    width: 0px;
+    height: 16px;
+    min-width: 0px;
+    margin-left: 16px;
+}
+.icon--close {
+    color:white;
+    font-size: 14px;
+    font-weight: bold;
 }
 @import url('../style/posts.css');
 </style>
