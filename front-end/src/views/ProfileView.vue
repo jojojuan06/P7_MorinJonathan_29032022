@@ -19,6 +19,7 @@
                 <v-card-actions>
                     <!-- action de deconnexion avec la mutation logout-->
                     <v-btn @click="logout"><strong>Déconnexion</strong></v-btn>
+                    <v-btn><strong>Modifier</strong></v-btn>
                     <v-btn   @click="openConfirmDelete" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
                 </v-card-actions>
             </v-card>
@@ -132,11 +133,11 @@ h3 {
     height: 150px;
     width: 150px;
 }
-.v-card .v-btn:nth-child(2){
+.v-card .v-btn:nth-child(3){
     color:red;
     text-decoration: underline;
 }
-.v-card .v-btn:nth-child(2):hover{
+.v-card .v-btn:nth-child(3):hover{
     background-color: transparent;
     color:red;
     text-decoration: underline;
