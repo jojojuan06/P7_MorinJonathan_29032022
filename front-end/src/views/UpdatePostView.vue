@@ -3,7 +3,7 @@
         <v-container class="--container"> 
             <v-card m-width="200px">
                 <v-card-title class="--title">Modification du Post</v-card-title>  
-                <v-form>
+                <v-form v-for="post in this.$store.state.posts" v-bind:key="post.id">
                     <v-text-field v-model="form.title" type="text" label="Nom du post" required></v-text-field>
                     <v-textarea v-model="form.content"   type="text" label="votre text ici" auto-grow>
                     </v-textarea> 

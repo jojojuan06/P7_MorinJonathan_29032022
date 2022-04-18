@@ -218,8 +218,8 @@ export default createStore({
       });
     },
     //mettre a jour un post
-    updatePost:({commit},{userId}) => {
-      axios.update(`/post/${userId}`)
+    updatePost:({commit}, postId, newPost) => {
+      axios.put(`/post/${postId}`, newPost)
       // attendre la reponse (comme fetch)
       .then(response => {
         commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
