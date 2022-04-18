@@ -190,15 +190,19 @@ export default createStore({
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
       });
     },
-    createPost: ({commit}, {userId,token}) => {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+    createPost: ({commit}, posts) => {
       //créeation d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
         //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
         commit('SETSTATUS' , {status:'loading',message:''}); 
+        //envoi du formulaire en formdata (pour l'image)
+        let form = new FormData()
+        form.append("image", posts.image[0])
+        form.append("title", posts.title)
+        form.append("content", posts.content)
         //requete Post enregistrer l'utilisateur
-        axios.post('/post', userId) 
+        axios.post('/post', form) 
         .then(function (response) {
         //rajouter un delai
         setTimeout(() => { 
@@ -215,8 +219,7 @@ export default createStore({
       });
     },
     //mettre a jour un post
-    updatePost:({commit},{userId,token}) => {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+    updatePost:({commit},{userId}) => {
       axios.update(`/post/${userId}`)
       // attendre la reponse (comme fetch)
       .then(response => {

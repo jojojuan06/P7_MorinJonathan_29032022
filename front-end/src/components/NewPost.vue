@@ -51,11 +51,11 @@ export default {
         validatedField: function() {
             //return false par default et true quand les  champ sont rempli
             let valid = false;
-            if (this.mode == 'create') { //createAccount
+            // if (this.mode == 'create') { //createAccount
                 if (this.form.title != "" && this.form.content != "") {
                     valid = true;
                 } 
-            }  
+            //}  
             return valid;    
             },
             //importation de l'objet depuis state
@@ -67,7 +67,7 @@ export default {
             //sous element pas acces au this je renome une variabale pour appeler en dessous  
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
-            this.$store.dispatch('createPOst',{
+            this.$store.dispatch('createPost',{
                 title:this.form.title,
                 content:this.form.content,
                 image:this.form.image,
