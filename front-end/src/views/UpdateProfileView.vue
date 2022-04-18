@@ -1,15 +1,14 @@
 <template>
     <v-app>
         <v-container class="--container"> 
-            <v-card>
-                    <v-card-title>
-                            <h1>Modification du Compte</h1>  
-                    </v-card-title>
+            <v-card m-width="200px">
+                <v-card-title class="--title">Modification du Compte</v-card-title>  
                 <v-form>
                     <v-text-field v-model="form.name" type="text" label="Name" required></v-text-field>
                     <v-text-field  v-model="form.firstname" type="text" label="Firstname" required></v-text-field>   
                     <v-text-field   v-model="form.email" type="text" label="E-mail" required></v-text-field>  
                     <v-text-field  v-model="form.password" type="password" label="Password" required></v-text-field>
+                    <v-file-input show-size counter multiple label="Fichier image" density="compact"></v-file-input>
                 </v-form>
                 <!-- afffiche seulement erreur a la connexion --> 
                 <v-form class="--error_login" color="red" v-if="mode == 'update' && status == 'error'">
@@ -32,11 +31,11 @@
         <!--  1- recuperer des evenement-->
         <!--  2- importation du props alertconfirm depuis sont component , recoit l'evenement-->
         <!--  3- prop des component qui sont recuperer depuis alercomponent -->
-        <AlertConfirm 
+        <!-- <AlertConfirm 
         @closeAlert="confirmDelete.open = false" 
         :title="confirmDelete.title"
-        @comfirm="deleteProfile" 
-        :open="confirmDelete.open"/> 
+        @comfirm="updateProfile" 
+        :open="confirmDelete.open"/>  -->
     </v-app>
 </template>
 
@@ -115,3 +114,27 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.v-container{
+    display: flex;
+    flex-direction: column;
+}
+.v-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    background-image: url('../images/Home.png');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.v-card-title.--title {
+    background-color: #091f43;
+    color: white;
+    width: 100%;
+    border-radius: 16px 16px 0px 0px;
+    border-bottom: #d1515a solid 2px;
+}
+@import url('../style/home');
+</style>
