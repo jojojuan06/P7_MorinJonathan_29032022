@@ -110,7 +110,8 @@ exports.getOnePost = (req, res, next) => {
                 "name",
                 "firstname",
                 "email",
-                "profile_img"
+                "profile_img",
+                "admin"
             ]
         },
         {
