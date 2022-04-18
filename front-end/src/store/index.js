@@ -1,6 +1,5 @@
+//import function pour crée un store
 import { createStore } from 'vuex'
-//importe le module router de vue
-import router from '@/router'
 //importation de axios pour faire les requetes
 import axios from '../axios';
 
@@ -39,13 +38,13 @@ export default createStore({
         state.message = data.message;
       },
     lOGUSER(state, user) {
+    //on va mettre dans le user info l'id de l'utilisateur contenue dans la variable user(nouvellement connecter)
     state.userInfos.userId = user.userId
-    // Important : Si axios est utilisé avec plusieurs domaines, le AUTH_TOKEN sera envoyé à tous.
-    // dit  a axios que l'autorisation c'est bearer espace le token , une fois l'utilisateur loger
-    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`; //recupere le token
+   //recupere le token
+    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`; 
     //stocker le user dans le storage local
     //stringify pour enr dans le storage
-    localStorage.setItem('user', JSON.stringify(user));   
+    localStorage.setItem('user', JSON.stringify(user));
     state.user = user;
     },
     //creation mutations userinfo
@@ -93,7 +92,7 @@ export default createStore({
         commit('SETSTATUS' , {status:'succes',message:'Felicitation votre compte est crée'}); //type et payload
         resolve(response); //resolved (promesse résolue )
         },1000 ) //delai en deuxieme argument 1000ms
-        //si tout dse pass bien
+        //si tout se pass bien
         })
         .catch(function (error) {
         commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload

@@ -62,6 +62,12 @@ export default {
     Posts,
     NewPost,
   },
+  //verifie userid connecter exist, et le garde connecter
+  mounted() {
+    if(this.$store.state.user.userId){
+      this.$store.commit('lOGUSER', this.$store.state.user)
+    }
+  },
   data() {
     return {
       connected:true,
