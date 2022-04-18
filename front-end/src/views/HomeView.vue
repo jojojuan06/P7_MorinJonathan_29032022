@@ -47,7 +47,7 @@
             </v-btn>
             <!-- au clic appel a la methode createNewAccount--> 
             <v-btn   v-on:click="createNewAccount" :class="{'v-btn--disabled' : !validatedField}"  v-else color="success" class="mr-4" >
-                <span v-if="status=='loading'">Créer mon comptes...</span>
+                <span v-if="status=='loading'">Création du comptes...</span>
                 <span v-else>Créer mon compte</span>
             </v-btn>
         </v-form>

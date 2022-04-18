@@ -190,17 +190,28 @@ export default createStore({
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
       });
     },
-    //afficher un post
-    getOnePost:({commit},{userId,token}) => {
+    createPost: ({commit}, {userId,token}) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
-      axios.get(`/post/${userId}`)
-      // attendre la reponse (comme fetch)
-      .then(response => {
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
-      }) //retourne la repose des data dans l'objet vi
-      .catch(error => { 
-        console.log(error); 
-        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      //créeation d'un nouvelle promess
+      //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
+      return new Promise((resolve, reject) => {
+        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+        commit('SETSTATUS' , {status:'loading',message:''}); 
+        //requete Post enregistrer l'utilisateur
+        axios.post('/post', userId) 
+        .then(function (response) {
+        //rajouter un delai
+        setTimeout(() => { 
+        commit('SETSTATUS' , {status:'succes',message:'Felicitation votre post est crée'}); //type et payload
+        resolve(response); //resolved (promesse résolue )
+        },1000 ) //delai en deuxieme argument 1000ms
+        //si tout dse pass bien
+        })
+        .catch(function (error) {
+        commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post ! ${error}`}); //type et payload
+        //retourne une erreur
+        reject(error); //rejected (rompue) : l'opération a échoué.
+        });
       });
     },
     //mettre a jour un post

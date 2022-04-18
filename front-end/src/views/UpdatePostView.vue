@@ -5,9 +5,9 @@
                 <v-card-title class="--title">Modification du Post</v-card-title>  
                 <v-form>
                     <v-text-field v-model="form.title" type="text" label="Nom du post" required></v-text-field>
-                    <v-textarea name="input-7-1" filled label="votre text ici" auto-grow>
+                    <v-textarea v-model="form.content"   type="text" label="votre text ici" auto-grow>
                     </v-textarea> 
-                    <v-file-input show-size counter multiple label="Fichier image" density="compact" required></v-file-input>
+                    <v-file-input v-model="form.image" show-size counter multiple label="Fichier image" density="compact" required></v-file-input>
                 </v-form>
                 <!-- afffiche seulement erreur a la connexion --> 
                 <v-form class="--error_login" color="red" v-if="mode == 'update' && status == 'error'">
@@ -20,7 +20,7 @@
                 <v-form>
                     <!-- si champ vide on disable le bouton validatedFieldss--> 
                     <!-- au clic appel a la methode createNewAccount--> 
-                    <v-btn   @click="UpdateProfile" :class="{'v-btn--disabled' : !validatedField}"   color="success" class="mr-4" >
+                    <v-btn   @click="updateNewPost" :class="{'v-btn--disabled' : !validatedField}"   color="success" class="mr-4" >
                         <span v-if="status=='loading'">Modification en cours...</span>
                         <span v-else>Modifier</span>
                     </v-btn>
@@ -52,11 +52,9 @@ export default {
         return {
             mode:"update", 
             form:{
-                name: "",
-                firstname: "",
-                password: "",
-                email:"",
-                profile_img:""
+                title: "",
+                content: "",
+                image:""
             },
             confirmDelete:{
                 title:"Etes vous sur de vouloir modifier, cette action est irréversible !",
@@ -69,7 +67,7 @@ export default {
         console.log(this.$store.state.user.userId); 
         //si l'utilisateur n'est pas nul donc non connecter on retourne a la page connection/inscription
         if(!this.$store.state.user.userId) {
-            return this.$router.push({path: '/profile'}) 
+            return this.$router.push({path: '/post'}) 
         }   
     },
     //computed  nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés
@@ -78,14 +76,10 @@ export default {
             //return false par default et true quand les  champ sont rempli
             let valid = false;
             if (this.mode == 'create') { //createAccount
-                if (this.form.email != "" && this.form.firstname != "" && this.form.name != "" && this.form.password != "") {
+                if (this.form.title != "" && this.form.content != "") {
                     valid = true;
                 } 
-            }  else {
-                    if (this.form.email != "" &&  this.form.password !="") {
-                        valid = true;
-                    }
-                }
+            }  
             return valid;    
             },
             //importation de l'objet depuis state
@@ -93,7 +87,7 @@ export default {
         },
     methods: {
         //modification du post
-       createNewAccount(){   // <------: function() 
+       updateNewPost(){   // <------: function() 
             const This = this; //sous element pas acces au this je renome une variabale pour appeler en dessous  
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
