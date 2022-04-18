@@ -93,11 +93,6 @@ export default {
         path:'/profiles',
         icons:'mdi-account-group'
         },
-        {
-        title:'EditPost',
-        path:'/editpost',
-        icons:'mdi-message-cog'
-        }, 
       ],
     }
   }  

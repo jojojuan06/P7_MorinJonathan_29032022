@@ -3,7 +3,6 @@ import PostView from '../views/PostView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import GetAllprofileView from '@/views/GetAllProfileView'
 import HomeView from '../views/HomeView.vue'
-import UpdatePostView from '../views/UpdatePostView'
 const routes = [
   {
     path: '/',
@@ -24,11 +23,6 @@ const routes = [
     path: '/profiles',
     name: 'Profiles',
     component: GetAllprofileView
-  },
-  {
-    path: '/editpost',
-    name: 'editpost',
-    component: UpdatePostView
   },
 ]
 

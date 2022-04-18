@@ -28,12 +28,14 @@
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>
                 <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
+                <div class="btn--update">
+                    <v-btn class="--button"><strong>Modifier</strong></v-btn>
+                </div>
             </v-card>
         </v-app>    
 </template>
 
 <script>
-//import Comment from '@/components/comment.vue'
 
 export default {
     mounted() {
@@ -68,6 +70,18 @@ export default {
     box-shadow: none;
     min-width: 0px;
     margin-top: 4px;
+}
+.btn--update {
+    display: flex;
+    justify-content: flex-end;
+}
+.--button {
+    color: #091F43;
+    box-shadow: none;
+}
+.--button:hover {
+    box-shadow: 2px 2px 15px black;
+    border-bottom: #d1515a solid 2px;
 }
 .v-btn.btn--notLike {
     border-radius: 50%;
