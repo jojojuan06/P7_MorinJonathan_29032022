@@ -5,7 +5,6 @@
             <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
             <!-- import de post depuis $store.state -->
             <v-card v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
-                {{post.id}}
                 <v-card-title class="v-card-title--color">{{post.title}}</v-card-title>
                 <div class="avatar_container">
                 <v-avatar>
