@@ -10,8 +10,8 @@
         <v-form>
             <!-- au clic appel a la methode createNewAccount--> 
             <v-btn   v-on:click="updatePost" :class="{'v-btn--disabled' : !validatedField}" color="success" class="mr-4">
-                <span v-if="status=='loading'">Création du post...</span>
-                <span v-else>Crée le post</span>
+                <span v-if="status=='loading'">modification du post...</span>
+                <span v-else>modifier le post</span>
             </v-btn>
         </v-form>
     </div>
