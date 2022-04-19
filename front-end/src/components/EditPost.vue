@@ -23,7 +23,8 @@ import { mapState } from 'vuex'
 
 export default {
     name:'EditPost',
-    props: { // Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
+    // Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
+    props: { 
         post: {
             type:Object
         }

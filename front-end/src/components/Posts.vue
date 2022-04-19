@@ -36,6 +36,7 @@
                     <v-btn class="--button"><strong>Modifier</strong></v-btn>
                     <v-btn  @click="openConfirmDelete" >Supprimer le post</v-btn>
                 </div>
+                <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) -->
                 <EditPost v-bind:post="post"/>
             </v-card>
             <AlertConfirm 
@@ -66,24 +67,24 @@ export default {
     mounted() {
         this.$store.dispatch('getPosts') //dispatch apliquer l'action
         },
-        methods: {
-            dateNow(date){
-            // retourne jour mois année et l'heure
-            const dateObj = new Date(date)
-            let day = dateObj.getDate()
-            let month = dateObj.getMonth()
-            let year = dateObj.getFullYear()
-            let hours = dateObj.getHours()
-            let min = dateObj.getMinutes()
+    methods: {
+        dateNow(date){
+        // retourne jour mois année et l'heure
+        const dateObj = new Date(date)
+        let day = dateObj.getDate()
+        let month = dateObj.getMonth()
+        let year = dateObj.getFullYear()
+        let hours = dateObj.getHours()
+        let min = dateObj.getMinutes()
 
-            if(min < 10) min = `0${min}`
-            if(day < 10) day = `0${day}`
-            if(month < 10) month = `0${month}`
-            if(hours < 10) hours = `0${hours}`
-            return day + "-" + month + "-" + year + " " + hours + ":" + min; 
-        },
-         //suppresion du post
-        deletePost() {
+        if(min < 10) min = `0${min}`
+        if(day < 10) day = `0${day}`
+        if(month < 10) month = `0${month}`
+        if(hours < 10) hours = `0${hours}`
+        return day + "-" + month + "-" + year + " " + hours + ":" + min; 
+    },
+     //suppresion du post
+    deletePost() {
             this.confirmDelete.open = false
             //ajoute une condition if alert pour supprimer le compte
             //importation des state
