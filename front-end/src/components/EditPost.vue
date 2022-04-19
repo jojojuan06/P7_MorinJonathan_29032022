@@ -63,13 +63,25 @@ export default {
     methods: {                                       
         updatePost(){  
             const This = this; 
+            let image = this.form.image[0];
             //sous element pas acces au this je renome une variabale pour appeler en dessous  
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
-            this.$store.dispatch('updatePost',{
+            let updatedPost = 
+                {
                 title:this.form.title,
                 content:this.form.content,
-                image:this.form.image,
+                image:image,
+            } 
+            //enleve la proprieter img de l'objet , si l'image et undifined
+            if (!image) {
+            delete updatedPost.image 
+            }
+            this.$store.dispatch('updatePost',
+            { 
+                postId:this.post.id , 
+                //correspond a l'argument dans le store
+                updatedPost: updatedPost
             }).then(function (){
                 //redirection vers la route apres creation d'un compte (path en argument)
                 This.$router.push({path: '/posts'}); 

@@ -26,7 +26,7 @@ export default createStore({
     posts : [],  // recuperation des posts
     comments : [], // recuperation des commentaire
   },
-  //getters sont destinés à être utilisés comme des propriétés calculées
+  //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
   getters: {
   },
   //mettre à jour / changer d'etat nos données dans Vuex  params le state et 2 payload
@@ -218,9 +218,17 @@ export default createStore({
       });
     },
     //mettre a jour un post
-    updatePost:({commit}, postId, newPost) => {
-      let newPost = Object.assign(postId,newPost);
-      axios.put(`/post/${postId}`, newPost)
+    updatePost:({commit, state}, {postId,updatedPost}) => {
+      //recherche un element dans un tableau poste qui correspond a sont id
+      console.log("ici-->",updatedPost.image);
+      let oldPost = state.posts.find((post) => post.id == postId);
+      let changePost = Object.assign(oldPost,updatedPost);
+      //envoi du formulaire en formdata (pour l'image)
+      let form = new FormData()
+      form.append("image", changePost.image)
+      form.append("title", changePost.title)
+      form.append("content", changePost.content)
+      axios.put(`/post/${postId}`,form)
       // attendre la reponse (comme fetch)
       .then(response => {
         commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
