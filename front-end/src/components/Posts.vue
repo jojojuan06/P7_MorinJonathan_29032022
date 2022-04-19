@@ -33,7 +33,7 @@
                 <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
                 <v-card-actions class="btn--update">
                     <v-btn class="--button"><strong>Modifier</strong></v-btn>
-                    <v-btn  @click="openConfirmDelete(post.id)" >Supprimer le post</v-btn>
+                    <v-btn class="--button" @click="openConfirmDelete(post.id)" >Supprimer le post</v-btn>
                 </v-card-actions>
                 <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) -->
                 <EditPost v-bind:post="post"/>
