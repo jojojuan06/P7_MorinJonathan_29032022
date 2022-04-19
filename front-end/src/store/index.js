@@ -2,6 +2,8 @@
 import { createStore } from 'vuex'
 //importation de axios pour faire les requetes
 import axios from '../axios';
+//importation des router
+import router from '../router'
 
 // create a new instance store
 export default createStore({
@@ -222,7 +224,7 @@ export default createStore({
       //recherche un element dans un tableau poste qui correspond a sont id
       console.log("ici-->",updatedPost.image);
       let oldPost = state.posts.find((post) => post.id == postId);
-      let changePost = Object.assign(oldPost,updatedPost);
+      let changePost = Object.assign({...oldPost},updatedPost);
       //envoi du formulaire en formdata (pour l'image)
       let form = new FormData()
       form.append("image", changePost.image)
@@ -231,6 +233,12 @@ export default createStore({
       axios.put(`/post/${postId}`,form)
       // attendre la reponse (comme fetch)
       .then(response => {
+      // recupere las res du update post 
+      // met a jour l'ancien post avec le contenue de la reponse 
+        let post = response.data.post
+        oldPost.title = post.title
+        oldPost.content = post.content
+        oldPost.image = post.image
         commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 

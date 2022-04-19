@@ -58,8 +58,9 @@ exports.updatePost = (req, res, next) => {
                 }
                 newPost.image = `${req.protocol}://${req.get('host')}/images/${req.files.image[0].filename}` //remplace pas la new img
             }
-            newPost.save() //sauvegarde le nouveau post
-            .then(() => res.status(200).json({ message: 'Post modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+            newPost.save() //sauvegarde le nouveau post 
+            // met a jour et retourne le nouvelle objet
+            .then(() => res.status(200).json({ message: 'Post modifié !', post:newPost }))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
             .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));    
         } else {
             res.status(403).json({ message: `vous n'etes pas autoriser a modifiée ce post` });  
