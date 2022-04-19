@@ -79,7 +79,8 @@ export default {
             delete updatedPost.image 
             }
             this.$store.dispatch('updatePost',
-            { 
+            {
+                //postid et egale au props post.id , qui est un objet 
                 postId:this.post.id , 
                 //correspond a l'argument dans le store
                 updatedPost: updatedPost
