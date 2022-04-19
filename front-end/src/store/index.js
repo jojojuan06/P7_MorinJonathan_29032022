@@ -222,7 +222,6 @@ export default createStore({
     //mettre a jour un post
     updatePost:({commit, state}, {postId,updatedPost}) => {
       //recherche un element dans un tableau poste qui correspond a sont id
-      console.log("ici-->",updatedPost.image);
       let oldPost = state.posts.find((post) => post.id == postId);
       let changePost = Object.assign({...oldPost},updatedPost);
       //envoi du formulaire en formdata (pour l'image)
@@ -247,11 +246,13 @@ export default createStore({
       });
     },
     //delete un post
-    deletePost:({commit},{userId,token}) => {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
-      axios.delete(`/post/${userId}`)
+    deletePost:({commit, state},{postId}) => {
+      axios.delete(`/post/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
+        let index = state.posts.findIndex((post) => post.id == postId);
+        //supprimer un element a l'index
+        state.posts.splice(index,1)
         commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 

@@ -34,9 +34,15 @@
                 <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
                 <div class="btn--update">
                     <v-btn class="--button"><strong>Modifier</strong></v-btn>
+                    <v-btn  @click="openConfirmDelete" >Supprimer le post</v-btn>
                 </div>
                 <EditPost v-bind:post="post"/>
             </v-card>
+            <AlertConfirm 
+        @closeAlert="confirmDelete.open = false" 
+        :title="confirmDelete.title"
+        @comfirm="deletePost" 
+        :open="confirmDelete.open"/>
         </v-app>    
 </template>
 
@@ -66,6 +72,23 @@ export default {
             if(month < 10) month = `0${month}`
             if(hours < 10) hours = `0${hours}`
             return day + "-" + month + "-" + year + " " + hours + ":" + min; 
+        },
+         //suppresion du post
+        deletePost() {
+            this.confirmDelete.open = false
+            //ajoute une condition if alert pour supprimer le compte
+            //importation des state
+            this.$store.dispatch('deletePost')
+            .then( () =>{
+                this.$router.push({path: '/post'})
+                this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
+            })
+            .catch(error => {
+                this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le compte ${error}`}); //type et payload
+            })
+        },
+        openConfirmDelete(){
+            this.confirmDelete.open = true;
         }
     }
 };
