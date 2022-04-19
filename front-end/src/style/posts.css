@@ -29,8 +29,11 @@
     align-items: center;
     justify-content: center;
 }
-.v-card-title--date {
+.card--date {
+    display: flex;
+    flex: 1;
     font-size: 13px;
+    flex-wrap: wrap;
 }
 .date--title {
     margin-right: 5px;

@@ -11,7 +11,7 @@
                     <v-img class="avatar--img .rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                     <v-img class="avatar--img .rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
                 </v-avatar>
-                <v-card-title class="v-card-title--date"><em class="date--title">date de creation:</em> {{dateNow(post.createdAt)}}</v-card-title>
+                <v-card-title class="card--date"><em class="date--title">date de creation:</em> {{dateNow(post.createdAt)}}</v-card-title>
                 </div>
                 <div>
                     <v-img class="v-img--post" v-bind:src="post.image" alt="mon image"></v-img>    
@@ -32,10 +32,10 @@
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>
                 <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
-                <div class="btn--update">
+                <v-card-actions class="btn--update">
                     <v-btn class="--button"><strong>Modifier</strong></v-btn>
                     <v-btn  @click="openConfirmDelete" >Supprimer le post</v-btn>
-                </div>
+                </v-card-actions>
                 <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) -->
                 <EditPost v-bind:post="post"/>
             </v-card>
@@ -88,7 +88,7 @@ export default {
             this.confirmDelete.open = false
             //ajoute une condition if alert pour supprimer le compte
             //importation des state
-            this.$store.dispatch('deletePost',{postId: this.post.id} )
+            this.$store.dispatch('deletePost', {postId: this.state.post.id})
             .then( () =>{
                 this.$router.push({path: '/post'})
                 this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
@@ -115,7 +115,7 @@ export default {
     margin-top: 4px;
 }
 .btn--update {
-    display: flex;
+    flex-wrap: wrap;
     justify-content: flex-end;
 }
 .--button {
