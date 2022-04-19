@@ -247,12 +247,19 @@ export default createStore({
     },
     //delete un post
     deletePost:({commit, state},{postId}) => {
+      //recupere le token directement depuis le  user destructuring
+      const {token} = state.user
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      console.log("infoToken-->",token);
       axios.delete(`/post/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        let index = state.posts.findIndex((post) => post.id == postId);
+        // let index = state.posts.findIndex((post) => {
+        //   post.id == postId
+        //   console.log("info-->",post);
+        // });
         //supprimer un element a l'index
-        state.posts.splice(index,1)
+        //state.posts.splice(index,1)
         commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 

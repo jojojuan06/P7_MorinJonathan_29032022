@@ -73,14 +73,16 @@ exports.updatePost = (req, res, next) => {
 //supprimer un post DELETE
 exports.deletePost = (req, res, next) => {
     // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
-    Post.findOne({ id: req.params.id })
+    let id = req.params.id
+    Post.findOne({where: { id: id }})
     //trouver id a celui qui est dans les parametres de la req ,recupere un post (produit) dans le callback (function de rapelle)
-    .then((post) => {// recupere le post dans la base
+    .then((post) => {
+        // recupere le post dans la base
         if (!post) { // si la post n'existe pas
             return res.status(404).json({ message: "Le post n'existe pas !"})
         }
         // verifier que seulement la personne qui detient l'objet peu le supprimer
-        if (post.userId !== req.auth.userId || req.auth.admin == true ) { //different de req.auth
+        if (post.userId !== req.auth.userId || req.auth.admin === false  ) { //different de req.auth
             //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
             return res.status(401).json({ message:'utilisateur non autorisé !'});   
         }

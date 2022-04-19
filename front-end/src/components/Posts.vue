@@ -5,6 +5,7 @@
             <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
             <!-- import de post depuis $store.state -->
             <v-card v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
+                {{post.id}}
                 <v-card-title class="v-card-title--color">{{post.title}}</v-card-title>
                 <div class="avatar_container">
                 <v-avatar>
@@ -23,7 +24,6 @@
                 <v-btn class="btn--closed">
                     <v-icon class="icon--close">mdi-close</v-icon>
                 </v-btn>
-                
                 <hr>
                 <v-btn v-if="post.likes == 0" class="btn--like">
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
@@ -34,7 +34,7 @@
                 <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
                 <v-card-actions class="btn--update">
                     <v-btn class="--button"><strong>Modifier</strong></v-btn>
-                    <v-btn  @click="openConfirmDelete" >Supprimer le post</v-btn>
+                    <v-btn  @click="openConfirmDelete(post.id)" >Supprimer le post</v-btn>
                 </v-card-actions>
                 <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) -->
                 <EditPost v-bind:post="post"/>
@@ -58,6 +58,8 @@ export default {
     },
     data() {
         return {
+            //postid actuel
+            currentPostId: null,  
             confirmDelete:{
                 title:"Etes vous sur de vouloir supprimer le compte, cette action est irréversible !",
                 open:false
@@ -65,7 +67,7 @@ export default {
         }
     },
     mounted() {
-        this.$store.dispatch('getPosts') //dispatch apliquer l'action
+        this.refreshPost() 
         },
     methods: {
         dateNow(date){
@@ -85,21 +87,27 @@ export default {
     },
      //suppresion du post
     deletePost() {
-            this.confirmDelete.open = false
-            //ajoute une condition if alert pour supprimer le compte
-            //importation des state
-            this.$store.dispatch('deletePost', {postId: this.state.post.id})
-            .then( () =>{
-                this.$router.push({path: '/post'})
-                this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
-            })
-            .catch(error => {
-                this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le compte ${error}`}); //type et payload
-            })
-        },
-        openConfirmDelete(){
+        this.confirmDelete.open = false
+        //ajoute une condition if alert pour supprimer le compte
+        //importation des state
+        this.$store.dispatch('deletePost',{postId:this.currentPostId})
+        .then( () =>{
+            this.refreshPost()
+            this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
+        })
+        .catch(error => {
+            this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le compte ${error}`}); //type et payload
+        })
+    },
+    openConfirmDelete(postId){
+            this.currentPostId = postId;
             this.confirmDelete.open = true;
-        }
+        },
+    //rafraichir la liste des posts
+    refreshPost(){
+        //dispatch apliquer l'action (recuperer a nouveau les post)
+        this.$store.dispatch('getPosts')
+    }
     }
 };
 </script>
