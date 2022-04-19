@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <NewPost/>
-    <Posts msg="Welcome to Your Vue.js App"/>
+    <Posts/>
   </v-app>
 </template>
 

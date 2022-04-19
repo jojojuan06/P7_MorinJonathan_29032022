@@ -6,21 +6,24 @@
             <!-- import de post depuis $store.state -->
             <v-card v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
                 <v-card-title class="v-card-title--color">{{post.title}}</v-card-title>
-                <v-card-title class="v-card-title--date"><em class="date--title">date de creation:</em> {{dateNow(post.createdAt)}}</v-card-title>
-                <v-img class="v-img--post" v-bind:src="post.image" alt="mon image"></v-img>
-                <v-card-text class="v-text--content"><p>{{post.content}}</p></v-card-text>
-                <hr>
                 <div class="avatar_container">
                 <v-avatar>
                     <v-img class="avatar--img .rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                     <v-img class="avatar--img .rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
                 </v-avatar>
+                <v-card-title class="v-card-title--date"><em class="date--title">date de creation:</em> {{dateNow(post.createdAt)}}</v-card-title>
+                </div>
+                <div>
+                    <v-img class="v-img--post" v-bind:src="post.image" alt="mon image"></v-img>    
+                </div>
+                <v-card-text class="v-text--content"><p>{{post.content}}</p></v-card-text>
+                <hr>
                 <!-- boucle sur chaque comment du post et l'affiche -->
                 <v-card-text class="avatar--comment" v-for="(comment,index) in post.Comments" :key="index"><p>{{ comment.content }}</p></v-card-text>
                 <v-btn class="btn--closed">
                     <v-icon class="icon--close">mdi-close</v-icon>
                 </v-btn>
-                </div>
+                
                 <hr>
                 <v-btn v-if="post.likes == 0" class="btn--like">
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
@@ -32,7 +35,7 @@
                 <div class="btn--update">
                     <v-btn class="--button"><strong>Modifier</strong></v-btn>
                 </div>
-                <EditPost/>
+                <EditPost v-bind="post"/>
             </v-card>
         </v-app>    
 </template>

@@ -1,10 +1,10 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-    <v-card>
-        <v-card-title class="post--title">modifier le post</v-card-title>
-            <v-form v-for="post in this.$store.state.posts" v-bind:key="post.id">
+    <div>
+        <h2 class="post--title">modifier le post</h2>
+            <v-form>
                 <v-text-field v-model="form.title"  label="Nom du post" required></v-text-field>
-                <v-file-input v-model="form.image" accept="image/*" label="File input"></v-file-input>
+                <v-file-input v-model="form.image" accept="image/*" label="File input"></v-file-input> 
                 <v-textarea v-model="form.content" filled auto-grow label="Tapez votre message ici" rows="4" row-height="30" shaped required></v-textarea>
             </v-form>
         <v-form>
@@ -14,7 +14,7 @@
                 <span v-else>Crée le post</span>
             </v-btn>
         </v-form>
-    </v-card>
+    </div>
 </template>
 <script>
 
@@ -23,6 +23,11 @@ import { mapState } from 'vuex'
 
 export default {
     name:'EditPost',
+    props: { // Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
+        post: {
+            type:Object
+        }
+    },
     data: function() {
         return {
                 mode: 'login',  //etat login
@@ -41,11 +46,6 @@ export default {
             return;    
         } 
     },    
-    props: { // Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
-        post: { 
-            id:'',
-        }
-    },
     computed: {
         validatedField: function() {
             //return false par default et true quand les  champ sont rempli
@@ -83,7 +83,8 @@ export default {
 </script>
 
 <style scoped>
-.v-card-title.post--title {
+.post--title {
+    text-align: center;
     background-color: #091f43;
     color: white;
     width: 100%;
