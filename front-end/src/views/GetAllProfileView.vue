@@ -16,7 +16,7 @@
                         <p>{{user.firstname}}-{{user.name}}</p>
                         <p>{{user.email}}</p>
                         <!-- afficher le choix des boutons en administrateur ou si  mon propre compte-->
-                    <v-card-actions v-if="user.admin == true || user.id == this.$store.state.user.userId">
+                    <v-card-actions v-if="this.$store.state.user.admin == true || user.id == this.$store.state.user.userId">
                         <!-- action de deconnexion avec la mutation logout-->
                         <v-btn><strong>Modifier</strong></v-btn>
                         <v-btn   @click="openConfirmDelete(user.id)" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
