@@ -49,10 +49,19 @@
 <script>
 //importation du component edit post pour modification
 import EditPost from '@/components/EditPost.vue'
+import AlertConfirm from '@/components/AlertConfirm';
 //Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
 export default {
     components: {
-    EditPost
+    EditPost,AlertConfirm
+    },
+    data() {
+        return {
+            confirmDelete:{
+                title:"Etes vous sur de vouloir supprimer le compte, cette action est irréversible !",
+                open:false
+            }
+        }
     },
     mounted() {
         this.$store.dispatch('getPosts') //dispatch apliquer l'action
