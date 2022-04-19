@@ -32,13 +32,19 @@
                 <div class="btn--update">
                     <v-btn class="--button"><strong>Modifier</strong></v-btn>
                 </div>
+                <EditPost/>
             </v-card>
         </v-app>    
 </template>
 
 <script>
+//importation du component edit post pour modification
+import EditPost from '@/components/EditPost.vue'
 
 export default {
+    components: {
+    EditPost
+    },
     mounted() {
         this.$store.dispatch('getPosts') //dispatch apliquer l'action
         },
