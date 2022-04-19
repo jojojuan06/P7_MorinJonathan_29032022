@@ -83,9 +83,9 @@ export default {
         if(month < 10) month = `0${month}`
         if(hours < 10) hours = `0${hours}`
         return day + "-" + month + "-" + year + " " + hours + ":" + min; 
-    },
-     //suppresion du post
-    deletePost() {
+        },
+        //suppresion du post
+        deletePost() {
         this.confirmDelete.open = false
         //ajoute une condition if alert pour supprimer le compte
         //importation des state
@@ -97,16 +97,16 @@ export default {
         .catch(error => {
             this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le compte ${error}`}); //type et payload
         })
-    },
-    openConfirmDelete(postId){
-            this.currentPostId = postId;
-            this.confirmDelete.open = true;
         },
-    //rafraichir la liste des posts
-    refreshPost(){
-        //dispatch apliquer l'action (recuperer a nouveau les post)
-        this.$store.dispatch('getPosts')
-    }
+        openConfirmDelete(postId){
+                this.currentPostId = postId;
+                this.confirmDelete.open = true;
+            },
+        //rafraichir la liste des posts
+        refreshPost(){
+            //dispatch apliquer l'action (recuperer a nouveau les post)
+            this.$store.dispatch('getPosts')
+        }
     }
 };
 </script>
