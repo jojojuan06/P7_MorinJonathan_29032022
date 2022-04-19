@@ -22,7 +22,7 @@
 import { mapState } from 'vuex'
 
 export default {
-    name:'Newpost',
+    name:'EditPost',
     data: function() {
         return {
                 mode: 'login',  //etat login

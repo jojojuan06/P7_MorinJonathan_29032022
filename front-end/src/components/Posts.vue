@@ -3,7 +3,8 @@
         <v-app  class="v-app--container">
             <h3 class="v-app--title">Posts</h3>
             <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
-            <v-card v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  <!-- import de post depuis $store.state -->
+            <!-- import de post depuis $store.state -->
+            <v-card v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
                 <v-card-title class="v-card-title--color">{{post.title}}</v-card-title>
                 <v-card-title class="v-card-title--date"><em class="date--title">date de creation:</em> {{dateNow(post.createdAt)}}</v-card-title>
                 <v-img class="v-img--post" v-bind:src="post.image" alt="mon image"></v-img>
