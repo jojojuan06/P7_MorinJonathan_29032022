@@ -9,7 +9,7 @@
             </v-form>
         <v-form>
             <!-- au clic appel a la methode createNewAccount--> 
-            <v-btn   v-on:click="createPost" :class="{'v-btn--disabled' : !validatedField}" color="success" class="mr-4">
+            <v-btn   v-on:click="updatePost" :class="{'v-btn--disabled' : !validatedField}" color="success" class="mr-4">
                 <span v-if="status=='loading'">Création du post...</span>
                 <span v-else>Crée le post</span>
             </v-btn>
@@ -32,8 +32,8 @@ export default {
         return {
                 mode: 'login',  //etat login
                 form : {
-                    title: "",
-                    content: "",
+                    title: this.post.title,
+                    content: this.post.content,
                     image:[] 
                 }
             }
@@ -61,12 +61,12 @@ export default {
             ...mapState(['status']) 
         },
     methods: {                                       
-        createPost(){  
+        updatePost(){  
             const This = this; 
             //sous element pas acces au this je renome une variabale pour appeler en dessous  
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
-            this.$store.dispatch('createPost',{
+            this.$store.dispatch('updatePost',{
                 title:this.form.title,
                 content:this.form.content,
                 image:this.form.image,

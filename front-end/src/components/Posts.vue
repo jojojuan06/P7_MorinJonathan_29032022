@@ -35,7 +35,7 @@
                 <div class="btn--update">
                     <v-btn class="--button"><strong>Modifier</strong></v-btn>
                 </div>
-                <EditPost v-bind="post"/>
+                <EditPost v-bind:post="post"/>
             </v-card>
         </v-app>    
 </template>
