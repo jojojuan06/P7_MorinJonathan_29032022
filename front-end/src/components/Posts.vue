@@ -40,7 +40,7 @@
 <script>
 //importation du component edit post pour modification
 import EditPost from '@/components/EditPost.vue'
-
+//Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
 export default {
     components: {
     EditPost

@@ -41,10 +41,9 @@ export default {
             return;    
         } 
     },    
-    props: { //Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
-        msg: {
-            type: String,
-        default:'Bonjour Groupomania', // ou require true
+    props: { // Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
+        post: { 
+            id:'',
         }
     },
     computed: {
