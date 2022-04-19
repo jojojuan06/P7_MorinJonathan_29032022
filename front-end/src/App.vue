@@ -19,6 +19,10 @@
         </v-toolbar-item>
     </v-toolbar>
     <div>
+    </div>
+    <v-content>
+        <router-view/>
+    </v-content>
     <!-- alerte a la creation du compte -->
         <v-alert v-if="this.$store.state.status =='succes'" class="v--alert"   type="success">
           {{ this.$store.state.message }}
@@ -30,10 +34,6 @@
           <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>
         </v-alert>
     <!-- -->
-    </div>
-    <v-content>
-        <router-view/>
-    </v-content>
     <v-footer>
       <v-row justify="center">
       <!-- boucle sur chaque link (ajouter dans le futur et je les affiches   -->  
