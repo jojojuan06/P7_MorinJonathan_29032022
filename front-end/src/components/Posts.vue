@@ -87,7 +87,7 @@ export default {
             this.confirmDelete.open = false
             //ajoute une condition if alert pour supprimer le compte
             //importation des state
-            this.$store.dispatch('deletePost')
+            this.$store.dispatch('deletePost',{postId: this.post.id} )
             .then( () =>{
                 this.$router.push({path: '/post'})
                 this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
