@@ -219,6 +219,7 @@ export default createStore({
     },
     //mettre a jour un post
     updatePost:({commit}, postId, newPost) => {
+      let newPost = Object.assign(postId,newPost);
       axios.put(`/post/${postId}`, newPost)
       // attendre la reponse (comme fetch)
       .then(response => {
