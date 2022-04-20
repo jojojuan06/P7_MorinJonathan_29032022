@@ -1,6 +1,6 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-    <v-container class="main_post">
+    <v-container class="main_post" fluid>
         <v-card class="post--container" >
             <v-card-title class="post--title">Crée un nouveau post</v-card-title>
             <v-form>
