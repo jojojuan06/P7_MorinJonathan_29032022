@@ -29,13 +29,21 @@
                 <!--  -->
                 <hr>
                 <!-- section like -->
-                <v-btn v-if="post.likes == 0" class="btn--like">
+                <div class="like--container">
+                <div  v-if="post.likes == 0">
+                    <v-btn class="btn--like">
+                        <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
+                    </v-btn> 
+                </div>
+                <div v-else>
+                <v-btn class="btn--notLike">
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
-                </v-btn>
-                <v-btn v-else class="btn--notLike">
-                    <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
-                </v-btn>
-                <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
+                </v-btn>  
+                </div>
+                <div>
+                    <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
+                </div>
+                </div>
                 <!--  -->
                 <!-- section modifier supprimer post -->
                 <v-card-actions  v-if="this.$store.state.user.admin == true || post.userId == this.$store.state.user.userId" class="btn--update">
@@ -138,6 +146,9 @@ export default {
 </script>
 
 <style scoped>
+.like--container{
+    display: flex
+}
 @import url('../style/boutonLike.css');
 @import url('../style/posts.css');
 @import url('../style/comment');
