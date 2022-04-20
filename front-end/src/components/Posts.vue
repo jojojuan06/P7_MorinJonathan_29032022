@@ -31,7 +31,7 @@
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>
                 <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
-                <v-card-actions  class="btn--update">
+                <v-card-actions  v-if="this.$store.state.user.admin == true || post.userId == this.$store.state.user.userId" class="btn--update">
                     <div v-if="mode == 'bydefault'">
                         <v-btn   v-on:click="switchToUpdate" class="--button">
                             <strong>Modifier</strong>
