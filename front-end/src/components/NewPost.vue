@@ -92,6 +92,8 @@ export default {
 
 <style scoped>
 .v-card-title.post--title {
+    display: flex;
+    justify-content: center;
     background-color: #091f43;
     color: white;
     width: 100%;

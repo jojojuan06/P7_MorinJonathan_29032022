@@ -150,27 +150,5 @@ export default {
 }
 </script>
 <style scoped>
-.v-card-text.--subtitle {
-    color: rgba(9,31,67,0.8);
-    text-decoration: underline;
-    cursor: pointer;
-}
-.v-container{
-    display: flex;
-    flex-direction: column;
-}
-h1.--title {
-    margin: 40px 0 0;
-    color: #D1515A;
-}
-.v-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background-image: url('../images/Home.png');
-    background-position: center;
-    background-repeat: no-repeat;
-}
 @import url('../style/home');
 </style>
