@@ -8,6 +8,7 @@ import { loadFonts } from './plugins/webfontloader'
 
 loadFonts()
 // Install  instance as a plugin router , store , vuetify
+//creation d'une application vue
 createApp(App)
   .use(router)
   .use(store)
