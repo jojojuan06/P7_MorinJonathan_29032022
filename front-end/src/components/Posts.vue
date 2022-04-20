@@ -1,10 +1,11 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-        <v-app  class="v-app--container">
+        <v-app  >
             <h3 class="v-app--title">Posts</h3>
             <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
             <!-- import de post depuis $store.state -->
-            <v-card v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
+            <v-card  class="main_post" v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
+                <v-container class="post--container">
                 <v-card-title class="v-card-title--color">{{post.title}}</v-card-title>
                 <div class="avatar_container">
                 <v-avatar>
@@ -31,12 +32,13 @@
                 <!-- section like -->
                 <div class="like--container">
                 <div  v-if="post.likes == 0">
-                    <v-btn class="btn--like">
+                    <!-- @click="like++" ou @click="like--" a faire (data like=0)-->
+                    <v-btn @click="likeToPost" class="btn--like">
                         <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                     </v-btn> 
                 </div>
                 <div v-else>
-                <v-btn class="btn--notLike">
+                <v-btn @click="deleteLike" class="btn--notLike">
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>  
                 </div>
@@ -62,6 +64,7 @@
                 <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) -->
                 <EditPost v-if="mode == 'update'" v-bind:post="post"/>
                 <!--  -->
+                </v-container>
             </v-card>
             <AlertConfirm 
         @closeAlert="confirmDelete.open = false" 
@@ -82,6 +85,7 @@ export default {
     },
     data() {
         return {
+            like:0,
             //retourner a l'etat par default
             mode:'bydefault', 
             //postid actuel
@@ -96,6 +100,32 @@ export default {
         this.refreshPost() 
         },
     methods: {
+        likeToPost(){  
+                const This = this; 
+                //sous element pas acces au this je renome une variabale pour appeler en dessous  
+                //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
+                //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
+                this.$store.dispatch('likeToLike',{
+                    like:this.like++,
+                }).then(() => {
+                    //redirection vers la route apres creation d'un compte (path en argument)
+                    this.refreshPost()
+                    this.$store.commit('SETSTATUS' , {status:'succes',message:`votre post est bien ajouter`});
+                })
+            },
+        deleteLike(){  
+                const This = this; 
+                //sous element pas acces au this je renome une variabale pour appeler en dessous  
+                //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
+                //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
+                this.$store.dispatch('Like',{
+                    like:this.like--,
+                }).then(() => {
+                    //redirection vers la route apres creation d'un compte (path en argument)
+                    this.refreshPost()
+                    this.$store.commit('SETSTATUS' , {status:'succes',message:`votre post est bien ajouter`});
+                })
+            },
         //function pour different etat sur l'affichage des buttons
         switchToDisplaypost() {              // <------: function()
             this.mode = 'bydefault';
@@ -146,9 +176,21 @@ export default {
 </script>
 
 <style scoped>
+.main_post {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    box-shadow: none;
+}
+.post--container  {
+    display: flex;
+    flex-direction: column;
+    box-shadow: 2px 2px 15px black
+}
 .like--container{
     display: flex
 }
+
 @import url('../style/boutonLike.css');
 @import url('../style/posts.css');
 @import url('../style/comment');
