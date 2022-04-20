@@ -33,6 +33,7 @@ export default {
         return {
                 mode: 'login',  //etat login
                 form : {
+                    //afficher les ancienne valeur dans le post a modifier
                     title: this.post.title,
                     content: this.post.content,
                     image:[] 
