@@ -1,7 +1,7 @@
 <template>
   <v-app>
-    <NewPost/>
-    <Posts/>
+        <NewPost/>
+        <Posts/>
   </v-app>
 </template>
 

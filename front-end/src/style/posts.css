@@ -1,12 +1,7 @@
 .v-app--title {
     text-align: center;
 }
-.v-card--container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
+
 .v-img--post{
     display: flex;
     flex-direction: column;
@@ -63,5 +58,4 @@
 .v-card-actions div {
     margin: 5px;
 }
-
 

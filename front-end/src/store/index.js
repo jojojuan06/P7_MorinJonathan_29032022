@@ -27,6 +27,7 @@ export default createStore({
     },
     posts : [],  // recuperation des posts
     comments : [], // recuperation des commentaire
+    like:[]
   },
   //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
   getters: {
