@@ -122,7 +122,8 @@ export default {
                 password:this.form.password,
             }).then(function (){
                 //accès à l'instance du routeur en tant que $router
-                This.$router.push({path: '/profile'}); //redirection vers la route apres login
+                //redirection vers la route apres login
+                This.$router.push({path: '/profile'}); 
             }),
             function (error) {
                 console.log(error);

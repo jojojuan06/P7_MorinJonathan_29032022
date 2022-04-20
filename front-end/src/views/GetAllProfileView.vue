@@ -58,6 +58,7 @@ export default {
     mounted() {                               // <-----: function()
     //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
         this.$store.dispatch('getAllUser');
+        this.refreshProfiles();
         
     },
     //computed  nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés
@@ -70,10 +71,21 @@ export default {
             //ajoute une condition if alert pour supprimer le compte
             //importation des state (recuperre l'utilisateur et le token)
             this.$store.dispatch('deleteProfile', {userId:this.userId,token:this.$store.state.user.token})
+            .then( () =>{
+                this.refreshProfiles()
+                this.$store.commit('SETSTATUS' , {status:'succes',message:`le profil a bien etait supprimer`}); //type et payload
+            })
+            .catch(error => {
+                this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le compte ${error}`}); //type et payload
+            })
         },
         openConfirmDelete(userId){
             this.userId = userId;
             this.confirmDelete.open = true;
+        },
+        refreshProfiles(){
+            //dispatch apliquer l'action (recuperer a nouveau les profiles)
+            this.$store.dispatch('getAllUser')
         }
     },
 }
