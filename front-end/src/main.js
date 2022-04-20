@@ -13,6 +13,7 @@ createApp(App)
   .use(router)
   .use(store)
   .use(vuetify)
+  //permet d'utiliser l'application dans le dom
   .mount('#app') //l'instance du composant racine au lieu de l'instance de l'application.
 
 
