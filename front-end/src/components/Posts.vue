@@ -8,13 +8,13 @@
                 <v-card-title class="v-card-title--color">{{post.title}}</v-card-title>
                 <div class="avatar_container">
                 <v-avatar>
-                    <v-img class="avatar--img .rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                    <v-img class="avatar--img .rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
+                    <v-img :alt="post.User.name" class="avatar--img .rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                    <v-img :alt="post.User.name" class="avatar--img .rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
                 </v-avatar>
                 <v-card-title class="card--date"><em class="date--title">date de creation:</em> {{dateNow(post.createdAt)}}</v-card-title>
                 </div>
                 <div>
-                    <v-img class="v-img--post" v-bind:src="post.image" alt="mon image"></v-img>    
+                    <v-img class="v-img--post" v-bind:src="post.image" :alt="post.title"></v-img>    
                 </div>
                 <v-card-text class="v-text--content"><p>{{post.content}}</p></v-card-text>
                 <hr>

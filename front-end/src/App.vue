@@ -5,7 +5,7 @@
       <v-toolbar-title >
           <!-- - similaire à la balise  anchor -->
         <router-link to="/posts" style="cursor: pointer">
-          <v-img src="./images/logo.png"></v-img>
+          <v-img src="./images/logo.png" alt="logo groupomania"></v-img>
         </router-link>
       </v-toolbar-title>
       <v-spacer></v-spacer>
