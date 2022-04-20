@@ -40,6 +40,7 @@ export default {
             this.$router.push({path: '/'}) 
             return;    
         } 
+        this.refreshPost()
     },    
     props: { //Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
         msg: {
@@ -71,13 +72,19 @@ export default {
                 title:this.form.title,
                 content:this.form.content,
                 image:this.form.image,
-            }).then(function (){
+            }).then(() => {
                 //redirection vers la route apres creation d'un compte (path en argument)
-                This.$router.push({path: '/posts'}); 
+                this.refreshPost()
+                this.$store.commit('SETSTATUS' , {status:'succes',message:`votre post est bien ajouter`});
             }),
             function (error) {
                 console.log(error);
             }
+        },
+        //rafraichir la liste des posts apres ajout d'un nouveau
+        refreshPost(){
+            //dispatch apliquer l'action (recuperer a nouveau les post)
+            this.$store.dispatch('getPosts')
         } 
     },
 }
