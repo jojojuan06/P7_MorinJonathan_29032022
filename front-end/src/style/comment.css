@@ -1,0 +1,20 @@
+.card--comment {
+    margin-left: 16px;
+    display: flex;
+    align-self: center;
+}
+.v-btn.btn--closed {
+    display: flex;
+    align-self: center;
+    box-shadow: none;
+    background-color: #d1515a;
+    width: 0px;
+    height: 16px;
+    min-width: 0px;
+    margin-left: 16px;
+}
+.icon--close {
+    color:white;
+    font-size: 14px;
+    font-weight: bold;
+}

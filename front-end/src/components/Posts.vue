@@ -19,11 +19,16 @@
                 <v-card-text class="v-text--content"><p>{{post.content}}</p></v-card-text>
                 <hr>
                 <!-- boucle sur chaque comment du post et l'affiche -->
-                <v-card-text class="avatar--comment" v-for="(comment,index) in post.Comments" :key="index"><p>{{ comment.content }}</p></v-card-text>
-                <v-btn class="btn--closed">
+                <!-- section comment -->
+                <div>
+                    <v-card-text class="card--comment" v-for="(comment,index) in post.Comments" :key="index"><p>{{ comment.content }}</p></v-card-text>
+                    <v-btn class="btn--closed">
                     <v-icon class="icon--close">mdi-close</v-icon>
-                </v-btn>
+                    </v-btn>   
+                </div>
+                <!--  -->
                 <hr>
+                <!-- section like -->
                 <v-btn v-if="post.likes == 0" class="btn--like">
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>
@@ -31,6 +36,8 @@
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>
                 <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
+                <!--  -->
+                <!-- section modifier supprimer post -->
                 <v-card-actions  v-if="this.$store.state.user.admin == true || post.userId == this.$store.state.user.userId" class="btn--update">
                     <div v-if="mode == 'bydefault'">
                         <v-btn   v-on:click="switchToUpdate" class="--button">
@@ -46,6 +53,7 @@
                 </v-card-actions>
                 <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) -->
                 <EditPost v-if="mode == 'update'" v-bind:post="post"/>
+                <!--  -->
             </v-card>
             <AlertConfirm 
         @closeAlert="confirmDelete.open = false" 
@@ -130,15 +138,6 @@ export default {
 </script>
 
 <style scoped>
-.v-btn.btn--like {
-    border-radius: 50%;
-    width: 1px;
-    height: 30px;
-    background-color: #d1515a;
-    box-shadow: none;
-    min-width: 0px;
-    margin-top: 4px;
-}
 .btn--update {
     flex-wrap: wrap;
     justify-content: flex-end;
@@ -151,18 +150,6 @@ export default {
     box-shadow: 2px 2px 15px black;
     border-bottom: #d1515a solid 2px;
 }
-.v-btn.btn--notLike {
-    border-radius: 50%;
-    width: 1px;
-    height: 30px;
-    background-color:green;
-    box-shadow: none;
-    min-width: 0px;
-    margin-top: 4px;
-}
-.btn--icon {
-    color: white;
-}
 .btn--badge {
     margin-top: 4px;
 }
@@ -172,25 +159,11 @@ export default {
 .avatar_container{
     display: flex;
 }
-.avatar--comment {
-    margin-left: 16px;
-    display: flex;
-    align-self: center;
+
+.v-card-actions div {
+    margin: 5px;
 }
-.v-btn.btn--closed {
-    display: flex;
-    align-self: center;
-    box-shadow: none;
-    background-color: #d1515a;
-    width: 0px;
-    height: 16px;
-    min-width: 0px;
-    margin-left: 16px;
-}
-.icon--close {
-    color:white;
-    font-size: 14px;
-    font-weight: bold;
-}
+@import url('../style/boutonLike.css');
 @import url('../style/posts.css');
+@import url('../style/comment');
 </style>
