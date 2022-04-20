@@ -138,31 +138,6 @@ export default {
 </script>
 
 <style scoped>
-.btn--update {
-    flex-wrap: wrap;
-    justify-content: flex-end;
-}
-.--button {
-    color: #091F43;
-    box-shadow: none;
-}
-.--button:hover {
-    box-shadow: 2px 2px 15px black;
-    border-bottom: #d1515a solid 2px;
-}
-.btn--badge {
-    margin-top: 4px;
-}
-.avatar--img {
-    height: 20px;
-}
-.avatar_container{
-    display: flex;
-}
-
-.v-card-actions div {
-    margin: 5px;
-}
 @import url('../style/boutonLike.css');
 @import url('../style/posts.css');
 @import url('../style/comment');
