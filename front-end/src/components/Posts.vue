@@ -31,12 +31,21 @@
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>
                 <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
-                <v-card-actions class="btn--update">
-                    <v-btn class="--button"><strong>Modifier</strong></v-btn>
+                <v-card-actions  class="btn--update">
+                    <div v-if="mode == 'bydefault'">
+                        <v-btn   v-on:click="switchToUpdate" class="--button">
+                            <strong>Modifier</strong>
+                        </v-btn>
+                    </div>
+                    <div v-else>
+                        <v-btn   v-on:click="switchToDisplaypost" class="--button">
+                            <strong>Annuler</strong>
+                        </v-btn>
+                    </div>
                     <v-btn class="--button" @click="openConfirmDelete(post.id)" >Supprimer le post</v-btn>
                 </v-card-actions>
                 <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) -->
-                <EditPost v-bind:post="post"/>
+                <EditPost v-if="mode == 'update'" v-bind:post="post"/>
             </v-card>
             <AlertConfirm 
         @closeAlert="confirmDelete.open = false" 
@@ -57,6 +66,8 @@ export default {
     },
     data() {
         return {
+            //retourner a l'etat par default
+            mode:'bydefault', 
             //postid actuel
             currentPostId: null,  
             confirmDelete:{
@@ -69,6 +80,13 @@ export default {
         this.refreshPost() 
         },
     methods: {
+        //function pour different etat sur l'affichage des buttons
+        switchToDisplaypost() {              // <------: function()
+            this.mode = 'bydefault';
+        },
+        switchToUpdate() {                      // <------: function()
+            this.mode = 'update';
+        },
         dateNow(date){
         // retourne jour mois année et l'heure
         const dateObj = new Date(date)
