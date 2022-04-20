@@ -177,7 +177,6 @@ export default {
 
 <style scoped>
 .main_post {
-    width: 100%;
     display: flex;
     justify-content: center;
     box-shadow: none;
@@ -185,7 +184,9 @@ export default {
 .post--container  {
     display: flex;
     flex-direction: column;
-    box-shadow: 2px 2px 15px black
+    box-shadow: 2px 2px 15px black;
+    border-radius: 16px 16px 0 0;
+    max-width: 1000px;
 }
 .like--container{
     display: flex

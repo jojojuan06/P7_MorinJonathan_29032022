@@ -19,7 +19,5 @@ export default {
 </script>
 
 <style scoped>
-.v-card {
-  box-shadow: 2px 2px 15px black;
-}
+
 </style>

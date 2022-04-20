@@ -1,20 +1,22 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-    <v-card>
-        <v-card-title class="post--title">Crée un nouveau post</v-card-title>
-        <v-form>
-            <v-text-field v-model="form.title"  label="Nom du post" required></v-text-field>
-            <v-file-input v-model="form.image" accept="image/*" label="File input"></v-file-input>
-            <v-textarea v-model="form.content" filled auto-grow label="Tapez votre message ici" rows="4" row-height="30" shaped required></v-textarea>
-        </v-form>
-        <v-form>
-            <!-- au clic appel a la methode createNewAccount--> 
-            <v-btn   v-on:click="createPost" :class="{'v-btn--disabled' : !validatedField}" color="success" class="mr-4">
-                <span v-if="status=='loading'">Création du post...</span>
-                <span v-else>Crée le post</span>
-            </v-btn>
-        </v-form>
-    </v-card>
+    <v-container class="main_post">
+        <v-card class="post--container" >
+            <v-card-title class="post--title">Crée un nouveau post</v-card-title>
+            <v-form>
+                <v-text-field v-model="form.title"  label="Nom du post" required></v-text-field>
+                <v-file-input v-model="form.image" accept="image/*" label="File input"></v-file-input>
+                <v-textarea v-model="form.content" filled auto-grow label="Tapez votre message ici" rows="4" row-height="30" shaped required></v-textarea>
+            </v-form>
+            <v-form>
+                <!-- au clic appel a la methode createNewAccount--> 
+                <v-btn   v-on:click="createPost" :class="{'v-btn--disabled' : !validatedField}" color="success" class="mr-4">
+                    <span v-if="status=='loading'">Création du post...</span>
+                    <span v-else>Crée le post</span>
+                </v-btn>
+            </v-form>
+        </v-card>
+    </v-container>
 </template>
 <script>
 
@@ -99,6 +101,20 @@ export default {
     width: 100%;
     border-radius: 16px 16px 0px 0px;
     border-bottom: #d1515a solid 2px;
+}
+.post--container  {
+    display: flex;
+    width: 100%;
+    max-width: 1000px;
+
+    flex-direction: column;
+    box-shadow: 2px 2px 15px black;
+    border-radius: 16px 16px 0 0;
+}
+.main_post {
+    display: flex;
+    justify-content: center;
+    box-shadow: none;
 }
 </style>
 
