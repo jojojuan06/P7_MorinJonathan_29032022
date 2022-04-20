@@ -31,7 +31,7 @@
                 <hr>
                 <!-- section like -->
                 <div class="like--container">
-                <div  v-if="post.userId == this.$store.state.user.userId" class="btn--update">
+                <div class="btn--update">
                 <div  v-if="post.likes == 0">
                     <!-- @click="like++" ou @click="like--" a faire (data like=0)-->
                     <v-btn @click="likeToPost" class="btn--like">
