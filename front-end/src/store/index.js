@@ -27,7 +27,6 @@ export default createStore({
     },
     posts : [],  // recuperation des posts
     comments : [], // recuperation des commentaire
-    like:[]
   },
   //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
   getters: {
@@ -72,10 +71,6 @@ export default createStore({
       state.userInfos = {}
      //supprimer les ressource (user) , aisin eviter la reconection
     localStorage.removeItem('user'); 
-    },
-    //DELETE post
-    DELETE_POST(state) {
-      state.posts = {};
     },
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
@@ -266,6 +261,31 @@ export default createStore({
       .catch(error => { 
         console.log(error); 
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
+    },
+    postLike: ({commit,state}, {postId}) => {
+      const {token} = state.user
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      //créeation d'un nouvelle promess
+      //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
+      return new Promise((resolve, reject) => {
+        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+        commit('SETSTATUS' , {status:'loading',message:''}); 
+        //requete Post enregistrer l'utilisateur
+        axios.post(`/like/${postId}`) 
+        .then(function (response) {
+        //rajouter un delai
+        setTimeout(() => { 
+          commit('SETSTATUS' , {status:'succes' , message: response.data.message}); //type et payload
+        resolve(response); //resolved (promesse résolue )
+        },1000 ) //delai en deuxieme argument 1000ms
+        //si tout dse pass bien
+        })
+        .catch(function (error) {
+          commit('SETSTATUS' , {status:'error',message:`impossible de liké ! ${error}`}); //type et payload
+        //retourne une erreur
+        reject(error); //rejected (rompue) : l'opération a échoué.
+        });
       });
     },
     deleteProfile:({commit},{userId,token}) => {

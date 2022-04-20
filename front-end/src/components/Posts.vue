@@ -31,6 +31,7 @@
                 <hr>
                 <!-- section like -->
                 <div class="like--container">
+                <div  v-if="post.userId == this.$store.state.user.userId" class="btn--update">
                 <div  v-if="post.likes == 0">
                     <!-- @click="like++" ou @click="like--" a faire (data like=0)-->
                     <v-btn @click="likeToPost" class="btn--like">
@@ -44,6 +45,7 @@
                 </div>
                 <div>
                     <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
+                </div>
                 </div>
                 </div>
                 <!--  -->
@@ -85,7 +87,6 @@ export default {
     },
     data() {
         return {
-            like:0,
             //retourner a l'etat par default
             mode:'bydefault', 
             //postid actuel
@@ -105,7 +106,7 @@ export default {
                 //sous element pas acces au this je renome une variabale pour appeler en dessous  
                 //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
                 //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
-                this.$store.dispatch('likeToLike',{
+                this.$store.dispatch('postLike',{
                     like:this.like++,
                 }).then(() => {
                     //redirection vers la route apres creation d'un compte (path en argument)
