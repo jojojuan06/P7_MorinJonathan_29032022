@@ -1,6 +1,4 @@
-<img src="https://user-images.githubusercontent.com/74248454/164537885-d155acea-3fbf-4a3b-9775-b2474665234a.png" width="100" height="100">
-
-# Groupomania #
+<img src="https://user-images.githubusercontent.com/74248454/164537885-d155acea-3fbf-4a3b-9775-b2474665234a.png" width="250" height="250">
 
 Projet 7 de la formation Développeur Web "Créez un réseau social d'entreprise".
 
