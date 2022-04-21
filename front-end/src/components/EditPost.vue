@@ -18,7 +18,7 @@
 </template>
 <script>
 
-// mélange les getters en calcul avec l'opérateur de propagation d'objet
+// IMPORT (mélange les getters en calcul avec l'opérateur de propagation d'objet)
 import { mapState } from 'vuex'
 
 export default {
