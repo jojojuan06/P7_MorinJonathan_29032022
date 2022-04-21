@@ -1,3 +1,4 @@
+![icon-left-font-monochrome-white](https://user-images.githubusercontent.com/74248454/164537885-d155acea-3fbf-4a3b-9775-b2474665234a.png)
 # Groupomania #
 
 Projet 7 de la formation Développeur Web "Créez un réseau social d'entreprise".
