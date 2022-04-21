@@ -12,6 +12,15 @@ La partie backend du projet est développée avec :
 - Sequelize 
 - Une base de données Mysql
 - Et l'outil Wampserver64.
+ 
+Ajoutez un fichier .env dans le dossier racine avec ces clés :
+
+DATABASE='nom de votre schéma'
+User='votre nom d'utilisateur Mysql'
+PASSWORD='votre mot de passe mysql'
+SECRET_KEY='votre secret token'
+HOST_PORT=3306
+NODE_PORT=3000
 
 ### Pré requis ###
 
