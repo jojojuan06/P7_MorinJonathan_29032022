@@ -67,4 +67,4 @@ Côté frontend :
 
 Côté backend : 
     - Dans le terminal, se placer dans le dossier backend du projet et taper la commande "nodemon server"
-    - Le backend (API) se lance sur http://localhost:3000/api/v1.
+    - Le backend (API) se lance sur http://localhost:3000/api/.
