@@ -1,4 +1,4 @@
-![icon-left-font-monochrome-white]<img src="https://user-images.githubusercontent.com/74248454/164537885-d155acea-3fbf-4a3b-9775-b2474665234a.png" width="100" height="100">
+<img src="https://user-images.githubusercontent.com/74248454/164537885-d155acea-3fbf-4a3b-9775-b2474665234a.png" width="100" height="100">
 
 # Groupomania #
 
