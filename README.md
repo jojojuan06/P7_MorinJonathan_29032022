@@ -15,12 +15,12 @@ La partie backend du projet est développée avec :
  
 Ajoutez un fichier .env dans le dossier racine avec ces clés :
 
-DATABASE='nom de votre schéma'
-User='votre nom d'utilisateur Mysql'
-PASSWORD='votre mot de passe mysql'
-SECRET_KEY='votre secret token'
-HOST_PORT=3306
-NODE_PORT=3000
+- DATABASE='nom de votre schéma'
+- User='votre nom d'utilisateur Mysql'
+- PASSWORD='votre mot de passe mysql'
+- SECRET_KEY='votre secret token'
+- HOST_PORT=3306
+- NODE_PORT=3000
 
 ### Pré requis ###
 
