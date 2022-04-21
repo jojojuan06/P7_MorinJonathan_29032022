@@ -52,12 +52,14 @@
 </template>
 
 <script>
+//IMPORT COMPONENENTS
 import Posts from './components/Posts.vue'
 import NewPost from './components/NewPost.vue'
 
 
 export default {
   name:'App',
+  // INSTANCIER COMPONENTS
   components: {
     Posts,
     NewPost,
