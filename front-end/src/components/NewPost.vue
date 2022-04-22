@@ -1,30 +1,32 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-    <v-container class="main_post" fluid>
-        <v-card class="post--container" >
-            <v-card-title class="post--title">Crée un nouveau post</v-card-title>
-            <v-form>
-                <v-text-field v-model="form.title"  label="Nom du post" required></v-text-field>
-                <v-file-input v-model="form.image" accept="image/*" label="File input"></v-file-input>
-                <v-textarea v-model="form.content" filled auto-grow label="Tapez votre message ici" rows="4" row-height="30" shaped required></v-textarea>
-            </v-form>
-            <v-form>
-                <div class="NewPost--container">
-                    <div>
-                        <v-btn class="--addmessage">
-                            <v-icon>mdi-message-plus</v-icon>
-                        </v-btn>
-                    </div>
-                    <!-- au clic appel a la methode createNewAccount-->
-                    <div> 
+    <v-container class="create_post" fluid>
+                <v-btn v-if="mode == 'bydefault'" v-on:click="switchTocreatePost" class="--addmessage">
+                    <v-icon>mdi-message-plus</v-icon>
+                </v-btn>
+        <div v-else>
+            <v-card class="post--container" >
+                <v-card-title class="post--title">Crée un nouveau post</v-card-title>
+                <v-form>
+                    <v-text-field v-model="form.title"  label="Nom du post" required></v-text-field>
+                    <v-file-input v-model="form.image" accept="image/*" label="File input"></v-file-input>
+                    <v-textarea v-model="form.content" filled auto-grow label="Tapez votre message ici" rows="4" row-height="30" shaped required></v-textarea>
+                </v-form>
+                <v-form>
+                    <div class="btn--createpost">
+                        <!-- revenir a l'ajout du message par default -->
+                            <v-btn @click="switchToDisplayNewpost">
+                                <span>annuler</span>
+                            </v-btn>
+                        <!-- au clic appel a la methode createNewAccount-->
                         <v-btn   v-on:click="createPost" :class="{'v-btn--disabled' : !validatedField}" color="success" class="mr-4">
-                            <span v-if="status=='loading'">Création du post...</span>
-                            <span v-else>Crée le post</span>
+                                <span v-if="status=='loading'">Création du post...</span>
+                                <span v-else>Crée le post</span>
                         </v-btn>
                     </div>
-                </div>
-            </v-form>
-        </v-card>
+                </v-form>
+            </v-card>
+        </div>
     </v-container>
 </template>
 <script>
@@ -36,7 +38,8 @@ export default {
     name:'Newpost',
     data: function() {
         return {
-                mode: 'login',  //etat login
+                //bouton retourner a l'etat par default
+                mode:'bydefault',
                 form : {
                     title: "",
                     content: "",
@@ -73,7 +76,14 @@ export default {
             //importation de l'objet depuis state
             ...mapState(['status']) 
         },
-    methods: {                                       
+    methods: { 
+        //function pour different etat sur l'affichage des buttons
+        switchToDisplayNewpost() {              // <------: function()
+            this.mode = 'bydefault';
+        },
+        switchTocreatePost() {                      // <------: function()
+            this.mode = 'createMessage';
+        },                                      
         createPost(){  
             const This = this; 
             //sous element pas acces au this je renome une variabale pour appeler en dessous  
@@ -125,13 +135,6 @@ export default {
     justify-content: center;
     box-shadow: none;
 }
-.NewPost--container
-{
-    display: flex;
-}
-.NewPost--container > div  {
-    margin-left: 16px;
-}
 .mdi-message-plus {
   color:white;
   font-size: 30px;
@@ -143,6 +146,27 @@ export default {
     padding: 0 10px;
     background-color: #091f43;
     box-shadow: 2px 2px 15px black;
+}
+.create_post{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.create_post > div {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+.btn--createpost {
+    display: flex;
+}
+.btn--createpost .v-btn {
+    margin-right: 8px;
+}
+.btn--createpost .v-btn:first-child:hover {
+    background-color: #091f43;
+    color: white;
+    border-bottom: #d1515a 2px solid;
 }
 </style>
 
