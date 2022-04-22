@@ -145,7 +145,8 @@ export default {
     height: 45px;
     padding: 0 10px;
     background-color: #091f43;
-    box-shadow: 2px 2px 15px black;
+    box-shadow: 2px 2px 10px black;
+    border: #d1515a 2px solid;
 }
 .create_post{
     display: flex;
