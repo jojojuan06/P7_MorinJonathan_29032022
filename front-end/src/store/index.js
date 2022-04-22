@@ -275,9 +275,7 @@ export default createStore({
       });
     },
     //ajout d'un like
-    postLike: ({commit,state}, postId) => {
-      const {token} = state.user //recupere le token
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
+    postLike: ({commit, dispatch }, postId) => {
       //créeation d'un nouvelle promess
       return new Promise((resolve, reject) => {
         //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
@@ -286,6 +284,8 @@ export default createStore({
         axios.post(`/like/${postId}`) 
         .then(function (response) {
         commit('SETSTATUS' , {status:'succes' , message: response.data.message}); //type et payload
+        //refresh la page
+        dispatch('getPosts')
         resolve(response); //resolved (promesse résolue )
         //si tout dse pass bien
         })
@@ -297,14 +297,13 @@ export default createStore({
       });
     },
     //supprimer un like
-    deleteLike:({commit, state},postId) => {
-      //recupere le token directement depuis le  user destructuring
-      const {token} = state.user
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+    deleteLike:({commit,dispatch},postId) => {
       axios.delete(`/like/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message});
+        //refresh la page
+        dispatch('getPosts')    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
         console.log(error); 

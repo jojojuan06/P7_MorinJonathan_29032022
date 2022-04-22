@@ -41,7 +41,7 @@
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>  
                 <div>
-                    <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
+                    <v-badge class="btn--badge" color="info" :content="'+' + post.Likes.length" inline></v-badge>
                 </div>
                 </div>
                 </div>
@@ -100,17 +100,10 @@ export default {
         },
     methods: {
         likeToPost(postId){  
-                this.$store.dispatch('postLike', postId).then(() => {
-                    this.refreshPost()
-                    this.$store.commit('SETSTATUS' , {status:'succes',message:`votre like est bien ajouter`});
-                })
+                this.$store.dispatch('postLike', postId)
             },
         deleteLike(postId){  
-                    this.$store.dispatch('deleteLike',postId)
-                    .then(() => {
-                        this.refreshPost()
-                        this.$store.commit('SETSTATUS' , {status:'succes',message:`votre like est bien ajouter`});
-                })
+                this.$store.dispatch('deleteLike',postId)
             },
         //function pour different etat sur l'affichage des buttons
         switchToDisplaypost() {              // <------: function()
