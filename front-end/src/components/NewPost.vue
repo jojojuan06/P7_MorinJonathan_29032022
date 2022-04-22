@@ -9,11 +9,20 @@
                 <v-textarea v-model="form.content" filled auto-grow label="Tapez votre message ici" rows="4" row-height="30" shaped required></v-textarea>
             </v-form>
             <v-form>
-                <!-- au clic appel a la methode createNewAccount--> 
-                <v-btn   v-on:click="createPost" :class="{'v-btn--disabled' : !validatedField}" color="success" class="mr-4">
-                    <span v-if="status=='loading'">Création du post...</span>
-                    <span v-else>Crée le post</span>
-                </v-btn>
+                <div class="NewPost--container">
+                    <div>
+                        <v-btn class="--addmessage">
+                            <v-icon>mdi-message-plus</v-icon>
+                        </v-btn>
+                    </div>
+                    <!-- au clic appel a la methode createNewAccount-->
+                    <div> 
+                        <v-btn   v-on:click="createPost" :class="{'v-btn--disabled' : !validatedField}" color="success" class="mr-4">
+                            <span v-if="status=='loading'">Création du post...</span>
+                            <span v-else>Crée le post</span>
+                        </v-btn>
+                    </div>
+                </div>
             </v-form>
         </v-card>
     </v-container>
@@ -115,6 +124,25 @@ export default {
     display: flex;
     justify-content: center;
     box-shadow: none;
+}
+.NewPost--container
+{
+    display: flex;
+}
+.NewPost--container > div  {
+    margin-left: 16px;
+}
+.mdi-message-plus {
+  color:white;
+  font-size: 30px;
+}
+.--addmessage{
+    border-radius: 50%;
+    min-width: 0px;
+    height: 45px;
+    padding: 0 10px;
+    background-color: #091f43;
+    box-shadow: 2px 2px 15px black;
 }
 </style>
 
