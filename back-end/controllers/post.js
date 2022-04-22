@@ -125,6 +125,14 @@ exports.getOnePost = (req, res, next) => {
                 "id",
                 "userId"
             ]
+        },
+        {
+            model:Like,
+            attributes:[
+                "postId",
+                "id",
+                "userId"
+            ]
         }
     ]    
 }) 
@@ -160,6 +168,14 @@ exports.getAllPost = (req, res, next) => {
             model:Comment,
             attributes:[
                 "content",
+                "id",
+                "userId"
+            ]
+        },
+        {
+            model:Like,
+            attributes:[
+                "postId",
                 "id",
                 "userId"
             ]
