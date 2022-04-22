@@ -165,5 +165,5 @@ export default {
 }
 </script>
 <style scoped>
-@import url('../style/home');
+@import url('../style/home.css');
 </style>
