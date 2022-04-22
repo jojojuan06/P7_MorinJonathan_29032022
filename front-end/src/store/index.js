@@ -181,14 +181,12 @@ export default createStore({
       axios.get('/post')
       // attendre la reponse (comme fetch)
       .then(response => {
-        console.log(response.data);
         // mettre en ordre en fonction de leur id
         response.data.sort((a,b) => {
         // faire un calcul pour definir l'ordre du tableaux en function de leur id 
         //inverse le sens (descroissant)  
           return b.id - a.id
         })
-        console.log(response.data);
         response.data.forEach(post => {
           //par default liked false
           post.liked = false;
