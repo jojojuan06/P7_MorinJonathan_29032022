@@ -1,4 +1,4 @@
-# Groupomania #
+<img src="https://user-images.githubusercontent.com/74248454/164537885-d155acea-3fbf-4a3b-9775-b2474665234a.png" width="250" height="250">
 
 Projet 7 de la formation Développeur Web "Créez un réseau social d'entreprise".
 
@@ -12,6 +12,15 @@ La partie backend du projet est développée avec :
 - Sequelize 
 - Une base de données Mysql
 - Et l'outil Wampserver64.
+ 
+Ajoutez un fichier .env dans le dossier racine avec ces clés :
+
+- DATABASE='nom de votre schéma'
+- USER ='votre nom d'utilisateur mysql'
+- PASSWORD ='votre mot de passe mysql'
+- SECRET_KEY ='votre secret token'
+- HOST_PORT = 3306
+- NODE_PORT = 3000
 
 ### Pré requis ###
 
@@ -67,4 +76,4 @@ Côté frontend :
 
 Côté backend : 
     - Dans le terminal, se placer dans le dossier backend du projet et taper la commande "nodemon server"
-    - Le backend (API) se lance sur http://localhost:3000/api/v1.
+    - Le backend (API) se lance sur http://localhost:3000/api/.
