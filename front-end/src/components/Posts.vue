@@ -29,21 +29,17 @@
                 </div> -->
                 <!--  -->
                 <!-- <hr> -->
-                <!-- section like -->
+                <!-- section like v-for="Like in post.Likes" :key="Like.id"-->
                 <div class="like--container">
-                <div class="btn--update">
-                <div  v-if="post.likes == 0">
-                    <!-- @click="like++" ou @click="like--" a faire (data like=0)-->
-                    <v-btn @click="likeToPost(post.id)" class="btn--like">
-                        <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
+                <div  class="btn--update">
+                    <!-- par default liked false btn rouge non like else l'inverse-->
+                    <v-btn class="btn--like --true" v-if="post.liked == false"  @click="likeToPost(post.id)" >
+                        <v-icon  class="btn--icon">mdi-thumb-up-outline</v-icon>
                     </v-btn> 
-                </div>
-                <div v-else>
-                <!-- supprime seulement sont like id du post     -->
-                <v-btn @click="deleteLike(post.id)" class="btn--notLike">
+                    <!-- supprime seulement sont like id du post     -->
+                    <v-btn class="btn--like --false" v-else @click="deleteLike(post.id)" >
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>  
-                </div>
                 <div>
                     <v-badge class="btn--badge" color="info" :content="'+' + post.likes" inline></v-badge>
                 </div>
@@ -110,10 +106,10 @@ export default {
                 })
             },
         deleteLike(postId){  
-                this.$store.dispatch('deleteLike',
-                    postId).then(() => {
-                    this.refreshPost()
-                    this.$store.commit('SETSTATUS' , {status:'succes',message:`votre like est bien ajouter`});
+                    this.$store.dispatch('deleteLike',postId)
+                    .then(() => {
+                        this.refreshPost()
+                        this.$store.commit('SETSTATUS' , {status:'succes',message:`votre like est bien ajouter`});
                 })
             },
         //function pour different etat sur l'affichage des buttons

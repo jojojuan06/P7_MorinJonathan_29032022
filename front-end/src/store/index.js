@@ -30,6 +30,7 @@ export default createStore({
   },
   //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
   getters: {
+
   },
   //mettre à jour / changer d'etat nos données dans Vuex  params le state et 2 payload
   //permet de de changer d'etat (le state)
@@ -176,10 +177,20 @@ export default createStore({
       });
     },
     //afficher tout les posts
-    getPosts:({commit}) => {
+    getPosts:({commit, state}) => {
       axios.get('/post')
       // attendre la reponse (comme fetch)
       .then(response => {
+        response.data.forEach(post => {
+          //par default liked false
+          post.liked = false;
+          post.Likes.forEach(like => {
+            //pour chaque post on boucle dans les like pour voir si l'utilisateur a like les post
+            if (like.userId = state.user.userId) {
+              post.liked = true
+            } 
+          })
+        });
         commit('DISPLAYPOSTS' , response.data);    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
@@ -290,7 +301,6 @@ export default createStore({
       //recupere le token directement depuis le  user destructuring
       const {token} = state.user
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
-      console.log("infoToken-->",token);
       axios.delete(`/like/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
@@ -298,7 +308,7 @@ export default createStore({
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
         console.log(error); 
-        commit('SETSTATUS' , {status:'error',message: error.data.message});
+        commit('SETSTATUS' , {status:'error',message: error.message});
       });
     },
     //suppression d'un profile

@@ -1,21 +1,17 @@
 .v-btn.btn--like {
     border-radius: 50%;
     width: 1px;
-    height: 30px;
-    background-color: #d1515a;
     box-shadow: none;
     min-width: 0px;
     margin-top: 4px;
 }
-.v-btn.btn--notLike {
-    border-radius: 50%;
-    width: 1px;
-    height: 30px;
-    background-color:green;
-    box-shadow: none;
-    min-width: 0px;
-    margin-top: 4px;
-}
-.btn--icon {
+.btn--icon.mdi-thumb-up {
     color: white;
+}
+.--true {
+border: 1px black solid;
+background-color:white;
+}
+.--false {
+background-color:green;
 }
