@@ -263,22 +263,19 @@ export default createStore({
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
       });
     },
-    postLike: ({commit,state}, {postId}) => {
-      const {token} = state.user
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+    //ajout d'un like
+    postLike: ({commit,state}, postId) => {
+      const {token} = state.user //recupere le token
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
       //créeation d'un nouvelle promess
-      //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
         //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
         commit('SETSTATUS' , {status:'loading',message:''}); 
         //requete Post enregistrer l'utilisateur
         axios.post(`/like/${postId}`) 
         .then(function (response) {
-        //rajouter un delai
-        setTimeout(() => { 
-          commit('SETSTATUS' , {status:'succes' , message: response.data.message}); //type et payload
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message}); //type et payload
         resolve(response); //resolved (promesse résolue )
-        },1000 ) //delai en deuxieme argument 1000ms
         //si tout dse pass bien
         })
         .catch(function (error) {
@@ -288,6 +285,23 @@ export default createStore({
         });
       });
     },
+    //supprimer un like
+    deleteLike:({commit, state},postId) => {
+      //recupere le token directement depuis le  user destructuring
+      const {token} = state.user
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      console.log("infoToken-->",token);
+      axios.delete(`/like/${postId}`)
+      // attendre la reponse (comme fetch)
+      .then(response => {
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+      }) //retourne la repose des data dans l'objet vi
+      .catch(error => { 
+        console.log(error); 
+        commit('SETSTATUS' , {status:'error',message: error.data.message});
+      });
+    },
+    //suppression d'un profile
     deleteProfile:({commit},{userId,token}) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
       axios.delete(`/auth/${userId}`)

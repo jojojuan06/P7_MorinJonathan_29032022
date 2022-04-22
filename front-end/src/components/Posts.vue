@@ -17,29 +17,30 @@
                 <div>
                     <v-img class="v-img--post" v-bind:src="post.image" :alt="post.title"></v-img>    
                 </div>
-                <v-card-text class="v-text--content"><p>{{post.content}}</p></v-card-text>
-                <hr>
+                <!-- <v-card-text class="v-text--content"><p>{{post.content}}</p></v-card-text>
+                <hr> -->
                 <!-- boucle sur chaque comment du post et l'affiche -->
                 <!-- section comment -->
-                <div>
+                <!-- <div>
                     <v-card-text class="card--comment" v-for="(comment,index) in post.Comments" :key="index"><p>{{ comment.content }}</p></v-card-text>
                     <v-btn class="btn--closed">
                     <v-icon class="icon--close">mdi-close</v-icon>
                     </v-btn>   
-                </div>
+                </div> -->
                 <!--  -->
-                <hr>
+                <!-- <hr> -->
                 <!-- section like -->
                 <div class="like--container">
                 <div class="btn--update">
                 <div  v-if="post.likes == 0">
                     <!-- @click="like++" ou @click="like--" a faire (data like=0)-->
-                    <v-btn @click="likeToPost" class="btn--like">
+                    <v-btn @click="likeToPost(post.id)" class="btn--like">
                         <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                     </v-btn> 
                 </div>
                 <div v-else>
-                <v-btn @click="deleteLike" class="btn--notLike">
+                <!-- supprime seulement sont like id du post     -->
+                <v-btn @click="deleteLike(post.id)" class="btn--notLike">
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>  
                 </div>
@@ -63,11 +64,12 @@
                     </div>
                     <v-btn class="--button" @click="openConfirmDelete(post.id)" >Supprimer le post</v-btn>
                 </v-card-actions>
-                <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) -->
+                <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) dans le template -->
                 <EditPost v-if="mode == 'update'" v-bind:post="post"/>
                 <!--  -->
                 </v-container>
             </v-card>
+            <!--Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template -->
             <AlertConfirm 
         @closeAlert="confirmDelete.open = false" 
         :title="confirmDelete.title"
@@ -77,11 +79,11 @@
 </template>
 
 <script>
-//importation du component edit post pour modification
+//IMPORT COMPONENTS
 import EditPost from '@/components/EditPost.vue'
 import AlertConfirm from '@/components/AlertConfirm';
-//Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
 export default {
+//INSTANCIER LES COMPONENTS
     components: {
     EditPost,AlertConfirm
     },
@@ -101,30 +103,17 @@ export default {
         this.refreshPost() 
         },
     methods: {
-        likeToPost(){  
-                const This = this; 
-                //sous element pas acces au this je renome une variabale pour appeler en dessous  
-                //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
-                //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
-                this.$store.dispatch('postLike',{
-                    like:this.like++,
-                }).then(() => {
-                    //redirection vers la route apres creation d'un compte (path en argument)
+        likeToPost(postId){  
+                this.$store.dispatch('postLike', postId).then(() => {
                     this.refreshPost()
-                    this.$store.commit('SETSTATUS' , {status:'succes',message:`votre post est bien ajouter`});
+                    this.$store.commit('SETSTATUS' , {status:'succes',message:`votre like est bien ajouter`});
                 })
             },
-        deleteLike(){  
-                const This = this; 
-                //sous element pas acces au this je renome une variabale pour appeler en dessous  
-                //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
-                //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
-                this.$store.dispatch('Like',{
-                    like:this.like--,
-                }).then(() => {
-                    //redirection vers la route apres creation d'un compte (path en argument)
+        deleteLike(postId){  
+                this.$store.dispatch('deleteLike',
+                    postId).then(() => {
                     this.refreshPost()
-                    this.$store.commit('SETSTATUS' , {status:'succes',message:`votre post est bien ajouter`});
+                    this.$store.commit('SETSTATUS' , {status:'succes',message:`votre like est bien ajouter`});
                 })
             },
         //function pour different etat sur l'affichage des buttons
