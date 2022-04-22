@@ -183,9 +183,8 @@ export default createStore({
       .then(response => {
         // mettre en ordre en fonction de leur id
         response.data.sort((a,b) => {
-        // faire un calcul pour definir l'ordre du tableaux en function de leur id 
-        //inverse le sens (descroissant)  
-          return b.id - a.id
+        // faire un calcul pour definir l'ordre du tableaux en function de leur id   
+          return a.id - b.id
         })
         response.data.forEach(post => {
           //par default liked false
@@ -197,7 +196,7 @@ export default createStore({
             } 
           })
         });
-        commit('DISPLAYPOSTS' , response.data);   
+        commit('DISPLAYPOSTS' , response.data.reverse());//inverse l'ordre (rendu descroissant)   
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
         console.log(error); 
@@ -263,18 +262,11 @@ export default createStore({
       //recupere le token directement depuis le  user destructuring
       const {token} = state.user
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
-      console.log("infoToken-->",token);
       axios.delete(`/post/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        // let index = state.posts.findIndex((post) => {
-        //   post.id == postId
-        //   console.log("info-->",post);
-        // });
-        //supprimer un element a l'index
-        //state.posts.splice(index,1)
         commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
-      }) //retourne la repose des data dans l'objet vi
+      }) //retourne la repose des data dans l'objet 
       .catch(error => { 
         console.log(error); 
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
