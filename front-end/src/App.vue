@@ -73,6 +73,7 @@ export default {
   data() {
     return {
       connected:true,
+      //liste des differente route
       itemMenus: [
         {
           title:'Home',
