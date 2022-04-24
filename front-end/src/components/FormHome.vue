@@ -1,40 +1,34 @@
 <template>
 <!-- permet de valider facilement les entrées de formulaire. -->
-<v-form ref="form" class="mx-2" lazy-validation v-model="valid">
-                <!-- afffiche seulement a la creation du compte -->
-                <div>  
-                    <div v-if="mode == 'login'">
-                        <v-text-field   :rules="emailRules" v-model="form.email" type="email" label="E-mail" required></v-text-field>  
-                        <v-text-field  :rules="passwordRules" v-model="form.password" type="password" label="Password" required></v-text-field>
-                    </div>
-                    <div v-else>
-                        <v-text-field :counter="10" :rules="nameRules" v-model="form.name" type="text" label="Name" required></v-text-field>
-                        <v-text-field  :counter="10" :rules="nameRules" v-model="form.firstname" type="text" label="Firstname" required></v-text-field>
-                        <v-text-field   :rules="emailRules" v-model="form.email" type="email" label="E-mail" required></v-text-field>  
-                        <v-text-field  :rules="passwordRules" v-model="form.password" type="password" label="Password" required></v-text-field>
-                    </div>
-                </div>
-                <!-- afffiche seulement erreur a la connexion --> 
-                <div  class="--error_login" color="red" v-if="mode == 'login' && status == 'error'">
-                    Adresse mail et/ou mot de pâsse invalide ⚠
-                </div>
-                <!-- afffiche seulement erreur a la creation de compte --> 
-                <div class="--error_create" color="red" v-if="mode == 'create' && status == 'error'">
-                    Adresse mail deja utilisé ⚠
-                </div>
-                <!-- si champ vide on disable le bouton validatedFieldss--> 
-                <!-- au clic appel a la methode login--> 
-                <v-btn  type="submit"  v-on:click="loginAccount" :disabled="!valid" v-if="mode == 'login'"  color="success" class="mr-4 --connexion">
-                    <!-- importation de la mutation selon le status if /else -->
-                    <span v-if="status=='loading'">Connexion en cours...</span> 
-                    <span v-else>Connexion</span> 
-                </v-btn>
-                <!-- au clic appel a la methode createNewAccount--> 
-                <v-btn   type="submit" v-on:click="createNewAccount" :disabled="!valid"  v-else color="success" class="mr-4" >
-                    <span v-if="status=='loading'">Création du comptes...</span>
-                    <span v-else>Créer mon compte</span>
-                </v-btn>
-            </v-form>
+    <v-form ref="form" class="mx-2" lazy-validation v-model="valid">
+        <!-- afffiche seulement a la creation du compte --> 
+            <v-text-field   :rules="emailRules" v-model="form.email" type="email" label="E-mail" required></v-text-field>  
+            <div v-if=" mode == 'create'">
+                <v-text-field :counter="10" :rules="nameRules" v-model="form.name" type="text" label="Name" required></v-text-field>
+                <v-text-field  :counter="10" :rules="nameRules" v-model="form.firstname" type="text" label="Firstname" required></v-text-field>  
+            </div>
+            <v-text-field  :rules="passwordRules" v-model="form.password" type="password" label="Password" required></v-text-field>
+        <!-- afffiche seulement erreur a la connexion --> 
+        <div  class="--error_login" color="red" v-if="mode == 'login' && status == 'error'">
+            Adresse mail et/ou mot de pâsse invalide ⚠
+        </div>
+        <!-- afffiche seulement erreur a la creation de compte --> 
+        <div class="--error_create" color="red" v-if="mode == 'create' && status == 'error'">
+            Adresse mail deja utilisé ⚠
+        </div>
+        <!-- si champ vide on disable le bouton validatedFieldss--> 
+        <!-- au clic appel a la methode login--> 
+        <v-btn  type="submit"  v-on:click="loginAccount" :disabled="!valid" v-if="mode == 'login'"  color="success" class="mr-4 --connexion">
+            <!-- importation de la mutation selon le status if /else -->
+            <span v-if="status=='loading'">Connexion en cours...</span> 
+            <span v-else>Connexion</span> 
+        </v-btn>
+        <!-- au clic appel a la methode createNewAccount--> 
+        <v-btn   type="submit" v-on:click="createNewAccount" :disabled="!valid"  v-else color="success" class="mr-4" >
+            <span v-if="status=='loading'">Création du comptes...</span>
+            <span v-else>Créer mon compte</span>
+        </v-btn>
+    </v-form>
 </template>
 
 <script>
@@ -43,6 +37,9 @@ import { mapState } from 'vuex'
 
 export default {
     name:'FormeHome',
+    props: { 
+        mode: String,
+    },
     data() {
         return {
                 valid:true,
@@ -61,7 +58,6 @@ export default {
                 v => v.length >= 3 || 'Minimum 3 caractères',
                 v => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(v) || 'Le mot de passe doit contenir au moins une lettre minuscule, un chiffre, un caractère spécial et une lettre majuscule'
                 ],
-                mode: 'login',  //etat login
                 form : {
                     name: "",
                     firstname: "",

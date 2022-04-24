@@ -18,7 +18,8 @@
                 Tu n'as pas encore de compte ?
                 <v-btn  class="btn--first" v-on:click="switchToLogin">Se connecter</v-btn>   
             </v-card-text>
-            <FormHome/>
+            <!-- appelle du props -->
+            <FormHome :mode="mode"/>
         </v-card>
     </v-container>
 </template>
@@ -29,7 +30,6 @@ import  FormHome from '../components/FormHome.vue'
 
 
 export default { 
-    name:'Login',
     components:{
     FormHome,
 },
