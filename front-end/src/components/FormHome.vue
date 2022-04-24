@@ -85,12 +85,11 @@ export default {
             //ref fait reference au ref de l'element du dom pour lier
             //validate verifie les rules avant validation du formulaire res =>resultat
             this.$refs.form.validate().then(res => {
-                let valid = res.valid;
-                valid = false;
-                console.log("info--> 01",valid);
+                this.valid = res.valid;
+                console.log("info--> 01",this.valid);
                 if(res.valid) {
-                    valid = true;  
-                    console.log("info--> 02",valid);  
+                    this.valid = true;  
+                    console.log("info--> 02",this.valid);  
                     //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
                     //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
                     this.$store.dispatch('loginAccount',{
@@ -119,12 +118,9 @@ export default {
             //ref fait reference au ref de l'element du dom pour lier
             //validate verifie les rules avant validation du formulaire res =>resultat
             this.$refs.form.validate().then(res => {
-                    let valid = res.valid;
-                    valid = false;
-                    console.log("info-->01",valid);
+                    console.log("then 1",res);
                     if(res.valid) {
-                            valid = true;
-                            console.log("info-->02",valid);
+                            console.log("then-->02",res.valid);
                             //dispatch asyncrone appelle les action
                             this.$store.dispatch('createNewAccount', body).then(() => {
                                 this.loginAccount();
@@ -133,7 +129,7 @@ export default {
                             }).catch(error => {console.log(error)}); 
                     } else {
                     console.error(res);
-                }  
+                } 
             })
         }
     },
