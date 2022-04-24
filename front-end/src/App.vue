@@ -11,11 +11,15 @@
       <v-spacer></v-spacer>
         <v-toolbar-item  class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
           <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
-          <!--v-if="item.boolean == true" -->
-          <v-btn  v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >
+          <!-- v-if="item.boolean == true"-->
+          <v-btn  v-if="status == 'succes'" v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >
           <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
             {{ item.title }}
           </v-btn>
+          <v-btn v-else-if="item.title == 'Home' && status != 'succes'" v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >   
+          <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
+                {{ item.title }}
+          </v-btn>  
         </v-toolbar-item>
     </v-toolbar>
     <div>
@@ -52,6 +56,8 @@
 </template>
 
 <script>
+// mélange les getters en calcul avec l'opérateur de propagation d'objet
+import { mapState } from 'vuex'
 //IMPORT COMPONENENTS
 import Posts from './components/Posts.vue'
 import NewPost from './components/NewPost.vue'
@@ -72,7 +78,7 @@ export default {
   },
   data() {
     return {
-      connected:true,
+      //connected:true,
       //liste des differente route
       itemMenus: [
         {
@@ -98,8 +104,11 @@ export default {
         },
       ],
     }
-  }  
-  ,
+  },
+  computed: {
+        //importation de l'objet depuis state
+        ...mapState(['status']) 
+    },  
 }
 </script>
 
