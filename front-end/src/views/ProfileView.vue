@@ -75,7 +75,7 @@ export default {
             //commit importation de la mutation logout depuis le store
             this.$store.commit('LOGOUT');
             this.$router.push({path: '/'})
-            this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
+            this.$store.commit('SETSTATUS' , {status:'succes',message:`Vous etes bien déconnecter`}); //type et payload
         },
         //suppresion du profil
         deleteProfile() {

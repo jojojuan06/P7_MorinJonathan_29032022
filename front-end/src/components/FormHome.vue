@@ -39,6 +39,7 @@ import { mapState } from 'vuex'
 
 export default {
     name:'FormeHome',
+    //definition du props
     props: { 
         mode: String,
     },
