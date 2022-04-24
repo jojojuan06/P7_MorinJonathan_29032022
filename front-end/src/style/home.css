@@ -30,23 +30,6 @@
     background-position: center;
     background-repeat: no-repeat;
 }
-.disabled {
-    background-color: grey;
-}
-.v-form.--error_login{
-    color: #d1515a;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
-.v-form.--error_create{
-    color: #d1515a;
-    font-size: 16px;
-    font-weight: bold;
-    text-decoration: underline;
-}
-
 .v-card-text.--subtitle {
     color: rgba(9,31,67,0.8);
     text-decoration: underline;
