@@ -285,6 +285,40 @@ export default createStore({
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
       });
     },
+    //creation commentaire
+    createComment: ({commit}, postId) => {
+      //créeation d'un nouvelle promess
+      //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
+      return new Promise((resolve, reject) => {
+        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+        commit('SETSTATUS' , {status:'loading',message:''}); 
+        //requete Post enregistrer l'utilisateur
+        axios.post(`/comment/${postId}`) 
+        .then(function (response) {
+        //si tout se pass bien
+        })
+        .catch(function (error) {
+        commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le commentaire ! ${error}`}); //type et payload
+        //retourne une erreur
+        reject(error); //rejected (rompue) : l'opération a échoué.
+        });
+      });
+    },
+    //delete un commentaire
+    deleteComment:({commit, state},postId) => {
+      //recupere le token directement depuis le  user destructuring
+      const {token} = state.user
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      axios.delete(`/comments/${postId}`)
+      // attendre la reponse (comme fetch)
+      .then(response => {
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+      }) //retourne la repose des data dans l'objet 
+      .catch(error => { 
+        console.log(error); 
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
+    },
     //ajout d'un like
     postLike: ({commit, dispatch }, postId) => {
       //créeation d'un nouvelle promess
