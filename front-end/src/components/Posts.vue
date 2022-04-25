@@ -29,7 +29,10 @@
                     </v-card-text>
                     <v-btn class="btn--closed">
                     <v-icon class="icon--close">mdi-close</v-icon>
-                    </v-btn>   
+                    </v-btn> 
+                    <v-btn class="btn--add">
+                    <v-icon class="icon--add">mdi-plus</v-icon>
+                    </v-btn>  
                 </div> 
                 <!--  -->
                 <hr> 
