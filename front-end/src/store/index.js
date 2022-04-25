@@ -125,6 +125,19 @@ export default createStore({
         });
       });
     },
+      //suppression d'un profile
+      deleteProfile:({commit},{userId,token}) => {
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      axios.delete(`/auth/${userId}`)
+      // attendre la reponse (comme fetch)
+      .then(response => {
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+      }) //retourne la repose des data dans l'objet vi
+      .catch(error => { 
+        console.log(error); 
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
+    },
     //recuperation du commit (invoquer une mutation avec  2params)
     loginAccount: ({commit}, userInfos) => {
     //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
@@ -307,20 +320,7 @@ export default createStore({
         console.log(error); 
         commit('SETSTATUS' , {status:'error',message: error.message});
       });
-    },
-    //suppression d'un profile
-    deleteProfile:({commit},{userId,token}) => {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
-      axios.delete(`/auth/${userId}`)
-      // attendre la reponse (comme fetch)
-      .then(response => {
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
-      }) //retourne la repose des data dans l'objet vi
-      .catch(error => { 
-        console.log(error); 
-        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
-      });
-    },  
+    }  
   },  
   modules: {
   }
