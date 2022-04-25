@@ -6,11 +6,13 @@
             <!-- import de post depuis $store.state -->
             <v-card  class="main_post" v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
                 <v-container class="post--container">
-                <v-card-title class="v-card-title--color">{{post.title}}</v-card-title>
+                <v-card-title class="v-card-title--color">
+                {{post.title}}
+                </v-card-title>
                 <div class="avatar_container">
                 <v-avatar>
-                    <v-img :alt="post.User.name" class="avatar--img .rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                    <v-img :alt="post.User.name" class="avatar--img .rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
+                    <v-img :alt="post.User.name" class=".rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                    <v-img :alt="post.User.name" class=".rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
                 </v-avatar>
                 <v-card-title class="card--date"><em class="date--title">date de creation:</em> {{dateNow(post.createdAt)}}</v-card-title>
                 </div>

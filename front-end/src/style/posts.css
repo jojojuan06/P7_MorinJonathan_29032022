@@ -49,11 +49,9 @@
 .btn--badge {
     margin-top: 4px;
 }
-.avatar--img {
-    height: 20px;
-}
 .avatar_container{
     display: flex;
+    padding-top: 5px;
 }
 
 .v-card-actions div {
