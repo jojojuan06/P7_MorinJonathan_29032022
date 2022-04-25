@@ -19,6 +19,18 @@
                 <div>
                     <v-img class="v-img--post" v-bind:src="post.image" :alt="post.title"></v-img>    
                 </div>
+                <v-card-text class="v-text--content"><p>{{post.content}}</p></v-card-text>
+                <hr> 
+                <!-- boucle sur chaque comment du post et l'affiche -->
+                <!-- section comment -->
+                <div>
+                    <v-card-text class="card--comment" v-for="(comment,index) in post.Comments" :key="index"><p>{{ comment.content }}</p></v-card-text>
+                    <v-btn class="btn--closed">
+                    <v-icon class="icon--close">mdi-close</v-icon>
+                    </v-btn>   
+                </div> 
+                <!--  -->
+                 <hr> 
                 <!-- section like v-for="Like in post.Likes" :key="Like.id"-->
                 <div class="like--container">
                 <div  class="btn--update">
