@@ -30,7 +30,7 @@
                     </v-btn>   
                 </div> 
                 <!--  -->
-                 <hr> 
+                <hr> 
                 <!-- section like v-for="Like in post.Likes" :key="Like.id"-->
                 <div class="like--container">
                 <div  class="btn--update">
