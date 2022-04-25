@@ -15,8 +15,22 @@
     min-width: 0px;
     margin-left: 16px;
 }
+.v-btn.btn--add {
+    box-shadow: none;
+    background-color: green;
+    width: 0px;
+    height: 30px;
+    min-width: 0px;
+    margin-left: 16px;
+}
 .icon--close {
     color:white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.icon--add {
+    color: white;
     font-size: 14px;
     font-weight: bold;
 }
