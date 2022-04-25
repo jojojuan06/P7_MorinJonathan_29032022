@@ -2,27 +2,33 @@
   <!-- affiche les component -->
   <v-app app>
     <v-toolbar>
-      <v-toolbar-title >
+        <v-toolbar-title >
           <!-- - similaire à la balise  anchor -->
-        <router-link to="/posts" style="cursor: pointer">
-          <v-img src="./images/logo.png" alt="logo groupomania"></v-img>
-        </router-link>
-      </v-toolbar-title>
-      <v-spacer></v-spacer>
-        <v-toolbar-item  class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
+          <router-link to="/posts" style="cursor: pointer">
+            <v-img src="./images/logo.png" alt="logo groupomania"></v-img>
+          </router-link>
+        </v-toolbar-title>
+        <v-spacer></v-spacer>
+        <div v-if="status == 'succes'">
+        <v-toolbar-item class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
           <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
           <!-- v-if="item.boolean == true"-->
-          <v-btn  v-if="status == 'succes'" v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >
+          <v-btn   v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >
           <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
             {{ item.title }}
           </v-btn>
-          <v-btn v-else-if="item.title == 'Home' && status != 'succes'" v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >   
-          <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
-                {{ item.title }}
-          </v-btn>  
         </v-toolbar-item>
-    </v-toolbar>
-    <div>
+        </div>
+        <div v-else>
+          <v-toolbar-item>
+            <v-btn  v-bind:prepend-icon="defaultItem.icons" color="white" flat  :to="defaultItem.path" >   
+            <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
+                  {{ defaultItem.title }}
+            </v-btn>
+          </v-toolbar-item>
+        </div>
+        </v-toolbar>
+      <div>
     </div>
     <v-content>
         <router-view/>
@@ -80,6 +86,11 @@ export default {
     return {
       //connected:true,
       //liste des differente route
+      defaultItem:{
+      title:'Home',
+          path:'/',
+          icons:'mdi-home',
+      },
       itemMenus: [
         {
           title:'Home',
