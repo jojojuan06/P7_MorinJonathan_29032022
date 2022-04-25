@@ -23,8 +23,10 @@
                 <hr> 
                 <!-- boucle sur chaque comment du post et l'affiche -->
                 <!-- section comment -->
-                <div>
-                    <v-card-text class="card--comment" v-for="(comment,index) in post.Comments" :key="index"><p>{{ comment.content }}</p></v-card-text>
+                <div class="comment_container">
+                    <v-card-text class="card--comment" v-for="(comment,index) in post.Comments" :key="index">
+                            {{ comment.content }}
+                    </v-card-text>
                     <v-btn class="btn--closed">
                     <v-icon class="icon--close">mdi-close</v-icon>
                     </v-btn>   
@@ -175,5 +177,5 @@ export default {
 
 @import url('../style/boutonLike.css');
 @import url('../style/posts.css');
-@import url('../style/comment');
+@import url('../style/comment.css');
 </style>

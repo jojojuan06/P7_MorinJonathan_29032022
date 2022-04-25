@@ -1,15 +1,17 @@
 .card--comment {
     margin-left: 16px;
+    
+}
+.comment_container {
     display: flex;
-    align-self: center;
+    align-items: center;
+    justify-content: flex-end;
 }
 .v-btn.btn--closed {
-    display: flex;
-    align-self: center;
     box-shadow: none;
     background-color: #d1515a;
     width: 0px;
-    height: 16px;
+    height: 30px;
     min-width: 0px;
     margin-left: 16px;
 }
