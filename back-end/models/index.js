@@ -40,7 +40,7 @@ Object.keys(db).forEach(modelName => {
 //authenticate()fonction pour tester si la connexion est OK
 sequelize.authenticate()
 .then( async ()=> {
-    console.log('|---------connexion réussie à la base de donnée----------|');
+    console.log('\u001b[' + 32 + 'm' + '|---------connexion réussie à la base de donnée----------|' + '\u001b[0m'); //log vert
     //synchronisation des tables(model)
     await sequelize.sync({alter: true}) //force:true (drop table)
     console.log('\u001b[' + 32 + 'm' + '|------synchronisation réussie------|' + '\u001b[0m'); //log vert
