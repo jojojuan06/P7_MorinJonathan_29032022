@@ -21,8 +21,7 @@ exports.createLike = (req, res, next) => {
                 like = new Like ({ //cree mon objet de like
                     userId: req.auth.userId, //id de l'utilisateur
                     postId: post.id, //id du post
-                })
-                console.log("info-->", like);  
+                }) 
                 like.save()//sauvegarde ajout du like 
                 .then(() => res.status(201).json({ message: 'Post Likée !'}))
                 .catch(error => res.status(500).json({message: `nous faisons face a cette: ${error}` }));
