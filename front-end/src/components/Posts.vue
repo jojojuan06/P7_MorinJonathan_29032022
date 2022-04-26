@@ -22,10 +22,10 @@
                 <v-card-text class="v-text--content">
                     <p>{{post.content}}</p>
                 </v-card-text>
-                <div v-if="mode == 'bydefault'">
-                    <v-btn @click="switchToCreateComment" class="btn--add">
+                <div v-if="post.mode == 'bydefault' || !post.mode">
+                    <v-btn @click="switchToCreateComment(post)" class="btn--add">
                     <v-icon class="icon--add">mdi-plus</v-icon>
-                    </v-btn>
+                </v-btn>
                 </div>
                 <hr> 
                 <v-card-text v-if="post.Comments.length == 0" class="v-text--content">
@@ -42,7 +42,7 @@
                     </v-btn> 
                 </div>
                 <!-- @CancelAddComment appelle evenement depuis l'enfant -->
-                <NewComment @CancelAddComment="switchToDisplaypost" v-if="mode == 'createComment'" :mode="mode"/>  
+                <NewComment @CancelAddComment="switchToDisplaypost(post)" v-if="post.mode == 'createComment'"/>  
                 <!--  -->
                 <hr> 
                 <!-- section like v-for="Like in post.Likes" :key="Like.id"-->
@@ -64,20 +64,20 @@
                 <!--  -->
                 <!-- section modifier supprimer post -->
                 <v-card-actions  v-if="this.$store.state.user.admin == true || post.userId == this.$store.state.user.userId" class="btn--update">
-                    <div v-if="mode == 'bydefault'">
-                        <v-btn   v-on:click="switchToUpdate" class="--button">
+                    <div v-if="post.mode === 'bydefault'  || !post.mode">
+                        <v-btn   v-on:click="switchToUpdate(post)" class="--button">
                             <strong>Modifier</strong>
                         </v-btn>
                     </div>
-                    <div v-else>
-                        <v-btn   v-on:click="switchToDisplaypost" class="--button">
+                    <div v-else-if="post.mode == 'update'">
+                        <v-btn   v-on:click="switchToDisplaypost(post)" class="--button">
                             <strong>Annuler</strong>
                         </v-btn>
                     </div>
                     <v-btn class="--button" @click="openConfirmDelete(post.id)" >Supprimer le post</v-btn>
                 </v-card-actions>
                 <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) dans le template -->
-                <EditPost v-if="mode == 'update'" v-bind:post="post"/>
+                <EditPost v-if="post.mode == 'update'" v-bind:post="post"/>
                 <!--  -->
                 </v-container>
             </v-card>
@@ -122,15 +122,16 @@ export default {
         deleteLike(postId){  
                 this.$store.dispatch('deleteLike',postId)
             },
-        //function pour different etat sur l'affichage des buttons
-        switchToDisplaypost() {              // <------: function()
-            this.mode = 'bydefault';
+        //function pour different etat sur l'affichage des button
+        // <------: function()
+        switchToDisplaypost(post) {              
+            post.mode = 'bydefault';
         },
-        switchToUpdate() {                      // <------: function()
-            this.mode = 'update';
+        switchToUpdate(post) {                     
+            post.mode = 'update';
         },
-        switchToCreateComment(){
-            this.mode = 'createComment'
+        switchToCreateComment(post){
+            post.mode = 'createComment'
         },
         dateNow(date){
         // retourne jour mois année et l'heure
@@ -169,6 +170,7 @@ export default {
         refreshPost(){
             //dispatch apliquer l'action (recuperer a nouveau les post)
             this.$store.dispatch('getPosts')
+
         }
     }
 };

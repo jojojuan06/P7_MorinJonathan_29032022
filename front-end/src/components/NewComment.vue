@@ -10,8 +10,8 @@
                         <v-icon class="--icon-back">mdi-minus</v-icon>
                     </v-btn>
                     <!-- au clic appel a la methode addComment-->
-                    <v-btn   class="btn--check mr-4" v-on:click="addComment" :class="{'v-btn--disabled' : !validatedField}">
-                            <v-icon class="--icon--check">mdi-check</v-icon> 
+                    <v-btn  class="btn--check mr-4" v-on:click="addComment" :class="{'v-btn--disabled' : !validatedField}">
+                        <v-icon class="--icon--check">mdi-check</v-icon> 
                     </v-btn>
                 </div>
             </v-form>
@@ -38,21 +38,11 @@ export default {
             this.$router.push({path: '/'}) 
             return;    
         } 
-        this.refreshPost()
-    },
-    //Props , attribut que vous pouvez définir au niveau du composant 
-    //qui sera transmis directement au template    
-    props: { 
-        mode: {
-            type:String,
-            default:""
-            }, 
     },
     computed: {
         validatedField: function() {
             //return false par default et true quand les  champ sont rempli
             let valid = false;
-            // if (this.mode == 'create') { //createAccount
                 if (this.form.content != "") {
                     valid = true;
                 } 
@@ -88,6 +78,7 @@ export default {
         refreshPost(){
             //dispatch apliquer l'action (recuperer a nouveau les post)
             this.$store.dispatch('getPosts')
+            
         } 
     },
 }
