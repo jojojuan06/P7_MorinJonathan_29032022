@@ -19,16 +19,21 @@
                 <div>
                     <v-img class="v-img--post" v-bind:src="post.image" :alt="post.title"></v-img>    
                 </div>
-                <v-card-text class="v-text--content"><p>{{post.content}}</p></v-card-text>
+                <v-card-text class="v-text--content">
+                    <p>{{post.content}}</p>
+                </v-card-text>
                 <div v-if="mode == 'bydefault'">
                     <v-btn @click="switchToCreateComment" class="btn--add">
                     <v-icon class="icon--add">mdi-plus</v-icon>
                     </v-btn>
                 </div>
                 <hr> 
+                <v-card-text v-if="post.Comments.length == 0" class="v-text--content">
+                    <p>Ajouter un commentaire</p>
+                </v-card-text>
                 <!-- boucle sur chaque comment du post et l'affiche -->
                 <!-- section comment -->
-                <div class="comment_container" v-for="(comment,index) in post.Comments" :key="index">
+                <div v-else class="comment_container" v-for="(comment,index) in post.Comments" :key="index">
                     <v-card-text class="card--comment">
                             {{ comment.content }}
                     </v-card-text>

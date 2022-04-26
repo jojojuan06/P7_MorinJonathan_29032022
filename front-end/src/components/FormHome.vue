@@ -19,7 +19,7 @@
         </div>
         <!-- si champ vide on disable le bouton validatedFieldss--> 
         <!-- au clic appel a la methode login--> 
-        <v-btn  type="submit"  v-on:click="validateForm" :disabled="!valid" v-if="mode == 'login'"  color="success" class="mr-4 --connexion">
+        <v-btn  type="submit"  v-on:click="loginAccount" :disabled="!valid" v-if="mode == 'login'"  color="success" class="mr-4 --connexion">
             <!-- importation de la mutation selon le status if /else -->
             <span v-if="status=='loading'">Connexion en cours...</span> 
             <span v-else>Connexion</span> 
