@@ -1,22 +1,21 @@
 <template>
     <v-app>
-        <v-container>
-            <v-card >
-               <h2 class="profil--description">Information Profil</h2> 
-                <v-card-title>
-                    <h3>Mon Profile</h3>   
-                </v-card-title>
-                <v-avatar>
+        <v-container class="profile--container">
+                <v-avatar class="profil--avatar">
                 <v-img v-if="userInfos.profile_img == '' " class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                 <v-img v-else class=".rounded-lg" v-bind:src="userInfos.profile_img"></v-img>
                 </v-avatar>
+                <v-card class="profil--description">
+                <v-card-title class="description--title">
+                    Mon Profile   
+                </v-card-title>
                 <v-card-subtitle>
                 </v-card-subtitle>
                 <!-- affichage des information du compte -->
-                    <p><strong>Voila donc qui je suis</strong> </p>
-                    <p>{{userInfos.firstname}}-{{userInfos.name}}</p>
-                    <p>{{userInfos.email}}</p>
-                <v-card-actions>
+                    <p><strong>Prénoms: </strong>{{userInfos.firstname}}</p>
+                    <p><strong>Nom: </strong>{{userInfos.name}}</p>
+                    <p><strong>Email: </strong>{{userInfos.email}}</p>
+                <v-card-actions class="profile--btn">
                     <!-- action de deconnexion avec la mutation logout-->
                     <v-btn @click="logout"><strong>Déconnexion</strong></v-btn>
                     <v-btn><strong>Modifier</strong></v-btn>
@@ -101,13 +100,46 @@ export default {
 </script>
 
 <style scoped>
+.profile--container{
+    display: flex;
+    flex-direction: column;
+}
 .profil--description{
-    border-radius: 16px 16px 0 0;
+    border-radius: 16px;
+}
+.profile--btn{
+    display: flex;
+    flex-direction: column;
+}
+.profile--btn .v-btn {
+     margin:2px;
+     width: 100%;
+}
+.description--title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top:-40px;
     text-align: center;
     width: 100%;
     background-color: #091F43;
-    border-bottom:2px solid #d1515a;
+    border-bottom:4px solid #d1515a;
+    border-top:4px solid #d1515a;
     color: white;
+}
+.v-card.profil--description{
+    border: #D1515A solid 2px;
+    padding: 0px;
+    background-color:white;
+}
+.profil--avatar{
+    z-index: 1;
+    bottom: -80px;
+    height: 100px;
+    width: 100px;
+    box-shadow: 2px 2px 15px black;
+    border: #D1515A solid 2px;
 }
 h3 {
     margin: 40px 0 0;
