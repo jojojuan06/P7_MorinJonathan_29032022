@@ -2,12 +2,13 @@
 <!-- permet de valider facilement les entrées de formulaire. -->
     <v-form ref="form" class="mx-2" lazy-validation v-model="valid">
         <!-- afffiche seulement a la creation du compte --> 
-            <v-text-field   :rules="emailRules" v-model="form.email" type="email" label="E-mail" required></v-text-field>  
+            <v-text-field    @keyup="validateForm" :rules="emailRules" v-model="form.email" type="email" label="E-mail" required></v-text-field>  
             <div v-if=" mode == 'create'">
-                <v-text-field :counter="10" :rules="nameRules" v-model="form.name" type="text" label="Name" required></v-text-field>
-                <v-text-field  :counter="10" :rules="nameRules" v-model="form.firstname" type="text" label="Firstname" required></v-text-field>  
+                <v-text-field @keyup="validateForm" :counter="10" :rules="nameRules" v-model="form.name" type="text" label="Name" required></v-text-field>
+                <v-text-field @keyup="validateForm" :counter="10" :rules="nameRules" v-model="form.firstname" type="text" label="Firstname" required></v-text-field>  
             </div>
-            <v-text-field  :rules="passwordRules" v-model="form.password" type="password" label="Password" required></v-text-field>
+            <!-- keyup (presse une touche) verifie la function ,  a chaque changement de champ il appele la function -->
+            <v-text-field  @keyup="validateForm" :rules="passwordRules" v-model="form.password" type="password" label="Password" required></v-text-field>
         <!-- afffiche seulement erreur a la connexion --> 
         <div  class="--error_login" color="red" v-if="mode == 'login' && status == 'error'">
             Adresse mail et/ou mot de pâsse invalide ⚠
@@ -18,7 +19,7 @@
         </div>
         <!-- si champ vide on disable le bouton validatedFieldss--> 
         <!-- au clic appel a la methode login--> 
-        <v-btn  type="submit"  v-on:click="loginAccount" :disabled="!valid" v-if="mode == 'login'"  color="success" class="mr-4 --connexion">
+        <v-btn  type="submit"  v-on:click="validateForm" :disabled="!valid" v-if="mode == 'login'"  color="success" class="mr-4 --connexion">
             <!-- importation de la mutation selon le status if /else -->
             <span v-if="status=='loading'">Connexion en cours...</span> 
             <span v-else>Connexion</span> 
@@ -74,24 +75,27 @@ export default {
             return;    
         } 
     },
+    // calcul de function
     computed: {
         //importation de l'objet depuis state
-        ...mapState(['status']) 
+        ...mapState(['status']), 
     },
     methods: {
+            validateForm(){
+                //ref fait reference au ref de l'element du dom pour lier
+                console.log('info then 00 -->',this.valid);
+                //validate verifie les rules avant validation du formulaire res =>resultat
+                this.$refs.form.validate().then((res) => {
+                    console.log('info then 01 -->',res);
+                    this.valid = res.valid; 
+                    console.log('info then 02 -->',this.valid);       
+                }).catch(error => (console.log(error)));
+                console.log('info then 03 -->',this.valid);
+            },
             loginAccount(){
             //sous element pas acces au this je renome une variabale pour appeler en dessous
             const This = this; 
-            //ref fait reference au ref de l'element du dom pour lier
-            //validate verifie les rules avant validation du formulaire res =>resultat
-            this.$refs.form.validate().then(res => {
-                this.valid = res.valid;
-                if (this.valid == false) {
-                    //reload de la page
-                    window.location.reload();
-                }
-                if(res.valid) {
-                    this.valid = true;   
+                if(this.valid) {  
                     //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
                     //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
                     this.$store.dispatch('loginAccount',{
@@ -102,41 +106,27 @@ export default {
                             //redirection vers la route apres login
                             This.$router.push({path: '/profile'}); 
                         }).catch(error => (console.log(error))) 
-                }else {
-                    console.error(res);
                 }
-            })        
         },                                                
         createNewAccount(){ 
-        //sous element pas acces au this je renome une variabale pour appeler en dessous
-        const This = this; 
-        //contenue du formulaire
-        const body = {
-            email:this.form.email,
-            name:this.form.name,
-            firstname:this.form.firstname,
-            password:this.form.password
-        }; 
-            //ref fait reference au ref de l'element du dom pour lier
-            //validate verifie les rules avant validation du formulaire res =>resultat
-            this.$refs.form.validate().then(res => {
-                    this.valid = res.valid;
-                    if (this.valid == false) {
-                    //reload de la page
-                    window.location.reload();
-                    }
-                    if(res.valid) {
-                            //dispatch asyncrone appelle les action
-                            this.$store.dispatch('createNewAccount', body).then(() => {
-                                this.loginAccount();
-                                //redirection vers la route apres creation d'un compte (path en argument)
-                                This.$router.push({path: '/'})
-                            }).catch(error => {console.log(error)}); 
-                    } else {
-                    console.error(res);
-                } 
-            })
-        }
+            //sous element pas acces au this je renome une variabale pour appeler en dessous
+            const This = this; 
+            //contenue du formulaire
+            const body = {
+                email:this.form.email,
+                name:this.form.name,
+                firstname:this.form.firstname,
+                password:this.form.password
+            }; 
+            if(res.valid) {
+                    //dispatch asyncrone appelle les action
+                    this.$store.dispatch('createNewAccount', body).then(() => {
+                        this.loginAccount();
+                        //redirection vers la route apres creation d'un compte (path en argument)
+                        This.$router.push({path: '/'})
+                    }).catch(error => {console.log(error)}); 
+            } 
+        } 
     },
 }
 </script>
