@@ -296,6 +296,7 @@ export default createStore({
         axios.post(`/comment/${postId}`) 
         .then(function (response) {
         //si tout se pass bien
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message}); 
         })
         .catch(function (error) {
         commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le commentaire ! ${error}`}); //type et payload

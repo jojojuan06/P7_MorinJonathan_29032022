@@ -20,20 +20,24 @@
                     <v-img class="v-img--post" v-bind:src="post.image" :alt="post.title"></v-img>    
                 </div>
                 <v-card-text class="v-text--content"><p>{{post.content}}</p></v-card-text>
+                <div v-if="mode == 'bydefault'">
+                    <v-btn @click="switchToCreateComment" class="btn--add">
+                    <v-icon class="icon--add">mdi-plus</v-icon>
+                    </v-btn>
+                </div>
                 <hr> 
                 <!-- boucle sur chaque comment du post et l'affiche -->
                 <!-- section comment -->
-                <div class="comment_container">
-                    <v-card-text class="card--comment" v-for="(comment,index) in post.Comments" :key="index">
+                <div class="comment_container" v-for="(comment,index) in post.Comments" :key="index">
+                    <v-card-text class="card--comment">
                             {{ comment.content }}
                     </v-card-text>
                     <v-btn class="btn--closed">
                     <v-icon class="icon--close">mdi-close</v-icon>
                     </v-btn> 
-                    <v-btn class="btn--add">
-                    <v-icon class="icon--add">mdi-plus</v-icon>
-                    </v-btn>  
-                </div> 
+                </div>
+                <!-- @CancelAddComment appelle evenement depuis l'enfant -->
+                <NewComment @CancelAddComment="switchToDisplaypost" v-if="mode == 'createComment'" :mode="mode"/>  
                 <!--  -->
                 <hr> 
                 <!-- section like v-for="Like in post.Likes" :key="Like.id"-->
@@ -83,12 +87,13 @@
 
 <script>
 //IMPORT COMPONENTS
-import EditPost from '@/components/EditPost.vue'
+import EditPost from '@/components/EditPost.vue';
 import AlertConfirm from '@/components/AlertConfirm';
+import NewComment from '@/components/NewComment';
 export default {
 //INSTANCIER LES COMPONENTS
     components: {
-    EditPost,AlertConfirm
+    EditPost,AlertConfirm,NewComment
     },
     data() {
         return {
@@ -118,6 +123,9 @@ export default {
         },
         switchToUpdate() {                      // <------: function()
             this.mode = 'update';
+        },
+        switchToCreateComment(){
+            this.mode = 'createComment'
         },
         dateNow(date){
         // retourne jour mois année et l'heure
