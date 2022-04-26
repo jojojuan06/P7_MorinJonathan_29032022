@@ -9,7 +9,7 @@
           </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <div v-if="status == 'succes'">
+        <div v-if="$store.state.userInfos.id">
         <v-toolbar-item class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
           <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
           <!-- v-if="item.boolean == true"-->
