@@ -1,25 +1,27 @@
 <template>
     <v-app>
         <v-container class="profile--container">
-                <v-avatar class="profil--avatar">
-                <v-img v-if="userInfos.profile_img == '' " class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                <v-img v-else class=".rounded-lg" v-bind:src="userInfos.profile_img"></v-img>
-                </v-avatar>
-                <v-card class="profil--description">
+            <v-avatar class="profile--avatar">
+                <v-img class="--img .rounded-lg" v-if="userInfos.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                <v-img class="--img .rounded-lg" v-else  v-bind:src="userInfos.profile_img"></v-img>
+            </v-avatar>
+            <v-card class="profile--description --card">
                 <v-card-title class="description--title">
                     Information Profile   
                 </v-card-title>
                 <v-card-subtitle>
                 </v-card-subtitle>
                 <!-- affichage des information du compte -->
+                <div>
                     <p><strong>Prénoms: </strong>{{userInfos.firstname}}</p>
                     <p><strong>Nom: </strong>{{userInfos.name}}</p>
                     <p><strong>Email: </strong>{{userInfos.email}}</p>
+                </div>
                 <v-card-actions class="profile--btn">
                     <!-- action de deconnexion avec la mutation logout-->
-                    <v-btn @click="logout"><strong>Déconnexion</strong></v-btn>
-                    <v-btn><strong>Modifier</strong></v-btn>
-                    <v-btn   @click="openConfirmDelete" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
+                    <v-btn class="--btn" @click="logout"><strong>Déconnexion</strong></v-btn>
+                    <v-btn class="--btn"><strong>Modifier</strong></v-btn>
+                    <v-btn  class="--btn btn--delete" @click="openConfirmDelete" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
                 </v-card-actions>
             </v-card>
         </v-container> 
@@ -100,85 +102,7 @@ export default {
 </script>
 
 <style scoped>
-.profile--container{
-    display: flex;
-    flex-direction: column;
-    background-color: #3f3f3f;
-}
-.profil--description{
-    border-radius: 16px;
-}
-.profile--btn{
-    display: flex;
-    flex-direction: column;
-}
-.profile--btn .v-btn {
-    margin:2px;
-    width: 100%;
-}
-.description--title{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top:-40px;
-    text-align: center;
-    width: 100%;
-    background-color: #091F43;
-    border-bottom:4px solid #d1515a;
-    border-top:4px solid #d1515a;
-    color: white;
-}
-.v-card.profil--description{
-    border: #D1515A solid 2px;
-    padding: 0px;
-    background-color:white;
-}
-.profil--avatar{
-    z-index: 1;
-    bottom: -80px;
-    height: 100px;
-    width: 100px;
-    box-shadow: 2px 2px 15px black;
-    border: #D1515A solid 2px;
-}
-.profil--avatar.v-img{
-    background: #091f43;
-}
-h3 {
-    margin: 40px 0 0;
-    color: #D1515A;
-}
-.v-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.v-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 500px;
-    height: 50%;
-    background: #d7d7d7;
-}
-.v-card .v-avatar {
-    height: 150px;
-    width: 150px;
-}
-.v-card .v-btn:nth-child(3){
-    color:red;
-    text-decoration: underline;
-}
-.v-card .v-btn:nth-child(3):hover{
-    background-color: transparent;
-    color:red;
-    text-decoration: underline;
-}
+@import url('../style/profile.css');
 </style>
 
 
