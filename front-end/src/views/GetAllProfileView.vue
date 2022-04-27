@@ -8,11 +8,10 @@
                     <v-img v-else class=".rounded-lg" v-bind:src="user.profile_img"></v-img>
                     </v-avatar>
                     <v-card-title class="user--title">
-                    Mon Profile   
+                    Information Profile   
                     </v-card-title>
                     <!-- affichage des information du compte -->
                     <div class="user--infos">
-                    
                     <p><strong>Nom: </strong>{{user.name}}</p>
                     <p><strong>Prénoms: </strong>{{user.firstname}}</p>
                     <p><strong>Email: </strong>{{user.email}}</p>

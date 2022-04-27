@@ -29,7 +29,8 @@
 import  FormHome from '../components/FormHome.vue'
 
 
-export default { 
+export default {
+//instancie mon component 
     components:{
     FormHome,
 },
