@@ -286,7 +286,7 @@ export default createStore({
       });
     },
     //creation commentaire
-    createComment: ({commit}, {postId, content}) => {
+    createComment: ({commit, dispatch}, {postId, content}) => {
       //créeation d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
@@ -297,7 +297,9 @@ export default createStore({
         axios.post(`/comment/${postId}`, {content}) 
         .then(function (response) {
         //si tout se pass bien
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message}); 
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message});
+        //refresh la page
+        dispatch('getPosts') 
         })
         .catch(function (error) {
         commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le commentaire ! ${error}`}); //type et payload
@@ -307,14 +309,17 @@ export default createStore({
       });
     },
     //delete un commentaire
-    deleteComment:({commit, state},postId) => {
+    deleteComment:({commit,state,dispatch},postId) => {
       //recupere le token directement depuis le  user destructuring
       const {token} = state.user
+      console.log(token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
-      axios.delete(`/comments/${postId}`)
+      axios.delete(`/comment/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+        commit('SETSTATUS' , {status:'succes' , message: response.data.message}); 
+        //refresh la page
+        dispatch('getPosts')   
       }) //retourne la repose des data dans l'objet 
       .catch(error => { 
         console.log(error); 

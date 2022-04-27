@@ -58,7 +58,7 @@ exports.updateComment = (req, res, next) => {//exporter une function createuser 
 //supprimer un Commentaire DELETE
 exports.deleteComment = (req, res, next) => {
     // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
-    Comment.findOne({ id: req.params.id })
+    Comment.findOne({where: { id: req.params.id }})
     //trouver id a celui qui est dans les parametres de la req
     // recupere le post dans la base
     .then((comment) => { 

@@ -37,7 +37,7 @@
                     <v-card-text class="card--comment">
                             {{ comment.content }}
                     </v-card-text>
-                    <v-btn class="btn--closed">
+                    <v-btn v-if="comment.userId == $store.state.user.userId || $store.state.user.admin == true" class="btn--closed" @click="deleteComment(comment.id)">
                     <v-icon class="icon--close">mdi-close</v-icon>
                     </v-btn> 
                 </div>
@@ -116,6 +116,9 @@ export default {
         this.refreshPost() 
         },
     methods: {
+        deleteComment(commentId){
+            this.$store.dispatch('deleteComment', commentId)
+        },
         likeToPost(postId){  
                 this.$store.dispatch('postLike', postId)
             },
