@@ -15,11 +15,11 @@
                 <v-form>
                     <div class="btn--createpost">
                         <!-- revenir a l'ajout du message par default -->
-                            <v-btn @click="switchToDisplayNewpost">
+                            <v-btn class="--btn btn--firstchild" @click="switchToDisplayNewpost">
                                 <span>annuler</span>
                             </v-btn>
                         <!-- au clic appel a la methode createNewAccount-->
-                        <v-btn   v-on:click="createPost" :class="{'v-btn--disabled' : !validatedField}" color="success" class="mr-4">
+                        <v-btn   v-on:click="createPost" :class="{'v-btn--disabled' : !validatedField}" color="success mr-4 --btn">
                                 <span v-if="status=='loading'">Création du post...</span>
                                 <span v-else>Crée le post</span>
                         </v-btn>
@@ -112,63 +112,7 @@ export default {
 </script>
 
 <style scoped>
-.v-card-title.post--title {
-    display: flex;
-    justify-content: center;
-    background-color: #091f43;
-    color: white;
-    width: 100%;
-    border-radius: 16px 16px 0px 0px;
-    border-bottom: #d1515a solid 2px;
-}
-.post--container  {
-    display: flex;
-    width: 100%;
-    max-width: 1000px;
-
-    flex-direction: column;
-    box-shadow: 2px 2px 15px black;
-    border-radius: 16px 16px 0 0;
-}
-.main_post {
-    display: flex;
-    justify-content: center;
-    box-shadow: none;
-}
-.mdi-message-plus {
-  color:white;
-  font-size: 30px;
-}
-.--addmessage{
-    border-radius: 50%;
-    min-width: 0px;
-    height: 45px;
-    padding: 0 10px;
-    background-color: #091f43;
-    box-shadow: 2px 2px 10px black;
-    border: #d1515a 2px solid;
-}
-.create_post{
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-.create_post > div {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-.btn--createpost {
-    display: flex;
-}
-.btn--createpost .v-btn {
-    margin-right: 8px;
-}
-.btn--createpost .v-btn:first-child:hover {
-    background-color: #091f43;
-    color: white;
-    border-bottom: #d1515a 2px solid;
-}
+@import url('../style/newpost.css');
 </style>
 
 
