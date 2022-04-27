@@ -286,14 +286,15 @@ export default createStore({
       });
     },
     //creation commentaire
-    createComment: ({commit}, postId) => {
+    createComment: ({commit}, {postId, content}) => {
       //créeation d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
         //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
         commit('SETSTATUS' , {status:'loading',message:''}); 
         //requete Post enregistrer l'utilisateur
-        axios.post(`/comment/${postId}`) 
+        //envoi l'objet content
+        axios.post(`/comment/${postId}`, {content}) 
         .then(function (response) {
         //si tout se pass bien
         commit('SETSTATUS' , {status:'succes' , message: response.data.message}); 

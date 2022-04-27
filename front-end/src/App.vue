@@ -36,15 +36,17 @@
         <router-view/>
     </v-content>
     <!-- alerte a la creation du compte -->
-        <v-alert v-if="this.$store.state.status =='succes'" class="v--alert"   type="success">
+    <div class="alert-message--container">
+        <v-alert v-if="this.$store.state.status =='succes'" class="alert--message"   type="success">
           {{ this.$store.state.message }}
           <!-- function au clic on remet a zero et on enleve l'alert -->
           <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>  
         </v-alert>
-        <v-alert v-if="this.$store.state.status =='error'" type="error">
+        <v-alert v-if="this.$store.state.status =='error'" type="error" class="alert--message">
           {{this.$store.state.message}}
           <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>
         </v-alert>
+    </div>
     <!-- -->
     <v-footer>
       <v-row justify="center">
@@ -150,7 +152,8 @@ font-weight: bold;
   background-color:#3f3f3f; 
 }
 /* importation du btn css  */
-@import url('./style/button');
+@import url('./style/button.css');
+@import url('./style/alert.css');
 /* importation du footer css  */
-@import url('./style/footer');
+@import url('./style/footer.css');
 </style>

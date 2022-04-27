@@ -42,7 +42,7 @@
                     </v-btn> 
                 </div>
                 <!-- @CancelAddComment appelle evenement depuis l'enfant -->
-                <NewComment @CancelAddComment="switchToDisplaypost(post)" v-if="post.mode == 'createComment'"/>  
+                <NewComment :postId="post.id" @CancelAddComment="switchToDisplaypost(post)" v-if="post.mode == 'createComment'"/>  
                 <!--  -->
                 <hr> 
                 <!-- section like v-for="Like in post.Likes" :key="Like.id"-->

@@ -10,7 +10,7 @@
                         <v-icon class="--icon-back">mdi-minus</v-icon>
                     </v-btn>
                     <!-- au clic appel a la methode addComment-->
-                    <v-btn  class="btn--check mr-4" v-on:click="addComment" :class="{'v-btn--disabled' : !validatedField}">
+                    <v-btn  class="btn--check mr-4" v-on:click="addComment(postId)" :class="{'v-btn--disabled' : !validatedField}">
                         <v-icon class="--icon--check">mdi-check</v-icon> 
                     </v-btn>
                 </div>
@@ -31,6 +31,11 @@ export default {
                 }
             }
         },
+    //props qui vas resevoir un postId depuis le parent
+    props: [
+        "postId"
+    ]
+    ,    
     //moment ou la vue et afficher    
     mounted() {
         //si l'utilisateur n'est pas  connecter , on retourne sur le home
@@ -59,12 +64,12 @@ export default {
             //emmettre au parent             
             this.$emit('CancelAddComment');
         },                                     
-        addComment(){  
+        addComment(postId){  
             const This = this; 
             //sous element pas acces au this je renome une variabale pour appeler en dessous  
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
-            this.$store.dispatch('createComment',{ content:this.form.content})
+            this.$store.dispatch('createComment',{ content:this.form.content,postId})
             .then(() => {
                 //redirection vers la route apres creation d'un compte (path en argument)
                 this.refreshPost()
