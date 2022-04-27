@@ -99,6 +99,9 @@ export default {
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
+    background-color: #3f3f3f;
+    padding: 0px;
+    height: 100%;
 }
 .user--infos{
     padding-top: 16px;
@@ -107,6 +110,7 @@ export default {
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
+    padding: 0px;
 }
 .container--users .--card {
     position: relative;
@@ -115,11 +119,10 @@ export default {
     justify-content: center;
     align-items: center;
     width: 300px;
-    height: 50%;
     background: #d7d7d7;
     min-height: 380px;
     border: 2px solid #d1515a;
-    padding: 0;
+    padding: 2px;
 }
 .v-card-actions.--btn-users{
     display: flex;
@@ -131,7 +134,7 @@ export default {
 .--card .v-avatar.--img {
     position: absolute;
     z-index: 1;
-    top: -40px;
+    top: -27px;
     height:100px;
     width: 100px;
     border: #d1515a 2px solid;
@@ -151,7 +154,7 @@ export default {
     align-items: center;
     justify-content: center;
     position: relative;
-    top:-10px;
+    top:6px;
     text-align: center;
     width: 100%;
     background-color: #091F43;

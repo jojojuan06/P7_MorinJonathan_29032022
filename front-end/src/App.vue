@@ -32,7 +32,7 @@
         </v-toolbar>
       <div>
     </div>
-    <v-content class="content-img">
+    <v-content>
         <router-view/>
     </v-content>
     <!-- alerte a la creation du compte -->
@@ -147,9 +147,6 @@ font-weight: bold;
 }
 .closeBtn {
   margin-left: 30px
-}
-.content-img {
-  background-color:#3f3f3f; 
 }
 /* importation du btn css  */
 @import url('./style/button.css');

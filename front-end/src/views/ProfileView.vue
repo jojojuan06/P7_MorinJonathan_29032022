@@ -103,6 +103,7 @@ export default {
 .profile--container{
     display: flex;
     flex-direction: column;
+    background-color: #3f3f3f;
 }
 .profil--description{
     border-radius: 16px;
