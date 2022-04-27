@@ -2,21 +2,23 @@
     <v-app>
         <v-container>
             <div  class="container--users">
-                <v-card v-for="user of this.$store.state.users" v-bind:key="user.id" >
-                    <v-card-title>
-                        <h3>{{user.name}}</h3> 
-                    </v-card-title>
-                    <v-avatar>
+                <v-card class="--card" v-for="user of this.$store.state.users" v-bind:key="user.id" >
+                    <v-avatar class="--img">
                     <v-img v-if="user.profile_img == '' " class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                     <v-img v-else class=".rounded-lg" v-bind:src="user.profile_img"></v-img>
                     </v-avatar>
-                    <v-card-subtitle></v-card-subtitle>
+                    <v-card-title class="user--title">
+                    Mon Profile   
+                    </v-card-title>
                     <!-- affichage des information du compte -->
-                        <p><strong>Voila donc qui je suis</strong> </p>
-                        <p>{{user.firstname}}-{{user.name}}</p>
-                        <p>{{user.email}}</p>
-                        <!-- afficher le choix des boutons en administrateur ou si  mon propre compte-->
-                    <v-card-actions v-if="this.$store.state.user.admin == true || user.id == this.$store.state.user.userId">
+                    <div class="user--infos">
+                    
+                    <p><strong>Nom: </strong>{{user.name}}</p>
+                    <p><strong>Prénoms: </strong>{{user.firstname}}</p>
+                    <p><strong>Email: </strong>{{user.email}}</p>
+                    </div>
+                    <!-- afficher le choix des boutons en administrateur ou si  mon propre compte-->
+                    <v-card-actions class="--btn-users" v-if="this.$store.state.user.admin == true || user.id == this.$store.state.user.userId">
                         <!-- action de deconnexion avec la mutation logout-->
                         <v-btn><strong>Modifier</strong></v-btn>
                         <v-btn   @click="openConfirmDelete(user.id)" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
@@ -93,22 +95,22 @@ export default {
 
 <style scoped>
 .container--users {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
 }
-h3 {
-    margin: 40px 0 0;
-    color: #D1515A;
+.user--infos{
+    padding-top: 16px;
 }
 .v-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
     background-position: center;
     background-repeat: no-repeat;
 }
-.v-card {
+.container--users .--card {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -117,18 +119,40 @@ h3 {
     height: 50%;
     background: #d7d7d7;
     min-height: 394px;
+    border: 2px solid #d1515a;
+    padding: 0;
 }
-.v-card .v-avatar {
-    height: 150px;
-    width: 150px;
+.v-card-actions.--btn-users{
+    display: flex;
+    flex-direction: column;
 }
-.v-card .v-btn:nth-child(2){
+.--card .v-avatar.--img {
+    position: absolute;
+    z-index: 1;
+    top: -40px;
+    height: 100px;
+    width: 100px;
+}
+.--card .v-btn:nth-child(2){
     color:red;
     text-decoration: underline;
 }
-.v-card .v-btn:nth-child(2):hover{
+.--card .v-btn:nth-child(2):hover{
     background-color: transparent;
     color:red;
     text-decoration: underline;
+}
+.v-card-title.user--title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top:-10px;
+    text-align: center;
+    width: 100%;
+    background-color: #091F43;
+    border-bottom:4px solid #d1515a;
+    border-top:4px solid #d1515a;
+    color: white;
 }
 </style>
