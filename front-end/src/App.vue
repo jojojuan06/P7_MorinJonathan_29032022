@@ -11,7 +11,7 @@
         <v-spacer></v-spacer>
         <!-- si userinfo et superieur a -1 il affiche tout les path / -->
         <!-- l'id de tes utilisateur est un entier positif donc si personne n'est connecté ce userInfos.id n'est pas un entier positif -->
-        <div v-if="$store.state.userInfos.id > -1">
+        <div v-if="$store.state.user.userId > -1">
         <v-toolbar-item class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
           <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
           <!-- v-if="item.boolean == true"-->
@@ -32,7 +32,7 @@
         </v-toolbar>
       <div>
     </div>
-    <v-content>
+    <v-content class="content-img">
         <router-view/>
     </v-content>
     <!-- alerte a la creation du compte -->
@@ -145,6 +145,9 @@ font-weight: bold;
 }
 .closeBtn {
   margin-left: 30px
+}
+.content-img {
+  background-color:#3f3f3f; 
 }
 /* importation du btn css  */
 @import url('./style/button');

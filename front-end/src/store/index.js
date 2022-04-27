@@ -41,9 +41,9 @@ export default createStore({
         state.message = data.message;
       },
     lOGUSER(state, user) {
-    //on va mettre dans le user info l'id de l'utilisateur contenue dans la variable user(nouvellement connecter)
-    state.userInfos.userId = user.userId
-   //recupere le token
+    //recuperation des infos utilisateur a la connections
+    state.userInfos = user
+    //recupere le token
     axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`; 
     //stocker le user dans le storage local
     //stringify pour enr dans le storage
