@@ -46,9 +46,10 @@
 }
 .btn--createpost {
     display: flex;
+    flex-wrap: wrap;
 }
 .btn--createpost .--btn {
-    margin-right: 8px;
+    margin: 8px;
 }
 .btn--createpost .btn--firstchild:hover {
     background-color: #091f43;
