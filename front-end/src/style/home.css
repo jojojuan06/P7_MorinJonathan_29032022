@@ -51,4 +51,8 @@
         max-width: none;
     }
 }
-
+@media screen and (min-width: 960px) {
+    .v-container {
+        max-width: none;
+    }
+}
