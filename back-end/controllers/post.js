@@ -124,6 +124,16 @@ exports.getOnePost = (req, res, next) => {
                 "content",
                 "id",
                 "userId"
+            ],
+            include: [
+                {
+                    //recuperation du model user inclu avec des atttributs specifier (ex:evite de donné le Mdp)
+                    model:User,
+                    attributes:[
+                        "name",
+                        "profile_img"
+                    ]
+                },
             ]
         },
         {
@@ -170,6 +180,16 @@ exports.getAllPost = (req, res, next) => {
                 "content",
                 "id",
                 "userId"
+            ],
+            include: [
+                {
+                    //recuperation du model user inclu avec des atttributs specifier (ex:evite de donné le Mdp)
+                    model:User,
+                    attributes:[
+                        "name",
+                        "profile_img"
+                    ]
+                },
             ]
         },
         {

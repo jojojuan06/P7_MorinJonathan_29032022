@@ -20,14 +20,14 @@ module.exports = (sequelize, DataTypes) => {
       // définir l'association ici (post a plusieur ==> like)
       models.Post.hasMany(models.Like,  
           {foreignKey: "postId"},
-          { onDelete: 'cascade' , hooks: true},
-          { onUpdate: 'cascade' , hooks: true}
+          { onDelete: 'cascade'},
+          { onUpdate: 'cascade'}
         ); 
       // définir l'association ici (post a plusieur ==> comment)
       models.Post.hasMany(models.Comment,  
         {foreignKey: "postId"},
-        { onDelete: 'cascade' , hooks: true},
-        { onUpdate: 'cascade' , hooks: true}
+        { onDelete: 'cascade' },
+        { onUpdate: 'cascade' }
       );
     } 
   }
