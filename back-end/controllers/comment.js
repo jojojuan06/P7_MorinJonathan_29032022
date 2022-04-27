@@ -7,7 +7,7 @@ const { User, Comment ,Post} = require('../models')
 
 //Creation d'un Commentaire POST
 exports.createComment = (req, res, next) => { //function de callback
-Post.findOne({ where: { id: req.body.postId }}) // recherche id du post
+Post.findOne({ where: { id: req.params.id }}) // recherche id du post
     .then(post => {
         if (!post) {
             return res.status(404).json({ message : `Votre post n'existe pas`})
@@ -15,19 +15,15 @@ Post.findOne({ where: { id: req.body.postId }}) // recherche id du post
         //verifier si les champs sont vides (avant submit ,ex name ou description ect..(le front-end n'est pas fiable))
         if (validator.isEmpty(`${req.body.content}`)) {
             return res.status(400).json({ message: `le champs ne doit pas être vide`})    
-        }
-        //verification du contenue text 
-        if (req.body.content == null) { 
-            return res.status(400).json({ message : `Votre commentaire doit contenir du texte`})
         } 
         // verifier un nombre de caractere donnée
-        if (req.body.content.length <= 4 ) {
+        if (req.body.content.length <= 3 ) {
             return res.status(400).json({ message : `Votre Commentaire doit contenir au moins 4 caractère`})  
         }
         // creation d'une nouvelle instance  de mon objet post (class) de le req
         const comment = new Comment({  //recupere mon objet de la req
         content: req.body.content,
-        postId: req.body.postId, 
+        postId: req.params.id, //endpoint de la requete
         userId : req.auth.userId  // ajoute id comment = userid de la req
         });
         comment.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
