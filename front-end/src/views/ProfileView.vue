@@ -112,8 +112,8 @@ export default {
     flex-direction: column;
 }
 .profile--btn .v-btn {
-     margin:2px;
-     width: 100%;
+    margin:2px;
+    width: 100%;
 }
 .description--title{
     display: flex;

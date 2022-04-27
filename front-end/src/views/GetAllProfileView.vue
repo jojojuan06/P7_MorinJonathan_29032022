@@ -21,7 +21,7 @@
                     <v-card-actions class="--btn-users" v-if="this.$store.state.user.admin == true || user.id == this.$store.state.user.userId">
                         <!-- action de deconnexion avec la mutation logout-->
                         <v-btn><strong>Modifier</strong></v-btn>
-                        <v-btn   @click="openConfirmDelete(user.id)" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
+                        <v-btn   @click="openConfirmDelete(user.id)" ><strong>Supprimer le compte</strong></v-btn>  <!--href="#" target="_blank" -->
                     </v-card-actions>
                 </v-card>
             </div>
@@ -125,6 +125,9 @@ export default {
 .v-card-actions.--btn-users{
     display: flex;
     flex-direction: column;
+}
+.--btn-users .v-btn{
+    width: 100%;
 }
 .--card .v-avatar.--img {
     position: absolute;
