@@ -1,0 +1,69 @@
+.container--users {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-color: #3f3f3f;
+    padding: 0px;
+    height: 100%;
+}
+.user--infos{
+    padding-top: 16px;
+}
+.container {
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 0px;
+}
+.container--users .--card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 300px;
+    background: #d7d7d7;
+    min-height: 380px;
+    border: 2px solid #d1515a;
+    padding: 2px;
+}
+.v-card-actions.--btn-users{
+    display: flex;
+    flex-direction: column;
+}
+.--btn-users .btn--profile{
+    width: 100%;
+}
+.--card .avatar--img {
+    position: absolute;
+    z-index: 1;
+    top: -27px;
+    height:100px;
+    width: 100px;
+    border: #d1515a 2px solid;
+    background: #091f43;
+}
+.--card .btn--profile:nth-child(2){
+    color:red;
+    text-decoration: underline;
+}
+.--card .btn--profile:nth-child(2):hover{
+    background-color: transparent;
+    color:red;
+    text-decoration: underline;
+}
+.user--title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top:6px;
+    text-align: center;
+    width: 100%;
+    background-color: #091F43;
+    border-bottom:4px solid #d1515a;
+    border-top:4px solid #d1515a;
+    color: white;
+}

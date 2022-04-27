@@ -1,9 +1,9 @@
 <template>
     <v-app>
-        <v-container>
+        <v-container class="container">
             <div  class="container--users">
                 <v-card class="--card" v-for="user of this.$store.state.users" v-bind:key="user.id" >
-                    <v-avatar class="--img">
+                    <v-avatar class="avatar--img">
                     <v-img v-if="user.profile_img == '' " class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                     <v-img v-else class=".rounded-lg" v-bind:src="user.profile_img"></v-img>
                     </v-avatar>
@@ -19,8 +19,8 @@
                     <!-- afficher le choix des boutons en administrateur ou si  mon propre compte-->
                     <v-card-actions class="--btn-users" v-if="this.$store.state.user.admin == true || user.id == this.$store.state.user.userId">
                         <!-- action de deconnexion avec la mutation logout-->
-                        <v-btn><strong>Modifier</strong></v-btn>
-                        <v-btn   @click="openConfirmDelete(user.id)" ><strong>Supprimer le compte</strong></v-btn>  <!--href="#" target="_blank" -->
+                        <v-btn class="btn--profile"><strong>Modifier</strong></v-btn>
+                        <v-btn class="btn--profile"  @click="openConfirmDelete(user.id)" ><strong>Supprimer le compte</strong></v-btn>  <!--href="#" target="_blank" -->
                     </v-card-actions>
                 </v-card>
             </div>
@@ -93,73 +93,5 @@ export default {
 </script>
 
 <style scoped>
-.container--users {
-    position: relative;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    justify-content: center;
-    background-color: #3f3f3f;
-    padding: 0px;
-    height: 100%;
-}
-.user--infos{
-    padding-top: 16px;
-}
-.v-container {
-    height: 100%;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 0px;
-}
-.container--users .--card {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 300px;
-    background: #d7d7d7;
-    min-height: 380px;
-    border: 2px solid #d1515a;
-    padding: 2px;
-}
-.v-card-actions.--btn-users{
-    display: flex;
-    flex-direction: column;
-}
-.--btn-users .v-btn{
-    width: 100%;
-}
-.--card .v-avatar.--img {
-    position: absolute;
-    z-index: 1;
-    top: -27px;
-    height:100px;
-    width: 100px;
-    border: #d1515a 2px solid;
-    background: #091f43;
-}
-.--card .v-btn:nth-child(2){
-    color:red;
-    text-decoration: underline;
-}
-.--card .v-btn:nth-child(2):hover{
-    background-color: transparent;
-    color:red;
-    text-decoration: underline;
-}
-.v-card-title.user--title{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    top:6px;
-    text-align: center;
-    width: 100%;
-    background-color: #091F43;
-    border-bottom:4px solid #d1515a;
-    border-top:4px solid #d1515a;
-    color: white;
-}
+@import url('../style/profiles.css');
 </style>
