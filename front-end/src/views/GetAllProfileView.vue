@@ -115,10 +115,10 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 500px;
+    width: 300px;
     height: 50%;
     background: #d7d7d7;
-    min-height: 394px;
+    min-height: 380px;
     border: 2px solid #d1515a;
     padding: 0;
 }
@@ -133,8 +133,9 @@ export default {
     position: absolute;
     z-index: 1;
     top: -40px;
-    height: 100px;
+    height:100px;
     width: 100px;
+    border: #d1515a 2px solid;
 }
 .--card .v-btn:nth-child(2){
     color:red;
