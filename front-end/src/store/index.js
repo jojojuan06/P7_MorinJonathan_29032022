@@ -18,7 +18,7 @@ export default createStore({
     user: JSON.parse(localStorage.getItem('user')) || {}, 
     // objet userinfo avec l'objet a recuperer
     userInfos: {
-      id:'',
+      id:-1,
       name: '',
       firstname: '',
       email:'',

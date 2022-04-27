@@ -9,7 +9,9 @@
           </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
-        <div v-if="$store.state.userInfos.id">
+        <!-- si userinfo et superieur a -1 il affiche tout les path / -->
+        <!-- l'id de tes utilisateur est un entier positif donc si personne n'est connecté ce userInfos.id n'est pas un entier positif -->
+        <div v-if="$store.state.userInfos.id > -1">
         <v-toolbar-item class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
           <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
           <!-- v-if="item.boolean == true"-->
