@@ -27,13 +27,18 @@
                     <v-icon class="icon--add">mdi-plus</v-icon>
                 </v-btn>
                 </div>
-                <hr> 
+                <hr>  
+                <!-- si il n'y a pas de comment p ci-dessous par default -->
                 <v-card-text v-if="post.Comments.length == 0" class="v-text--content">
                     <p>Ajouter un commentaire</p>
                 </v-card-text>
                 <!-- boucle sur chaque comment du post et l'affiche -->
                 <!-- section comment -->
                 <div v-else class="comment_container" v-for="(comment,index) in post.Comments" :key="index">
+                    <v-avatar>
+                    <v-img :alt="comment.User.name" class=".rounded-lg" v-if="comment.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                    <v-img :alt="comment.User.name" class=".rounded-lg" v-else  :src="comment.User.profile_img"></v-img>
+                    </v-avatar>
                     <v-card-text class="card--comment">
                             {{ comment.content }}
                     </v-card-text>
@@ -62,7 +67,8 @@
                 </div>
                 </div>
                 <!--  -->
-                <!-- section modifier supprimer post -->
+                <!-- section modifier (switch le post de l'utilisateur) supprimer du post  -->
+                <!-- l'utilisateur modifie/sup sont post ou admin peut modifier/sup tous les posts -->
                 <v-card-actions  v-if="this.$store.state.user.admin == true || post.userId == this.$store.state.user.userId" class="btn--update">
                     <div v-if="post.mode === 'bydefault'  || !post.mode">
                         <v-btn   v-on:click="switchToUpdate(post)" class="--button">
