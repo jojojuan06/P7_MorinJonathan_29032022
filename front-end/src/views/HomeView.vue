@@ -1,10 +1,10 @@
 <template>
     <v-container class="--container">
-        <h1 class="--title">{{ msg }}</h1>   
+       <v-card-title class="--title">{{ msg }}</v-card-title>   
         <v-card>
-            <v-card-text class="--subtitle" v-if="mode=='create'">
+            <v-card-subtitle class="--subtitle" v-if="mode=='create'">
                 <strong>Bienvenue sur le site je vous invite a vous s'inscrire</strong> 
-            </v-card-text>
+            </v-card-subtitle>
             <v-card-title>
                 <!-- affichage vrai en mode login sinon inscription -->
                 <h1 v-if="mode == 'login'">Connexion</h1>

@@ -21,34 +21,34 @@
     box-shadow: 2px 2px 10px black; 
 }
 
-.--container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
-    background-image: url('../images/Home.png');
-    background-position: center;
-    background-repeat: no-repeat;
-}
-.v-card-text.--subtitle {
+.v-card-subtitle.--subtitle {
     color: rgba(9,31,67,0.8);
     text-decoration: underline;
     cursor: pointer;
 }
-.v-container.--container{
-    display: flex;
-    flex-direction: column;
-}
-h1.--title {
+.v-card-title.--title {
     margin: 40px 0 0;
-    color: #D1515A;
+    color:#d1515a;
+    background-color: white;
+    border-radius: 16px;
+    font-size: 30px;
+    font-weight: bold;
 }
 .v-container.--container {
+    flex-direction: column;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
-    background-image: url('../images/Home.png');
+    background-image: url('../images/groupo.webp');
+    background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
+
+@media screen and (min-width: 1280px) {
+    .v-container {
+        max-width: none;
+    }
+}
+
