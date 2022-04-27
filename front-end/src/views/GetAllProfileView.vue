@@ -136,6 +136,7 @@ export default {
     height:100px;
     width: 100px;
     border: #d1515a 2px solid;
+    background: #091f43;
 }
 .--card .v-btn:nth-child(2){
     color:red;

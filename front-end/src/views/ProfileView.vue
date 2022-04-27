@@ -141,6 +141,9 @@ export default {
     box-shadow: 2px 2px 15px black;
     border: #D1515A solid 2px;
 }
+.profil--avatar.v-img{
+    background: #091f43;
+}
 h3 {
     margin: 40px 0 0;
     color: #D1515A;
