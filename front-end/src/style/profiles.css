@@ -26,6 +26,7 @@
     width: 300px;
     background: #d7d7d7;
     min-height: 380px;
+    min-width: 250px;
     border: 2px solid #d1515a;
     padding: 2px;
     border-radius: 16px;
