@@ -28,6 +28,7 @@
     min-height: 380px;
     border: 2px solid #d1515a;
     padding: 2px;
+    border-radius: 16px;
 }
 .v-card-actions.--btn-users{
     display: flex;
