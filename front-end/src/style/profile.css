@@ -50,6 +50,7 @@
     }
     .profile--container .profile--description.--card{
         height: 32%;
+        min-width: 250px;
     }
 }
 .profile--container .profile--description{
