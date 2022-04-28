@@ -201,7 +201,6 @@ export default {
 .like--container{
     display: flex
 }
-
 @import url('../style/boutonLike.css');
 @import url('../style/posts.css');
 @import url('../style/comment.css');
