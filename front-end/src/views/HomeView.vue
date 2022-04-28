@@ -1,6 +1,6 @@
 <template>
     <v-container class="--container">
-       <v-card-title class="--title">{{ msg }}</v-card-title>   
+        <v-card-title class="--title">{{ msg }}</v-card-title>   
         <v-card>
             <v-card-subtitle class="--subtitle" v-if="mode=='create'">
                 <strong>Bienvenue sur le site je vous invite a vous s'inscrire</strong> 

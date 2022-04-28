@@ -1,6 +1,7 @@
 <template>
     <v-app>
         <v-container class="profile--container">
+        <h2 class="profile--title"> Bonjour : {{userInfos.name}} </h2>
             <v-avatar class="profile--avatar --responsive">
                 <v-img class="--img .rounded-lg" v-if="userInfos.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                 <v-img class="--img .rounded-lg" v-else  v-bind:src="userInfos.profile_img"></v-img>
@@ -102,6 +103,14 @@ export default {
 </script>
 
 <style scoped>
+.profile--title{
+    text-align: center;
+    color: white;align-self: center;
+    background-color:#091f43;
+    border: 1px solid #d1515a;
+    border-radius:16px;
+    padding: 16px;
+}
 @import url('../style/profile.css');
 </style>
 
