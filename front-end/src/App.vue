@@ -15,7 +15,8 @@
         <v-toolbar-item class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
           <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
           <!-- v-if="item.boolean == true"-->
-          <v-btn   v-bind:prepend-icon="item.icons" color="white" flat  :to="item.path" >
+          <!-- je verifie si l'item contient un before enter , et before enter et bien une function (pour eviter les erreur)-->
+          <v-btn @click="() => {item?.beforeEnter?.($store, $router)}" v-bind:prepend-icon="item.icons" color="white" flat :to="item.path" >
           <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
             {{ item.title }}
           </v-btn>
@@ -113,10 +114,24 @@ export default {
           icons:'mdi-face',
         },
         {
-        title:'Profiles',
-        path:'/profiles',
-        icons:'mdi-account-group'
+          title:'Profiles',
+          path:'/profiles',
+          icons:'mdi-account-group'
         },
+        {
+          path:'/disconnect',
+          icons:'mdi-exit-run',
+          // avant d'etre rediriger je fait mon action
+          beforeEnter ($store, $router) {
+            $store.commit('LOGOUT')
+            if ($store.state.userInfos.id == -1) {
+              $store.commit('SETSTATUS' , {status:'succes',message:`Vous ete bien deconnecter`});
+              return $router.push({path: '/'});
+            }
+            //reload si pas deconnecter
+            location.reload();
+          }
+        }
       ],
     }
   },

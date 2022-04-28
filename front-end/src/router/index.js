@@ -29,9 +29,9 @@ const routes = [
     component: GetAllprofileView
   },
   {
-  path: '/editpost',
-  name: 'EditPost',
-  component: EditPost
+    path: '/editpost',
+    name: 'EditPost',
+    component: EditPost
   }
 ]
 

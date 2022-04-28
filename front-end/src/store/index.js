@@ -69,7 +69,7 @@ export default createStore({
     //LOGOUT  qui prend user  par default non conecter
     LOGOUT(state) {
       state.user = {}
-      state.userInfos = {}
+      state.userInfos = {id: -1}
      //supprimer les ressource (user) , aisin eviter la reconection
     localStorage.removeItem('user'); 
     },
