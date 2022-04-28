@@ -191,9 +191,6 @@ export default {
     justify-content: center;
     box-shadow: none;
 }
-.post--backcolor{
-    background-color: #3f3f3f;
-}
 .post--container  {
     display: flex;
     flex-direction: column;
