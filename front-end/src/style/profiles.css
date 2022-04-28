@@ -69,3 +69,17 @@
     border-top:4px solid #d1515a;
     color: white;
 }
+@media screen and (max-width: 310px) {
+    .--card .avatar--img {
+        display:none;
+    }
+    .container--users .--card{
+        min-height: 250px;
+        justify-content: initial;
+    }
+    .user--title {
+        border-radius: 16px 16px 0px 0px;
+        border-top:none;
+        top:0;
+    }
+}
