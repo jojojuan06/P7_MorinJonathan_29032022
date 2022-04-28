@@ -1,18 +1,18 @@
 <template>
   <!-- affiche les component -->
   <v-app app>
-    <v-toolbar>
+    <v-toolbar   class="toolbar --container">
         <v-toolbar-title >
           <!-- - similaire à la balise  anchor -->
           <router-link to="/posts" style="cursor: pointer">
-            <v-img src="./images/logo.png" alt="logo groupomania"></v-img>
+            <v-img class="toolbar--img" src="./images/logo.png" alt="logo groupomania"></v-img>
           </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
         <!-- si userinfo et superieur a -1 il affiche tout les path / -->
         <!-- l'id de tes utilisateur est un entier positif donc si personne n'est connecté ce userInfos.id n'est pas un entier positif -->
         <div v-if="$store.state.user.userId > -1">
-        <v-toolbar-item class="hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
+        <v-toolbar-item class=" --item-list hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
           <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
           <!-- v-if="item.boolean == true"-->
           <!-- je verifie si l'item contient un before enter , et before enter et bien une function (pour eviter les erreur)-->
@@ -144,15 +144,22 @@ export default {
 
 
 <style scoped>
-.v-img {
+.toolbar--img {
   width: 150px;
   color: white;
 } 
-.v-toolbar {
+.toolbar.--container {
   background: #091F43;
   border-bottom:2px solid #d1515a;
 }
-.v-toolbar a {
+@media screen and (max-width: 400px) {
+    .toolbar.--container   {
+      padding-top:60px;
+      height: 200px;
+    }
+}
+
+.toolbar.--container a {
 color:white;  
 text-decoration: none;
 font-weight: bold;
@@ -163,6 +170,7 @@ font-weight: bold;
 .closeBtn {
   margin-left: 30px
 }
+
 /* importation du btn css  */
 @import url('./style/button.css');
 @import url('./style/alert.css');

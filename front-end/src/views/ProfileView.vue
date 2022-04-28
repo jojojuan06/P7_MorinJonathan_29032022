@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <v-container class="profile--container">
-            <v-avatar class="profile--avatar">
+            <v-avatar class="profile--avatar --responsive">
                 <v-img class="--img .rounded-lg" v-if="userInfos.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                 <v-img class="--img .rounded-lg" v-else  v-bind:src="userInfos.profile_img"></v-img>
             </v-avatar>
