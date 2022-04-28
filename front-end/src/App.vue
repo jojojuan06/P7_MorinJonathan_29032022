@@ -155,7 +155,7 @@ export default {
 @media screen and (max-width: 400px) {
     .toolbar.--container   {
       padding-top:60px;
-      height: 200px;
+      height: 160px;
     }
 }
 
