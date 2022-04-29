@@ -83,14 +83,10 @@ export default {
     methods: {
             validateForm(){
                 //ref fait reference au ref de l'element du dom pour lier
-                console.log('info then 00 -->',this.valid);
                 //validate verifie les rules avant validation du formulaire res =>resultat
                 this.$refs.form.validate().then((res) => {
-                    console.log('info then 01 -->',res);
-                    this.valid = res.valid; 
-                    console.log('info then 02 -->',this.valid);       
+                    this.valid = res.valid;        
                 }).catch(error => (console.log(error)));
-                console.log('info then 03 -->',this.valid);
             },
             loginAccount(){
             //sous element pas acces au this je renome une variabale pour appeler en dessous

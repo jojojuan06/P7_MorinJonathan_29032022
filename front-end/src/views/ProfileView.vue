@@ -82,7 +82,6 @@ export default {
         //suppresion du profil
         deleteProfile() {
             this.confirmDelete.open = false
-            //ajoute une condition if alert pour supprimer le compte
             //importation des state
             this.$store.dispatch('deleteProfile', this.user)
             .then( () =>{
