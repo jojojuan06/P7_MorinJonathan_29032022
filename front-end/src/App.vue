@@ -81,6 +81,9 @@ export default {
     Posts,
     NewPost,
   },
+  //C'est ce qu'on appelle un hook de cycle de vie , 
+  //il nous permet d'enregistrer un rappel à appeler
+  // à certains moments du cycle de vie du composant.
   //verifie userid connecter exist, et le garde connecter
   mounted() {
     if(this.$store.state.user.userId){
@@ -89,20 +92,14 @@ export default {
   },
   data() {
     return {
-      //connected:true,
-      //liste des differente route
-      defaultItem:{
-      title:'Home',
-          path:'/',
-          icons:'mdi-home',
-      },
-      itemMenus: [
-        {
-          title:'Home',
-          path:'/',
-          icons:'mdi-home',
-          hidden: false //par default visibility true
+        //route par default de login /inscription
+        defaultItem:{
+        title:'Home',
+            path:'/',
+            icons:'mdi-home',
         },
+        //route apres connection
+      itemMenus: [
         {
           title:'Post',
           path:'/posts',
@@ -137,6 +134,7 @@ export default {
   },
   computed: {
         //importation de l'objet depuis state
+        // map `this.status()` to `this.$store.commit('status')`
         ...mapState(['status']) 
     },  
 }
