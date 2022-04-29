@@ -52,11 +52,11 @@
                         <v-icon class="icon--close">mdi-close</v-icon>
                         </v-btn> 
                     </div>
-                    <!-- @CancelAddComment appelle evenement depuis l'enfant -->
-                    <NewComment :postId="post.id" @CancelAddComment="switchToDisplaypost(post)" v-if="post.mode == 'createComment'"/>  
-                    <!--  -->
                 </div>
                 <hr>
+                <!-- @CancelAddComment appelle evenement depuis l'enfant -->
+                <NewComment :postId="post.id" @CancelAddComment="switchToDisplaypost(post)" v-if="post.mode == 'createComment'"/>  
+                <!--  -->
                 <!-- section like -->
                 <div class="like--container">
                 <div  class="btn--update">
