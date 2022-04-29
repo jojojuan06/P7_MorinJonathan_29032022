@@ -10,17 +10,19 @@
                 {{post.title}}
                 </v-card-title>
                 <div class="avatar_container">
-                        <v-avatar>
+                        <v-avatar class="--avatar">
                         <v-img :alt="post.User.name" class=".rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                         <v-img :alt="post.User.name" class=".rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
                         </v-avatar>
                     <div class="post--info">
                         <h2 class="post--name">{{post.User.name}}</h2>
-                        <v-card-title class="card--date date"><em class="date--title">posté le:</em> {{dateNow(post.createdAt)}}</v-card-title>
+                        <v-card-title class="card--date date">
+                             {{`posté le: ${dateNow(post.createdAt)}`}} 
+                        </v-card-title>
                     </div>
                 </div>
-                <div>
-                    <v-img class="v-img--post" v-bind:src="post.image" :alt="post.title"></v-img>    
+                <div class="img--container img">
+                    <v-img class="v-img--post img" v-bind:src="post.image" :alt="post.title"></v-img>    
                 </div>
                 <v-card-text class="v-text--content">
                     <p>{{post.content}}</p>
@@ -197,6 +199,8 @@ export default {
     margin-bottom: 8px;
 }
 .main_post {
+    margin: 0;
+    padding: 32px 8px 8px 8px;
     display: flex;
     justify-content: center;
     box-shadow: none;
@@ -207,6 +211,7 @@ export default {
     box-shadow: 2px 2px 15px black;
     border-radius: 16px 16px 0 0;
     max-width: 1000px;
+    background-color: #d7d7d7;
 }
 .like--container{
     display: flex
