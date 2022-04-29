@@ -74,10 +74,8 @@ export default {
                 //redirection vers la route apres creation d'un compte (path en argument)
                 this.refreshPost()
                 this.$store.commit('SETSTATUS' , {status:'succes',message:`votre commentaire est bien ajouté`});
-            }),
-            function (error) {
-                console.log(error);
-            }
+            })
+            .catch(error => (console.log(error)));
         },
         //rafraichir la liste des posts apres ajout d'un nouveau
         refreshPost(){
