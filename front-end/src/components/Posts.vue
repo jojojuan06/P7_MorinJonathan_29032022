@@ -10,11 +10,14 @@
                 {{post.title}}
                 </v-card-title>
                 <div class="avatar_container">
-                <v-avatar>
-                    <v-img :alt="post.User.name" class=".rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                    <v-img :alt="post.User.name" class=".rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
-                </v-avatar>
-                <v-card-title class="card--date"><em class="date--title">date de creation:</em> {{dateNow(post.createdAt)}}</v-card-title>
+                        <v-avatar>
+                        <v-img :alt="post.User.name" class=".rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                        <v-img :alt="post.User.name" class=".rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
+                        </v-avatar>
+                    <div class="post--info">
+                        <h2 class="post--name">{{post.User.name}}</h2>
+                        <v-card-title class="card--date date"><em class="date--title">posté le:</em> {{dateNow(post.createdAt)}}</v-card-title>
+                    </div>
                 </div>
                 <div>
                     <v-img class="v-img--post" v-bind:src="post.image" :alt="post.title"></v-img>    
@@ -50,7 +53,7 @@
                 <NewComment :postId="post.id" @CancelAddComment="switchToDisplaypost(post)" v-if="post.mode == 'createComment'"/>  
                 <!--  -->
                 <hr> 
-                <!-- section like v-for="Like in post.Likes" :key="Like.id"-->
+                <!-- section like -->
                 <div class="like--container">
                 <div  class="btn--update">
                     <!-- par default liked false btn rouge non like else l'inverse-->
@@ -187,6 +190,12 @@ export default {
 </script>
 
 <style scoped>
+.post--info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 8px;
+    margin-bottom: 8px;
+}
 .main_post {
     display: flex;
     justify-content: center;
@@ -201,6 +210,11 @@ export default {
 }
 .like--container{
     display: flex
+}
+.post--name {
+    display: flex;
+    color: #091F43;
+    font-size: 1rem;
 }
 @import url('../style/boutonLike.css');
 @import url('../style/posts.css');

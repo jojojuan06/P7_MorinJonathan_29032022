@@ -24,11 +24,13 @@
     align-items: center;
     justify-content: center;
 }
-.card--date {
+.card--date.date {
     display: flex;
     flex: 1;
     font-size: 13px;
     flex-wrap: wrap;
+    padding: 0;
+    line-height:0;
 }
 .date--title {
     margin-right: 5px;
