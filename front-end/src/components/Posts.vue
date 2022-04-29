@@ -21,8 +21,8 @@
                         </v-card-title>
                     </div>
                 </div>
-                <div class="img--container img">
-                    <v-img class="v-img--post img" v-bind:src="post.image" :alt="post.title"></v-img>    
+                <div class="img--container">
+                    <img  v-bind:src="post.image" :alt="post.title">  
                 </div>
                 <v-card-text class="v-text--content">
                     <p>{{post.content}}</p>
@@ -221,6 +221,7 @@ export default {
     color: #091F43;
     font-size: 1rem;
 }
+
 @import url('../style/boutonLike.css');
 @import url('../style/posts.css');
 @import url('../style/comment.css');
