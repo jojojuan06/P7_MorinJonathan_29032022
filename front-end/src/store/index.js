@@ -35,7 +35,7 @@ export default createStore({
   //mettre à jour / changer d'etat nos données dans Vuex  params le state et 2 payload
   //permet de de changer d'etat (le state)
   mutations: { 
-    //------> : function()
+    //nommage en MAJ par convention
     SETSTATUS(state , data) {   
         state.status = data.status;
         state.message = data.message;

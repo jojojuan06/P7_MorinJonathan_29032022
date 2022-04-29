@@ -31,7 +31,8 @@
 </template>
 <script>
 
-// IMPORT mélange les getters en calcul avec l'opérateur de propagation d'objet
+// Import mapState , qui génère des fonctions getter calculées pour nous, 
+//nous épargnant quelques frappes :
 import { mapState } from 'vuex'
 
 export default {
