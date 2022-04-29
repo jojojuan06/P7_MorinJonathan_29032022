@@ -102,10 +102,11 @@ import EditPost from '@/components/EditPost.vue';
 import AlertConfirm from '@/components/AlertConfirm';
 import NewComment from '@/components/NewComment';
 export default {
-//INSTANCIER LES COMPONENTS
+    //INSTANCIER LES COMPONENTS
     components: {
     EditPost,AlertConfirm,NewComment
     },
+    //declarer un objet
     data() {
         return {
             //retourner a l'etat par default
