@@ -33,28 +33,30 @@
                 </v-btn>
                 </div>
                 <hr>  
-                <!-- si il n'y a pas de comment p ci-dessous par default -->
-                <v-card-text v-if="post.Comments.length == 0" class="v-text--content">
-                    <p>Ajouter un commentaire</p>
-                </v-card-text>
-                <!-- boucle sur chaque comment du post et l'affiche -->
-                <!-- section comment -->
-                <div v-else class="comment_container" v-for="(comment,index) in post.Comments" :key="index">
-                    <v-avatar>
-                    <v-img :alt="comment.User.name" class=".rounded-lg" v-if="comment.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                    <v-img :alt="comment.User.name" class=".rounded-lg" v-else  :src="comment.User.profile_img"></v-img>
-                    </v-avatar>
-                    <v-card-text class="card--comment">
-                            {{ comment.content }}
+                <div class="comment--section">
+                    <!-- si il n'y a pas de comment p ci-dessous par default -->
+                    <v-card-text v-if="post.Comments.length == 0" class="v-text--content">
+                        <p>Ajouter un commentaire</p>
                     </v-card-text>
-                    <v-btn v-if="comment.userId == $store.state.user.userId || $store.state.user.admin == true" class="btn--closed" @click="deleteComment(comment.id)">
-                    <v-icon class="icon--close">mdi-close</v-icon>
-                    </v-btn> 
+                    <!-- boucle sur chaque comment du post et l'affiche -->
+                    <!-- section comment -->
+                    <div v-else class="comment_container" v-for="(comment,index) in post.Comments" :key="index">
+                        <v-avatar>
+                        <v-img :alt="comment.User.name" class=".rounded-lg" v-if="comment.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                        <v-img :alt="comment.User.name" class=".rounded-lg" v-else  :src="comment.User.profile_img"></v-img>
+                        </v-avatar>
+                        <v-card-text class="card--comment">
+                                {{ comment.content }}
+                        </v-card-text>
+                        <v-btn v-if="comment.userId == $store.state.user.userId || $store.state.user.admin == true" class="btn--closed" @click="deleteComment(comment.id)">
+                        <v-icon class="icon--close">mdi-close</v-icon>
+                        </v-btn> 
+                    </div>
+                    <!-- @CancelAddComment appelle evenement depuis l'enfant -->
+                    <NewComment :postId="post.id" @CancelAddComment="switchToDisplaypost(post)" v-if="post.mode == 'createComment'"/>  
+                    <!--  -->
                 </div>
-                <!-- @CancelAddComment appelle evenement depuis l'enfant -->
-                <NewComment :postId="post.id" @CancelAddComment="switchToDisplaypost(post)" v-if="post.mode == 'createComment'"/>  
-                <!--  -->
-                <hr> 
+                <hr>
                 <!-- section like -->
                 <div class="like--container">
                 <div  class="btn--update">
