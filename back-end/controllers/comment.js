@@ -17,8 +17,8 @@ Post.findOne({ where: { id: req.params.id }}) // recherche id du post
             return res.status(400).json({ message: `le champs ne doit pas être vide`})    
         } 
         // verifier un nombre de caractere donnée
-        if (req.body.content.length <= 3 ) {
-            return res.status(400).json({ message : `Votre Commentaire doit contenir au moins 4 caractère`})  
+        if (req.body.content.length < 3 ) {
+            return res.status(400).json({ message : `Votre Commentaire doit contenir au moins 3 caractère`})  
         }
         // creation d'une nouvelle instance  de mon objet post (class) de le req
         const comment = new Comment({  //recupere mon objet de la req
