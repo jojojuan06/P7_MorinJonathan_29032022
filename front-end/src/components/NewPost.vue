@@ -85,9 +85,7 @@ export default {
         switchTocreatePost() {                      // <------: function()
             this.mode = 'createMessage';
         },                                      
-        createPost(){  
-            const This = this; 
-            //sous element pas acces au this je renome une variabale pour appeler en dessous  
+        createPost(){   
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
             this.$store.dispatch('createPost',{
@@ -98,10 +96,7 @@ export default {
                 //redirection vers la route apres creation d'un compte (path en argument)
                 this.refreshPost()
                 this.$store.commit('SETSTATUS' , {status:'succes',message:`votre post est bien ajouter`});
-            }),
-            function (error) {
-                console.log(error);
-            }
+            }).catch(error => (console.log(error)));
         },
         //rafraichir la liste des posts apres ajout d'un nouveau
         refreshPost(){
