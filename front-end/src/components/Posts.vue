@@ -197,7 +197,6 @@ export default {
         //$refs lier element du dom
         let containers = this.$refs.scroll;
         containers.forEach((container) => {    
-            console.log(container);
             let scrollHeight = container.scrollHeight; 
             container.scrollTop = scrollHeight;
             });     
