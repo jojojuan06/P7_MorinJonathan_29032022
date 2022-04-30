@@ -4,6 +4,7 @@
     border-top:2px solid #d1515a;
     color: white;
     max-height: 150px;
+    margin-top: 50px;
 }
 .footer--contact {
     display: flex;
