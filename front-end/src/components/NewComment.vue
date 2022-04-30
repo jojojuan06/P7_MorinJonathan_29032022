@@ -2,7 +2,7 @@
 <template>
         <div class="create_comment">
             <v-form class="comment--container">
-                <v-textarea  v-model="form.content" prepend-inner-icon="mdi-comment" class="comment--textarea mx-2" label="Tapez votre commentaire ici" rows="1" required>
+                <v-textarea  v-model="form.content" prepend-inner-icon="mdi-comment" class="comment--textarea" label="Tapez votre commentaire ici"  rows="1" required>
                 </v-textarea>
                 <div class="btn--createcomment">
                     <!-- revenir a l'ajout du message par default -->
@@ -83,9 +83,8 @@ export default {
     display: flex;
     width: 100%;
     max-width: 1000px;
-    box-shadow: 2px 2px 15px black;
     border-radius:0;
-    padding: 2px;
+    padding: 0px;
 }
 
 .btn--createcomment {
@@ -119,7 +118,7 @@ export default {
     font-size: 30px;
 }
 .comment--textarea {
-    margin-bottom: -40px;
+    margin-bottom: -25px;
 }
 </style>
 
