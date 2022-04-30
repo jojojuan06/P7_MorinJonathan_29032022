@@ -40,7 +40,8 @@
                     </v-card-text>
                     <!-- boucle sur chaque comment du post et l'affiche -->
                     <!-- section comment -->
-                    <div v-else class="comment_container" v-for="(comment,index) in post.Comments" :key="index">
+                    <!-- méthodes slice et reverse array pour copier le tableau d'origine, puis l'inverser -->
+                    <div v-else class="comment_container" v-for="(comment,index) in post.Comments.slice().reverse()" :key="index">
                         <v-avatar>
                         <v-img :alt="comment.User.name" class=".rounded-lg" v-if="comment.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
                         <v-img :alt="comment.User.name" class=".rounded-lg" v-else  :src="comment.User.profile_img"></v-img>
@@ -127,11 +128,11 @@ export default {
         }
     },
     mounted() {
-        setTimeout(() => {
-        this.scrollToEnd();
-        },500) 
-        this.refreshPost()
-        },    
+        //setTimeout(() => {
+        // this.scrollToEnd();
+        // },500) 
+         this.refreshPost()
+         },    
     methods: {
         deleteComment(commentId){
             this.$store.dispatch('deleteComment', commentId)
@@ -193,14 +194,14 @@ export default {
         },
         //change la position par default du scroll des  commentaire
         //le haut de defilement et egal a la hauteur de defilement
-        scrollToEnd() {
-        //$refs lier element du dom
-        let containers = this.$refs.scroll;
-        containers.forEach((container) => {    
-            let scrollHeight = container.scrollHeight; 
-            container.scrollTop = scrollHeight;
-            });     
-        }
+        // scrollToEnd() {
+        // //$refs lier element du dom
+        // let containers = this.$refs.scroll;
+        // containers.forEach((container) => {    
+        //     let scrollHeight = container.scrollHeight; 
+        //     container.scrollTop = scrollHeight;
+        //     });     
+        // }
     }
 };
 
