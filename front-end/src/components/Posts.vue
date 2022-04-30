@@ -134,9 +134,6 @@ export default {
         }
     },
     mounted() {
-        //setTimeout(() => {
-        // this.scrollToEnd();
-        // },500) 
          this.refreshPost()
          },    
     methods: {
@@ -183,16 +180,6 @@ export default {
             //dispatch apliquer l'action (recuperer a nouveau les post)
             this.$store.dispatch('getPosts')
         },
-        //change la position par default du scroll des  commentaire
-        //le haut de defilement et egal a la hauteur de defilement
-        // scrollToEnd() {
-        // //$refs lier element du dom
-        // let containers = this.$refs.scroll;
-        // containers.forEach((container) => {    
-        //     let scrollHeight = container.scrollHeight; 
-        //     container.scrollTop = scrollHeight;
-        //     });     
-        // }
     }
 };
 
