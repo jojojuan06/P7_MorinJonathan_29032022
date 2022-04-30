@@ -16,8 +16,9 @@
                         </v-avatar>
                     <div class="post--info">
                         <h2 class="post--name">{{post.User.name}}</h2>
+                        <!-- recuperation de la date avec  le bon fuseau horaire -->
                         <v-card-title class="card--date date">
-                                {{`posté le: ${dateNow(post.createdAt)}`}} 
+                            posté le: {{new Date(post.createdAt).toLocaleString("en-GB", { timezone: "UTC" })}} 
                         </v-card-title>
                     </div>
                 </div>
@@ -154,21 +155,6 @@ export default {
         switchToCreateComment(post){
             post.mode = 'createComment'
         },
-        dateNow(date){
-        // retourne jour mois année et l'heure
-        const dateObj = new Date(date)
-        let day = dateObj.getDate()
-        let month = dateObj.getMonth()
-        let year = dateObj.getFullYear()
-        let hours = dateObj.getHours()
-        let min = dateObj.getMinutes()
-
-        if(min < 10) min = `0${min}`
-        if(day < 10) day = `0${day}`
-        if(month < 10) month = `0${month}`
-        if(hours < 10) hours = `0${hours}`
-        return day + "-" + month + "-" + year + " " + hours + ":" + min; 
-        },
         //suppresion du post
         deletePost() {
         this.confirmDelete.open = false
@@ -239,7 +225,6 @@ export default {
     color: #091F43;
     font-size: 1rem;
 }
-
 @import url('../style/boutonLike.css');
 @import url('../style/posts.css');
 @import url('../style/comment.css');
