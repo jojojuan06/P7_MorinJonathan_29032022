@@ -302,7 +302,7 @@ export default createStore({
         dispatch('getPosts') 
         })
         .catch(function (error) {
-        commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le commentaire ! ${error}`}); //type et payload
+        commit('SETSTATUS' , {status:'error',message: error.response.data.message }); //type et payload
         //retourne une erreur
         reject(error); //rejected (rompue) : l'opération a échoué.
         });
