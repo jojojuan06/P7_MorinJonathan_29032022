@@ -17,7 +17,7 @@
                     <div class="post--info">
                         <h2 class="post--name">{{post.User.name}}</h2>
                         <v-card-title class="card--date date">
-                             {{`posté le: ${dateNow(post.createdAt)}`}} 
+                                {{`posté le: ${dateNow(post.createdAt)}`}} 
                         </v-card-title>
                     </div>
                 </div>
@@ -33,7 +33,7 @@
                 </v-btn>
                 </div>
                 <hr>  
-                <div class="comment--section">
+                <div class="comment--section" ref="scroll">
                     <!-- si il n'y a pas de comment p ci-dessous par default -->
                     <v-card-text v-if="post.Comments.length == 0" class="v-text--content">
                         <p>Ajouter un commentaire</p>
@@ -127,8 +127,11 @@ export default {
         }
     },
     mounted() {
-        this.refreshPost() 
-        },
+        setTimeout(() => {
+        this.scrollToEnd();
+        },500) 
+        this.refreshPost()
+        },    
     methods: {
         deleteComment(commentId){
             this.$store.dispatch('deleteComment', commentId)
@@ -187,10 +190,23 @@ export default {
         refreshPost(){
             //dispatch apliquer l'action (recuperer a nouveau les post)
             this.$store.dispatch('getPosts')
-
+        },
+        //change la position par default du scroll des  commentaire
+        //le haut de defilement et egal a la hauteur de defilement
+        scrollToEnd() {
+        //$refs lier element du dom
+        let containers = this.$refs.scroll;
+        containers.forEach((container) => {    
+            console.log(container);
+            let scrollHeight = container.scrollHeight; 
+            container.scrollTop = scrollHeight;
+            });     
         }
     }
 };
+
+
+
 </script>
 
 <style scoped>
