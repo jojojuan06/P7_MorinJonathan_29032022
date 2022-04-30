@@ -65,24 +65,10 @@ export default {
             this.$emit('CancelAddComment');
         },                                     
         addComment(postId){  
-            const This = this; 
-            //sous element pas acces au this je renome une variabale pour appeler en dessous  
             //un terme spécial pour invoquer les mutations depuis le store - actions (dispatch) asynchrone  
             //précédées du signe dollar afin de garantir que ces méthodes sont bien utilisées comme prévu
-            this.$store.dispatch('createComment',{ content:this.form.content,postId})
-            .then(() => {
-                //redirection vers la route apres creation d'un compte (path en argument)
-                this.refreshPost()
-                this.$store.commit('SETSTATUS' , {status:'succes',message:`votre commentaire est bien ajouté`});
-            })
-            .catch(error => (console.log(error)));
+            this.$store.dispatch('createComment',{content:this.form.content,postId});
         },
-        //rafraichir la liste des posts apres ajout d'un nouveau
-        refreshPost(){
-            //dispatch apliquer l'action (recuperer a nouveau les post)
-            this.$store.dispatch('getPosts')
-            
-        } 
     },
 }
 </script>
