@@ -37,6 +37,7 @@ Côté frontend, plusieurs dépendances npm sont nécessaires :
 - Vuetify
 - Core-js
 - Webfontloader
+- mdi/font
 
 Côté backend, plusieurs dépendances npm sont nécessaires : 
 - Bcrypt
