@@ -49,20 +49,8 @@
         </v-alert>
     </div>
     <!-- -->
-    <v-footer>
-      <v-row justify="center">
-      <!-- boucle sur chaque link (ajouter dans le futur et je les affiches   -->  
-      <div  class="footer--contact my-2">
-        <v-icon>mdi-mail</v-icon>
-        <a href="mailto:san@antonio.net">
-          <h2 class="">Nous Contacter</h2> 
-        </a>
-      </div>
-      <v-col class="py-4 text-center" cols="12">
-          {{ new Date().getFullYear() }} — <strong>Groupomania</strong>
-      </v-col>
-      </v-row>
-  </v-footer>
+    <!--Ajout du componemt au template -->
+    <Footer/>
   </v-app>
 </template>
 
@@ -72,6 +60,7 @@ import { mapState } from 'vuex'
 //IMPORT COMPONENENTS
 import Posts from './components/Posts.vue'
 import NewPost from './components/NewPost.vue'
+import Footer from '@/components/Footer'
 
 
 export default {
@@ -80,6 +69,7 @@ export default {
   components: {
     Posts,
     NewPost,
+    Footer
   },
   //C'est ce qu'on appelle un hook de cycle de vie , 
   //il nous permet d'enregistrer un rappel à appeler
