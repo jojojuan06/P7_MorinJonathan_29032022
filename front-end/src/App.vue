@@ -33,6 +33,7 @@
       <div>
     </div>
     <v-content>
+    <!-- permet d'afficher les router dans les vues-->
         <router-view/>
     </v-content>
     <!-- alerte a la creation du compte -->
