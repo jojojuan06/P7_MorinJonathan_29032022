@@ -33,6 +33,7 @@
     border-radius: 16px;
     font-size: 30px;
     font-weight: bold;
+    text-align: center;
 }
 .v-container.--container {
     flex-direction: column;

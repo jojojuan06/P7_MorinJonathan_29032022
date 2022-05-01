@@ -204,7 +204,6 @@ export default {
 .post--container  {
     display: flex;
     flex-direction: column;
-    box-shadow: 2px 2px 15px black;
     border-radius: 16px 16px 0 0;
     max-width: 1000px;
     background-color: #d7d7d7;
