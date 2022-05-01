@@ -60,10 +60,10 @@
                         </v-btn> 
                     </div>
                 </div>
-                <hr>
                 <!-- @CancelAddComment appelle evenement depuis l'enfant -->
                 <NewComment :postId="post.id" @CancelAddComment="switchToDisplaypost(post)" v-if="post.mode == 'createComment'"/>  
                 <!--  -->
+                <hr>
                 <!-- section like -->
                 <div class="like--container">
                 <div  class="btn--update">
