@@ -12,9 +12,8 @@
         <!-- si userinfo et superieur a -1 il affiche tout les path / -->
         <!-- l'id de tes utilisateur est un entier positif donc si personne n'est connecté ce userInfos.id n'est pas un entier positif -->
         <div v-if="$store.state.user.userId > -1">
+        <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
         <v-toolbar-item class=" --item-list hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
-          <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
-          <!-- v-if="item.boolean == true"-->
           <!-- je verifie si l'item contient un before enter , et before enter et bien une function (pour eviter les erreur)-->
           <v-btn @click="() => {item?.beforeEnter?.($store, $router)}" v-bind:prepend-icon="item.icons" color="white" flat :to="item.path" >
           <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
