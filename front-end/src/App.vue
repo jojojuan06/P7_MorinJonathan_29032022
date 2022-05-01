@@ -90,6 +90,7 @@ export default {
       this.$store.commit('lOGUSER', this.$store.state.user)
     }
   },
+  //variable que l'on souhaite retourner a la vue
   data() {
     return {
         //route par default de login /inscription
