@@ -201,6 +201,7 @@ export default {
     justify-content: center;
     box-shadow: none;
     background-color: #3f3f3f;
+    border-radius: 0;
 }
 .post--container  {
     display: flex;
