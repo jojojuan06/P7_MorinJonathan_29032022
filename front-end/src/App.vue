@@ -5,7 +5,7 @@
         <v-toolbar-title >
           <!-- - similaire à la balise  anchor -->
           <router-link to="/posts" style="cursor: pointer">
-            <v-img class="toolbar--img" src="./images/logo.png" alt="logo groupomania"></v-img>
+            <v-img class="toolbar--img logo" src="./images/logo.png" alt="logo groupomania"></v-img>
           </router-link>
         </v-toolbar-title>
         <v-spacer></v-spacer>
@@ -142,8 +142,9 @@ export default {
 
 
 <style scoped>
-.toolbar--img {
+.toolbar--img.logo {
   width: 150px;
+  height: 120px;
   color: white;
 } 
 .toolbar.--container {
