@@ -4,6 +4,7 @@
     box-shadow: none;
     min-width: 0px;
     margin-top: 4px;
+    background-color: #d6d6d6;
 }
 .btn--icon.mdi-thumb-up {
     color: white;
