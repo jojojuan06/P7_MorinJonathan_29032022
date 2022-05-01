@@ -1,6 +1,6 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-        <v-app class="post--backcolor">
+        <v-app>
             <h3 class="v-app--title">Posts</h3>
             <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
             <!-- import de post depuis $store.state -->
@@ -207,6 +207,7 @@ export default {
     border-radius: 16px 16px 0 0;
     max-width: 1000px;
     background-color: #d7d7d7;
+    margin-bottom: 50px;
 }
 .like--container{
     display: flex
