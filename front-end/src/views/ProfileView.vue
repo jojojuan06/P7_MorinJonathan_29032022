@@ -77,7 +77,7 @@ export default {
             this.$store.commit('LOGOUT');
             window.location.reload();
             this.$router.push({path: '/'})
-            this.$store.commit('SETSTATUS' , {status:'succes',message:`Vous ete bien deconnecter`}); //type et payload
+            this.$store.commit('SETSTATUS' , {status:'success',message:`Vous ete bien deconnecter`}); //type et payload
         },
         //suppresion du profil
         deleteProfile() {
@@ -87,7 +87,7 @@ export default {
             .then( () =>{
                 this.$store.commit('LOGOUT');
                 this.$router.push({path: '/'})
-                this.$store.commit('SETSTATUS' , {status:'succes',message:`Votre Compte a bien etait suprimer`}); //type et payload
+                this.$store.commit('SETSTATUS' , {status:'success',message:`Votre Compte a bien etait suprimer`}); //type et payload
             })
             .catch(error => {
                 this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le compte ${error}`}); //type et payload

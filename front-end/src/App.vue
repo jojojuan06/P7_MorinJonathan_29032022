@@ -37,8 +37,8 @@
         <router-view/>
     </v-content>
     <!-- alerte a la creation du compte -->
-    <div  class="alert-message--container" v-if="$store.state.status == 'error' || $store.state.status == 'succes'" >
-        <v-alert v-if="this.$store.state.status =='succes'" class="alert--message"   type="success">
+    <div  class="alert-message--container" v-if="$store.state.status == 'error' || $store.state.status == 'success'" >
+        <v-alert v-if="this.$store.state.status =='success'" class="alert--message"   type="success">
           {{ this.$store.state.message }}
           <!-- function au clic on remet a zero et on enleve l'alert -->
           <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>  
@@ -123,7 +123,7 @@ export default {
           beforeEnter ($store, $router) {
             $store.commit('LOGOUT')
             if ($store.state.userInfos.id == -1) {
-              $store.commit('SETSTATUS' , {status:'succes',message:`Vous ete bien deconnecter`});
+              $store.commit('SETSTATUS' , {status:'success',message:`Vous ete bien deconnecter`});
               return $router.push({path: '/'});
             }
             //reload si pas deconnecter

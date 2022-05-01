@@ -74,7 +74,7 @@ export default {
             this.$store.dispatch('deleteProfile', {userId:this.userId,token:this.$store.state.user.token})
             .then( () =>{
                 this.refreshProfiles()
-                this.$store.commit('SETSTATUS' , {status:'succes',message:`le profil a bien etait supprimer`}); //type et payload
+                this.$store.commit('SETSTATUS' , {status:'success',message:`le profil a bien etait supprimer`}); //type et payload
             })
             .catch(error => {
                 this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le compte ${error}`}); //type et payload

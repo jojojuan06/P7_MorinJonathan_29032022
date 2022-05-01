@@ -95,7 +95,7 @@ export default {
             }).then(() => {
                 //redirection vers la route apres creation d'un compte (path en argument)
                 this.refreshPost()
-                this.$store.commit('SETSTATUS' , {status:'succes',message:`votre post est bien ajouter`});
+                this.$store.commit('SETSTATUS' , {status:'success',message:`votre post est bien ajouter`});
             }).catch(error => (console.log(error)));
         },
         //rafraichir la liste des posts apres ajout d'un nouveau

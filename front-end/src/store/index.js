@@ -88,7 +88,7 @@ export default createStore({
         .then(function (response) {
         //rajouter un delai
         setTimeout(() => { 
-        commit('SETSTATUS' , {status:'succes',message:'Felicitation votre compte est crée'}); //type et payload
+        commit('SETSTATUS' , {status:'success',message:'Felicitation votre compte est crée'}); //type et payload
         resolve(response); //resolved (promesse résolue )
         },1000 ) //delai en deuxieme argument 1000ms
         //si tout se pass bien
@@ -113,7 +113,7 @@ export default createStore({
         .then(function (response) {
         //rajouter un delai
         setTimeout(() => { 
-        commit('SETSTATUS' , {status:'succes',message:'Felicitation votre compte est mis a jour'}); //type et payload
+        commit('SETSTATUS' , {status:'success',message:'Felicitation votre compte est mis a jour'}); //type et payload
         resolve(response); //resolved (promesse résolue )
         },1000 ) //delai en deuxieme argument 1000ms
         //si tout dse pass bien
@@ -131,7 +131,7 @@ export default createStore({
       axios.delete(`/auth/${userId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+        commit('SETSTATUS' , {status:'success' , message: response.data.message});    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
         console.log(error); 
@@ -151,7 +151,7 @@ export default createStore({
         //rajouter un delai
         setTimeout(() => { 
           //invoquer la mutation (commit)
-          commit('SETSTATUS' , {status:'succes',message:'Connexion reussie'});
+          commit('SETSTATUS' , {status:'success',message:'Connexion reussie'});
         },500 ) //delai en deuxieme argument 500ms
         // commit pour stocker notre user  
           commit('lOGUSER', response.data) // deuxieme argument on recupere les data
@@ -232,7 +232,7 @@ export default createStore({
         .then(function (response) {
         //rajouter un delai
         setTimeout(() => { 
-        commit('SETSTATUS' , {status:'succes',message:'Felicitation votre post est crée'}); //type et payload
+        commit('SETSTATUS' , {status:'success',message:'Felicitation votre post est crée'}); //type et payload
         resolve(response); //resolved (promesse résolue )
         },1000 ) //delai en deuxieme argument 1000ms
         //si tout dse pass bien
@@ -263,7 +263,7 @@ export default createStore({
         oldPost.title = post.title
         oldPost.content = post.content
         oldPost.image = post.image
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+        commit('SETSTATUS' , {status:'success' , message: response.data.message});    
       }) //retourne la repose des data dans l'objet vi
       .catch(error => { 
         console.log(error); 
@@ -278,7 +278,7 @@ export default createStore({
       axios.delete(`/post/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message});    
+        commit('SETSTATUS' , {status:'success' , message: response.data.message});    
       }) //retourne la repose des data dans l'objet 
       .catch(error => { 
         console.log(error); 
@@ -297,7 +297,7 @@ export default createStore({
         axios.post(`/comment/${postId}`, {content}) 
         .then(function (response) {
         //si tout se pass bien
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message});
+        commit('SETSTATUS' , {status:'success' , message: response.data.message});
         //refresh la page
         dispatch('getPosts') 
         })
@@ -317,7 +317,7 @@ export default createStore({
       axios.delete(`/comment/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message}); 
+        commit('SETSTATUS' , {status:'success' , message: response.data.message}); 
         //refresh la page
         dispatch('getPosts')   
       }) //retourne la repose des data dans l'objet 
@@ -335,7 +335,7 @@ export default createStore({
         //requete Post enregistrer l'utilisateur
         axios.post(`/like/${postId}`) 
         .then(function (response) {
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message}); //type et payload
+        commit('SETSTATUS' , {status:'success' , message: response.data.message}); //type et payload
         //refresh la page
         dispatch('getPosts')
         resolve(response); //resolved (promesse résolue )
@@ -353,7 +353,7 @@ export default createStore({
       axios.delete(`/like/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
-        commit('SETSTATUS' , {status:'succes' , message: response.data.message});
+        commit('SETSTATUS' , {status:'success' , message: response.data.message});
         //refresh la page
         dispatch('getPosts')    
       }) //retourne la repose des data dans l'objet vi
