@@ -1,5 +1,9 @@
 .v-app--title {
     text-align: center;
+    color: white;
+    background-color:#091F43 ;
+    border-top: #d1515a  2px solid;
+    border-bottom:#d1515a 2px solid;
 }
 .img--container {
     display: flex;

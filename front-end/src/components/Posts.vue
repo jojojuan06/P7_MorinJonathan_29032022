@@ -1,7 +1,7 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
         <v-app>
-            <h3 class="v-app--title">Posts</h3>
+            <h3 class="v-app--title">Fil d'actualité</h3>
             <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
             <!-- import de post depuis $store.state -->
             <v-card  class="main_post" v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
@@ -200,6 +200,7 @@ export default {
     display: flex;
     justify-content: center;
     box-shadow: none;
+    background-color: #3f3f3f;
 }
 .post--container  {
     display: flex;
