@@ -92,17 +92,17 @@ export default {
         //route apres connection
       itemMenus: [
         {
-          title:'Post',
+          title:'Posts',
           path:'/posts',
           icons:'mdi-forum'
         },
         {
-          title:'Profile',
+          title:'Mon profil',
           path:'/profile',
           icons:'mdi-face',
         },
         {
-          title:'Profiles',
+          title:'Profils',
           path:'/profiles',
           icons:'mdi-account-group'
         },
