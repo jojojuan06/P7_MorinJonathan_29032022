@@ -68,11 +68,11 @@
                 <div class="like--container">
                 <div  class="btn--update">
                     <!-- par default liked false btn rouge non like else l'inverse-->
-                    <v-btn class="btn--like --true" v-if="post.liked == false"  @click="likeToPost(post.id)" >
+                    <v-btn class="btn--like --false" v-if="post.liked == false"  @click="likeToPost(post.id)" >
                         <v-icon  class="btn--icon">mdi-thumb-up-outline</v-icon>
                     </v-btn> 
                     <!-- supprime seulement sont like id du post     -->
-                    <v-btn class="btn--like --false" v-else @click="deleteLike(post.id)" >
+                    <v-btn v-else class="btn--like --true"  @click="deleteLike(post.id)" >
                     <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                 </v-btn>  
                 <div>

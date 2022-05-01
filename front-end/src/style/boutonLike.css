@@ -9,10 +9,10 @@
 .btn--icon.mdi-thumb-up {
     color: white;
 }
-.--true {
-border: 1px black solid;
-background-color:white;
+.btn--like.--true {
+    background-color:green;
 }
 .--false {
-background-color:green;
+border: 1px black solid;
+
 }
