@@ -15,7 +15,7 @@
         <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
         <v-toolbar-item class=" --item-list hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
           <!-- je verifie si l'item contient un before enter , et before enter et bien une function (pour eviter les erreur)-->
-          <v-btn @click="() => {item?.beforeEnter?.($store, $router)}" v-bind:prepend-icon="item.icons" color="white" flat :to="item.path" >
+          <v-btn class="--btn-item" @click="() => {item?.beforeEnter?.($store, $router)}" v-bind:prepend-icon="item.icons" color="white" flat :to="item.path" >
           <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
             {{ item.title }}
           </v-btn>
@@ -58,8 +58,8 @@
 // mélange les getters en calcul avec l'opérateur de propagation d'objet
 import { mapState } from 'vuex'
 //IMPORT COMPONENENTS
-import Posts from './components/Posts.vue'
-import NewPost from './components/NewPost.vue'
+import Posts from '@/components/Posts'
+import NewPost from '@/components/NewPost'
 import Footer from '@/components/Footer'
 
 
@@ -133,6 +133,10 @@ export default {
 
 
 <style scoped>
+* {
+  margin: 0;
+  padding: 0;
+}
 .toolbar--img.logo {
   width: 150px;
   height: 120px;
@@ -159,6 +163,12 @@ font-weight: bold;
 }
 .closeBtn {
   margin-left: 30px
+}
+.--item-list {
+  margin: 8px
+}
+.--item-list .--btn-item {
+  padding-left: 2px;
 }
 
 /* importation du btn css  */

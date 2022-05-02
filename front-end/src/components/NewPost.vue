@@ -1,9 +1,12 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
     <v-container class="create_post" fluid>
-                <v-btn v-if="mode == 'bydefault'" v-on:click="switchTocreatePost" class="--addmessage">
-                    <v-icon>mdi-message-plus</v-icon>
-                </v-btn>
+        <div class="v-app--title">
+            <h2>Fil d'actualité</h2>
+        </div>
+        <v-btn v-if="mode == 'bydefault'" v-on:click="switchTocreatePost" class="--addmessage">
+            <v-icon>mdi-message-plus</v-icon>
+        </v-btn>
         <div v-else>
             <v-card class="post--container" >
                 <v-card-title class="post--title">Crée un nouveau post</v-card-title>
