@@ -7,8 +7,12 @@
     padding: 16px;
     box-shadow: 2px 2px 15px black;
 }
+.card--text{
+    color: black;
+}
 .v-btn.btn--first {
     color:#091F43;
+    background-color: #d6d6d6;
     font-size: 16px;
     font-weight: bold;
     box-shadow: none;   
@@ -21,10 +25,14 @@
     box-shadow: 2px 2px 10px black; 
 }
 
-.v-card-subtitle.--subtitle {
-    color: rgba(9,31,67,0.8);
+.card.--subtitle {
     text-decoration: underline;
     cursor: pointer;
+    color: black;
+    opacity: initial;
+}
+.card.--subtitle h2 {
+    font-size: 16px;
 }
 .v-card-title.--title {
     margin: 40px 0 0;
@@ -34,6 +42,9 @@
     font-size: 30px;
     font-weight: bold;
     text-align: center;
+}
+.title--inscription {
+    padding-top: 10px;;
 }
 .v-container.--container {
     flex-direction: column;
@@ -45,6 +56,9 @@
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+}
+.card--form {
+    background-color: #d6d6d6;
 }
 
 @media screen and (min-width: 1280px) {

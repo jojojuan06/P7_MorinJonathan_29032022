@@ -14,3 +14,13 @@
 .disabled {
     background-color: grey;
 }
+.btn--form {
+    background-color: #091f43;
+}
+.btn--form:hover {
+    border-bottom: #d1515a 2px solid;
+    box-shadow: 2px 2px 15px black;
+}
+.btn--form span {
+    color: white;
+}

@@ -1,6 +1,6 @@
 <template>
 <!-- permet de valider facilement les entrées de formulaire. -->
-    <v-form ref="form" class="mx-2" lazy-validation v-model="valid">
+    <v-form  ref="form" class="mx-2" lazy-validation v-model="valid">
         <!-- afffiche seulement a la creation du compte --> 
             <v-text-field    @keyup="validateForm" :rules="emailRules" v-model="form.email" type="email" label="E-mail" required></v-text-field>  
             <div v-if=" mode == 'create'">
@@ -19,13 +19,13 @@
         </div>
         <!-- si champ vide on disable le bouton validatedFieldss--> 
         <!-- au clic appel a la methode login--> 
-        <v-btn  type="submit"  v-on:click="loginAccount" :disabled="!valid" v-if="mode == 'login'"  color="success" class="mr-4 --connexion">
+        <v-btn  type="submit"  v-on:click="loginAccount" :disabled="!valid" v-if="mode == 'login'"   class="mr-4 btn--form">
             <!-- importation de la mutation selon le status if /else -->
             <span v-if="status=='loading'">Connexion en cours...</span> 
             <span v-else>Connexion</span> 
         </v-btn>
         <!-- au clic appel a la methode createNewAccount--> 
-        <v-btn   type="submit" v-on:click="createNewAccount" :disabled="!valid"  v-else color="success" class="mr-4" >
+        <v-btn   type="submit" v-on:click="createNewAccount" :disabled="!valid"  v-else  class="mr-4 btn--form" >
             <span v-if="status=='loading'">Création du comptes...</span>
             <span v-else>Créer mon compte</span>
         </v-btn>
