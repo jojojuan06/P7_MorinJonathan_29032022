@@ -6,6 +6,7 @@ import GetAllprofilsView from '@/views/GetAllProfilsView'
 import HomeView from '@/views/HomeView.vue'
 //import components
 import EditPost from '@/components/EditPost'
+import PageNotFound from '@/components/PageNotFound'
 
 const routes = [
   {
@@ -32,7 +33,13 @@ const routes = [
     path: '/editpost',
     name: 'EditPost',
     component: EditPost
-  }
+  },
+  // si aucun page match , n'est trouve alors il retourne la route 404
+  {
+    path: '/:patchMatch(.*)*',
+    name: 'NotFound',
+    component: PageNotFound
+  },
 ]
 
 const router = createRouter({
