@@ -26,7 +26,6 @@ export default createStore({
       admin:''
     },
     posts : [],  // recuperation des posts
-    comments : [], // recuperation des commentaire
   },
   //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
   getters: {
@@ -57,10 +56,6 @@ export default createStore({
     //afficher les posts
     DISPLAYPOSTS(state, posts) {
       state.posts = posts;
-    },
-    //afficher les commentaires
-    DISPLAY_COMMENT(state, comments) {
-      state.comments = comments;
     },
     //afficher les post
     DISPLAY_USERS(state, users) {
