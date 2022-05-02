@@ -14,7 +14,10 @@
 .disabled {
     background-color: grey;
 }
-.bg-success:hover {
+.v-btn.v-theme--light.bg-success{
+    background-color: #091f43!important; 
+}
+.v-btn.bg-success:hover {
     box-shadow: 2px 2px 15px black;
 }
 .btn--form span {
