@@ -133,10 +133,6 @@ export default {
 
 
 <style scoped>
-* {
-  margin: 0;
-  padding: 0;
-}
 .toolbar--img.logo {
   width: 150px;
   height: 120px;

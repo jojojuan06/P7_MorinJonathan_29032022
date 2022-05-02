@@ -8,7 +8,7 @@
             <v-icon>mdi-message-plus</v-icon>
         </v-btn>
         <div v-else>
-            <v-card class="post--container" >
+            <v-card class="post--container --new" >
                 <v-card-title class="post--title">Crée un nouveau post</v-card-title>
                 <v-form>
                     <v-text-field v-model="form.title"  label="Nom du post" required></v-text-field>

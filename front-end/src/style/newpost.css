@@ -11,11 +11,12 @@
     display: flex;
     width: 100%;
     max-width: 1000px;
-
     flex-direction: column;
     box-shadow: 2px 2px 15px black;
     border-radius: 16px 16px 0 0;
+    margin:7px
 }
+
 .main_post {
     display: flex;
     justify-content: center;
