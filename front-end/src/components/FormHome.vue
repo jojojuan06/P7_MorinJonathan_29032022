@@ -100,7 +100,7 @@ export default {
                         }).then(function (){
                             //accès à l'instance du routeur en tant que $router
                             //redirection vers la route apres login
-                            This.$router.push({path: '/profile'}); 
+                            This.$router.push({path: '/profil'}); 
                         }).catch(error => (console.log(error))) 
                 }
         },                                                

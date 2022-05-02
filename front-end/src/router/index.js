@@ -1,11 +1,11 @@
 //import vue
 import { createRouter, createWebHistory } from 'vue-router'
-import PostView from '../views/PostView.vue'
-import ProfileView from '../views/ProfileView.vue'
-import GetAllprofileView from '@/views/GetAllProfileView'
-import HomeView from '../views/HomeView.vue'
+import PostView from '@/views/PostView'
+import ProfilView from '@/views/ProfilView'
+import GetAllprofilsView from '@/views/GetAllProfilsView'
+import HomeView from '@/views/HomeView.vue'
 //import components
-import EditPost from '../components/EditPost.vue'
+import EditPost from '@/components/EditPost'
 
 const routes = [
   {
@@ -19,14 +19,14 @@ const routes = [
     component: PostView
   },
   {
-    path: '/profile',
-    name: 'Profile',
-    component: ProfileView
+    path: '/profil',
+    name: 'Profil',
+    component: ProfilView
   },
   {
-    path: '/profiles',
-    name: 'Profiles',
-    component: GetAllprofileView
+    path: '/profils',
+    name: 'Profils',
+    component: GetAllprofilsView
   },
   {
     path: '/editpost',

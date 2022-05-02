@@ -98,12 +98,12 @@ export default {
         },
         {
           title:'Mon profil',
-          path:'/profile',
+          path:'/profil',
           icons:'mdi-face',
         },
         {
           title:'Profils',
-          path:'/profiles',
+          path:'/profils',
           icons:'mdi-account-group'
         },
         {

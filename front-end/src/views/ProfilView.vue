@@ -43,7 +43,7 @@ import { mapState } from 'vuex'
 import AlertConfirm from '@/components/AlertConfirm';
 
 export default {
-    name: 'Profile',
+    name: 'Profil',
     components: {
         AlertConfirm
     },
@@ -109,7 +109,7 @@ export default {
     border-radius:16px;
     padding: 16px;
 }
-@import url('../style/profile.css');
+@import url('../style/profil.css');
 </style>
 
 

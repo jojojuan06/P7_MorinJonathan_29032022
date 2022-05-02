@@ -42,7 +42,7 @@
 import AlertConfirm from '@/components/AlertConfirm';
 
 export default {
-    name: 'Profiles',
+    name: 'Profils',
     components: {
         AlertConfirm
     },
@@ -93,5 +93,5 @@ export default {
 </script>
 
 <style scoped>
-@import url('../style/profiles.css');
+@import url('../style/profils.css');
 </style>
