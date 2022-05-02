@@ -48,10 +48,13 @@
                     <!-- méthodes slice et reverse array pour copier le tableau d'origine, puis l'inverser -->
                     <div v-else class="comment_container" v-for="(comment,index) in post.Comments.slice().reverse()" :key="index">
                         <v-avatar>
-                        <v-img :alt="comment.User.name" class=".rounded-lg" v-if="comment.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                        <v-img :alt="comment.User.name" class=".rounded-lg" v-else  :src="comment.User.profile_img"></v-img>
+                            <v-img :alt="comment.User.name" class=".rounded-lg" v-if="comment.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                            <v-img :alt="comment.User.name" class=".rounded-lg" v-else  :src="comment.User.profile_img"></v-img>
                         </v-avatar>
-                        <v-card-text class="card--comment">
+                        <v-card-text class="comment--name">
+                            {{comment.User.name}} 
+                        </v-card-text>
+                        <v-card-text class="comment--content">
                                 {{ comment.content }}
                         </v-card-text>
                         <v-btn v-if="comment.userId == $store.state.user.userId || $store.state.user.admin == true" class="btn--closed" @click="deleteComment(comment.id)">

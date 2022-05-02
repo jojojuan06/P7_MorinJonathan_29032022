@@ -1,10 +1,13 @@
-.card--comment {
+.comment--content {
     margin: 6px;
     margin-left: 16px;
     font-weight: bold;
     background-color: white;
     border-radius: 100px  / 120px 10px;
     flex: initial;
+}
+.comment--name {
+    font-weight: bold;
 }
 .comment--section {
     display: flex;
