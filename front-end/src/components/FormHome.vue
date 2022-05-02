@@ -57,7 +57,7 @@ export default {
                 v => v != '' || 'Le password est requis',
                 v => (v && v.length <= 14) || 'le password ne doit pas dépasser 14 caractères',
                 v => v.length >= 3 || 'Minimum 3 caractères',
-                v => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(v) || 'Le mot de passe doit contenir au moins une lettre minuscule, un chiffre, un caractère spécial et une lettre majuscule'
+                v => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(v) || 'Le mot de passe doit contenir au moins une lettre minuscule,une majuscule un chiffre, un caractère spécial'
                 ],
                 form : {
                     name: "",

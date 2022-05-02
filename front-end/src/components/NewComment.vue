@@ -48,7 +48,8 @@ export default {
         validatedField: function() {
             //return false par default et true quand les  champ sont rempli
             let valid = false;
-                if (this.form.content != "") {
+            //reste griser si le commentaire n'est pas vide et superieur a 2 caractere
+                if (this.form.content != "" && this.form.content.length > 2) {
                     valid = true;
                 } 
             //}  
@@ -119,6 +120,9 @@ export default {
 }
 .comment--textarea {
     margin-bottom: -25px;
+}
+.v-btn--disabled {
+    background-color: #d6d6d6;
 }
 </style>
 
