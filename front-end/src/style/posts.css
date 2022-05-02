@@ -58,8 +58,8 @@
     display: flex;
     padding-top: 5px;
 }
-.avatar_container .--avatar {
-    min-width: 50px;
+.avatar_container .--avatar img {
+    object-fit: initial;
 }
 
 .v-card-actions div {
