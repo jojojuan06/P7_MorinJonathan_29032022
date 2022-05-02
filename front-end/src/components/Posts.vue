@@ -1,6 +1,6 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-        <v-app>
+        <v-app class="app--background">
             <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
             <!-- import de post depuis $store.state -->
             <v-card  class="main_post" v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
@@ -190,6 +190,9 @@ export default {
 </script>
 
 <style scoped>
+.app--background {
+    background-color: #3f3f3f;
+}
 .post--info {
     display: flex;
     flex-direction: column;
