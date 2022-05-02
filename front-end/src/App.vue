@@ -37,7 +37,7 @@
         <router-view/>
     </v-content>
     <!-- alerte a la creation du compte -->
-    <div  class="alert-message--container" v-if="$store.state.status == 'error' || $store.state.status == 'success'" >
+    <div  class="alert-message--container --alert" v-if="$store.state.status == 'error' || $store.state.status == 'success'" >
         <v-alert v-if="this.$store.state.status =='success'" class="alert--message"   type="success">
           {{ this.$store.state.message }}
           <!-- function au clic on remet a zero et on enleve l'alert -->
