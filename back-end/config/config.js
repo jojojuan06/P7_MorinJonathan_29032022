@@ -1,4 +1,4 @@
-require('dotenv').config({path: '../.env'});
+require('dotenv').config();
 
 module.exports =
 config = {
@@ -11,16 +11,16 @@ config = {
       "dialect": "mysql"
     },
     "test": {
-      "username": "root",
+      "username": process.env.USER,
       "password": null,
-      "database": "database_test",
+      "database": process.env.DATABASE,
       "host": "127.0.0.1",
       "dialect": "mysql"
     },
     "production": {
-      "username": "root",
+      "username": process.env.USER,
       "password": null,
-      "database": "database_production",
+      "database": process.env.DATABASE,
       "host": "127.0.0.1",
       "dialect": "mysql"
     }
