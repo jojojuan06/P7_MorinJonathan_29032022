@@ -160,12 +160,7 @@ font-weight: bold;
 .closeBtn {
   margin-left: 30px
 }
-.--item-list {
-  margin: 8px
-}
-.--item-list .--btn-item {
-  padding-left: 2px;
-}
+
 
 /* importation du btn css  */
 @import url('./style/button.css');
