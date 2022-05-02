@@ -12,14 +12,14 @@
         <!-- si userinfo et superieur a -1 il affiche tout les path / -->
         <!-- l'id de tes utilisateur est un entier positif donc si personne n'est connecté ce userInfos.id n'est pas un entier positif -->
         <div v-if="$store.state.user.userId > -1">
-        <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
-        <v-toolbar-item class=" --item-list hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
-          <!-- je verifie si l'item contient un before enter , et before enter et bien une function (pour eviter les erreur)-->
-          <v-btn class="--btn-item" @click="() => {item?.beforeEnter?.($store, $router)}" v-bind:prepend-icon="item.icons" color="white" flat :to="item.path" >
-          <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
-            {{ item.title }}
-          </v-btn>
-        </v-toolbar-item>
+          <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
+          <v-toolbar-item class=" --item-list hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
+            <!-- je verifie si l'item contient un before enter , et before enter et bien une function (pour eviter les erreur)-->
+            <v-btn class="--btn-item" @click="() => {item?.beforeEnter?.($store, $router)}" v-bind:prepend-icon="item.icons" color="white" flat :to="item.path" >
+            <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
+              {{ item.title }}
+            </v-btn>
+          </v-toolbar-item>
         </div>
         <div v-else>
           <v-toolbar-item>
@@ -30,8 +30,6 @@
           </v-toolbar-item>
         </div>
         </v-toolbar>
-      <div>
-    </div>
     <v-content>
     <!-- permet d'afficher les router dans les vues-->
         <router-view/>
@@ -160,8 +158,6 @@ font-weight: bold;
 .closeBtn {
   margin-left: 30px
 }
-
-
 /* importation du btn css  */
 @import url('./style/button.css');
 @import url('./style/alert.css');
