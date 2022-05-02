@@ -7,10 +7,16 @@ const limiter = require('../middleware/rate-limit'); //importe le fichier (limit
 
 
 //like un post
-router.post("/:id", limiter.modify, auth, likeController.createLike);
-router.get("/", limiter.get, auth,  likeController.getAllLike); //recupere tout les posts
-router.get("/:id", limiter.get, auth,  likeController.getOneLike);
-router.put("/:id", limiter.modify, auth, likeController.updateLike);
+router.post("/:id", auth, likeController.createLike);
 router.delete("/:id", auth , likeController.deleteLike);
+
+// a faire par la suite
+// router.get("/", auth,  likeController.getAllLike); 
+// router.get("/:id", auth,  likeController.getOneLike);
+//router.put("/:id", auth, likeController.updateLike);
+//--------
+
+
+
 
 module.exports = router;
