@@ -139,6 +139,7 @@ export default {
   flex-wrap: wrap;
 }
 .toolbar--img.logo {
+  margin-right: 16px;
   width: 150px;
   color: white;
 }
@@ -155,12 +156,6 @@ export default {
     .toolbar--img.logo {
       padding-bottom: 8px;
     } 
-}
-
-.toolbar.----header a {
-color:white;  
-text-decoration: none;
-font-weight: bold;
 }
 .closeBtn:hover {
   cursor: pointer;
