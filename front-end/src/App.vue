@@ -6,7 +6,7 @@
         <div class="toolbar--content">
               <!-- - similaire à la balise  anchor -->
               <router-link to="/posts" style="cursor: pointer">
-                <img class="toolbar--img logo" :src="require('./images/logo.png')"/>
+                <img class="toolbar--img logo"  alt="image groupomania" :src="require('./images/logo.png')"/>
               </router-link>
             <!-- si userinfo et superieur a -1 il affiche tout les path / -->
             <!-- l'id de tes utilisateur est un entier positif donc si personne n'est connecté ce userInfos.id n'est pas un entier positif -->
@@ -142,6 +142,9 @@ export default {
   margin-right: 16px;
   width: 150px;
   color: white;
+}
+.toolbar--img.logo:hover {
+  cursor: pointer;
 }
 .toolbar.--header {
   background: #091F43;
