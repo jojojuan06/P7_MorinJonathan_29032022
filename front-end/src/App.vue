@@ -150,7 +150,8 @@ export default {
   background: #091F43;
   border-bottom:2px solid #d1515a;
 }
-.toolbar--header .v-toolbar__content {
+/* un sélecteur que les style soit profond , affectant les composants enfants  */
+:deep(.v-toolbar__content){
   display: initial;
 }
 @media screen and (max-width: 400px) {
