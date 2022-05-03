@@ -2,7 +2,7 @@
   <!-- affiche les component -->
   <v-app app>
     <v-main>
-      <v-toolbar  height="0px" class="toolbar --header">
+      <v-toolbar  height="0px" class="toolbar--header">
         <div class="toolbar--content">
               <!-- - similaire à la balise  anchor -->
               <router-link  to="/" style="cursor: pointer">
@@ -146,15 +146,15 @@ export default {
 .toolbar--img.logo:hover {
   cursor: pointer;
 }
-.toolbar.--header {
+.toolbar--header {
   background: #091F43;
   border-bottom:2px solid #d1515a;
 }
-.toolbar.--header .v-toolbar__content {
+.toolbar--header .v-toolbar__content {
   display: initial;
 }
 @media screen and (max-width: 400px) {
-    .toolbar.--header {
+    .toolbar--header {
       padding-top: 48px;
       align-items: flex-start;
       height: 280px;
