@@ -1,54 +1,55 @@
 <template>
   <!-- affiche les component -->
   <v-app app>
-    <v-toolbar   class="toolbar --container">
-        <v-toolbar-title >
-          <!-- - similaire à la balise  anchor -->
-          <router-link to="/posts" style="cursor: pointer">
-            <v-img class="toolbar--img logo" src="./images/logo.png" alt="logo groupomania"></v-img>
-          </router-link>
-        </v-toolbar-title>
-        <v-spacer></v-spacer>
-        <!-- si userinfo et superieur a -1 il affiche tout les path / -->
-        <!-- l'id de tes utilisateur est un entier positif donc si personne n'est connecté ce userInfos.id n'est pas un entier positif -->
-        <div v-if="$store.state.user.userId > -1">
-          <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
-          <v-toolbar-item class=" --item-list hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
-            <!-- je verifie si l'item contient un before enter , et before enter et bien une function (pour eviter les erreur)-->
-            <v-btn class="--btn-item" @click="() => {item?.beforeEnter?.($store, $router)}" v-bind:prepend-icon="item.icons" color="white" flat :to="item.path" >
-            <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
-              {{ item.title }}
-            </v-btn>
-          </v-toolbar-item>
-        </div>
-        <div v-else>
-          <v-toolbar-item>
-            <v-btn  v-bind:prepend-icon="defaultItem.icons" color="white" flat  :to="defaultItem.path" >   
-            <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
-                  {{ defaultItem.title }}
-            </v-btn>
-          </v-toolbar-item>
-        </div>
-        </v-toolbar>
-    <v-content>
-    <!-- permet d'afficher les router dans les vues-->
-        <router-view/>
-    </v-content>
-    <!-- alerte a la creation du compte -->
-    <div  class="alert-message--container --alert" v-if="$store.state.status == 'error' || $store.state.status == 'success'" >
-        <v-alert v-if="this.$store.state.status =='success'" class="alert--message"   type="success">
-          {{ this.$store.state.message }}
-          <!-- function au clic on remet a zero et on enleve l'alert -->
-          <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>  
-        </v-alert>
-        <v-alert v-if="this.$store.state.status =='error'" type="error" class="alert--message">
-          {{this.$store.state.message}}
-          <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>
-        </v-alert>
-    </div>
-    <!-- -->
-    <!--Ajout du componemt au template -->
-    <Footer/>
+    <v-main>
+      <v-toolbar  height="0px" class="toolbar --header">
+        <div class="toolbar--content">
+              <!-- - similaire à la balise  anchor -->
+              <router-link to="/posts" style="cursor: pointer">
+                <img class="toolbar--img logo" :src="require('./images/logo.png')"/>
+              </router-link>
+            <!-- si userinfo et superieur a -1 il affiche tout les path / -->
+            <!-- l'id de tes utilisateur est un entier positif donc si personne n'est connecté ce userInfos.id n'est pas un entier positif -->
+            <div v-if="$store.state.user.userId > -1">
+              <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
+              <v-toolbar-item  class=" --item-list hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
+                <!-- je verifie si l'item contient un before enter , et before enter et bien une function (pour eviter les erreur)-->
+                <v-btn class="--btn-item" @click="() => {item?.beforeEnter?.($store, $router)}" v-bind:prepend-icon="item.icons" color="white" flat :to="item.path" >
+                <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
+                  {{ item.title }}
+                </v-btn>
+              </v-toolbar-item>
+            </div>
+            <div v-else>
+              <v-toolbar-item>
+                <v-btn  v-bind:prepend-icon="defaultItem.icons" color="white" flat  :to="defaultItem.path" >   
+                <!-- affichage du bouton selon le si l'utilisateur est connecter   -->
+                      {{ defaultItem.title }}
+                </v-btn>
+              </v-toolbar-item>
+            </div>
+          </div>
+          </v-toolbar>
+      <v-content class="toolbar-content">
+      <!-- permet d'afficher les router dans les vues-->
+          <router-view/>
+      </v-content>
+      <!-- alerte a la creation du compte -->
+      <div  class="alert-message--container --alert" v-if="$store.state.status == 'error' || $store.state.status == 'success'" >
+          <v-alert v-if="this.$store.state.status =='success'" class="alert--message"   type="success">
+            {{ this.$store.state.message }}
+            <!-- function au clic on remet a zero et on enleve l'alert -->
+            <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>  
+          </v-alert>
+          <v-alert v-if="this.$store.state.status =='error'" type="error" class="alert--message">
+            {{this.$store.state.message}}
+            <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>
+          </v-alert>
+      </div>
+      <!-- -->
+      <!--Ajout du componemt au template -->
+      <Footer/>
+    </v-main>
   </v-app>
 </template>
 
@@ -131,23 +132,32 @@ export default {
 
 
 <style scoped>
+.toolbar--content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .toolbar--img.logo {
   width: 150px;
-  height: 120px;
   color: white;
-} 
-.toolbar.--container {
+}
+.toolbar.--header {
   background: #091F43;
   border-bottom:2px solid #d1515a;
 }
 @media screen and (max-width: 400px) {
-    .toolbar.--container   {
-      padding-top:60px;
-      height: 160px;
-    }
+    .toolbar.--header {
+      padding-top: 48px;
+      align-items: flex-start;
+      height: 280px;
+    } 
+    .toolbar--img.logo {
+      padding-bottom: 8px;
+    } 
 }
 
-.toolbar.--container a {
+.toolbar.----header a {
 color:white;  
 text-decoration: none;
 font-weight: bold;
