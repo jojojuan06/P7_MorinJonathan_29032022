@@ -156,13 +156,15 @@ export default {
 }
 @media screen and (max-width: 400px) {
     .toolbar--header {
-      padding-top: 48px;
       align-items: flex-start;
       height: 280px;
     } 
     .toolbar--img.logo {
-      padding-bottom: 8px;
+      padding-bottom: 20px;
     } 
+    .toolbar--content {
+      justify-content: center;
+    }
 }
 .closeBtn:hover {
   cursor: pointer;
