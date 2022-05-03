@@ -154,11 +154,7 @@ export default {
 :deep(.v-toolbar__content){
   display: initial;
 }
-@media screen and (max-width: 400px) {
-    .toolbar--header {
-      align-items: flex-start;
-      height: 280px;
-    } 
+@media screen and (max-width: 400px) { 
     .toolbar--img.logo {
       padding-bottom: 20px;
     } 
