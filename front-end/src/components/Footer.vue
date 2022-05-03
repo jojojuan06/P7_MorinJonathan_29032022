@@ -2,9 +2,9 @@
     <v-footer class="--footer">
         <v-row justify="center">
         <!-- boucle sur chaque link (ajouter dans le futur et je les affiches   -->  
-        <div  class="footer--contact my-2">
-            <v-icon>mdi-mail</v-icon>
-            <a href="mailto:san@antonio.net">
+        <div  class="footer--contact">
+            <a  class="footer--link" href="mailto:san@antonio.net">
+            <v-icon class="footer--icon">mdi-mail</v-icon>
             <h2 class="">Nous Contacter</h2> 
             </a>
         </div>

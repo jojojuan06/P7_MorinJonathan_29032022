@@ -1,5 +1,5 @@
 .v-footer.--footer{
-    padding-top: 2rem;
+    padding-top: 3rem;
     background: #091F43;
     border-top:2px solid #d1515a;
     color: white;
@@ -11,8 +11,14 @@
 .footer--contact h2 {
     font-size: 16px;
 }
-.v-footer .footer--contact:hover {
-    border-bottom: #d1515a 2px solid;
+.v-footer .footer--contact a:hover  {
+    color: #d1515a;
+}
+.footer--link {
+    display: flex;
+}
+.footer--icon {
+    margin-right: 8px;
 }
 .v-footer .footer--contact a {
     text-decoration: none;
