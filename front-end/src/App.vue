@@ -134,7 +134,7 @@ export default {
 <style scoped>
 .toolbar--content{
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
 }
@@ -146,6 +146,9 @@ export default {
 .toolbar.--header {
   background: #091F43;
   border-bottom:2px solid #d1515a;
+}
+.toolbar.--header .v-toolbar__content {
+  display: initial;
 }
 @media screen and (max-width: 400px) {
     .toolbar.--header {
