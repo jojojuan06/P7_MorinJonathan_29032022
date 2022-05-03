@@ -5,7 +5,7 @@
       <v-toolbar  height="0px" class="toolbar --header">
         <div class="toolbar--content">
               <!-- - similaire à la balise  anchor -->
-              <router-link to="/posts" style="cursor: pointer">
+              <router-link  to="/" style="cursor: pointer">
                 <img class="toolbar--img logo"  alt="image groupomania" :src="require('./images/logo.png')"/>
               </router-link>
             <!-- si userinfo et superieur a -1 il affiche tout les path / -->
