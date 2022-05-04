@@ -21,7 +21,6 @@
                 <v-card-actions class="profile--btn">
                     <!-- action de deconnexion avec la mutation logout-->
                     <v-btn class="--btn" @click="logout"><strong>Déconnexion</strong></v-btn>
-                    <v-btn class="--btn"><strong>Modifier</strong></v-btn>
                     <v-btn  class="--btn btn--delete" @click="openConfirmDelete" >Supprimer le compte</v-btn>  <!--href="#" target="_blank" -->
                 </v-card-actions>
             </v-card>
