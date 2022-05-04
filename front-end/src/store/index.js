@@ -2,12 +2,11 @@
 import { createStore } from 'vuex'
 //importation de axios pour faire les requetes
 import axios from '../axios';
-//importation des router
-import router from '../router'
+
 
 // create a new instance store
 export default createStore({
-//state responsable de la gestion des données dans le store  (data global)
+  //state responsable de la gestion des données dans le store  (data global)
   state: {
     users: [], //recupere tout les utilisateurs
     message:'',
@@ -29,25 +28,25 @@ export default createStore({
   },
   //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
   getters: {
-
+    
   },
   //mettre à jour / changer d'etat nos données dans Vuex  params le state et 2 payload
   //permet de de changer d'etat (le state)
   mutations: { 
     //nommage en MAJ par convention
     SETSTATUS(state , data) {   
-        state.status = data.status;
-        state.message = data.message;
-      },
+      state.status = data.status;
+      state.message = data.message;
+    },
     lOGUSER(state, user) {
-    //recuperation des infos utilisateur a la connections
-    state.userInfos = user
-    //recupere le token
-    axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`; 
-    //stocker le user dans le storage local
-    //stringify pour enr dans le storage
-    localStorage.setItem('user', JSON.stringify(user));
-    state.user = user;
+      //recuperation des infos utilisateur a la connections
+      state.userInfos = user
+      //recupere le token
+      axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`; 
+      //stocker le user dans le storage local
+      //stringify pour enr dans le storage
+      localStorage.setItem('user', JSON.stringify(user));
+      state.user = user;
     },
     //creation mutations userinfo
     USERINFOS(state, userInfos) {
@@ -65,8 +64,8 @@ export default createStore({
     LOGOUT(state) {
       state.user = {}
       state.userInfos = {id: -1}
-     //supprimer les ressource (user) , ainsi eviter la reconection
-    localStorage.removeItem('user'); 
+      //supprimer les ressource (user) , ainsi eviter la reconection
+      localStorage.removeItem('user'); 
     },
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
@@ -81,17 +80,17 @@ export default createStore({
         //requete Post enregistrer l'utilisateur
         axios.post('/auth/signup', userInfos) 
         .then(function (response) {
-        //rajouter un delai
-        setTimeout(() => { 
-        commit('SETSTATUS' , {status:'success',message:'Felicitation votre compte est crée'}); //type et payload
-        resolve(response); //resolved (promesse résolue )
-        },1000 ) //delai en deuxieme argument 1000ms
-        //si tout se pass bien
+          //rajouter un delai
+          setTimeout(() => { 
+            commit('SETSTATUS' , {status:'success',message:'Felicitation votre compte est crée'}); //type et payload
+            resolve(response); //resolved (promesse résolue )
+          },1000 ) //delai en deuxieme argument 1000ms
+          //si tout se pass bien
         })
         .catch(function (error) {
-        commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
-        //retourne une erreur
-        reject(error); //rejected (rompue) : l'opération a échoué.
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
+          //retourne une erreur
+          reject(error); //rejected (rompue) : l'opération a échoué.
         });
       });
     },
@@ -106,22 +105,22 @@ export default createStore({
         //requete Post enregistrer l'utilisateur
         axios.update(`/auth/${userId}`) 
         .then(function (response) {
-        //rajouter un delai
-        setTimeout(() => { 
-        commit('SETSTATUS' , {status:'success',message:'Felicitation votre compte est mis a jour'}); //type et payload
-        resolve(response); //resolved (promesse résolue )
-        },1000 ) //delai en deuxieme argument 1000ms
-        //si tout dse pass bien
+          //rajouter un delai
+          setTimeout(() => { 
+            commit('SETSTATUS' , {status:'success',message:'Felicitation votre compte est mis a jour'}); //type et payload
+            resolve(response); //resolved (promesse résolue )
+          },1000 ) //delai en deuxieme argument 1000ms
+          //si tout dse pass bien
         })
         .catch(function (error) {
-        commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
-        //retourne une erreur
-        reject(error); //rejected (rompue) : l'opération a échoué.
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
+          //retourne une erreur
+          reject(error); //rejected (rompue) : l'opération a échoué.
         });
       });
     },
-      //suppression d'un profile
-      deleteProfile:({commit},{userId,token}) => {
+    //suppression d'un profile
+    deleteProfile:({commit},{userId,token}) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
       axios.delete(`/auth/${userId}`)
       // attendre la reponse (comme fetch)
@@ -135,20 +134,20 @@ export default createStore({
     },
     //recuperation du commit (invoquer une mutation avec  2params)
     loginAccount: ({commit}, userInfos) => {
-    //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
-    commit('SETSTATUS' , {status:'loading',message:''});
-    //créeation d'un nouvelle promess
-    //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
-    return new Promise((resolve, reject) => {
-      //requete Post enregistrer l'utilisateur
-      axios.post('/auth/login', userInfos) 
-      .then(function (response) {
-        //rajouter un delai
-        setTimeout(() => { 
-          //invoquer la mutation (commit)
-          commit('SETSTATUS' , {status:'success',message:'Connexion reussie'});
-        },500 ) //delai en deuxieme argument 500ms
-        // commit pour stocker notre user  
+      //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+      commit('SETSTATUS' , {status:'loading',message:''});
+      //créeation d'un nouvelle promess
+      //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
+      return new Promise((resolve, reject) => {
+        //requete Post enregistrer l'utilisateur
+        axios.post('/auth/login', userInfos) 
+        .then(function (response) {
+          //rajouter un delai
+          setTimeout(() => { 
+            //invoquer la mutation (commit)
+            commit('SETSTATUS' , {status:'success',message:'Connexion reussie'});
+          },500 ) //delai en deuxieme argument 500ms
+          // commit pour stocker notre user  
           commit('lOGUSER', response.data) // deuxieme argument on recupere les data
           //si tout se pass bien
           resolve(response); //resolved (promesse résolue ) 
@@ -162,22 +161,22 @@ export default createStore({
     },
     //recupere les info de l'utilisateur connecter
     getUserInfos: ({commit}, userId) => { //2eme argu userId dee la req
-          axios.get(`/auth/${userId}`) //ajoute id a l'auth
-        .then(function (response) { 
+      axios.get(`/auth/${userId}`) //ajoute id a l'auth
+      .then(function (response) { 
         //type et payload (recupere les info utilisateur)  
         commit('USERINFOS' , response.data); 
-        })
-        .catch(error => { 
-          console.log(error); 
-          commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
-        });
+      })
+      .catch(error => { 
+        console.log(error); 
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
     },
     //afficher tout les utilisateur
     getAllUser: ({commit}) => { //2eme argu userId dee la req
-        axios.get(`/auth`) //ajoute id a l'auth
+      axios.get(`/auth`) //ajoute id a l'auth
       .then(function (response) { 
-      //type et payload (recupere les info utilisateur)  
-      commit('DISPLAY_USERS' , response.data); 
+        //type et payload (recupere les info utilisateur)  
+        commit('DISPLAY_USERS' , response.data); 
       })
       .catch(error => { 
         console.log(error); 
@@ -191,7 +190,7 @@ export default createStore({
       .then(response => {
         // mettre en ordre en fonction de leur id
         response.data.sort((a,b) => {
-        // faire un calcul pour definir l'ordre du tableaux en function de leur id   
+          // faire un calcul pour definir l'ordre du tableaux en function de leur id   
           return a.id - b.id
         })
         response.data.forEach(post => {
@@ -225,17 +224,17 @@ export default createStore({
         //requete Post enregistrer l'utilisateur
         axios.post('/post', form) 
         .then(function (response) {
-        //rajouter un delai
-        setTimeout(() => { 
-        commit('SETSTATUS' , {status:'success',message:'Felicitation votre post est crée'}); //type et payload
-        resolve(response); //resolved (promesse résolue )
-        },1000 ) //delai en deuxieme argument 1000ms
-        //si tout dse pass bien
+          //rajouter un delai
+          setTimeout(() => { 
+            commit('SETSTATUS' , {status:'success',message:'Felicitation votre post est crée'}); //type et payload
+            resolve(response); //resolved (promesse résolue )
+          },1000 ) //delai en deuxieme argument 1000ms
+          //si tout dse pass bien
         })
         .catch(function (error) {
-        commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post ! ${error}`}); //type et payload
-        //retourne une erreur
-        reject(error); //rejected (rompue) : l'opération a échoué.
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post ! ${error}`}); //type et payload
+          //retourne une erreur
+          reject(error); //rejected (rompue) : l'opération a échoué.
         });
       });
     },
@@ -252,8 +251,8 @@ export default createStore({
       axios.put(`/post/${postId}`,form)
       // attendre la reponse (comme fetch)
       .then(response => {
-      // recupere las res du update post 
-      // met a jour l'ancien post avec le contenue de la reponse 
+        // recupere las res du update post 
+        // met a jour l'ancien post avec le contenue de la reponse 
         let post = response.data.post
         oldPost.title = post.title
         oldPost.content = post.content
@@ -291,15 +290,15 @@ export default createStore({
         //envoi l'objet content
         axios.post(`/comment/${postId}`, {content}) 
         .then(function (response) {
-        //si tout se pass bien
-        commit('SETSTATUS' , {status:'success' , message: response.data.message});
-        //refresh la page
-        dispatch('getPosts') 
+          //si tout se pass bien
+          commit('SETSTATUS' , {status:'success' , message: response.data.message});
+          //refresh la page
+          dispatch('getPosts') 
         })
         .catch(function (error) {
-        commit('SETSTATUS' , {status:'error',message: error.response.data.message }); //type et payload
-        //retourne une erreur
-        reject(error); //rejected (rompue) : l'opération a échoué.
+          commit('SETSTATUS' , {status:'error',message: error.response.data.message }); //type et payload
+          //retourne une erreur
+          reject(error); //rejected (rompue) : l'opération a échoué.
         });
       });
     },
@@ -330,16 +329,16 @@ export default createStore({
         //requete Post enregistrer l'utilisateur
         axios.post(`/like/${postId}`) 
         .then(function (response) {
-        commit('SETSTATUS' , {status:'success' , message: response.data.message}); //type et payload
-        //refresh la page
-        dispatch('getPosts')
-        resolve(response); //resolved (promesse résolue )
-        //si tout dse pass bien
+          commit('SETSTATUS' , {status:'success' , message: response.data.message}); //type et payload
+          //refresh la page
+          dispatch('getPosts')
+          resolve(response); //resolved (promesse résolue )
+          //si tout dse pass bien
         })
         .catch(function (error) {
           commit('SETSTATUS' , {status:'error',message:`impossible de liké ! ${error}`}); //type et payload
-        //retourne une erreur
-        reject(error); //rejected (rompue) : l'opération a échoué.
+          //retourne une erreur
+          reject(error); //rejected (rompue) : l'opération a échoué.
         });
       });
     },
