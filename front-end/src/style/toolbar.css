@@ -16,10 +16,6 @@ cursor: pointer;
 background: #091F43;
 border-bottom:2px solid #d1515a;
 }
-/* un sélecteur que les style soit profond , affectant les composants enfants  */
-:deep(.v-toolbar__content){
-display: initial;
-}
 @media screen and (max-width: 400px) { 
     .toolbar--img.logo {
         padding-bottom: 20px;

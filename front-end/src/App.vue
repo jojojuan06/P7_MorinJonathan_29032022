@@ -132,11 +132,9 @@ export default {
 
 
 <style scoped>
-.closeBtn:hover {
-  cursor: pointer;
-}
-.closeBtn {
-  margin-left: 30px
+/* un sélecteur que les style soit profond , affectant les composants enfants  */
+:deep(.v-toolbar__content){
+  display: initial;
 }
 @import url('./style/toolbar.css');
 /* importation du btn css  */

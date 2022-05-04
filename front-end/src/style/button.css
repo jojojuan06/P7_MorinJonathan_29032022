@@ -13,3 +13,9 @@
     color:white;
     box-shadow: none;
 }
+.closeBtn:hover {
+    cursor: pointer;
+}
+.closeBtn {
+margin-left: 30px
+}
