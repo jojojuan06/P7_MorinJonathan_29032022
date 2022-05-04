@@ -114,7 +114,7 @@ export default {
                 firstname:this.form.firstname,
                 password:this.form.password
             }; 
-            if(res.valid) {
+            if(this.valid) {
                     //dispatch asyncrone appelle les action
                     this.$store.dispatch('createNewAccount', body).then(() => {
                         this.loginAccount();
