@@ -67,6 +67,7 @@ export default {
         }
     },
     computed: {
+        //recuperer un etat
         validatedField: function() {
             //return false par default et true quand les  champ sont rempli
             let valid = false;
@@ -78,6 +79,7 @@ export default {
             return valid;    
             },
             //importation de l'objet depuis state
+            // fusionner plusieurs objets en un seul afin de pouvoir transmettre l'objet final
             ...mapState(['status']) 
         },
     methods: { 
