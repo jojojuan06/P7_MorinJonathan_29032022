@@ -132,42 +132,13 @@ export default {
 
 
 <style scoped>
-.toolbar--content{
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.toolbar--img.logo {
-  margin-right: 16px;
-  width: 150px;
-  color: white;
-}
-.toolbar--img.logo:hover {
-  cursor: pointer;
-}
-.toolbar--header {
-  background: #091F43;
-  border-bottom:2px solid #d1515a;
-}
-/* un sélecteur que les style soit profond , affectant les composants enfants  */
-:deep(.v-toolbar__content){
-  display: initial;
-}
-@media screen and (max-width: 400px) { 
-    .toolbar--img.logo {
-      padding-bottom: 20px;
-    } 
-    .toolbar--content {
-      justify-content: center;
-    }
-}
 .closeBtn:hover {
   cursor: pointer;
 }
 .closeBtn {
   margin-left: 30px
 }
+@import url('./style/toolbar.css');
 /* importation du btn css  */
 @import url('./style/button.css');
 @import url('./style/alert.css');
