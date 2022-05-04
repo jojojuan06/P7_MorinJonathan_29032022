@@ -50,7 +50,7 @@ sequelize.authenticate()
   console.log('\u001b[' + 31 + 'm' + `|------synchronisation échouée: info--->  ${error}` + '\u001b[0m');  //log rouge
 });
 
-
+//utilisation de sequelize
 db.sequelize = sequelize;
 db.Sequelize = Sequelize;
 

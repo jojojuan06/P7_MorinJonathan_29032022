@@ -12,6 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // définir l'association ici a plusieur post (post)
       models.User.hasMany(models.Post,
+        //foreignkey une contrainte qui garantit l'intégrité référentielle entre deux tables
         {foreignKey: "userId"},
         { onDelete: 'cascade'},
         { onUpdate: 'cascade'}
@@ -25,8 +26,8 @@ module.exports = (sequelize, DataTypes) => {
       //utilisateur a plusieur Comment (hasMany)
       models.User.hasMany(models.Comment,
         {foreignKey: "userId"},
-        { onDelete: 'cascade' , hooks: true},
-        { onUpdate: 'cascade' , hooks: true}
+        { onDelete: 'cascade'},
+        { onUpdate: 'cascade'}
       );
     }
   }
