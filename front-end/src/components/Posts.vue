@@ -27,7 +27,7 @@
                     </div>
                 </div>
                 <div class="img--container">
-                    <img  v-bind:src="post.image" :alt="post.title">  
+                    <img :src="`http://localhost:3000/images/${post.image}`" :alt="post.title">  
                 </div>
                 <v-card-text class="v-text--content">
                     <p>{{post.content}}</p>
