@@ -6,7 +6,7 @@
         <div class="toolbar--content">
               <!-- - similaire à la balise  anchor -->
               <router-link  to="/" style="cursor: pointer">
-                <img class="toolbar--img logo"  alt="image groupomania" :src="require('./images/logo.png')"/>
+                <img class="toolbar--img logo"  tabindex="1" alt="image groupomania" :src="require('./images/logo.png')"/>
               </router-link>
             <!-- si userID et superieur a -1 (entier positif)il affiche tout les path / -->
             <div v-if="$store.state.user.userId > -1">
