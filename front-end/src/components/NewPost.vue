@@ -72,11 +72,9 @@ export default {
         validatedField: function() {
             //return false par default et true quand les  champ sont rempli
             let valid = false;
-            // if (this.mode == 'create') { //createAccount
                 if (this.form.title != "" && this.form.content != "") {
                     valid = true;
-                } 
-            //}  
+                }  
             return valid;    
             },
             //importation de l'objet depuis state

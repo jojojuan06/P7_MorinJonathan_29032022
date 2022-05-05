@@ -55,7 +55,7 @@ export default {
         }
     },
     //moment ou la vue et afficher
-    mounted() {   // <-----: function()
+    mounted() {   
         //si l'utilisateur n'est pas nul donc non connecter on retourne a la page connection/inscription
         if(!this.$store.state.user.userId) {
             return this.$router.push({path: '/'}) 
