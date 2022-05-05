@@ -88,7 +88,7 @@ export default createStore({
           //si tout se pass bien
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte mail deja utilisé !`}); //type et payload
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -113,7 +113,7 @@ export default createStore({
           //si tout dse pass bien
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte ! ${error}`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte !`}); //type et payload
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -232,7 +232,7 @@ export default createStore({
           //si tout dse pass bien
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post ! ${error}`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post !`}); //type et payload
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
