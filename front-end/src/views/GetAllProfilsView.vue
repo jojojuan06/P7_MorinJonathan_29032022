@@ -55,7 +55,7 @@ export default {
         }
     },
      //moment ou la vue et afficher
-    mounted() {                               // <-----: function()
+    mounted() { 
     //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
         this.$store.dispatch('getAllUser');
         this.refreshProfiles();
@@ -84,7 +84,7 @@ export default {
             this.confirmDelete.open = true;
         },
         refreshProfiles(){
-            //dispatch apliquer l'action (recuperer a nouveau les profiles)
+            //dispatch appliquer l'action (recuperer a nouveau les profiles)
             this.$store.dispatch('getAllUser')
         }
     },
