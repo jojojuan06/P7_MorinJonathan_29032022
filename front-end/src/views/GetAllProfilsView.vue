@@ -19,7 +19,7 @@
                     <!-- afficher le choix des boutons en administrateur ou si  mon propre compte-->
                     <v-card-actions class="--btn-users" v-if="this.$store.state.user.admin == true || user.id == this.$store.state.user.userId">
                         <!-- action de deconnexion avec la mutation logout-->
-                        <v-btn class="btn--profile"  @click="openConfirmDelete(user.id)" ><strong>Supprimer le compte</strong></v-btn>  <!--href="#" target="_blank" -->
+                        <v-btn class="btn--delete"  @click="openConfirmDelete(user.id)" ><strong>Supprimer le compte</strong></v-btn>  <!--href="#" target="_blank" -->
                     </v-card-actions>
                 </v-card>
             </div>
