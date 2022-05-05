@@ -66,6 +66,7 @@ export default {
         default:'Bonjour Groupomania', // ou require true
         }
     },
+    //nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés  data
     computed: {
         //recuperer un etat
         validatedField: function() {
@@ -84,10 +85,10 @@ export default {
         },
     methods: { 
         //function pour different etat sur l'affichage des buttons
-        switchToDisplayNewpost() {              // <------: function()
+        switchToDisplayNewpost() {              
             this.mode = 'bydefault';
         },
-        switchTocreatePost() {                      // <------: function()
+        switchTocreatePost() {                     
             this.mode = 'createMessage';
         },                                      
         createPost(){   
