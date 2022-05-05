@@ -31,7 +31,7 @@
           </v-toolbar>
       <v-content class="toolbar-content">
       <!-- permet d'afficher les router dans les vues-->
-          <router-view/>
+          <router-view />
       </v-content>
       <!-- alerte a la creation du compte -->
       <div  class="alert-message--container --alert" v-if="$store.state.status == 'error' || $store.state.status == 'success'" >
