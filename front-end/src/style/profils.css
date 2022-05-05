@@ -17,6 +17,9 @@
     background-repeat: no-repeat;
     padding: 0px;
 }
+.user--infos p {
+    font-weight: bold;
+}
 .container--users .--card {
     position: relative;
     display: flex;

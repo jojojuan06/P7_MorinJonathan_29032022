@@ -20,6 +20,9 @@
 .profile--avatar.--img{
     background: #091f43;
 }
+.profile--description p {
+  font-weight: bold;
+}
 
 
 .profile--description .btn--delete{
