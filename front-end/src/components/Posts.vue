@@ -10,8 +10,8 @@
                 </v-card-title>
                 <div class="avatar_container">
                         <v-avatar class="--avatar">
-                        <v-img :alt="post.User.name" class=".rounded-lg" v-if="post.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                        <v-img :alt="post.User.name" class=".rounded-lg" v-else  v-bind:src="post.User.profile_img"></v-img>
+                        <v-img :alt="post.User.name" class=".rounded-lg" v-if="post.User.profile_img == '' "  src="../images/avatar-default.png"></v-img>
+                        <v-img :alt="post.User.name" class=".rounded-lg" v-else  v-bind:src="`http://localhost:3000/images/${post.User.profile_img}`"></v-img>
                         </v-avatar>
                     <div class="post--info">
                         <h2 class="post--name">{{post.User.name}}</h2>
@@ -48,8 +48,8 @@
                     <!-- méthodes slice et reverse array pour copier le tableau d'origine, puis l'inverser -->
                     <div v-else class="comment_container" v-for="(comment,index) in post.Comments.slice().reverse()" :key="index">
                         <v-avatar>
-                            <v-img :alt="comment.User.name" class=".rounded-lg" v-if="comment.User.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                            <v-img :alt="comment.User.name" class=".rounded-lg" v-else  :src="comment.User.profile_img"></v-img>
+                            <v-img :alt="comment.User.name" class=".rounded-lg" v-if="comment.User.profile_img == ''"  src="../images/avatar-default.png"></v-img>
+                            <v-img :alt="comment.User.name" class=".rounded-lg" v-else   v-bind:src="`http://localhost:3000/images/${comment.User.profile_img}`"></v-img>
                         </v-avatar>
                         <v-card-text class="comment--name">
                             {{comment.User.name}} 

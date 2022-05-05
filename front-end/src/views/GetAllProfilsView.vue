@@ -4,8 +4,8 @@
             <div  class="container--users">
                 <v-card class="--card" v-for="user of this.$store.state.users" v-bind:key="user.id" >
                     <v-avatar class="avatar--img">
-                    <v-img v-if="user.profile_img == '' " class=".rounded-lg" src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
-                    <v-img v-else class=".rounded-lg" v-bind:src="user.profile_img"></v-img>
+                    <v-img v-if="user.profile_img == '' || !user.profile_img" class=".rounded-lg" src="../images/avatar-default.png"></v-img>
+                    <v-img v-else class=".rounded-lg" :src="`http://localhost:3000/images/${user.profile_img}`"></v-img>
                     </v-avatar>
                     <v-card-title class="user--title">
                     Information Profile   

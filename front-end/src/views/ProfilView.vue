@@ -3,7 +3,7 @@
         <v-container class="profile--container">
         <h2 class="profile--title"> Bonjour : {{userInfos.name}} </h2>
             <v-avatar class="profile--avatar --responsive">
-                <v-img class="--img .rounded-lg" v-if="userInfos.profile_img == '' "  src="../images/pngtree-vector-avatar-icon-png-image_702436.png"></v-img>
+                <v-img class="--img .rounded-lg" v-if="userInfos.profile_img == '' "  src="../images/avatar-default.png"></v-img>
                 <v-img class="--img .rounded-lg" v-else  v-bind:src="`http://localhost:3000/images/${userInfos.profile_img}`"></v-img>
             </v-avatar>
             <v-card class="profile--description --card">
