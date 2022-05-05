@@ -136,8 +136,8 @@ export default {
         }
     },
     mounted() {
-         this.refreshPost()
-         },    
+        this.refreshPost()
+    },    
     methods: {
         deleteComment(commentId){
             this.$store.dispatch('deleteComment', commentId)
