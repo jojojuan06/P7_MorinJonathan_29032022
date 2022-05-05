@@ -6,11 +6,11 @@ import axios from '../axios';
 
 // create a new instance store
 export default createStore({
-  //state responsable de la gestion des données dans le store  (data global)
+  //data global (status vide)gestion des données dans le store  
   state: {
     users: [], //recupere tout les utilisateurs
     message:'',
-    //data global (status vide)
+    
     status: '',  // contiendra le payload 
     //user charger depuis le localstorage
     //user contient l'id et le token de l'utilisateur connecter 
@@ -24,7 +24,7 @@ export default createStore({
       profile_img:'',
       admin:''
     },
-    posts : [],  // recuperation des posts
+    posts : [],  //recuperation des posts
   },
   //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
   getters: {
@@ -72,8 +72,7 @@ export default createStore({
   actions: {  
     //recuperation du commit (invoquer une mutation avec  2params) nom a la creation du compte et 2e param le payload user info que l'on recupere
     createNewAccount: ({commit}, userInfos) => {
-      //créeation d'un nouvelle promess
-      //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
+      //création d'un nouvelle promess
       return new Promise((resolve, reject) => {
         //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
         commit('SETSTATUS' , {status:'loading',message:''}); 
@@ -97,7 +96,6 @@ export default createStore({
     //modifier le profile
     updateProfile: ({commit}, {userId,token}) => {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
-      //créeation d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
         //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
@@ -136,7 +134,6 @@ export default createStore({
     loginAccount: ({commit}, userInfos) => {
       //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
       commit('SETSTATUS' , {status:'loading',message:''});
-      //créeation d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
         //requete Post enregistrer l'utilisateur
@@ -211,7 +208,7 @@ export default createStore({
       });
     },
     createPost: ({commit}, posts) => {
-      //créeation d'un nouvelle promess
+      //création d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
         //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
@@ -259,7 +256,7 @@ export default createStore({
         oldPost.content = post.content
         oldPost.image = post.image
         commit('SETSTATUS' , {status:'success' , message: response.data.message});    
-      }) //retourne la repose des data dans l'objet vi
+      }) 
       .catch(error => { 
         console.log(error); 
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
