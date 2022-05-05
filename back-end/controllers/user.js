@@ -145,11 +145,11 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
             if (req.files) { //si il y a une img dans la req (sur fichier multiple)
                 if (user.profile_img != '') { //verifier si le user a deja une image de profil
                     // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                    fs.unlink(`images/${user.profile_img.split('/images/')[1]}`, () => {
+                    fs.unlink(`images/${user.profile_img}`, () => {
                         
                     }); //filename fait reference au dossier image (on suprime)
                 }
-                newUser.profile_img = `${req.protocol}://${req.get('host')}/images/${req.files.profile_img[0].filename}` //remplace pas la new img (premier element du field(tableau))
+                newUser.profile_img = `${req.files.profile_img[0].filename}` //remplace pas la new img (premier element du field(tableau))
             }
             newUser.save() //sauvegarde le nouveau user
             .then(() => res.status(200).json({ message: 'Profile modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
