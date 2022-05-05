@@ -1,5 +1,5 @@
 <template>
-  <!-- affiche les component -->
+  <!-- point central de l'application -->
   <v-app app>
     <v-main>
       <v-toolbar  height="0px" class="toolbar--header">
@@ -8,8 +8,7 @@
               <router-link  to="/" style="cursor: pointer">
                 <img class="toolbar--img logo"  alt="image groupomania" :src="require('./images/logo.png')"/>
               </router-link>
-            <!-- si userinfo et superieur a -1 il affiche tout les path / -->
-            <!-- l'id de tes utilisateur est un entier positif donc si personne n'est connecté ce userInfos.id n'est pas un entier positif -->
+            <!-- si userID et superieur a -1 (entier positif)il affiche tout les path / -->
             <div v-if="$store.state.user.userId > -1">
               <!-- boucle sur chaque menu et je les affiches   prepend-icon (mettre l'icone d'ne element directement)-->
               <v-toolbar-item  class=" --item-list hidden-xs-only" v-for="item in itemMenus" v-bind:key="item.title">
@@ -47,7 +46,7 @@
           </v-alert>
       </div>
       <!-- -->
-      <!--Ajout du componemt au template -->
+      <!--Ajout du component au template -->
       <Footer/>
     </v-main>
   </v-app>
