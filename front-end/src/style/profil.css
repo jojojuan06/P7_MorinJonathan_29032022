@@ -21,18 +21,25 @@
     background: #091f43;
 }
 .profile--description p {
-  font-weight: bold;
+    font-weight: bold;
+}
+.profile--btn .btn--logout {
+    color:#091f43;
+    font-weight: bold;
+    text-decoration: underline #d1515a 2px;
+}
+.profile--btn .btn--logout:hover{
+    text-decoration: none;
 }
 
-
-.profile--description .btn--delete{
-    color:red;
-    text-decoration: underline;
+.profile--btn .btn--delete{
+    color:#091f43;
+    font-weight: bold;
+    text-decoration: underline #d1515a 2px;
 }
-.profile--description .btn--delete:hover{
-    background-color: transparent;
-    color:red;
-    text-decoration: underline;
+.profile--btn .btn--delete:hover{
+    color:white;
+    text-decoration: none;
 }
 .profile--container .description--title{
     display: flex;
