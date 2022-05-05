@@ -234,7 +234,8 @@ export default createStore({
         .catch(function (error) {
           commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post !`}); //type et payload
           //retourne une erreur
-          reject(error); //rejected (rompue) : l'opération a échoué.
+          //rejected (rompue) : l'opération a échoué.
+          reject(error); 
         });
       });
     },
@@ -350,7 +351,7 @@ export default createStore({
         commit('SETSTATUS' , {status:'success' , message: response.data.message});
         //refresh la page
         dispatch('getPosts')    
-      }) //retourne la repose des data dans l'objet vi
+      }) 
       .catch(error => { 
         console.log(error); 
         commit('SETSTATUS' , {status:'error',message: error.message});
