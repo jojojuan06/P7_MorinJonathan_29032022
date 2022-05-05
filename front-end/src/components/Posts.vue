@@ -1,10 +1,10 @@
 <!-- composant permettent d'encapsuler un ensemble d'éléments HTML, de façon réutilisable et facilement maintenable. -->
 <template>
-        <v-app class="app--background">
-            <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
-            <!-- import de post depuis $store.state -->
-            <v-card  class="main_post" v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
-                <v-container class="post--container">
+    <v-app class="app--background">
+        <!-- boucle for pour afficher la liste des posts , boucle sur chacun d'eux puis les afficher -->
+        <!-- import de post depuis $store.state -->
+        <v-card  class="main_post" v-for="(post,index) in this.$store.state.posts" v-bind:key="index">  
+            <v-container class="post--container">
                 <v-card-title class="v-card-title--color">
                 {{post.title}}
                 </v-card-title>
@@ -68,19 +68,19 @@
                 <hr>
                 <!-- section like -->
                 <div class="like--container">
-                <div  class="btn--update">
-                    <!-- par default liked false btn rouge non like else l'inverse-->
-                    <v-btn class="btn--like --false" v-if="post.liked == false"  @click="likeToPost(post.id)" >
-                        <v-icon  class="btn--icon">mdi-thumb-up-outline</v-icon>
-                    </v-btn> 
-                    <!-- supprime seulement sont like id du post     -->
-                    <v-btn v-else class="btn--like --true"  @click="deleteLike(post.id)" >
-                    <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
-                </v-btn>  
-                <div>
-                    <v-badge class="btn--badge" color="info" :content="'+' + post.Likes.length" inline></v-badge>
-                </div>
-                </div>
+                    <div  class="btn--update">
+                        <!-- par default liked false btn rouge non like else l'inverse-->
+                        <v-btn class="btn--like --false" v-if="post.liked == false"  @click="likeToPost(post.id)" >
+                            <v-icon  class="btn--icon">mdi-thumb-up-outline</v-icon>
+                        </v-btn> 
+                        <!-- supprime seulement sont like id du post     -->
+                        <v-btn v-else class="btn--like --true"  @click="deleteLike(post.id)" >
+                            <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
+                        </v-btn>  
+                        <div>
+                            <v-badge class="btn--badge" color="info" :content="'+' + post.Likes.length" inline></v-badge>
+                        </div>
+                    </div>
                 </div>
                 <!--  -->
                 <!-- section modifier (switch le post de l'utilisateur) supprimer du post  -->
@@ -101,15 +101,15 @@
                 <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) dans le template -->
                 <EditPost v-if="post.mode == 'update'" v-bind:post="post"/>
                 <!--  -->
-                </v-container>
-            </v-card>
-            <!--Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template -->
-            <AlertConfirm 
+            </v-container>
+        </v-card>
+        <!--Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template -->
+        <AlertConfirm 
         @closeAlert="confirmDelete.open = false" 
         :title="confirmDelete.title"
         @comfirm="deletePost" 
         :open="confirmDelete.open"/>
-        </v-app>    
+    </v-app>    
 </template>
 
 <script>
