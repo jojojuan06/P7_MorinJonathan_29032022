@@ -188,7 +188,6 @@ export default createStore({
       axios.get('/post')
       // attendre la reponse (comme fetch)
       .then(response => {
-        console.log(response.data[2].image);
         // mettre en ordre en fonction de leur id
         response.data.sort((a,b) => {
           // faire un calcul pour definir l'ordre du tableaux en function de leur id   
