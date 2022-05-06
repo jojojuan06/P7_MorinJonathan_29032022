@@ -51,11 +51,18 @@ exports.updatePost = (req, res, next) => {
         if (post.userId === req.auth.userId ||  req.auth.admin == true ) {
             let newPost = Object.assign(post,req.body); // remplace le post par le new post (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.files.image) { //si il y a une img dans la req
-                if (post.image != "") { //verifier si le post a deja une image
-                    // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                    fs.unlink(`images/${post.image}`, () => { }); //filename fait reference au dossier image (on suprime)
+                //verification si l'extensions et valid
+                const extension = req.files.image[0].mimetype;
+                if (extension == "image/jpg" || extension == "image/png" || extension == "image/gif" || extension == "image/webp") {
+                    if (post.image != "") { //verifier si le post a deja une image
+                        // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
+                        fs.unlink(`images/${post.image}`, () => { }); //filename fait reference au dossier image (on suprime)
+                    }
+                    newPost.image = `${req.files.image[0].filename}` //remplace pas la new img
                 }
-                newPost.image = `${req.files.image[0].filename}` //remplace pas la new img
+                else {
+                    return res.status(400).json({message: `le format de fichier n'est pas autoriser ${extension}`});
+                }
             }
             newPost.save() //sauvegarde le nouveau post 
             // met a jour et retourne le nouvelle objet

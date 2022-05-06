@@ -87,12 +87,18 @@ export default {
                 updatedPost: updatedPost
             }).then(function (){
                 //redirection vers la route apres creation d'un compte (path en argument)
-                This.$router.push({path: '/posts'}); 
+                //This.$router.push({path: '/posts'}); 
+                This.refreshPost()
             }),
             function (error) {
                 console.log(error);
             }
-        } 
+        },
+        //rafraichir la liste des posts
+        refreshPost(){
+            //dispatch apliquer l'action (recuperer a nouveau les post)
+            this.$store.dispatch('getPosts')
+        }, 
     },
 }
 </script>

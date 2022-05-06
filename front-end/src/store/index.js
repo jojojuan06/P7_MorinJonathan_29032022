@@ -246,7 +246,8 @@ export default createStore({
       form.append("image", changePost.image)
       form.append("title", changePost.title)
       form.append("content", changePost.content)
-      axios.put(`/post/${postId}`,form)
+      //retourne une reponse
+      return axios.put(`/post/${postId}`,form)
       // attendre la reponse (comme fetch)
       .then(response => {
         // recupere las res du update post 
@@ -259,7 +260,7 @@ export default createStore({
       }) 
       .catch(error => { 
         console.log(error); 
-        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error.response.data.message}`});
       });
     },
     //delete un post

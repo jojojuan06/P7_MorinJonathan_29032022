@@ -9,8 +9,8 @@ const MIME_TYPES = {
         "image/jpg": "jpg",
         "image/jpeg": "jpg",
         "image/png": "png",
-        "image.gif": "gif",
-        "image.webp": "webp",
+        "image/gif": "gif",
+        "image/webp": "webp",
 };
 
 
@@ -22,7 +22,9 @@ const storage = multer.diskStorage({ //function de multer pour enr sur le disk
     callback(null, 'images');
     },
     //expliquer quel nom de fichier utiliser
-    filename: (req, file, callback) => { //fonction filename indique à multer d'utiliser le nom d'origine
+    filename: (req , file, callback) => {
+        console.log(file); 
+        //fonction filename indique à multer d'utiliser le nom d'origine
         // cree sont nom avant extension (nom origine)
         const name = file.originalname.split(' ').join('_'); //split cree un tableaux des string et join qui remplace les espace par les "_"
         // utiliser le mime type pour generer l'extension du fichier
