@@ -35,6 +35,8 @@ name: 'Home',
 components:{
     FormHome,
 },
+//Nous pouvons déclarer l'état réactif en utilisant l' data option component, 
+//qui devrait être une fonction qui renvoie un objet
     data() {
         return {
                 mode: 'login',  //etat login
