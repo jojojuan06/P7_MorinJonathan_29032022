@@ -55,7 +55,7 @@
 <script>
 // mélange les getters en calcul avec l'opérateur de propagation d'objet
 import { mapState } from 'vuex'
-//IMPORT COMPONENENTS
+//IMPORT COMPONENENTS 
 import Posts from '@/components/Posts'
 import NewPost from '@/components/NewPost'
 import Footer from '@/components/Footer'
@@ -122,7 +122,7 @@ export default {
     }
   },
   computed: {
-        //importation de l'objet depuis state
+        //importation de l'objet depuis state (généré des function calculer pour nous)
         // map `this.status()` to `this.$store.commit('status')`
         ...mapState(['status']) 
     },  

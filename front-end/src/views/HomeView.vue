@@ -30,8 +30,9 @@ import  FormHome from '../components/FormHome.vue'
 
 
 export default {
+name: 'Home',   
 //instancie mon component 
-    components:{
+components:{
     FormHome,
 },
     data() {

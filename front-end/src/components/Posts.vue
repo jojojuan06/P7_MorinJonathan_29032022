@@ -118,6 +118,7 @@ import EditPost from '@/components/EditPost.vue';
 import AlertConfirm from '@/components/AlertConfirm';
 import NewComment from '@/components/NewComment';
 export default {
+    name: 'Posts',
     //INSTANCIER LES COMPONENTS
     components: {
     EditPost,AlertConfirm,NewComment
