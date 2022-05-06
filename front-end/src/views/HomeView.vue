@@ -12,7 +12,7 @@
             </v-card-title>
             <v-card-text class="card--text" v-if="mode == 'login'">
                 <strong>Tu as deja un compte ?</strong>
-                <v-btn  class="btn--first" v-on:click="switchToCreateAccount">Crée un compte</v-btn>   <!--href="#" target="_blank" -->
+                <v-btn  class="btn--first" v-on:click="switchToCreateAccount">Crée un compte</v-btn>   
             </v-card-text>
             <v-card-text class="card--text" v-else>
                 <strong>Tu n'as pas encore de compte ?</strong> 
