@@ -143,13 +143,18 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
             //copie les valeurs de toutes les propriétés directes (non héritées)
             const newUser = Object.assign(user,req.body); // remplace le user par le new user (objet,permet d'envoyer des champ vide(recupere un champ)) 
             if (req.files) { //si il y a une img dans la req (sur fichier multiple)
-                if (user.profile_img != '') { //verifier si le user a deja une image de profil
-                    // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                    fs.unlink(`images/${user.profile_img}`, () => {
-                        
-                    }); //filename fait reference au dossier image (on suprime)
+                //verification si l'extensions et valid
+                const extension = req.files.profile_img[0].mimetype;
+                if (extension == "image/jpg" || extension == "image/png" ||  extension == "image/webp") {
+                    if (user.profile_img != '') { //verifier si le user a deja une image de profil
+                        // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
+                        fs.unlink(`images/${user.profile_img}`, () => {
+                         }); //filename fait reference au dossier image (on suprime)
+                    }
+                    newUser.profile_img = `${req.files.profile_img[0].filename}` //remplace pas la new img (premier element du field(tableau))
+                }else {
+                    return res.status(400).json({message: `le format de fichier n'est pas autoriser ${extension}`});
                 }
-                newUser.profile_img = `${req.files.profile_img[0].filename}` //remplace pas la new img (premier element du field(tableau))
             }
             newUser.save() //sauvegarde le nouveau user
             .then(() => res.status(200).json({ message: 'Profile modifié !'}))// retourne la response 200 pour ok pour la methode http , renvoi objet modifier
