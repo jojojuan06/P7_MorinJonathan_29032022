@@ -21,7 +21,7 @@ exports.createPost = (req, res, next) => { //function de callback
     } 
     // verifier un nombre de caractere donnée
     if (req.body.title.length <= 4 || req.body.content.length <= 4 ) {
-        return res.status(400).json({ message : `Votre post doit contenir au moins 4 caractère`})  
+        return res.status(400).json({ message : `Votre post doit contenir au moins 5 caractère`})  
     }
     // creation d'une nouvelle instance  de mon objet post (class) de le req
     const post = new Post({  //recupere mon objet de la req
