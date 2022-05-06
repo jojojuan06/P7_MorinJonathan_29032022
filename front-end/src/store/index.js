@@ -195,7 +195,7 @@ export default createStore({
           post.liked = false;
           post.Likes.forEach(like => {
             //pour chaque post on boucle dans les like pour voir si l'utilisateur a like les post
-            if (like.userId = state.user.userId) {
+            if (like.userId == state.user.userId) {
               post.liked = true
             } 
           })

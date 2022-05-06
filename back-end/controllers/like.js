@@ -16,7 +16,7 @@ exports.createLike = (req, res, next) => {
             Like.findOne({ where: { userId: req.auth.userId, postId: post.id }})
             .then( like => {
                 if (like) { //erreur (409) conflit , req ne peut etre traité
-                    return res.status(409).json({ message : 'Vous avez deja liké se posts !'}) 
+                    return res.status(409).json({ message : 'Vous avez deja liké ce post !'}) 
                 }
                 like = new Like ({ //cree mon objet de like
                     userId: req.auth.userId, //id de l'utilisateur
@@ -36,15 +36,16 @@ exports.deleteLike = (req, res, next) => {
         if (!post) { // si le post n'existe pas
             return res.status(404).json({ message: "Le post n'existe pas !"})
         }
+        console.log(post.likes);
         if(post.likes == 0) {
-            console.log(post.likes);
             return res.status(404).json({ message: "Veuillez liker le post avant de supprimer le like !"})
         }
         else {
             post.decrement('likes') //enleve un like
             post.save()
             // allez le chercher et avoir l'url de l'image pour la supprimer (cherche le produit)
-            Like.findOne({ id: req.params.id })
+            //le like qui apartient a l'utilisateur logger et au post
+            Like.findOne({ where: { postId: req.params.id,userId: req.auth.userId } })
             //trouver id a celui qui est dans les parametres de la req ,recupere un post (produit) dans le callback (function de rapelle)
             // recupere le post dans la base
             .then((like) => {
