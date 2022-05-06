@@ -60,12 +60,6 @@ export default {
         } 
         this.refreshPost()
     },    
-    props: { //Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
-        msg: {
-            type: String,
-        default:'Bonjour Groupomania', // ou require true
-        }
-    },
     //nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés  data
     computed: {
         //recuperer un etat

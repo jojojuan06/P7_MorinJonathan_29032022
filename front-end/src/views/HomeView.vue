@@ -1,6 +1,6 @@
 <template>
     <v-container class="--container">
-        <v-card-title class="--title">{{ msg }}</v-card-title>   
+        <v-card-title  class="--title">{{title}}</v-card-title>   
         <v-card class="card--form">
             <v-card-subtitle class="card --subtitle" v-if="mode=='create'">
                 <h2>Bienvenue sur le site je vous invite a vous s'inscrire</h2> 
@@ -38,14 +38,9 @@ components:{
     data() {
         return {
                 mode: 'login',  //etat login
+                title:'Bonjour Groupomania'
             }
         },    
-    props: { //Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template
-        msg: {
-            type: String,
-        default:'Bonjour Groupomania', // ou require true
-        }
-    },
     methods: { 
         //function pour different etat sur l'affichage des buttons
         switchToCreateAccount() {    // <------: function()
