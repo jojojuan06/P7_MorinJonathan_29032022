@@ -32,7 +32,7 @@ exports.createPost = (req, res, next) => { //function de callback
     });
     if (req.files) { // si mon fichier dans la req on ajoute
         const extension = req.files.image[0].mimetype;
-        if (extension == "image/jpg" || extension == "image/png" || extension == "image/gif" || extension == "image/webp") {
+        if (extension == "image/jpg" || extension == "image/png" || extension == "image/gif" || extension == "image/webp" || extension == "image/jpeg") {
             post.image = `${req.files.image[0].filename}` //adresse(http ou https) /localhost/nom du fichier 
         } else {
             return res.status(400).json({message: `le format de fichier n'est pas autoriser ${extension}`});
@@ -58,7 +58,7 @@ exports.updatePost = (req, res, next) => {
             if (req.files.image) { //si il y a une img dans la req
                 //verification si l'extensions et valid
                 const extension = req.files.image[0].mimetype;
-                if (extension == "image/jpg" || extension == "image/png" || extension == "image/gif" || extension == "image/webp") {
+                if (extension == "image/jpg" || extension == "image/png" || extension == "image/gif" || extension == "image/webp" || extension == "image/jpeg") {
                     if (post.image != "") { //verifier si le post a deja une image
                         // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
                         fs.unlink(`images/${post.image}`, () => { }); //filename fait reference au dossier image (on suprime)

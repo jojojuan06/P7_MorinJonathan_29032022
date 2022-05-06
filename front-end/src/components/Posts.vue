@@ -114,6 +114,7 @@
 
 <script>
 //IMPORT COMPONENTS
+//Un composant parent peut restituer un autre composant de son modèle en tant que composant enfant
 import EditPost from '@/components/EditPost.vue';
 import AlertConfirm from '@/components/AlertConfirm';
 import NewComment from '@/components/NewComment';
