@@ -31,7 +31,12 @@ exports.createPost = (req, res, next) => { //function de callback
         userId : req.auth.userId  // ajoute id post = userid de la req
     });
     if (req.files) { // si mon fichier dans la req on ajoute
-        post.image = `${req.files.image[0].filename}` //adresse(http ou https) /localhost/nom du fichier 
+        const extension = req.files.image[0].mimetype;
+        if (extension == "image/jpg" || extension == "image/png" || extension == "image/gif" || extension == "image/webp") {
+            post.image = `${req.files.image[0].filename}` //adresse(http ou https) /localhost/nom du fichier 
+        } else {
+            return res.status(400).json({message: `le format de fichier n'est pas autoriser ${extension}`});
+        }
     } //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
     post.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
     .then(() => res.status(201).json({ message: 'post enregistré !'})) //201 la requête a réussi avec le message

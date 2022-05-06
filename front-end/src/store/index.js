@@ -229,7 +229,7 @@ export default createStore({
           //si tout dse pass bien
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post !`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post !${error.response.data.message}`}); //type et payload
           //retourne une erreur
           //rejected (rompue) : l'opération a échoué.
           reject(error); 
