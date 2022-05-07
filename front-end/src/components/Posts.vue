@@ -14,7 +14,7 @@
                         <v-img :alt="post.User.name" class=".rounded-lg" v-else  v-bind:src="`http://localhost:3000/images/${post.User.profile_img}`"></v-img>
                         </v-avatar>
                     <div class="post--info">
-                        <h2 class="post--name">{{post.User.name}}</h2>
+                        <h2 class="post--name">{{post.User.firstname}}</h2>
                         <!-- recuperation de la date avec  le bon fuseau horaire en enlever les secondes -->
                         <v-card-title class="card--date date">
                             posté le: {{new Date(post.createdAt).toLocaleString("en-GB", 
@@ -52,7 +52,7 @@
                             <v-img :alt="comment.User.name" class=".rounded-lg" v-else   v-bind:src="`http://localhost:3000/images/${comment.User.profile_img}`"></v-img>
                         </v-avatar>
                         <v-card-text class="comment--name">
-                            {{comment.User.name}} 
+                            {{comment.User.firstname}} 
                         </v-card-text>
                         <v-card-text class="comment--content">
                                 {{ comment.content }}
