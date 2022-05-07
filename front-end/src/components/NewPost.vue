@@ -10,10 +10,11 @@
         <div v-else>
             <v-card class="post--container --new" >
                 <v-card-title class="post--title">Crée un nouveau post</v-card-title>
-                <v-form>
-                    <v-text-field v-model="form.title"  label="Nom du post" required></v-text-field>
+                <!-- permet de valider facilement les entrées de formulaire. -->
+                <v-form ref="form" class="mx-2" lazy-validation v-model="valid">
+                    <v-text-field @keyup="validateForm" :rules="titleRules" v-model="form.title"  label="Nom du post" required></v-text-field>
                     <v-file-input v-model="form.image" accept="image/*" label="File input"></v-file-input>
-                    <v-textarea v-model="form.content" filled auto-grow label="Tapez votre message ici" rows="4" row-height="30" shaped required></v-textarea>
+                    <v-textarea @keyup="validateForm" :rules="contentRules" v-model="form.content" filled auto-grow label="Tapez votre message ici" rows="4" row-height="30" shaped required></v-textarea>
                 </v-form>
                 <v-form>
                     <div class="btn--createpost">
@@ -22,7 +23,7 @@
                                 <span>annuler</span>
                             </v-btn>
                         <!-- au clic appel a la methode createNewAccount-->
-                        <v-btn   v-on:click="createPost" :class="{'v-btn--disabled' : !validatedField}" color="success mr-4 --btn">
+                        <v-btn   v-on:click="createPost" :disabled="!valid" color="success mr-4 --btn">
                                 <span v-if="status=='loading'">Création du post...</span>
                                 <span v-else>Crée le post</span>
                         </v-btn>
@@ -44,11 +45,22 @@ export default {
         return {
                 //bouton retourner a l'etat par default
                 mode:'bydefault',
+                valid:true,
                 form : {
                     title: "",
                     content: "",
                     image:[] 
-                }
+                },
+                titleRules: [ //v=>value
+                v => v != '' || 'Le titre est requis',
+                v => (v && v.length <= 25) || 'le nom ne doit pas dépasser 25 caractères',
+                v => v.length >= 4 || 'Minimum 4 caractères',
+                ],
+                contentRules: [ //v=>value
+                v => v != '' || 'Le contenue est requis',
+                v => (v && v.length <= 250) || 'le nom ne doit pas dépasser 250 caractères',
+                v => v.length >= 4 || 'Minimum 4 caractères',
+                ],
             }
         },
     //moment ou la vue et afficher    
@@ -62,20 +74,18 @@ export default {
     },    
     //nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés  data
     computed: {
-        //recuperer un etat
-        validatedField: function() {
-            //return false par default et true quand les  champ sont rempli
-            let valid = false;
-                if (this.form.title != "" && this.form.content != "") {
-                    valid = true;
-                }  
-            return valid;    
-            },
             //importation de l'objet depuis state
             // fusionner plusieurs objets en un seul afin de pouvoir transmettre l'objet final
             ...mapState(['status']) 
         },
-    methods: { 
+    methods: {
+        validateForm(){
+                //ref fait reference au ref de l'element du dom pour lier
+                //validate verifie les rules avant validation du formulaire res =>resultat
+                this.$refs.form.validate().then((res) => {
+                    this.valid = res.valid;        
+                }).catch(error => (console.log(error)));
+        }, 
         //function pour different etat sur l'affichage des buttons
         switchToDisplayNewpost() {              
             this.mode = 'bydefault';

@@ -38,14 +38,15 @@ exports.createPost = (req, res, next) => { //function de callback
         image: null, //declarer par default
         userId : req.auth.userId  // ajoute id post = userid de la req
     });
-    if (req.files) { // si mon fichier dans la req on ajoute
+    if (req.files) { // si mon fichier dans la req on ajoute 
         const extension = req.files.image[0].mimetype;
         if (extension == "image/jpg" || extension == "image/png" || extension == "image/gif" || extension == "image/webp" || extension == "image/jpeg") {
             post.image = `${req.files.image[0].filename}` //adresse(http ou https) /localhost/nom du fichier 
         } else {
             return res.status(400).json({message: `le format de fichier n'est pas autoriser ${extension}`});
         }
-    } //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
+    }
+    console.log(post); //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
     post.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
     .then(() => res.status(201).json({ message: 'post enregistré !'})) //201 la requête a réussi avec le message
     .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
@@ -105,7 +106,7 @@ exports.deletePost = (req, res, next) => {
             //probleme authentification ,on verifier qu'il appartient bien  a la personne qui effectuer la req
             return res.status(401).json({ message:'utilisateur non autorisé !'});   
         }
-        if (post.image != "") { //si l'image existe
+        if (post.image) { //si l'image existe
             //split retourne un tableaux de que qu'il y a avant  /image , apres /image
             const filename = post.image.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
             // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))

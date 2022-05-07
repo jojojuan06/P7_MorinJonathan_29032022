@@ -26,7 +26,7 @@
                         </v-card-title>
                     </div>
                 </div>
-                <div class="img--container">
+                <div v-if="post.image" class="img--container">
                     <img :src="`http://localhost:3000/images/${post.image}`" :alt="post.title">  
                 </div>
                 <v-card-text class="v-text--content">

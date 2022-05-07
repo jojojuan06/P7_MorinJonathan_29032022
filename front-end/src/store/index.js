@@ -215,9 +215,15 @@ export default createStore({
         commit('SETSTATUS' , {status:'loading',message:''}); 
         //envoi du formulaire en formdata (pour l'image)
         let form = new FormData()
-        form.append("image", posts.image[0])
         form.append("title", posts.title)
         form.append("content", posts.content)
+        if (posts.image[0]) {
+          form.append("image", posts.image[0])
+        } else {
+          //retire l'image
+          delete posts.image
+          form = posts
+        } 
         //requete Post enregistrer l'utilisateur
         axios.post('/post', form) 
         .then(function (response) {
@@ -229,7 +235,7 @@ export default createStore({
           //si tout dse pass bien
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post !${error.response.data.message}`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post ! ${error.response.data.message ? error.response.data.message : error.response.data}`}); //type et payload
           //retourne une erreur
           //rejected (rompue) : l'opération a échoué.
           reject(error); 
