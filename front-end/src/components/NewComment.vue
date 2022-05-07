@@ -34,16 +34,7 @@ export default {
     //props qui vas resevoir un postId depuis le parent
     props: [
         "postId"
-    ]
-    ,    
-    //moment ou la vue et afficher    
-    mounted() {
-        //si l'utilisateur n'est pas  connecter , on retourne sur le home
-        if(!this.$store.state.user.userId) {
-            this.$router.push({path: '/'}) 
-            return;    
-        } 
-    },
+    ],    
     computed: {
         validatedField: function() {
             //return false par default et true quand les  champ sont rempli

@@ -62,16 +62,7 @@ export default {
                 v => v.length >= 5 || 'Minimum 5 caractères',
                 ],
             }
-        },
-    //moment ou la vue et afficher    
-    mounted() {
-        //si l'utilisateur n'est pas  connecter , on retourne sur le home
-        if(!this.$store.state.user.userId) {
-            this.$router.push({path: '/'}) 
-            return;    
-        } 
-        this.refreshPost()
-    },    
+        },      
     //nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés  data
     computed: {
             //importation de l'objet depuis state
