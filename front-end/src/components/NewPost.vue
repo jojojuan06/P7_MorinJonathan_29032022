@@ -62,7 +62,12 @@ export default {
                 v => v.length >= 5 || 'Minimum 5 caractères',
                 ],
             }
-        },      
+        },
+    //moment ou la vue et afficher    
+    mounted() {
+        //permet de recuperer les posts depuis ma methode
+        this.refreshPost()
+    },    
     //nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés  data
     computed: {
             //importation de l'objet depuis state
