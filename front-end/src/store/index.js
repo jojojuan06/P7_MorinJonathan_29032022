@@ -232,7 +232,7 @@ export default createStore({
             commit('SETSTATUS' , {status:'success',message:'Felicitation votre post est crée'}); //type et payload
             resolve(response); //resolved (promesse résolue )
           },1000 ) //delai en deuxieme argument 1000ms
-          //si tout dse pass bien
+          //si tout dse pass bien 
         })
         .catch(function (error) {
           commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post ! ${error.response.data.message ? error.response.data.message : error.response.data}`}); //type et payload

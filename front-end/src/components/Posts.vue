@@ -136,9 +136,6 @@ export default {
                 open:false
             }
         }
-    },
-    mounted() {
-        this.refreshPost()
     },    
     methods: {
         deleteComment(commentId){
