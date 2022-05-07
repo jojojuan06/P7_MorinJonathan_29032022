@@ -52,6 +52,7 @@ export default {
                 emailRules: [
                 v => v != '' || 'Un E-mail est requis',
                 v => /.+@.+\..+/.test(v) || `E-mail n'est pas valid`,
+                v => (v && v.length <= 25) || "l'email ne doit pas dépasser 25 caractères",
                 ],
                 passwordRules: [
                 v => v != '' || 'Le password est requis',
