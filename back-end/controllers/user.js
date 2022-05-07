@@ -145,7 +145,7 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
             if (req.files) { //si il y a une img dans la req (sur fichier multiple)
                 //verification si l'extensions et valid
                 const extension = req.files.profile_img[0].mimetype;
-                if (extension == "image/jpg" || extension == "image/png" ||  extension == "image/webp") {
+                if (extension == "image/jpg" || extension == "image/png" ||  extension == "image/webp"||  extension == "image/jpeg") {
                     if (user.profile_img != '') { //verifier si le user a deja une image de profil
                         // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
                         fs.unlink(`images/${user.profile_img}`, () => {
