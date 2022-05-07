@@ -97,8 +97,9 @@ export default {
                 content:this.form.content,
                 image:this.form.image,
             }).then(() => {
-                //redirection vers la route apres creation d'un compte (path en argument)
+                //on raffraichie les post apres la creation
                 this.refreshPost()
+                //et ont remet le bouton new post(+) part default
                 this.switchToDisplayNewpost()
                 this.$store.commit('SETSTATUS' , {status:'success',message:`votre post est bien ajouter`});
             }).catch(error => (console.log(error)));
