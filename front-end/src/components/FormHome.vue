@@ -68,15 +68,6 @@ export default {
                 }
             }
         },
-    //moment ou la vue et afficher    
-    mounted() {
-        //si l'utilisateur n'est pas null, donc connecter donc on retourne sur le posts
-        //ne retourne pas la home
-        if(this.$store.state.user.userId) {
-            this.$router.push({path: '/posts'}) 
-            return;    
-        } 
-    },
     // calcul de function
     computed: {
         //importation de l'objet depuis state

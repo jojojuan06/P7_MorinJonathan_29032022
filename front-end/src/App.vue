@@ -5,7 +5,11 @@
       <v-toolbar  height="0px" class="toolbar--header">
         <div class="toolbar--content">
               <!-- - similaire à la balise  anchor -->
-              <router-link  to="/" style="cursor: pointer">
+              <!-- si la personne est connecter le logo ,link sur les posts sinon le logo appelle la home -->
+              <router-link  v-if="$store.state.user.userId > -1" to="/posts" style="cursor: pointer">
+                <img class="toolbar--img logo"  tabindex="1" alt="image groupomania" :src="require('./images/logo.png')"/>
+              </router-link>
+              <router-link  v-else to="/" style="cursor: pointer">
                 <img class="toolbar--img logo"  tabindex="1" alt="image groupomania" :src="require('./images/logo.png')"/>
               </router-link>
             <!-- si userID et superieur a -1 (entier positif)il affiche tout les path / -->
