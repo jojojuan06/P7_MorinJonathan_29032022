@@ -99,6 +99,7 @@ export default {
             }).then(() => {
                 //redirection vers la route apres creation d'un compte (path en argument)
                 this.refreshPost()
+                this.switchToDisplayNewpost()
                 this.$store.commit('SETSTATUS' , {status:'success',message:`votre post est bien ajouter`});
             }).catch(error => (console.log(error)));
         },
