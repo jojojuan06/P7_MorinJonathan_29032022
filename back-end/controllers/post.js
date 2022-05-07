@@ -142,7 +142,8 @@ exports.getOnePost = (req, res, next) => {
                     model:User,
                     attributes:[
                         "name",
-                        "profile_img"
+                        "firstname",
+                        "profile_img",
                     ]
                 },
             ]
@@ -197,6 +198,7 @@ exports.getAllPost = (req, res, next) => {
                     //recuperation du model user inclu avec des atttributs specifier (ex:evite de donné le Mdp)
                     model:User,
                     attributes:[
+                        "firstname",
                         "name",
                         "profile_img"
                     ]

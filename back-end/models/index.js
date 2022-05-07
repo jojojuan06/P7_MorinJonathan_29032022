@@ -44,7 +44,7 @@ sequelize.authenticate()
     console.log('\u001b[' + 32 + 'm' + '|---------connexion réussie à la base de donnée----------|' + '\u001b[0m'); //log vert
     //synchronisation des tables(model)
     // alter:true verifie la table et apporte le modification si nessesaire
-    await sequelize.sync({alter: true})  //force:true (drop table)
+    await sequelize.sync({alter: true })  //force:true (drop table)
     console.log('\u001b[' + 32 + 'm' + '|------synchronisation réussie------|' + '\u001b[0m'); //log vert
 }) .catch((error) => {
   console.log('\u001b[' + 31 + 'm' + `|------synchronisation échouée: info--->  ${error}` + '\u001b[0m');  //log rouge
