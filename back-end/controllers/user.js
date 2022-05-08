@@ -136,7 +136,7 @@ exports.getAllUser = (req, res, next) => {
 //-----------------
 //admin : user.admin
 // modifier l'utilisateur PUT
-exports.updateUser = (req, res, next) => {//exporter une function createuser / contenue de la route user / creation dun user
+exports.updateUser = (req, res, next) => {
     User.findOne({ where:{ id: req.params.id,}}) // trouve la première entrée dans ta table ou le champ 'id' est égal à req.params.id
     .then(user => { // si l'utilisateur et admin il peut modif les utili ou juste l'util modif sont profil    
         if (user.id == req.auth.userId ||  req.auth.admin == true ) {
@@ -147,7 +147,7 @@ exports.updateUser = (req, res, next) => {//exporter une function createuser / c
                 const extension = req.files.profile_img[0].mimetype;
                 if (extension == "image/jpg" || extension == "image/png" ||  extension == "image/webp"||  extension == "image/jpeg") {
                     if (user.profile_img != '') { //verifier si le user a deja une image de profil
-                        // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
+                        // package fs , unlinke pour supprimer un fichier 
                         fs.unlink(`images/${user.profile_img}`, () => {
                          }); //filename fait reference au dossier image (on suprime)
                     }
@@ -180,7 +180,7 @@ exports.deleteUser = (req, res, next) => {
         if (user.id == req.auth.userId ||  req.auth.admin == true ) { 
             if (user.profile_img != '') {
                 //split retourne un tableaux de que qu'il y a avant  /image , apres /image
-                const filename = user.profile_img.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
+                const filename = user.profile_img.split('/images/')[1];
                 // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
                 fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
             }    
