@@ -70,11 +70,11 @@ export default createStore({
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
   actions: {  
-    //recuperation du commit (invoquer une mutation avec  2params) nom a la creation du compte et 2e param le payload user info que l'on recupere
+    //recuperation du commit (invoquer une mutation avec  2params) user info que l'on recupere
     createNewAccount: ({commit}, userInfos) => {
       //création d'un nouvelle promess
       return new Promise((resolve, reject) => {
-        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+        //Pour invoquer un gestionnaire de mutation, on commit , Payload en 2e argument 
         commit('SETSTATUS' , {status:'loading',message:''}); 
         //requete Post enregistrer l'utilisateur
         axios.post('/auth/signup', userInfos) 
@@ -98,7 +98,7 @@ export default createStore({
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
-        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+        //Pour invoquer   commit  mutation / Payload en 2e argument 
         commit('SETSTATUS' , {status:'loading',message:''}); 
         //requete Post enregistrer l'utilisateur
         axios.update(`/auth/${userId}`) 
@@ -132,7 +132,7 @@ export default createStore({
     },
     //recuperation du commit (invoquer une mutation avec  2params)
     loginAccount: ({commit}, userInfos) => {
-      //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+      //Pour invoquer   commit  mutation / Payload en 2e argument
       commit('SETSTATUS' , {status:'loading',message:''});
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
@@ -211,7 +211,7 @@ export default createStore({
       //création d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
-        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+        //Pour invoquer   commit  mutation / Payload en 2e argument
         commit('SETSTATUS' , {status:'loading',message:''}); 
         //envoi du formulaire en formdata (pour l'image)
         let form = new FormData()
@@ -289,7 +289,7 @@ export default createStore({
       //créeation d'un nouvelle promess
       //associer une action ultérieure à une promesse lorsque celle-ci devient acquittée 
       return new Promise((resolve, reject) => {
-        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+        //Pour invoquer   commit  mutation / Payload en 2e argument
         commit('SETSTATUS' , {status:'loading',message:''}); 
         //requete Post enregistrer l'utilisateur
         //envoi l'objet content
@@ -329,7 +329,7 @@ export default createStore({
     postLike: ({commit, dispatch }, postId) => {
       //créeation d'un nouvelle promess
       return new Promise((resolve, reject) => {
-        //Pour invoquer un gestionnaire de mutation, vous devez appeler store.commitavec son type en un et Valider avec Payload en 2e argument 
+       //Pour invoquer   commit  mutation / Payload en 2e argument 
         commit('SETSTATUS' , {status:'loading',message:''}); 
         //requete Post enregistrer l'utilisateur
         axios.post(`/like/${postId}`) 
