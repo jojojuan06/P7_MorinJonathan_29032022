@@ -301,7 +301,7 @@ export default createStore({
           dispatch('getPosts') 
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message: error.response.data.message }); //type et payload
+          commit('SETSTATUS' , {status:'error',message: error.response.data.message }); // payload
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -334,7 +334,7 @@ export default createStore({
         //requete Post enregistrer l'utilisateur
         axios.post(`/like/${postId}`) 
         .then(function (response) {
-          commit('SETSTATUS' , {status:'success' , message: response.data.message}); //type et payload
+          commit('SETSTATUS' , {status:'success' , message: response.data.message}); 
           //refresh la page
           dispatch('getPosts')
           resolve(response); //resolved (promesse résolue )
