@@ -220,7 +220,7 @@ export default createStore({
         if (posts.image[0]) {
           form.append("image", posts.image[0])
         } else {
-          //retire l'image
+          //retire l'image (permet de retirer une propriété d'un objet)
           delete posts.image
           form = posts
         } 

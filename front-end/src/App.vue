@@ -59,9 +59,7 @@
 <script>
 // mélange les getters en calcul avec l'opérateur de propagation d'objet
 import { mapState } from 'vuex'
-//IMPORT COMPONENENTS 
-import Posts from '@/components/Posts'
-import NewPost from '@/components/NewPost'
+//IMPORT COMPONENENTS ( utiliser globalement)
 import Footer from '@/components/Footer'
 
 
@@ -69,13 +67,9 @@ export default {
   name:'App',
   // INSTANCIER COMPONENTS
   components: {
-    Posts,
-    NewPost,
     Footer
   },
-  //C'est ce qu'on appelle un hook de cycle de vie , 
-  //il nous permet d'enregistrer un rappel à appeler
-  // à certains moments du cycle de vie du composant.
+  // a l'aafichage de l'application
   //verifie userid connecter exist, et le garde connecter
   mounted() {
     if(this.$store.state.user.userId){
