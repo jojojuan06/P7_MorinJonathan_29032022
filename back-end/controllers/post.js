@@ -69,8 +69,8 @@ exports.updatePost = (req, res, next) => {
                 const extension = req.files.image[0].mimetype;
                 if (extension == "image/jpg" || extension == "image/png" || extension == "image/gif" || extension == "image/webp" || extension == "image/jpeg") {
                     if (post.image != "") { //verifier si le post a deja une image
-                        // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                        fs.unlink(`images/${post.image}`, () => { }); //filename fait reference au dossier image (on suprime)
+                        // package fs , unlinke pour supprimer l'image
+                        fs.unlink(`images/${post.image}`, () => { });
                     }
                     newPost.image = `${req.files.image[0].filename}` //remplace pas la new img
                 }
@@ -107,10 +107,8 @@ exports.deletePost = (req, res, next) => {
             return res.status(401).json({ message:'utilisateur non autorisé !'});   
         }
         if (post.image) { //si l'image existe
-            //split retourne un tableaux de que qu'il y a avant  /image , apres /image
-            const filename = post.image.split('/images/')[1];//extraire le fichier , recup l'image url du produit retourner par la base,le2eme pour avoir le nom du fichier
-            // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-            fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
+            //on supprime l'image
+            fs.unlink(`images/${post.image}`, () => {}); 
         }
         //recuperer l'id des paramettre de route ,si oui on effectue la suppression
         post.destroy() // supprime le post crée   
