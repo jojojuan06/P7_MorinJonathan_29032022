@@ -1,4 +1,4 @@
-//import vue
+//import vue , history # ou non devant l'url
 import { createRouter, createWebHistory } from 'vue-router'
 import PostView from '@/views/PostView'
 import ProfilView from '@/views/ProfilView'
@@ -41,9 +41,9 @@ const routes = [
     component: PageNotFound
   },
 ]
-
+//Créez l'instance de routeur et passez l'option `routes`
 const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+  history: createWebHistory(),
   routes
 })
 

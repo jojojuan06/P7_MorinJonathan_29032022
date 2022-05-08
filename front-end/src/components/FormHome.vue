@@ -37,6 +37,7 @@
 import { mapState } from 'vuex'
 
 export default {
+    //Passer des données aux composants enfants avec les props (proprieté)
     name:'FormeHome',
     props: { 
         mode: String,
