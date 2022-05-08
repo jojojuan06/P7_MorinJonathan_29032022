@@ -179,10 +179,8 @@ exports.deleteUser = (req, res, next) => {
         // verifier que seulement la personne qui peu le supprimer
         if (user.id == req.auth.userId ||  req.auth.admin == true ) { 
             if (user.profile_img != '') {
-                //split retourne un tableaux de que qu'il y a avant  /image , apres /image
-                const filename = user.profile_img.split('/images/')[1];
-                // package fs , unlinke pour supprimer un fichier (1 arg(chemin fichier , 2 arg(callback vide ,multer demande une function callback)))
-                fs.unlink(`images/${filename}`, () => {}) //filename fait reference au dossier image
+                // package fs , unlinke pour supprimer un fichier,suprimer l'image si il y en a une
+                fs.unlink(`images/${user.profile_img}`, () => {}) 
             }    
             //recuperer l'id des paramettre de route ,si oui on effectue la suppression
             user.destroy() // egale (clée -> valeur) function pour supprimer un users (produit) dans la base de donnée    
