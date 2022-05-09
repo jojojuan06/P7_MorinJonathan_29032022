@@ -69,11 +69,12 @@ export default {
   components: {
     Footer
   },
-  // a l'aafichage de l'application
-  //verifie userid connecter exist, et le garde connecter
+  // a l'affichage de l'application
+  //verifie userid connecter exist, et le garde connecter grace au token
   mounted() {
-    if(this.$store.state.user.userId){
-      this.$store.commit('lOGUSER', this.$store.state.user)
+    let token = localStorage.getItem('token');
+    if(this.$store.state.user.userId == -1 && token){
+      this.$store.dispatch('getMeUser', token)
     }
   },
   //variable que l'on souhaite retourner a la vue
