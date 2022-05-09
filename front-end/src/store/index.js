@@ -16,9 +16,13 @@ export default createStore({
     message:'',
     // contiendra le payload 
     status: '',  
-    //user charger depuis le localstorage
-    //contient les infos envoyer de puis la reponse du controller login (userId,token,admin)
-    user: JSON.parse(localStorage.getItem('user')) || {}, 
+    //user info basic
+    //contient le token , recuperer verifie l'utilisateur connecter
+    user: {
+      userId: -1,
+      admin:false,
+      token:JSON.parse(localStorage.getItem('token')) || ""
+    }, 
     // objet userinfo avec l'objet a recuperer
     userInfos: {
       id:-1,
@@ -26,7 +30,7 @@ export default createStore({
       firstname: '',
       email:'',
       profile_img:'',
-      admin:''
+      admin:false
     },  
   },
   //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
@@ -43,13 +47,20 @@ export default createStore({
     },
     lOGUSER(state, user) {
       //recuperation des infos utilisateur a la connections
+      //user recuperer depuis l'action login
       state.userInfos = user
       //passez le token dans authorization
       axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`; 
       //stocker le user dans le storage local
-      //stringify pour enr dans le storage
-      localStorage.setItem('user', JSON.stringify(user));
-      state.user = user;
+      //stringify pour enr dans le storage set juste le token
+      localStorage.setItem('token', JSON.stringify(user.token));
+      // correspond au info de l'user de la base de donnée
+      state.user = {
+        //response du controller (de la req)
+        userId: user.userId,
+        admin:user.admin,
+        token:user.token
+      };
     },
     //creation mutations userinfo
     USERINFOS(state, userInfos) {
@@ -67,8 +78,8 @@ export default createStore({
     LOGOUT(state) {
       state.user = {}
       state.userInfos = {id: -1}
-      //supprimer les ressource (user) , ainsi eviter la reconection
-      localStorage.removeItem('user'); 
+      //supprimer les ressource (token) , ainsi eviter la reconection
+      localStorage.removeItem('token'); 
     },
   },
   //similaire a la proprieter methods (asynchrone pour communiquer avec l'api/acceder a l'etat)
@@ -153,7 +164,7 @@ export default createStore({
           resolve(response); //resolved (promesse résolue ) 
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`une erreur est survenue !`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message: error.response.data.error }); //type et payload
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -166,6 +177,20 @@ export default createStore({
         //type et payload (recupere les info utilisateur)  
         commit('USERINFOS' , response.data); 
       })
+      .catch(error => { 
+        console.log(error); 
+        commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
+      });
+    },
+    //recupere l'utilisateur connecter si il est dans le local storage
+    //recupere les info de la personne connecter
+    getMeUser: ({commit}, token) => { //2eme argu token pour la personne connecter
+      //passez l'autorisation dans la requete
+      axios.get(`/auth/me`,{header:{Authorization:`Bearer ${token}`}}) 
+      .then(function (response) { 
+        //type et payload (recupere les info utilisateur)  
+        commit('lOGUSER' , response.data); 
+        })
       .catch(error => { 
         console.log(error); 
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
