@@ -56,7 +56,11 @@ export default {
     },
     //moment ou la vue et afficher
     mounted() {   
-        // recupere les user info
+        //si l'utilisateur n'est pas nul donc non connecter on retourne a la page connection/inscription
+        //this.user au lieu de $store.state.user avec mapstate
+        if(!this.user.userId) {
+            return this.$router.push({path: '/'}) 
+        }
         //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
         this.$store.dispatch('getUserInfos',this.user.userId);
         

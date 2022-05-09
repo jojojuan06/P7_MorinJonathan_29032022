@@ -52,7 +52,7 @@ const router = createRouter({
 //function se lance au debut de chaque page
 router.beforeEach((to ,from ,next) => {
 //si la route et different du home et state.userId -1 et pas connecter on revoi la home
-  if(to.path  != "/" && Store.state.user.userId == -1) {
+  if(to.path  != "/" && Store.state.userInfos.id == -1) {
         next({path:"/"})
   } else {
     next()
