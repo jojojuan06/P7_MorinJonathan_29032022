@@ -151,7 +151,7 @@ export default createStore({
           resolve(response); //resolved (promesse résolue ) 
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`une erreur est survenue !`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message: error.response.data.error}); //type et payload
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
