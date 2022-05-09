@@ -85,7 +85,7 @@ exports.login = (req, res, next) => {
                 { userId : user.id ,// payload les donnée que le veut encoder a l'interieure de ce token (cree un objet user id)
                 admin : user.admin}, //creation du cryptage admin ;si il l'est
                 process.env.SECRET_KEY,  // deuxieme argument clée secrete de l'encodage du .env qui est masqué
-                { expiresIn: '12h'} //troisieme argument (de config) apliquer une expiration du token de 12h
+                { expiresIn: '12h'} //troisieme argument (de config) apliquer une expiration du token de 24h
                 )  
             });
         }) 
@@ -96,26 +96,6 @@ exports.login = (req, res, next) => {
 
 //----------------
 
-// recuperer un utilisateur GET qui fait un requete et c'est information
-//permet de rester connecter
-exports.getMeUser = (req, res, next) => { 
-    const id = req.auth.userId; //utilisateur de la requete
-    User.findOne({
-        where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
-        attributes:["email","name","firstname","profile_img","id"] //clef que je veut montrer en clair
-    })
-    .then(user => {
-    if (!user) { 
-        //si l'utilisateur n'existe pas retourne le message (null)
-        return res.status(404).json({message: `l'utilisateur n'existe pas`}); //404 ressource non trouvé user
-        // sinon ok on retounr l'utilisateur
-    } else { 
-        return res.status(200).json(user) // retourne la response 200 pour ok pour la methode http , renvoi l'objet si il existe dans la Bd    
-    }
-    })
-    .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
-}
-//-----------------
 
 
 // recuperer un utilisateur GET

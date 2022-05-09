@@ -56,7 +56,7 @@ export default {
     },
     //moment ou la vue et afficher
     mounted() {   
-        // recupere les users info
+        // recupere les user info
         //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
         this.$store.dispatch('getUserInfos',this.user.userId);
         
