@@ -10,6 +10,8 @@ export default createStore({
   state: {
     //recupere les users
     users: [],
+    //recuperation des posts
+    posts : [],
     //message succes / alert 
     message:'',
     // contiendra le payload 
@@ -25,9 +27,7 @@ export default createStore({
       email:'',
       profile_img:'',
       admin:''
-    },
-    //recuperation des posts
-    posts : [],  
+    },  
   },
   //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
   getters: {
