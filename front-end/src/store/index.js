@@ -17,7 +17,7 @@ export default createStore({
     // contiendra le payload 
     status: '',  
     //user charger depuis le localstorage
-    //user contient l'id et le token de l'utilisateur connecter 
+    //contient les infos envoyer de puis la reponse du controller login (userId,token,admin)
     user: JSON.parse(localStorage.getItem('user')) || {}, 
     // objet userinfo avec l'objet a recuperer
     userInfos: {
