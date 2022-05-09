@@ -313,7 +313,6 @@ export default createStore({
     deleteComment:({commit,state,dispatch},postId) => {
       //recupere le token directement depuis le  user destructuring
       const {token} = state.user
-      console.log(token);
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
       axios.delete(`/comment/${postId}`)
       // attendre la reponse (comme fetch)
