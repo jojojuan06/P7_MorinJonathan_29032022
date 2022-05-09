@@ -44,7 +44,7 @@ export default createStore({
     lOGUSER(state, user) {
       //recuperation des infos utilisateur a la connections
       state.userInfos = user
-      //recupere le token
+      //passez le token dans authorization
       axios.defaults.headers.common['Authorization'] = `Bearer ${user.token}`; 
       //stocker le user dans le storage local
       //stringify pour enr dans le storage
