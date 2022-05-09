@@ -188,7 +188,8 @@ export default createStore({
       .then(response => {
         // mettre en ordre en fonction de leur id
         response.data.sort((a,b) => {
-          // faire un calcul pour definir l'ordre du tableaux en function de leur id   
+          // faire un calcul pour definir l'ordre du tableaux en function de leur id  
+          //mettre le tableaux dans l'ordre selon id  1 2 3..ect 
           return a.id - b.id
         })
         response.data.forEach(post => {
