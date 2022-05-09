@@ -36,7 +36,6 @@ exports.deleteLike = (req, res, next) => {
         if (!post) { // si le post n'existe pas
             return res.status(404).json({ message: "Le post n'existe pas !"})
         }
-        console.log(post.likes);
         if(post.likes == 0) {
             return res.status(404).json({ message: "Veuillez liker le post avant de supprimer le like !"})
         }
