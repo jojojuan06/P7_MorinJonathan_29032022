@@ -85,7 +85,7 @@ exports.login = (req, res, next) => {
                 { userId : user.id ,// payload les donnée que le veut encoder a l'interieure de ce token (cree un objet user id)
                 admin : user.admin}, //creation du cryptage admin ;si il l'est
                 process.env.SECRET_KEY,  // deuxieme argument clée secrete de l'encodage du .env qui est masqué
-                { expiresIn: '24h'} //troisieme argument (de config) apliquer une expiration du token de 24h
+                { expiresIn: '12h'} //troisieme argument (de config) apliquer une expiration du token de 12h
                 )  
             });
         }) 
