@@ -75,7 +75,6 @@ export default {
         logout() { 
             //commit importation de la mutation logout depuis le store
             this.$store.commit('LOGOUT');
-            window.location.reload();
             this.$router.push({path: '/'})
             this.$store.commit('SETSTATUS' , {status:'success',message:`Vous ete bien deconnecter`}); //type et payload
         },
