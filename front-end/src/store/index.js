@@ -8,7 +8,7 @@ import axios from '../axios';
 export default createStore({
   //data global (status vide)gestion des données dans le store  
   state: {
-    //Connecte Basic info
+    //recupere les users
     users: [],
     //message succes / alert 
     message:'',
@@ -59,7 +59,7 @@ export default createStore({
     DISPLAYPOSTS(state, posts) {
       state.posts = posts;
     },
-    //afficher les post
+    //afficher les users
     DISPLAY_USERS(state, users) {
       state.users = users;
     },
