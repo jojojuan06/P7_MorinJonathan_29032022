@@ -8,10 +8,12 @@ import axios from '../axios';
 export default createStore({
   //data global (status vide)gestion des données dans le store  
   state: {
-    users: [], //recupere tout les utilisateurs
+    //Connecte Basic info
+    users: [],
+    //message succes / alert 
     message:'',
-    
-    status: '',  // contiendra le payload 
+    // contiendra le payload 
+    status: '',  
     //user charger depuis le localstorage
     //user contient l'id et le token de l'utilisateur connecter 
     user: JSON.parse(localStorage.getItem('user')) || {}, 
@@ -24,7 +26,8 @@ export default createStore({
       profile_img:'',
       admin:''
     },
-    posts : [],  //recuperation des posts
+    //recuperation des posts
+    posts : [],  
   },
   //getters sont destinés à être utilisés comme des propriétés calculées (retourne une valeur)
   getters: {
