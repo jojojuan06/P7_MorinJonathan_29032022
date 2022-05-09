@@ -7,6 +7,7 @@ import HomeView from '@/views/HomeView.vue'
 //import components
 import EditPost from '@/components/EditPost'
 import PageNotFound from '@/components/PageNotFound'
+import Store from '@/store/index'
 
 const routes = [
   {
@@ -41,10 +42,21 @@ const routes = [
     component: PageNotFound
   },
 ]
+
 //Créez l'instance de routeur et passez l'option `routes`
 const router = createRouter({
   history: createWebHistory(),
   routes
+})
+
+//function se lance au debut de chaque page
+router.beforeEach((to ,from ,next) => {
+//si la route et different du home et state.userId -1 et pas connecter on revoi la home
+  if(to.path  != "/" && Store.state.user.userId == -1) {
+        next({path:"/"})
+  } else {
+    next()
+  }
 })
 
 export default router

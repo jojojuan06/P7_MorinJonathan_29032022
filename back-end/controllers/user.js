@@ -96,7 +96,8 @@ exports.login = (req, res, next) => {
 
 //----------------
 
-// recuperer un utilisateur GET qui fait un requete
+// recuperer un utilisateur GET qui fait un requete et c'est information
+//permet de rester connecter
 exports.getMeUser = (req, res, next) => { 
     const id = req.auth.userId; //utilisateur de la requete
     User.findOne({
