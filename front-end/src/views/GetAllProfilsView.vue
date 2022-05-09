@@ -67,9 +67,10 @@ export default {
     methods: {
         //suppresion du profil
         deleteProfile() {
-            this.confirmDelete.open = false
             //ajoute une condition if alert pour supprimer le compte
-            //importation des state (recuperre l'utilisateur et le token)
+            this.confirmDelete.open = false
+            //recuperre l'utilisateur et le token, verifie si la permet est admin pour supprimer un compte choisi
+            // ou supprimer
             this.$store.dispatch('deleteProfile', {userId:this.userId,token:this.$store.state.user.token})
             .then( () =>{
                 this.refreshProfiles()
