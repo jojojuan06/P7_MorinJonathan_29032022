@@ -15,6 +15,7 @@ router.post('/signup',limiter.auth,  multer, userControllers.signup); // recuper
 router.post('/login', limiter.auth, userControllers.login); // adresse de la function
 //--------
 router.get('/:id', limiter.get,userControllers.getOneUser); //recuperer un user
+router.get('/me', limiter.get,userControllers.getMeUser); //recuperer user de la requete 
 router.get('/', limiter.get,userControllers.getAllUser); //recuperer des users
 router.put('/:id',limiter.modify, auth, multer, userControllers.updateUser);//modification d'un user(profil)
 router.delete('/:id', auth, userControllers.deleteUser);
