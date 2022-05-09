@@ -2,8 +2,6 @@
 import { createStore } from 'vuex'
 //importation de axios pour faire les requetes
 import axios from '../axios';
-
-
 // create a new instance store
 export default createStore({
   //data global (status vide)gestion des données dans le store  
