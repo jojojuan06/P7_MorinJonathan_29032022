@@ -78,6 +78,7 @@
                             <v-icon  class="btn--icon">mdi-thumb-up</v-icon>
                         </v-btn>  
                         <div>
+                            <!-- recupere le nombre de like dans le badge -->
                             <v-badge class="btn--badge" color="info" :content="'+' + post.Likes.length" inline></v-badge>
                         </div>
                     </div>
