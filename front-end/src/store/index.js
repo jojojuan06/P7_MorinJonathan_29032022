@@ -82,7 +82,6 @@ export default createStore({
         .then(function (response) {
           //rajouter un delai
           setTimeout(() => { 
-            commit('SETSTATUS' , {status:'success',message:'Felicitation votre compte est crée'}); //type et payload
             resolve(response); //resolved (promesse résolue )
           },1000 ) //delai en deuxieme argument 1000ms
           //si tout se pass bien
