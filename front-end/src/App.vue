@@ -42,12 +42,12 @@
         <!-- importer status depuis les states directement mapstate evite this.$store.state.status -->
           <v-alert v-if="status =='success'" class="alert--message"   type="success">
             {{ this.$store.state.message }}
-            <!-- function au clic on remet a zero et on enleve l'alert -->
-            <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>  
+            <!-- function au clic on remet a zero et on enleve l'alert  reset du status et message -->
+            <v-icon class="closeBtn" @click="statusMessageReset">mdi-close</v-icon>  
           </v-alert>
           <v-alert v-if="status =='error'" type="error" class="alert--message">
             {{this.$store.state.message}}
-            <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>
+            <v-icon class="closeBtn" @click="statusMessageReset">mdi-close</v-icon>
           </v-alert>
       </div>
       <!-- -->
@@ -120,6 +120,14 @@ export default {
       ],
     }
   },
+  methods: {
+  //function au clic on remet a zero et on enleve l'alert
+          statusMessageReset(){
+                //commit qui modifie les state
+                this.$store.commit('RESET_STATUS')
+                this.$store.commit('RESET_MESSAGE')
+          }
+        },
   computed: {
         //importation de l'objet depuis state (généré des function calculer pour nous)
         ...mapState(['status']) 
