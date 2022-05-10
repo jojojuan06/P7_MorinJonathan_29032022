@@ -113,7 +113,7 @@ export default {
                     this.$store.dispatch('createNewAccount', body).then(() => {
                         this.loginAccount();
                         //redirection vers la route apres creation d'un compte (path en argument)
-                        This.$router.push({path: '/'})
+                        This.$router.push({path: '/profil'})
                     }).catch(error => {console.log(error)}); 
             } 
         } 

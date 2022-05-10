@@ -61,7 +61,7 @@ export default {
         if(!this.user.userId) {
             return this.$router.push({path: '/'}) 
         }
-        //actions sont déclenchées avec la store.dispatch , 2e argument envoi en action
+        //actions sont déclenchées avec la store.dispatch , recupere les information de l'utilisateur connecter
         this.$store.dispatch('getUserInfos',this.user.userId);
         
     },
