@@ -202,7 +202,7 @@ export default createStore({
           return a.id - b.id
         })
         response.data.forEach(post => {
-          //par default liked false
+          // a la recuperation des posts crée un champ liked a false,par default
           post.liked = false;
           post.Likes.forEach(like => {
             //pour chaque post on boucle dans les like pour voir si l'utilisateur a like les post
