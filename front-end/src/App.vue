@@ -38,13 +38,14 @@
           <router-view />
       </v-content>
       <!-- alerte a la creation du compte -->
-      <div  class="alert-message--container --alert" v-if="$store.state.status == 'error' || $store.state.status == 'success'" >
-          <v-alert v-if="this.$store.state.status =='success'" class="alert--message"   type="success">
+      <div  class="alert-message--container --alert" v-if="status == 'error' || status == 'success'" >
+        <!-- importer status depuis les states directement mapstate evite this.$store.state.status -->
+          <v-alert v-if="status =='success'" class="alert--message"   type="success">
             {{ this.$store.state.message }}
             <!-- function au clic on remet a zero et on enleve l'alert -->
             <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>  
           </v-alert>
-          <v-alert v-if="this.$store.state.status =='error'" type="error" class="alert--message">
+          <v-alert v-if="status =='error'" type="error" class="alert--message">
             {{this.$store.state.message}}
             <v-icon class="closeBtn" @click="() => { this.$store.state.status = '' ; this.$store.state.message = '';} ">mdi-close</v-icon>
           </v-alert>
@@ -57,6 +58,8 @@
 </template>
 
 <script>
+// mélange les getters en calcul avec l'opérateur de propagation d'objet
+import { mapState } from 'vuex'
 //IMPORT COMPONENENTS ( utiliser globalement)
 import Footer from '@/components/Footer'
 
@@ -116,7 +119,12 @@ export default {
         }
       ],
     }
-  }, 
+  },
+  computed: {
+        //importation de l'objet depuis state (généré des function calculer pour nous)
+        // map status to `this.$store.state.status
+        ...mapState(['status']) 
+    },  
 }
 </script>
 
