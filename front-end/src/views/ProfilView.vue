@@ -66,6 +66,7 @@ export default {
         
     },
     //computed  nous permettent de définir une valeur réutilisable qui est mise à jour en fonction d'autres propriétés
+    //Mapstate permet d’utiliser des function calculer depuis le store
     computed: {
             //mapStaterenvoie un objet , pour simplifier les variable sans le ,$store.state
             ...mapState(['userInfos', 'user']) //renomer l'element du state
