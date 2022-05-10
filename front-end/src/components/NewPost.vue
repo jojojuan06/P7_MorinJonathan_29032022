@@ -97,7 +97,7 @@ export default {
                 content:this.form.content,
                 image:this.form.image,
             }).then(() => {
-                //on raffraichie les post apres la creation
+                //on affiche les posst apres la creation 
                 this.refreshPost()
                 //et ont remet le bouton new post(+) part default
                 this.switchToDisplayNewpost()
