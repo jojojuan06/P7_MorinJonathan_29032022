@@ -57,8 +57,6 @@
 </template>
 
 <script>
-// mélange les getters en calcul avec l'opérateur de propagation d'objet
-import { mapState } from 'vuex'
 //IMPORT COMPONENENTS ( utiliser globalement)
 import Footer from '@/components/Footer'
 
