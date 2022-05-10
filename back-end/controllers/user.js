@@ -122,7 +122,7 @@ exports.getOneUser = (req, res, next) => {
 exports.getAllUser = (req, res, next) => {    
     User.findAll({
         //sélectionner que certains attributs, clef que je veut montrer en clair   
-        attributes:["email","name","firstname","profile_img","id"]   
+        attributes:["name","firstname","profile_img","id"]   
     })
     // retourne la response 200 pour ok pour la methode http , revoi le tableaux des users recu
     .then(users => res.status(200).json(users)) 
