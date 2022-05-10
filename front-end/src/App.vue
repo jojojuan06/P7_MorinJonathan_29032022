@@ -122,7 +122,6 @@ export default {
   },
   computed: {
         //importation de l'objet depuis state (généré des function calculer pour nous)
-        // map status to `this.$store.state.status
         ...mapState(['status']) 
     },  
 }
