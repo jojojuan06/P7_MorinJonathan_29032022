@@ -46,9 +46,9 @@ exports.createPost = (req, res, next) => { //function de callback
             return res.status(400).json({message: `le format de fichier n'est pas autoriser ${extension}`});
         }
     }
-    console.log(post); //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
+    //si le fichier n'existe pas on sauvegarde le post (definit dans model string vide)
     post.save()//methode save enregistre l'objet dans la base de donnée renvoi une promise
-    .then(() => res.status(201).json({ message: 'post enregistré !'})) //201 la requête a réussi avec le message
+    .then(() => res.status(201).json({ message: 'Votre post est créer !'})) //201 la requête a réussi avec le message
     .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));
 };
 //-------------
@@ -112,7 +112,7 @@ exports.deletePost = (req, res, next) => {
         }
         //recuperer l'id des paramettre de route ,si oui on effectue la suppression
         post.destroy() // supprime le post crée   
-        .then(() => res.status(200).json({message: 'Post supprimer !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
+        .then(() => res.status(200).json({message: 'Post supprimé !'})) // retourne la response 200 pour ok pour la methode http , renvoi objet modifier
         .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` })); // capture l'erreur et renvoi un message erreur (egale error: error)    
     })
     .catch(error => res.status(400).json({ message: `nous faisons face a cette: ${error}` }));

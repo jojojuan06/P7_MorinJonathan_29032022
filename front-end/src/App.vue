@@ -107,7 +107,7 @@ export default {
           beforeEnter ($store, $router) {
             $store.commit('LOGOUT')
             if ($store.state.userInfos.id == -1) {
-              $store.commit('SETSTATUS' , {status:'success',message:`Vous ete bien deconnecter`});
+              $store.commit('SETSTATUS' , {status:'success',message:`Vous êtes deconnecté`});
               return $router.push({path: '/'});
             }
             //reload si pas deconnecter

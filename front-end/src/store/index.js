@@ -87,7 +87,7 @@ export default createStore({
           //si tout se pass bien
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte mail deja utilisé !`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte mail deja utilisé !`});
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -105,13 +105,14 @@ export default createStore({
         .then(function (response) {
           //rajouter un delai
           setTimeout(() => { 
-            commit('SETSTATUS' , {status:'success',message:'Felicitation votre compte est mis a jour'}); //type et payload
-            resolve(response); //resolved (promesse résolue )
-          },1000 ) //delai en deuxieme argument 1000ms
-          //si tout dse pass bien
+            commit('SETSTATUS' , {status:'success',message:'Felicitation votre compte est mis a jour'}); 
+            //resolved (promesse résolue )
+            resolve(response);
+            //delai en deuxieme argument 1000ms
         })
+          },1000 ) 
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte !`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le compte !`}); 
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
@@ -119,7 +120,8 @@ export default createStore({
     },
     //suppression d'un profile
     deleteProfile:({commit},{userId,token}) => {
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      //recupere le token
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
       axios.delete(`/auth/${userId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
@@ -150,14 +152,16 @@ export default createStore({
           resolve(response); //resolved (promesse résolue ) 
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message: error.response.data.error}); //type et payload
+          // en cas d'erreur on retourne le message du back (payload)
+          commit('SETSTATUS' , {status:'error',message: error.response.data.error}); 
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
       }); 
     },
     //recupere les info de l'utilisateur connecter
-    getUserInfos: ({commit}, userId) => { //2eme argu userId dee la req
+    // 2eme argument userId de la req
+    getUserInfos: ({commit}, userId) => { 
       axios.get(`/auth/${userId}`) //ajoute id a l'auth
       .then(function (response) { 
         //type et payload (recupere les info utilisateur)  
@@ -169,7 +173,7 @@ export default createStore({
       });
     },
     //afficher tout les utilisateur
-    getAllUser: ({commit}) => { //2eme argu userId dee la req
+    getAllUser: ({commit}) => { 
       axios.get(`/auth`) //ajoute id a l'auth
       .then(function (response) { 
         //type et payload (recupere les info utilisateur)  
@@ -201,8 +205,9 @@ export default createStore({
             } 
           })
         });
-        commit('DISPLAYPOSTS' , response.data.reverse());//inverse l'ordre (rendu descroissant)   
-      }) //retourne la repose des data dans l'objet vi
+        //inverse l'ordre (response rendu descroissant) 
+        commit('DISPLAYPOSTS' , response.data.reverse());  
+      })
       .catch(error => { 
         console.log(error); 
         commit('SETSTATUS' , {status:'error',message:`Nous faisons face à cette erreur ${error}`});
@@ -230,13 +235,15 @@ export default createStore({
         .then(function (response) {
           //rajouter un delai
           setTimeout(() => { 
-            commit('SETSTATUS' , {status:'success',message:'Felicitation votre post est crée'}); //type et payload
-            resolve(response); //resolved (promesse résolue )
+            commit('SETSTATUS' , {status:'success',message: response.data.message}); 
+            //resolved (promesse résolue )
+            resolve(response); 
           },1000 ) //delai en deuxieme argument 1000ms
           //si tout dse pass bien 
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`Désolé impossible de crée le post ! ${error.response.data.message ? error.response.data.message : error.response.data}`}); //type et payload
+          //message du back-end
+          commit('SETSTATUS' , {status:'error',message: error.response.data.message }); 
           //retourne une erreur
           //rejected (rompue) : l'opération a échoué.
           reject(error); 
@@ -274,7 +281,8 @@ export default createStore({
     deletePost:({commit, state},{postId}) => {
       //recupere le token directement depuis le  user destructuring
       const {token} = state.user
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+      //recupere le token
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; 
       axios.delete(`/post/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
@@ -302,9 +310,11 @@ export default createStore({
           dispatch('getPosts') 
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message: error.response.data.message }); // payload
+          // message d'erreur du back-end 
+          commit('SETSTATUS' , {status:'error',message: error.response.data.message }); 
           //retourne une erreur
-          reject(error); //rejected (rompue) : l'opération a échoué.
+          //rejected (rompue) : l'opération a échoué.
+          reject(error); 
         });
       });
     },
@@ -312,7 +322,8 @@ export default createStore({
     deleteComment:({commit,state,dispatch},postId) => {
       //recupere le token directement depuis le  user destructuring
       const {token} = state.user
-      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`; //recupere le token
+       //recupere le token
+      axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
       axios.delete(`/comment/${postId}`)
       // attendre la reponse (comme fetch)
       .then(response => {
@@ -341,7 +352,7 @@ export default createStore({
           //si tout dse pass bien
         })
         .catch(function (error) {
-          commit('SETSTATUS' , {status:'error',message:`impossible de liké ! ${error}`}); //type et payload
+          commit('SETSTATUS' , {status:'error',message:`impossible de liké ! ${error}`});
           //retourne une erreur
           reject(error); //rejected (rompue) : l'opération a échoué.
         });
