@@ -99,8 +99,6 @@ export default {
                 }
         },                                                
         createNewAccount(){ 
-            //sous element pas acces au this je renome une variabale pour appeler en dessous
-            const This = this; 
             //contenue du formulaire
             const body = {
                 email:this.form.email,
@@ -109,12 +107,11 @@ export default {
                 password:this.form.password
             }; 
             if(this.valid) {
-                    //dispatch asyncrone appelle les action
+                    //apelle mon action create
                     this.$store.dispatch('createNewAccount', body).then(() => {
-                        this.loginAccount();
-                        //redirection vers la route apres creation d'un compte (path en argument)
-                        This.$router.push({path: '/profil'})
-                    }).catch(error => {console.log(error)}); 
+                    //me connect et vas sur la page profil
+                    this.loginAccount();
+                }).catch(error => {console.log(error)}); 
             } 
         } 
     },
