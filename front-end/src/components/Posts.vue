@@ -166,10 +166,10 @@ export default {
         this.$store.dispatch('deletePost',{postId:this.currentPostId})
         .then( () =>{
             this.refreshPost()
-            this.$store.commit('SETSTATUS' , {status:'success',message:`Votre Compte a bien etait suprimer`}); //type et payload
+            this.$store.commit('SETSTATUS' , {status:'success',message:`Votre Post a bien etait suprimer`}); //type et payload
         })
         .catch(error => {
-            this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le compte ${error}`}); //type et payload
+            this.$store.commit('SETSTATUS' , {status:'error',message:`Impossible de supprimer le post ${error}`}); //type et payload
         })
         },
         openConfirmDelete(postId){
