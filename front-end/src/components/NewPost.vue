@@ -101,7 +101,6 @@ export default {
                 this.refreshPost()
                 //et ont remet le bouton new post(+) part default
                 this.switchToDisplayNewpost()
-                this.$store.commit('SETSTATUS' , {status:'success',message:`votre post est bien ajouter`});
             }).catch(error => (console.log(error)));
         },
         //rafraichir la liste des posts apres ajout d'un nouveau
