@@ -118,15 +118,9 @@ export default {
         }
       ],
     }
-  },
-  computed: {
-        //importation de l'objet depuis state (généré des function calculer pour nous)
-        // map `this.status()` to `this.$store.commit('status')`
-        ...mapState(['status']) 
-    },  
+  }, 
 }
 </script>
-
 
 <style scoped>
 /* un sélecteur que les style soit profond , affectant les composants enfants  */
