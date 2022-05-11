@@ -105,6 +105,7 @@
             </v-container>
         </v-card>
         <!--Props  est un attribut que vous pouvez définir au niveau du composant qui sera transmis directement au template -->
+        <!-- envoyer avec $emit depuis le component -->
         <AlertConfirm 
         @closeAlert="confirmDelete.open = false" 
         :title="confirmDelete.title"

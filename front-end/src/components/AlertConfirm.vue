@@ -28,6 +28,7 @@
 
 export default {
     name: 'AlertConfirm',
+    //props qui vas resevoir un sting depuis le parent
     props: {
         title: {
         type:String,    
