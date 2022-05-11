@@ -8,7 +8,7 @@
                     <v-img aspect-ratio="1" cover v-else class=".rounded-lg" :src="`http://localhost:3000/images/${user.profile_img}`"></v-img>
                     </v-avatar>
                     <v-card-title class="user--title">
-                    Information Profile   
+                    Information Profil  
                     </v-card-title>
                     <!-- affichage des information du compte -->
                     <div class="user--infos">
