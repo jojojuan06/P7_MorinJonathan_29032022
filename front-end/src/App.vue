@@ -89,7 +89,7 @@ export default {
         //route apres connection
       itemMenus: [
         {
-          title:'Postes',
+          title:'Articles',
           path:'/posts',
           icons:'mdi-forum'
         },

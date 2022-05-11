@@ -9,10 +9,10 @@
         </v-btn>
         <div v-else>
             <v-card class="post--container --new" >
-                <v-card-title class="post--title">Crée un nouveau post</v-card-title>
+                <v-card-title class="post--title">Créer un nouvel article</v-card-title>
                 <!-- permet de valider facilement les entrées de formulaire. -->
                 <v-form ref="form" class="mx-2" lazy-validation v-model="valid">
-                    <v-text-field @keyup="validateForm" :rules="titleRules" v-model="form.title"  label="Nom du post" required></v-text-field>
+                    <v-text-field @keyup="validateForm" :rules="titleRules" v-model="form.title"  label="Nom de l'article" required></v-text-field>
                     <v-file-input v-model="form.image" accept="image/*" label="File input"></v-file-input>
                     <v-textarea @keyup="validateForm" :rules="contentRules" v-model="form.content" filled auto-grow label="Tapez votre message ici" rows="4" row-height="30" shaped required></v-textarea>
                 </v-form>
@@ -24,8 +24,8 @@
                             </v-btn>
                         <!-- au clic appel a la methode createNewAccount-->
                         <v-btn   v-on:click="createPost" :disabled="!valid" color="success mr-4 --btn">
-                                <span v-if="status=='loading'">Création du post...</span>
-                                <span v-else>Crée le post</span>
+                                <span v-if="status=='loading'">Création de l'article...</span>
+                                <span v-else>Enregistrer</span>
                         </v-btn>
                     </div>
                 </v-form>
