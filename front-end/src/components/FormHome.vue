@@ -4,11 +4,11 @@
         <!-- afffiche seulement a la creation du compte --> 
             <v-text-field    @keyup="validateForm" :rules="emailRules" v-model="form.email" type="email" label="E-mail" required></v-text-field>  
             <div v-if=" mode == 'create'">
-                <v-text-field @keyup="validateForm" :counter="10" :rules="nameRules" v-model="form.name" type="text" label="Name" required></v-text-field>
-                <v-text-field @keyup="validateForm" :counter="10" :rules="nameRules" v-model="form.firstname" type="text" label="Firstname" required></v-text-field>  
+                <v-text-field @keyup="validateForm" :counter="10" :rules="nameRules" v-model="form.name" type="text" label="Nom" required></v-text-field>
+                <v-text-field @keyup="validateForm" :counter="10" :rules="firstnameRules" v-model="form.firstname" type="text" label="Prénom" required></v-text-field>  
             </div>
             <!-- keyup (presse une touche) verifie la function ,  a chaque changement de champ il appele la function -->
-            <v-text-field  @keyup="validateForm" :rules="passwordRules" v-model="form.password" type="password" label="Password" required></v-text-field>
+            <v-text-field  @keyup="validateForm" :rules="passwordRules" v-model="form.password" type="password" label="Mot de Passe" required></v-text-field>
         <!-- afffiche seulement erreur a la connexion --> 
         <div  class="--error_login" color="red" v-if="mode == 'login' && status == 'error'">
             Adresse mail et/ou mot de pâsse invalide ⚠
@@ -50,13 +50,18 @@ export default {
                 v => (v && v.length <= 10) || 'le nom ne doit pas dépasser 10 caractères',
                 v => v.length >= 3 || 'Minimum 3 caractères',
                 ],
+                firstnameRules: [ //v=>value
+                v => v != '' || 'Le Prénom est requis',
+                v => (v && v.length <= 10) || 'le prénom ne doit pas dépasser 10 caractères',
+                v => v.length >= 3 || 'Minimum 3 caractères',
+                ],
                 emailRules: [
                 v => v != '' || 'Un E-mail est requis',
                 v => /.+@.+\..+/.test(v) || `E-mail n'est pas valid`,
                 v => (v && v.length <= 25) || "l'email ne doit pas dépasser 25 caractères",
                 ],
                 passwordRules: [
-                v => v != '' || 'Le password est requis',
+                v => v != '' || 'Le Mot de passe est requis',
                 v => (v && v.length <= 14) || 'le password ne doit pas dépasser 14 caractères',
                 v => v.length >= 3 || 'Minimum 3 caractères',
                 v => /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/.test(v) || 'Le mot de passe doit contenir au moins une lettre minuscule,une majuscule un chiffre, un caractère spécial'
