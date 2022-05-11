@@ -24,8 +24,8 @@ exports.createPost = (req, res, next) => { //function de callback
         return res.status(400).json({ message : `Votre post doit contenir au moins 5 caractère`})  
     }
     // verifier un nombre de caractere donnée
-    if (req.body.title.length > 25 ) {
-        return res.status(400).json({ message : `le titre du post ne doit pas depassez 25 caractère`})  
+    if (req.body.title.length > 30 ) {
+        return res.status(400).json({ message : `le titre du post ne doit pas depassez 30 caractère`})  
     }
     // verifier un nombre de caractere donnée
     if (req.body.content.length > 250 ) {

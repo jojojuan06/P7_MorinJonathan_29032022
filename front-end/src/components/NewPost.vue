@@ -53,7 +53,7 @@ export default {
                 },
                 titleRules: [ //v=>value
                 v => v != '' || 'Le titre est requis',
-                v => (v && v.length <= 25) || 'le nom ne doit pas dépasser 25 caractères',
+                v => (v && v.length <= 30) || 'le nom ne doit pas dépasser 30 caractères',
                 v => v.length >= 5 || 'Minimum 5 caractères',
                 ],
                 contentRules: [ //v=>value
