@@ -8,7 +8,7 @@
             </v-avatar>
             <v-card class="profile--description --card">
                 <v-card-title class="description--title">
-                    Information Profile   
+                    Information Profil 
                 </v-card-title>
                 <v-card-subtitle>
                 </v-card-subtitle>
