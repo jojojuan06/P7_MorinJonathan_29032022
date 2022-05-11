@@ -43,6 +43,7 @@ exports.createPost = (req, res, next) => { //function de callback
         if (extension == "image/jpg" || extension == "image/png" || extension == "image/gif" || extension == "image/webp" || extension == "image/jpeg") {
             post.image = `${req.files.image[0].filename}` //adresse(http ou https) /localhost/nom du fichier 
         } else {
+            fs.unlink(`images/${req.files.image[0].filename}`, () => { });
             return res.status(400).json({message: `le format de fichier n'est pas autoriser ${extension}`});
         }
     }
