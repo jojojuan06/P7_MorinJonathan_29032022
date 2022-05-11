@@ -76,6 +76,7 @@ exports.updatePost = (req, res, next) => {
                     newPost.image = `${req.files.image[0].filename}` //remplace pas la new img
                 }
                 else {
+                    fs.unlink(`images/${req.files.image[0].filename}`, () => { });
                     return res.status(400).json({message: `le format de fichier n'est pas autoriser ${extension}`});
                 }
             }
