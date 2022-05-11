@@ -24,6 +24,7 @@ export default createStore({
       firstname: '',
       email:'',
       profile_img:'',
+      createdAt:'',
       admin:''
     },  
   },

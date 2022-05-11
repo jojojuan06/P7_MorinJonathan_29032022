@@ -103,7 +103,7 @@ exports.getOneUser = (req, res, next) => {
     const id = req.params.id; // avoir acces  dans l'objet req.pams.id
     User.findOne({
         where:{id: id},//trouver un objet avec where , on pass l'objet en conparaison id  egal le parm de req id
-        attributes:["email","name","firstname","profile_img","id"] //clef que je veut montrer en clair
+        attributes:["email","name","firstname","profile_img","id","createdAt"] //clef que je veut montrer en clair
     })
     .then(user => {
     if (!user) { 

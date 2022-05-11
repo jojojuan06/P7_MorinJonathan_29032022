@@ -14,7 +14,13 @@
                 </v-card-subtitle>
                 <!-- affichage des information du compte -->
                 <div>
-                    <p><strong>Prénoms: </strong>{{userInfos.firstname}}</p>
+                    <p><strong>Date de création: </strong>{{new Date(userInfos.createdAt).toLocaleString("en-GB", 
+                            { timezone: "UTC" ,year: 'numeric',
+                                month: '2-digit',
+                                day: '2-digit',
+                                hour: '2-digit',
+                                minute: '2-digit',})}}</p>
+                    <p><strong>Prénom: </strong>{{userInfos.firstname}}</p>
                     <p><strong>Nom: </strong>{{userInfos.name}}</p>
                     <p><strong>Email: </strong>{{userInfos.email}}</p>
                 </div>

@@ -12,7 +12,7 @@
                     </v-card-title>
                     <!-- affichage des information du compte -->
                     <div class="user--infos">
-                    <p><strong>Prénoms: </strong>{{user.firstname}}</p>
+                    <p><strong>Prénom: </strong>{{user.firstname}}</p>
                     <p><strong>Nom: </strong>{{user.name}}</p>
                     </div>
                     <!-- afficher le choix des boutons en administrateur ou si  mon propre compte-->
