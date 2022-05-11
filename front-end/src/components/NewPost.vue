@@ -9,7 +9,7 @@
         </v-btn>
         <div v-else>
             <v-card class="post--container --new" >
-                <v-card-title class="post--title">Créer un nouvel article</v-card-title>
+                <v-card-title class="post--title">Créer un nouveaux post</v-card-title>
                 <!-- permet de valider facilement les entrées de formulaire. -->
                 <v-form ref="form" class="mx-2" lazy-validation v-model="valid">
                     <v-text-field @keyup="validateForm" :rules="titleRules" v-model="form.title"  label="Nom de l'article" required></v-text-field>
