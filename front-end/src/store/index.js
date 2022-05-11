@@ -261,6 +261,7 @@ export default createStore({
     updatePost:({commit, state}, {postId,updatedPost}) => {
       //recherche un element dans un tableau poste qui correspond a sont id
       let oldPost = state.posts.find((post) => post.id == postId);
+      //réassigner l'objet existant par mon objet definit
       let changePost = Object.assign({...oldPost},updatedPost);
       //envoi du formulaire en formdata (pour l'image)
       let form = new FormData()
