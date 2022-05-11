@@ -89,7 +89,7 @@ export default {
         //route apres connection
       itemMenus: [
         {
-          title:'Posts',
+          title:'Postes',
           path:'/posts',
           icons:'mdi-forum'
         },
@@ -139,6 +139,9 @@ export default {
 /* un sélecteur que les style soit profond , affectant les composants enfants  */
 :deep(.v-toolbar__content){
   display: initial;
+}
+.v-btn {
+  text-transform:none;
 }
 @import url('./style/toolbar.css');
 /* importation du btn css  */

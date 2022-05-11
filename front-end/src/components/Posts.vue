@@ -97,7 +97,7 @@
                             <strong>Annuler</strong>
                         </v-btn>
                     </div>
-                    <v-btn class="--button" @click="openConfirmDelete(post.id)" >Supprimer le post</v-btn>
+                    <v-btn class="--button" @click="openConfirmDelete(post.id)" >Supprimer le poste</v-btn>
                 </v-card-actions>
                 <!-- ajout du component edit post avec son props post objet (dont l'id du post recuperer) dans le template -->
                 <EditPost v-if="post.mode == 'update'" v-bind:post="post"/>
